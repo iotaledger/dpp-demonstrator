@@ -1,0 +1,10 @@
+.env
+
+.next/
+build/
+node_modules/
+target/
+dist/
+data/
+keystore/
+test/

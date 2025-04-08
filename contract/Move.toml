@@ -1,0 +1,14 @@
+[package]
+name = "audit trails"
+license = "Apache-2.0"
+version = "0.1.0"
+edition = "2024.beta"
+
+
+[dependencies]
+ith = { local = "/Users/valeriomellini/source-code/iota/ith/ith.move" }
+MoveStdlib = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/move-stdlib", rev = "v0.1.4" }
+Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "v0.1.4" }
+
+[addresses]
+audit_trails = "0x0"

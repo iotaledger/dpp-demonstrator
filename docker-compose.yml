@@ -1,0 +1,75 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: gas-station-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+  iota-gas-station:
+    image: "${DOCKER_IMAGE:-iotaledger/gas-station:latest}"
+    build:
+      context: ..
+      args:
+        - BUILD_DATE=${BUILD_DATE:-latest}
+        - GIT_REVISION=${GIT_REVISION:-latest}
+      dockerfile: docker/Dockerfile
+    container_name: iota-gas-station
+    command: ["--config-path", "/app/config.yaml"]
+    depends_on:
+      - redis
+    ports:
+      - "9527:9527" # RPC port
+      - "9184:9184" # Metrics port
+    environment:
+      - CONFIG_PATH=/app/config.yaml
+      - RUST_BACKTRACE=1
+      - GAS_STATION_AUTH=${GAS_STATION_AUTH}
+    volumes:
+      - ${LOCAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_EXPLORER_URL: ${NEXT_PUBLIC_EXPLORER_URL}
+        NEXT_PUBLIC_AUDIT_TRAIL_PKG: ${NEXT_PUBLIC_AUDIT_TRAIL_PKG}
+        NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
+        BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
+        BACKEND_API_KEY: ${BACKEND_API_KEY}
+        GAS_STATION_URL: ${GAS_STATION_URL}
+        GAS_STATION_AUTH: ${GAS_STATION_AUTH}
+    depends_on:
+      - backend
+      - iota-gas-station
+    environment:
+      NEXT_PUBLIC_EXPLORER_URL: ${NEXT_PUBLIC_EXPLORER_URL}
+      NEXT_PUBLIC_AUDIT_TRAIL_PKG: ${NEXT_PUBLIC_AUDIT_TRAIL_PKG}
+      NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
+      BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
+      BACKEND_API_KEY: ${BACKEND_API_KEY}
+      GAS_STATION_URL: ${GAS_STATION_URL}
+      GAS_STATION_AUTH: ${GAS_STATION_AUTH}
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+    environment:
+      ITH_PKG_ID: ${ITH_PKG_ID}
+      API_KEY: ${API_KEY}
+      TCP_LISTNER: ${TCP_LISTNER}
+      ROOT_AUTH_SECRET_KEY: ${ROOT_AUTH_SECRET_KEY}
+      MANUFACTURER_SECRET_KEY: ${MANUFACTURER_SECRET_KEY}
+    ports:
+      - "3001:3001"
+
+volumes:
+  redis_data:

@@ -7,7 +7,7 @@ faucet:
 publish-ith:
 	cd backend/ith/scripts && iota client switch --address root-auth && ./publish_ith.sh
 init-ith:
-	cd backend && cargo run --bin init_ith
+	cd backend && iota client switch --address root-auth && cargo run --bin init_ith
 build-audit-trails-contract:
 	cd contract && iota move build
 publish-audit-trails-contract:

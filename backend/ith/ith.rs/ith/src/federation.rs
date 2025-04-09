@@ -36,7 +36,6 @@ pub(crate) mod ops {
   where
     S: Signer<IotaKeySignature>,
   {
-    println!("Checkpoint 00");
     let mut ptb = ProgrammableTransactionBuilder::new();
 
     ptb.move_call(
@@ -46,21 +45,19 @@ pub(crate) mod ops {
       vec![],
       vec![],
     )?;
-    println!("Checkpoint 00a");
     let tx = ptb.finish();
 
     let iota_tx = client.execute_transaction(tx, gas_budget).await?;
-    println!("Checkpoint 01");
+
     // Check event emitted
     let fed_event: Event<FederationCreatedEvent> = iota_tx
       .events
       .ok_or_else(|| anyhow::anyhow!("missing events"))?
       .data
       .first()
-      .map(|data| bcs::from_bytes(data.bcs.as_slice()))
+      .map(|data| bcs::from_bytes(data.bcs.bytes()))
       .transpose()?
       .ok_or_else(|| anyhow::anyhow!("missing federation event"))?;
-    println!("Checkpoint 02");
     let fed_address = IotaAddress::from_str(&fed_event.data.federation_address.to_string())?;
 
     Ok(ObjectID::from(fed_address))

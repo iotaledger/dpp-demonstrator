@@ -6,7 +6,7 @@ SERIAL_NUMBER=EY74A2-LJ2G-001
 PRODUCT_NAME="Cordless Drill & Driver EY74A2"
 GTIN="5025232813723"
 MANUFACTURER="Panasonic"
-IMAGE_URL="https://www.powertoolsdirect.com/media/catalog/product/cache/926507dc7f93631a094422215b778fe0/p/a/panasonic-ey74a2x-cordless-combi-drill-18v-body-only-ey74a2x57.jpg"
+IMAGE_URL="https://i.imgur.com/jHb2LkY.png"
 CLOCK=0x6
 GAS_BUDGET=500000000
 

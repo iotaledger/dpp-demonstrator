@@ -62,6 +62,7 @@ export default {
   },
   dppIndex: {
     permissionButton: 'Request Permission',
+    permissionDescription: 'Request a new role for this product.',
     addButton: 'New DPP Update',
     dppManager: 'DPP Manager',
     errorMessage: 'Wrong DPP ID',

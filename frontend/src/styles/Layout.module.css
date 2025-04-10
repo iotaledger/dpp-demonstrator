@@ -16,10 +16,15 @@
 
 .content {
   display: flex;
-  width: 100%;
-  padding: 24px;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  padding: 56px 156px;
+  gap: 80px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  background-color: #f7f7f8;
 }
 
 .footer {
@@ -38,5 +43,6 @@
     flex-direction: column;
     align-items: center;
     height: auto;
+    background-color: #FFFFFF;
   }
 }

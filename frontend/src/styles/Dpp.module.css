@@ -1,0 +1,38 @@
+.requestPermission {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    width: 328px;
+    height: 127px;
+
+    background: #DDE9F7;
+    border-radius: 12px;
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.requestButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    isolation: isolate;
+
+    width: 144px;
+    min-width: 80px;
+    height: 36px;
+
+    border: 1px solid #6E7787;
+    border-radius: 120px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}

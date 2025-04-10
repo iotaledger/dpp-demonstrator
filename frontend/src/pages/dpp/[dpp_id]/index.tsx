@@ -9,6 +9,7 @@ import Loading from '~/components/Loading'
 import { Federation, getRole } from '~/lib/federation'
 import { useTranslation } from '~/lib/i18n'
 import { Dpp, DppData, getDppData, getFederationAddress } from '~/lib/product'
+import styles from '~/styles/Dpp.module.css'
 
 const REFRESH_INTERVAL_MS = Number(process.env.NEXT_PUBLIC_REFRESH_INTERVAL_MS) || 5000
 
@@ -87,38 +88,38 @@ export default function DppPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 w-[80%] mx-auto">
+    <div className="flex flex-col min-h-screen w-[80%] mx-auto">
       <main className="flex-1 w-full px-4 py-4 overflow-y-auto">
         {/* Mobile-only manager box */}
         {account?.address ? (
-          <div className="block md:hidden w-full bg-white p-4 rounded shadow-sm">
-            <div className="flex items-center justify-between min-w-[250px]">
-              <h1 className="text-lg font-bold whitespace-normal break-words">{t('dppManager')}</h1>
-              {userRole !== undefined ? (
-                <a
-                  href={addDppLink}
-                  className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition-colors text-sm"
-                >
-                  {t('addButton')}
-                </a>
-              ) : (
-                <a
-                  href={requestRoleLink}
-                  className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition-colors text-sm"
-                >
-                  {t('permissionButton')}
-                </a>
-              )}
-            </div>
+          <div className="flex items-center justify-between min-w-[250px]">
+            {userRole !== undefined ? (
+              <a
+                href={addDppLink}
+                className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition-colors text-sm"
+              >
+                {t('addButton')}
+              </a>
+            ) : (
+              <div className={styles.requestPermission}>
+                <p className="text-title-md">{t('dppManager')}</p>
+                <p className="text-body-md-dark">{t('permissionDescription')}</p>
+                <button className={styles.requestButton}>
+                  <p className="text-label-md">{t('permissionButton')}</p>
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           ''
         )}
-
+        {/* DPP Details Image*/}
         <div className="mt-4 space-y-6">
           <div className="bg-white p-4 rounded shadow-sm">
             <DppDetails dppData={dppDetails} />
           </div>
+          {/* DPP Details BOM*/}
+          {/* DPPHistory*/}
           <div className="bg-white p-4 rounded shadow-sm">
             <DppHistory dppId={String(dpp_id || '')} />
           </div>

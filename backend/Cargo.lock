@@ -6388,6 +6388,7 @@ dependencies = [
 [[package]]
 name = "ith"
 version = "0.1.0"
+source = "git+https://github.com/iotaledger/ith.git?branch=chore%2Fupdate-deps#66bd7c5baf1c865d6f41ada214d90c2a7f8ca854"
 dependencies = [
  "anyhow",
  "bcs",

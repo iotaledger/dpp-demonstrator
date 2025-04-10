@@ -11,7 +11,7 @@ module audit_trails::app {
     use audit_trails::rewards::send_reward;
 
     const E_INVALID_ROLE: u64 = 0;
-    const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1; 
+    const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1;
     const E_MISMATCHED_FEDERATION: u64 = 2;
 
 

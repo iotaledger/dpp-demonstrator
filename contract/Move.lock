@@ -2,7 +2,7 @@
 
 [move]
 version = 3
-manifest_digest = "4A3A4625B02AB2302261A34E9D81423DFBFD334CFAA6C24A49C9B7E490B4A1D6"
+manifest_digest = "A49BFFF9BD9C8E406E7AE3F4D992D57E552C3AD6F8A9CDFD70D7BB3C8627C929"
 deps_digest = "060AD7E57DFB13104F21BE5F5C3759D03F0553FC3229247D9A7A6B45F50D03A3"
 dependencies = [
   { id = "Iota", name = "Iota" },
@@ -24,7 +24,7 @@ source = { git = "https://github.com/iotaledger/iota.git", rev = "v0.1.4", subdi
 
 [[move.package]]
 id = "ith"
-source = { local = "/Users/valeriomellini/source-code/iota/ith/ith.move" }
+source = { git = "https://github.com/iotaledger/ith.git", rev = "chore/update-deps", subdir = "ith.move" }
 
 dependencies = [
   { id = "Iota", name = "Iota" },
@@ -32,7 +32,7 @@ dependencies = [
 ]
 
 [move.toolchain-version]
-compiler-version = "0.11.4-rc"
+compiler-version = "0.10.3-rc"
 edition = "2024.beta"
 flavor = "iota"
 

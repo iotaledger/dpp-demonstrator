@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link as LinkIcon } from '@iota/apps-ui-icons'
+import { ArrowDown, ArrowUp, Link as LinkIcon } from '@iota/apps-ui-icons'
 import { useIotaClientQuery } from '@iota/dapp-kit'
 import Link from 'next/link'
 
@@ -20,7 +20,7 @@ interface DppHistoryProps {
 export default function DppHistory({ dppId }: DppHistoryProps) {
   const { t } = useTranslation('dppHistory')
   const [historyList, setHistoryList] = useState<DppEntry[]>([])
-
+  const [isOpen, setIsOpen] = useState(false)
   const parser = new ProductEntriesParser()
 
   const dppHistoryData = useIotaClientQuery('getOwnedObjects', {
@@ -38,9 +38,7 @@ export default function DppHistory({ dppId }: DppHistoryProps) {
   useEffect(() => {
     if (!dppHistoryData.data) return
     parser.parseResponse(dppHistoryData.data as unknown as Result)
-
     setHistoryList(parser.entries)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dppHistoryData.data])
 
   useEffect(() => {
@@ -53,39 +51,61 @@ export default function DppHistory({ dppId }: DppHistoryProps) {
 
   return (
     <div className={styles.detailsCard}>
-      <p className="text-title-lg">{t('title')}</p>
-      <p className="text-body-md-grey">{t('updates')}</p>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between bg-transparent border-none cursor-pointer"
+      >
+        <div className="flex flex-col items-start">
+          <p className="text-title-lg">{t('title')}</p>
+          <p className="text-body-md-grey">{t('updates')}</p>
+        </div>
+        {isOpen ? <ArrowUp /> : <ArrowDown />}
+      </button>
 
-      {historyList.map((entry) => (
-        <div key={entry.objectId} className={`${styles.detailsBox}`}>
-          {Object.entries(entry.entryData).map(([k, v]) => (
-            <div key={k} className="flex items-center gap-2 mb-2">
-              <p className="text-title-xs shrink-0"> {v as string} </p>
-              <p className={`text-label-md ${styles.dppTypeBox}`}> {k} </p>
+      {isOpen && (
+        <div>
+          {historyList.map((entry) => (
+            <div key={entry.objectId} className={styles.detailsBox}>
+              {Object.entries(entry.entryData).map(([k, v]) => (
+                <div key={k} className="flex items-center gap-2 mb-2">
+                  <p className="text-title-xs shrink-0">{v as string}</p>
+                  <p className={`text-label-md ${styles.dppTypeBox}`}>{k}</p>
+                </div>
+              ))}
+
+              <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mt-2">
+                <p className="text-body-md-grey">{t('objectId')}</p>
+                <Link
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${entry.objectId}`}
+                  target="_blank"
+                  className="inline-flex items-center text-link hover:underline"
+                >
+                  {truncateAddress(entry.objectId)}
+                  <LinkIcon />
+                </Link>
+              </div>
+
+              <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mt-2">
+                <p className="text-body-md-grey">{t('issuer')}</p>
+                <Link
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${entry.issuerAddr}`}
+                  target="_blank"
+                  className="inline-flex items-center text-link hover:underline"
+                >
+                  {truncateAddress(entry.issuerAddr)}
+                  <LinkIcon />
+                </Link>
+              </div>
+
+              <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mt-2">
+                <p className="text-body-md-grey">{t('timestamp')}</p>
+                <p className="text-body-md-dark">{fromPosixMsToUtcString(entry.timestamp)}</p>
+              </div>
             </div>
           ))}
-          <p className="text-body-md-grey">{`${t('objectId')} `} </p>
-          <Link
-            href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${entry.objectId}`}
-            target="_blank"
-            className="inline-flex items-center text-link hover:underline"
-          >
-            {truncateAddress(entry.objectId)} <LinkIcon />
-          </Link>
-
-          <p className="text-body-md-grey">{`${t('issuer')} `}</p>
-          <Link
-            href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${entry.objectId}`}
-            target="_blank"
-            className="inline-flex items-center text-link hover:underline"
-          >
-            {truncateAddress(entry.issuerAddr)} <LinkIcon />
-          </Link>
-
-          <p className="text-body-md-grey">{t('timestamp')}</p>
-          <p className="text-body-md-dark">{fromPosixMsToUtcString(entry.timestamp)}</p>
         </div>
-      ))}
+      )}
     </div>
   )
 }

@@ -38,15 +38,17 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
           )}
 
           <div className={styles.imageCardText}>
-            <p className="text-body-md-grey">{t('objectId')}</p>
-            <Link
-              href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
-              target="_blank"
-              className="inline-flex items-center text-link hover:underline"
-            >
-              {truncateAddress(objectId)}
-              <LinkIcon className="ml-1 w-4 h-4" />
-            </Link>
+            <span className="flex items-center space-x-2 mb-2">
+              <p className="text-body-md-grey">{t('objectId')}</p>
+              <Link
+                href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
+                target="_blank"
+                className="inline-flex items-center text-link hover:underline"
+              >
+                {truncateAddress(objectId)}
+                <LinkIcon className="ml-1 w-4 h-4" />
+              </Link>
+            </span>
             <p className="text-title-lg">{name}</p>
           </div>
         </div>
@@ -67,45 +69,55 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
           <>
             <div className={styles.detailsBox}>
               <p className="text-title-md">{t('details')}</p>
-              <div className="flex-1 flex flex-col gap-2 mt-2">
-                <p className="text-body-md-grey">{t('objectId')}</p>
-                <Link
-                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
-                  target="_blank"
-                  className="inline-flex items-center text-link hover:underline"
-                >
-                  {truncateAddress(objectId)}
-                  <LinkIcon className="ml-1 w-4 h-4" />
-                </Link>
 
-                <p className="text-body-md-grey">{t('manufacturer')}</p>
-                <Link
-                  href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${manufacturer}`}
-                  target="_blank"
-                  className="inline-flex items-center text-link hover:underline"
-                >
-                  {truncateAddress(manufacturer)}
-                  <LinkIcon className="ml-1 w-4 h-4" />
-                </Link>
+              <div className="mt-2">
+                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
+                  <p className="text-body-md-grey">{t('objectId')}</p>
+                  <Link
+                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
+                    target="_blank"
+                    className="inline-flex items-center text-link hover:underline"
+                  >
+                    {truncateAddress(objectId)}
+                    <LinkIcon className="ml-1 w-4 h-4" />
+                  </Link>
+                </div>
 
-                <p className="text-body-md-grey">{t('federationAddr')}</p>
-                <Link
-                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${federationAddr}`}
-                  target="_blank"
-                  className="inline-flex items-center text-link hover:underline"
-                >
-                  {truncateAddress(federationAddr)}
-                  <LinkIcon className="ml-1 w-4 h-4" />
-                </Link>
+                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
+                  <p className="text-body-md-grey">{t('manufacturer')}</p>
+                  <Link
+                    href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${manufacturer}`}
+                    target="_blank"
+                    className="inline-flex items-center text-link hover:underline"
+                  >
+                    {truncateAddress(manufacturer)}
+                    <LinkIcon className="ml-1 w-4 h-4" />
+                  </Link>
+                </div>
 
-                <p className="text-body-md-grey">{t('serialNumber')}</p>
-                <p className="text-body-md-dark">{serialNumber}</p>
+                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
+                  <p className="text-body-md-grey">{t('federationAddr')}</p>
+                  <Link
+                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${federationAddr}`}
+                    target="_blank"
+                    className="inline-flex items-center text-link hover:underline"
+                  >
+                    {truncateAddress(federationAddr)}
+                    <LinkIcon className="ml-1 w-4 h-4" />
+                  </Link>
+                </div>
 
-                <p className="text-body-md-grey">{t('timestamp')}</p>
-                <p className="text-body-md-dark">{fromPosixMsToUtcString(timestamp)}</p>
+                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
+                  <p className="text-body-md-grey">{t('serialNumber')}</p>
+                  <p className="text-body-md-dark">{serialNumber}</p>
+                </div>
+
+                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2">
+                  <p className="text-body-md-grey">{t('timestamp')}</p>
+                  <p className="text-body-md-dark">{fromPosixMsToUtcString(timestamp)}</p>
+                </div>
               </div>
             </div>
-
             {/* Bill of Material */}
             <div className={styles.detailsBox}>
               <p className="text-title-md">{t('billOfMaterials')}</p>

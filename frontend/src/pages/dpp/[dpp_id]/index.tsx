@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react'
 import { useCurrentAccount, useIotaClientQuery } from '@iota/dapp-kit'
 import { useRouter } from 'next/router'
@@ -120,7 +119,6 @@ export default function DppPage() {
           <div>
             <DppDetails dppData={dppDetails} />
           </div>
-          {/* DPP Details BOM*/}
           {/* DPPHistory*/}
           <div>
             <DppHistory dppId={String(dpp_id || '')} />

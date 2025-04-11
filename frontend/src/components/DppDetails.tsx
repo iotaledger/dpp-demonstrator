@@ -1,11 +1,12 @@
-import React from 'react'
-import { Link as LinkIcon } from '@iota/apps-ui-icons'
+import React, { useState } from 'react'
+import { ArrowDown, ArrowUp, Link as LinkIcon } from '@iota/apps-ui-icons'
 import Link from 'next/link'
 
 import { truncateAddress } from '~/helpers'
 import fromPosixMsToUtcString from '~/helpers/fromPosixMsToUtcString'
 import { useTranslation } from '~/lib/i18n'
 import { DppData } from '~/lib/product'
+import styles from '~/styles/DppDetails.module.css'
 
 interface DppDetailsProps {
   dppData: DppData | undefined
@@ -16,81 +17,115 @@ const NEXT_PUBLIC_EXPLORER_URL = process.env.NEXT_PUBLIC_EXPLORER_URL
 const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
   const { t } = useTranslation('dppDetails')
 
+  const [isOpen, setIsOpen] = useState(false)
+
   if (!dppData) {
     return <div>Loading...</div>
   }
 
-  const { objectId, imageUrl, manufacturer, serialNumber, federationAddr, timestamp, billOfMaterial } = dppData
+  const { objectId, imageUrl, manufacturer, serialNumber, federationAddr, timestamp, billOfMaterial, name } = dppData
+
+  const hasBOM = Object.keys(billOfMaterial).length > 0
 
   return (
     <div>
-      <h2 className="text-lg font-bold mb-4">{t('title')}</h2>
+      {/* 1) Image Card */}
+      <div className={styles.imageCard}>
+        <div className={styles.imageCardContent}>
+          {imageUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={imageUrl} alt="DPP Image" className={styles.imageCardImage} />
+          )}
 
-      {/* Layout immagine + dettagli */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        {/* Se imageUrl è definito, mostriamo l'immagine */}
-        {imageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageUrl} alt="DPP Image" className="h-auto max-w-[200px] object-contain rounded shadow" />
-        )}
-
-        {/* Dettagli principali */}
-        <div className="flex-1 flex flex-col gap-2">
-          <p className="text-sm">
-            <span className="font-semibold">{t('objectId')}</span>{' '}
+          <div className={styles.imageCardText}>
+            <p className="text-body-md-grey">{t('objectId')}</p>
             <Link
               href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
               target="_blank"
-              className="inline-flex items-center text-blue-600 hover:underline"
+              className="inline-flex items-center text-link hover:underline"
             >
               {truncateAddress(objectId)}
               <LinkIcon className="ml-1 w-4 h-4" />
             </Link>
-          </p>
-          <p className="text-sm">
-            <span className="font-semibold">{t('manufacturer')}</span>{' '}
-            <Link
-              href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${manufacturer}`}
-              target="_blank"
-              className="inline-flex items-center text-blue-600 hover:underline"
-            >
-              {truncateAddress(manufacturer)}
-              <LinkIcon className="ml-1 w-4 h-4" />
-            </Link>
-          </p>
-          <p className="text-sm">
-            <span className="font-semibold">{t('federationAddr')}</span>{' '}
-            <Link
-              href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${federationAddr}`}
-              target="_blank"
-              className="inline-flex items-center text-blue-600 hover:underline"
-            >
-              {truncateAddress(federationAddr)}
-              <LinkIcon className="ml-1 w-4 h-4" />
-            </Link>
-          </p>
-          <p className="text-sm">
-            <span className="font-semibold">{t('serialNumber')}</span> {serialNumber}
-          </p>
-          <p className="text-sm">
-            <span className="font-semibold">{t('timestamp')}</span> {fromPosixMsToUtcString(timestamp)}
-          </p>
+            <p className="text-title-lg">{name}</p>
+          </div>
         </div>
       </div>
 
-      {/* Bill of Material */}
-      {Object.keys(billOfMaterial).length > 0 && (
-        <div className="mt-4">
-          <h3 className="text-md font-semibold mb-2">{t('billOfMaterials')}</h3>
-          <ul className="list-disc list-inside text-sm space-y-1">
-            {Object.entries(billOfMaterial).map(([key, value]) => (
-              <li key={key}>
-                <span className="font-semibold">{key}:</span> {value}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* 2) Details Card con accordion */}
+      <div className={styles.detailsCard}>
+        {/* HEADER dell'accordion */}
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full flex items-center justify-between bg-transparent border-none cursor-pointer"
+        >
+          <p className="text-title-lg">{t('productDetails')}</p>
+          {isOpen ? <ArrowDown /> : <ArrowUp />}
+        </button>
+
+        {isOpen && (
+          <>
+            <div className={styles.detailsBox}>
+              <p className="text-title-md">{t('details')}</p>
+              <div className="flex-1 flex flex-col gap-2 mt-2">
+                <p className="text-body-md-grey">{t('objectId')}</p>
+                <Link
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
+                  target="_blank"
+                  className="inline-flex items-center text-link hover:underline"
+                >
+                  {truncateAddress(objectId)}
+                  <LinkIcon className="ml-1 w-4 h-4" />
+                </Link>
+
+                <p className="text-body-md-grey">{t('manufacturer')}</p>
+                <Link
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${manufacturer}`}
+                  target="_blank"
+                  className="inline-flex items-center text-link hover:underline"
+                >
+                  {truncateAddress(manufacturer)}
+                  <LinkIcon className="ml-1 w-4 h-4" />
+                </Link>
+
+                <p className="text-body-md-grey">{t('federationAddr')}</p>
+                <Link
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${federationAddr}`}
+                  target="_blank"
+                  className="inline-flex items-center text-link hover:underline"
+                >
+                  {truncateAddress(federationAddr)}
+                  <LinkIcon className="ml-1 w-4 h-4" />
+                </Link>
+
+                <p className="text-body-md-grey">{t('serialNumber')}</p>
+                <p className="text-body-md-dark">{serialNumber}</p>
+
+                <p className="text-body-md-grey">{t('timestamp')}</p>
+                <p className="text-body-md-dark">{fromPosixMsToUtcString(timestamp)}</p>
+              </div>
+            </div>
+
+            {/* Bill of Material */}
+            <div className={styles.detailsBox}>
+              <p className="text-title-md">{t('billOfMaterials')}</p>
+              {hasBOM ? (
+                <div className="mt-2">
+                  {Object.entries(billOfMaterial).map(([key, value]) => (
+                    <div key={key} className="mb-2">
+                      <p className="text-body-md-grey">{key}</p>
+                      <p className="text-body-md-dark">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-body-md-grey">{t('noBom')}</p>
+              )}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   )
 }

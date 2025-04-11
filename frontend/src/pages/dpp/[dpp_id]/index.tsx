@@ -94,14 +94,15 @@ export default function DppPage() {
         {account?.address ? (
           <div className="flex items-center justify-between min-w-[250px]">
             {userRole !== undefined ? (
-              <a
-                href={addDppLink}
-                className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition-colors text-sm"
-              >
-                {t('addButton')}
-              </a>
+              <div className={styles.addDppCard}>
+                <p className="text-title-md">{`${t('certified')} ${userRole}`}</p>
+                <p className="text-body-md-dark">{t('certifiedDescription')}</p>
+                <button className={styles.addButton}>
+                  <p className={styles.addButtonText}>{t('addButton')}</p>
+                </button>
+              </div>
             ) : (
-              <div className={styles.requestPermission}>
+              <div className={styles.requestPermissionCard}>
                 <p className="text-title-md">{t('dppManager')}</p>
                 <p className="text-body-md-dark">{t('permissionDescription')}</p>
                 <button className={styles.requestButton}>
@@ -114,13 +115,13 @@ export default function DppPage() {
           ''
         )}
         {/* DPP Details Image*/}
-        <div className="mt-4 space-y-6">
-          <div className="bg-white p-4 rounded shadow-sm">
+        <div>
+          <div>
             <DppDetails dppData={dppDetails} />
           </div>
           {/* DPP Details BOM*/}
           {/* DPPHistory*/}
-          <div className="bg-white p-4 rounded shadow-sm">
+          <div>
             <DppHistory dppId={String(dpp_id || '')} />
           </div>
         </div>

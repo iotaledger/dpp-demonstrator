@@ -99,3 +99,39 @@ a {
   @apply font-normal text-[14px] leading-5 tracking-[0.2px] text-right align-middle font-secondary;
   color: var(--text-link);
 }
+
+.submit-button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px;
+  isolation: isolate;
+
+  width: 144px;
+  min-width: 80px;
+  height: 36px;
+
+  background-color: 1px solid #3131FF;
+  border-radius: 120px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.submit-button-font {
+  width: 97px;
+  height: 16px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: -0.1px;
+  font-feature-settings: 'ss01' on;
+  color: #FFFFFF;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}

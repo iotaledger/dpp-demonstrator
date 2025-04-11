@@ -1,9 +1,9 @@
  #!/bin/bash
 
 FEDERATION_OBJ_ID=0xbb42be8c968aa1eabc9d240df04c49e15abc5485e3de9eaf8eb7ee1ceffae46a 
-AUDIT_TRAIL_PACKAGE_ADDRESS=0x4ea3a4ee137ace4c9174d0b354f233540406eb9cca3cbc54d76f213fb83b94ce
+AUDIT_TRAIL_PACKAGE_ADDRESS=0x3dee5ca62426b2396afdb015ddf1e91d21b7f751f0d1d0b4907691cf5c380f7f
 SERIAL_NUMBER=EY74A2-LJ2G-001
-PRODUCT_NAME="Cordless Drill & Driver EY74A2"
+PRODUCT_NAME="Panasonic EY74A2"
 GTIN="5025232813723"
 MANUFACTURER="Panasonic"
 IMAGE_URL="https://i.imgur.com/jHb2LkY.png"
@@ -45,6 +45,7 @@ iota client call \
   --function "new_product" \
   --args \
     $FEDERATION_OBJ_ID \
+    "$PRODUCT_NAME" \
     "$SERIAL_NUMBER" \
     "$IMAGE_URL" \
     "$COMPONENT_LABELS" \

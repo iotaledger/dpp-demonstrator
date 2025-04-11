@@ -24,6 +24,7 @@ module audit_trails::app {
     public struct Product has key, store {
         id: UID,
         federation_addr: address, 
+        name: String,
         serial_number: String,
         manufacturer: address,
         image_url: String,
@@ -47,7 +48,8 @@ module audit_trails::app {
 
 
     public entry fun new_product(
-        federation: &Federation, 
+        federation: &Federation,
+        name: String, 
         serial_number: String, 
         image_url: String,
         bill_of_materials_keys: vector<String>, 
@@ -69,6 +71,7 @@ module audit_trails::app {
         transfer::share_object(Product {
             id: p_id,
             federation_addr,
+            name,
             serial_number,
             manufacturer: tx_context::sender(ctx),
             image_url,

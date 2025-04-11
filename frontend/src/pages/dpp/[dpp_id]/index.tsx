@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react'
 import { useCurrentAccount, useIotaClientQuery } from '@iota/dapp-kit'
 import { useRouter } from 'next/router'

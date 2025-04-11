@@ -5,9 +5,9 @@ import Link from 'next/link'
 
 import { truncateAddress } from '~/helpers'
 import fromPosixMsToUtcString from '~/helpers/fromPosixMsToUtcString'
-import roleToEntryType from '~/helpers/roleToEntryType'
 import { DppEntry, ProductEntriesParser, Result } from '~/lib/dppHistory'
 import { useTranslation } from '~/lib/i18n'
+import styles from '~/styles/DppHistory.module.css'
 
 const NEXT_PUBLIC_EXPLORER_URL = process.env.NEXT_PUBLIC_EXPLORER_URL
 const REFRESH_INTERVAL_MS = 5000
@@ -52,42 +52,40 @@ export default function DppHistory({ dppId }: DppHistoryProps) {
   }, [dppHistoryData])
 
   return (
-    <div>
-      <h2 className="text-lg font-bold mb-2">{t('title')}</h2>
+    <div className={styles.detailsCard}>
+      <p className="text-title-lg">{t('title')}</p>
+      <p className="text-body-md-grey">{t('updates')}</p>
 
-      <ul className="space-y-2">
-        {historyList.map((entry) => (
-          <li key={entry.objectId} className="border rounded p-2">
-            <p className="text-sm font-semibold">{`${t('entryType')} ${roleToEntryType(entry.issuerRole, t)}`}</p>
-            {Object.entries(entry.entryData).map(([k, v]) => (
-              <div key={k} className="text-sm ">
-                {k}: {v as string}
-              </div>
-            ))}
-            <p className="text-sm text-gray-600">
-              {`${t('objectId')} `}
-              <Link
-                href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${entry.objectId}`}
-                target="_blank"
-                className="inline-flex items-center text-blue-600 hover:underline"
-              >
-                {truncateAddress(entry.objectId)} <LinkIcon />
-              </Link>
-            </p>
-            <p className="text-sm text-gray-600">
-              {`${t('issuer')} `}
-              <Link
-                href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${entry.objectId}`}
-                target="_blank"
-                className="inline-flex items-center text-blue-600 hover:underline"
-              >
-                {truncateAddress(entry.issuerAddr)} <LinkIcon />
-              </Link>
-            </p>
-            <p className="text-sm text-gray-600">{`${t('timestamp')} ${fromPosixMsToUtcString(entry.timestamp)}`}</p>
-          </li>
-        ))}
-      </ul>
+      {historyList.map((entry) => (
+        <div key={entry.objectId} className={`${styles.detailsBox}`}>
+          {Object.entries(entry.entryData).map(([k, v]) => (
+            <div key={k} className="flex items-center gap-2 mb-2">
+              <p className="text-title-xs shrink-0"> {v as string} </p>
+              <p className={`text-label-md ${styles.dppTypeBox}`}> {k} </p>
+            </div>
+          ))}
+          <p className="text-body-md-grey">{`${t('objectId')} `} </p>
+          <Link
+            href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${entry.objectId}`}
+            target="_blank"
+            className="inline-flex items-center text-link hover:underline"
+          >
+            {truncateAddress(entry.objectId)} <LinkIcon />
+          </Link>
+
+          <p className="text-body-md-grey">{`${t('issuer')} `}</p>
+          <Link
+            href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${entry.objectId}`}
+            target="_blank"
+            className="inline-flex items-center text-link hover:underline"
+          >
+            {truncateAddress(entry.issuerAddr)} <LinkIcon />
+          </Link>
+
+          <p className="text-body-md-grey">{t('timestamp')}</p>
+          <p className="text-body-md-dark">{fromPosixMsToUtcString(entry.timestamp)}</p>
+        </div>
+      ))}
     </div>
   )
 }

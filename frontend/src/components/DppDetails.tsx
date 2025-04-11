@@ -52,16 +52,15 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
         </div>
       </div>
 
-      {/* 2) Details Card con accordion */}
+      {/* 2) Details Card */}
       <div className={styles.detailsCard}>
-        {/* HEADER dell'accordion */}
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="w-full flex items-center justify-between bg-transparent border-none cursor-pointer"
         >
           <p className="text-title-lg">{t('productDetails')}</p>
-          {isOpen ? <ArrowDown /> : <ArrowUp />}
+          {isOpen ? <ArrowUp /> : <ArrowDown />}
         </button>
 
         {isOpen && (

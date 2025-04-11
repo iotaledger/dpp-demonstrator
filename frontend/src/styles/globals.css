@@ -76,6 +76,12 @@ a {
   color: var(--text-neutral-darkest);
 }
 
+/* Title Small */
+.text-title-xs {
+  @apply font-medium text-[17px] leading-[120%] tracking-[-0.15px] font-secondary;
+  color: var(--text-neutral-darkest);
+}
+
 /* Body Medium Grey */
 .text-body-md-grey {
   @apply font-normal text-[14px] leading-5 tracking-[-0.1px] align-middle font-secondary;

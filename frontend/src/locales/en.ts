@@ -70,7 +70,8 @@ export default {
     errorMessage: 'Wrong DPP ID',
   },
   dppHistory: {
-    title: 'DPP History - Last 20 Updates',
+    title: 'DPP History',
+    updates: 'Last 20 Updates',
     objectId: 'Object Id',
     entryType: 'Entry Type',
     timestamp: 'Timestamp',

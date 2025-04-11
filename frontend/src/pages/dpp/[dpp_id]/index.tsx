@@ -89,7 +89,7 @@ export default function DppPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen w-[80%] mx-auto">
+    <div className="flex flex-col min-h-screen w-[100%] mx-auto">
       <main className="flex-1 w-full px-4 py-4 overflow-y-auto">
         {/* Mobile-only manager box */}
         {account?.address ? (

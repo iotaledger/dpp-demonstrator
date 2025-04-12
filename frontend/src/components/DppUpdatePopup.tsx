@@ -1,28 +1,24 @@
 import { useEffect, useState } from 'react'
-import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType, Title } from '@iota/apps-ui-kit'
-import { useCurrentAccount, useCurrentWallet, useSignTransaction } from '@iota/dapp-kit'
-import { useRouter } from 'next/router'
+import { Close } from '@iota/apps-ui-icons'
+import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
+import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit'
 
-import ConnectWallet from '~/components/ConnectWallet'
-import DppDetails from '~/components/DppDetails'
-import ErrorComponent from '~/components/ErrorComponent'
 import { Federation, getRole } from '~/lib/federation'
 import { useTranslation } from '~/lib/i18n'
-import { Dpp, DppData, getDppData } from '~/lib/product'
+import { Dpp, getDppData } from '~/lib/product'
 import { createDppTx } from '~/lib/transactions'
 import { ReserveGasResultResponse } from '~/pages/api/sponsor-request'
+import styles from '~/styles/Dpp.module.css'
 
 type DPPUpdatePopupProps = {
   onClose: () => void
+  dppId: string
 }
 
 const AUDIT_TRAIL_PKG = process.env.NEXT_PUBLIC_AUDIT_TRAIL_PKG as string
 
-export default function DPPUpdatePopup({ onClose }: DPPUpdatePopupProps) {
+export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) {
   const { t } = useTranslation('dppAdd')
-  const router = useRouter()
-  const { dpp_id } = router.query
-  const { connectionStatus } = useCurrentWallet()
   const { mutateAsync: signTransaction } = useSignTransaction()
   const account = useCurrentAccount()
   const actions = [t('option1'), t('option2'), t('option3'), t('option4'), t('option5')]
@@ -32,9 +28,7 @@ export default function DPPUpdatePopup({ onClose }: DPPUpdatePopupProps) {
   const [valueAction, setValueAction] = useState('')
   const [entryDataKeys, setEntryDataKeys] = useState([actions[0]])
   const [entryDataValues, setEntryDataValues] = useState<string[]>([])
-  const [dppDetailsData, setDppDetailsData] = useState<DppData | undefined>(undefined)
   const [snackbar, setSnackbar] = useState<{ text: string; snackbarType: SnackbarType } | null>(null)
-  const [fatalError, setFatalError] = useState<string | null>(null)
   const [federation, setFederation] = useState<Federation | undefined>(undefined)
   const [dpp, setDpp] = useState<Dpp | undefined>(undefined)
 
@@ -49,18 +43,12 @@ export default function DPPUpdatePopup({ onClose }: DPPUpdatePopupProps) {
     if (federation && dpp && account?.address) {
       setUserRole(getRole(federation, account.address))
       const dppDetails = getDppData(dpp)
-      setDppDetailsData(dppDetails)
       setFederationAddr(dppDetails?.federationAddr || '')
-      setFatalError(null)
     }
   }, [dpp, federation, account])
 
-  useEffect(() => {
-    if (!userRole) setFatalError(t('notAuthorizedOrNotFound'))
-  }, [userRole])
-
   const handleSubmit = async () => {
-    if (!account?.address || !federationAddr || !dpp_id || !userRole || !valueAction) {
+    if (!account?.address || !federationAddr || !dppId || !userRole || !valueAction) {
       setSnackbar({ text: t('missingDataError'), snackbarType: SnackbarType.Error })
 
       return
@@ -68,7 +56,7 @@ export default function DPPUpdatePopup({ onClose }: DPPUpdatePopupProps) {
     try {
       setSnackbar({ text: t('sendingTransaction'), snackbarType: SnackbarType.Default })
       const tx = createDppTx(AUDIT_TRAIL_PKG, {
-        dppId: dpp_id.toString(),
+        dppId,
         federationAddr,
         issuerRole: userRole,
         entryDataKeys,
@@ -121,49 +109,29 @@ export default function DPPUpdatePopup({ onClose }: DPPUpdatePopupProps) {
 
   const onCloseSnackbar = () => setSnackbar(null)
 
-  if (connectionStatus !== 'connected') {
-    return (
-      <div className="flex flex-col items-center justify-start min-h-screen p-6 min-w-[300px]">
-        <ConnectWallet />
-      </div>
-    )
-  }
-
-  if (fatalError) {
-    return (
-      <div className="flex flex-col items-center justify-start min-h-screen p-6 min-w-[300px]">
-        <ErrorComponent message={fatalError} />
-      </div>
-    )
-  }
-
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen p-6 min-w-[300px]">
-      <div className="mb-4 text-xs text-blue-600 underline cursor-pointer">
-        <a onClick={onClose}>{t('goBackLink')}</a>
+    <div className={styles.card}>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-title-lg">{t('updateTitle')}</h2>
+        <button onClick={onClose} className="hover:opacity-80">
+          <Close />
+        </button>
       </div>
-      <div className="w-full max-w-md flex flex-col gap-4">
-        <Title title="DPP Update View" />
-        <div className="bg-white rounded shadow p-4 flex flex-col gap-4">
-          <h2 className="text-lg font-bold mb-4">{t('updateTitle')}</h2>
-          <Select
-            label={t('actionSelectLabel')}
-            options={actions}
-            onValueChange={onSelectEntryDataKeyChange}
-            value={selectedAction}
-          />
-          <Input
-            label="Value"
-            type={InputType.Text}
-            value={valueAction}
-            placeholder={t('dppUpdatePlaceholder')}
-            onChange={(e) => handleEntryDataValueChange(e.target.value)}
-          />
-          <Button onClick={handleSubmit} type={ButtonType.Primary} text="Submit" />
-        </div>
-        <div className="bg-white rounded shadow p-4 flex flex-col gap-2">
-          <DppDetails dppData={dppDetailsData} />
-        </div>
+      <div className="flex flex-col gap-6">
+        <Select
+          label={t('actionSelectLabel')}
+          options={actions}
+          onValueChange={onSelectEntryDataKeyChange}
+          value={selectedAction}
+        />
+        <Input
+          label="Value"
+          type={InputType.Text}
+          value={valueAction}
+          placeholder={t('dppUpdatePlaceholder')}
+          onChange={(e) => handleEntryDataValueChange(e.target.value)}
+        />
+        <Button onClick={handleSubmit} type={ButtonType.Primary} text="Submit" />
         {snackbar && (
           <Snackbar text={snackbar.text} type={snackbar.snackbarType} onClose={onCloseSnackbar} duration={15000} />
         )}

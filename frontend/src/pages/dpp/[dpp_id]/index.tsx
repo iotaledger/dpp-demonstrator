@@ -108,13 +108,23 @@ export default function DppPage() {
           </div>
         </div>
       </main>
-      {showAddPopup && <DPPUpdatePopup onClose={() => setShowAddPopup(false)} />}
+      {showAddPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white w-full max-w-md p-4 rounded shadow">
+            <DPPUpdatePopup onClose={() => setShowAddPopup(false)} dppId={dpp_id?.toString() || ''} />
+          </div>
+        </div>
+      )}
       {showRequestPopup && (
-        <RolesRequestPopup
-          federationAddr={federationAddr}
-          urlRole="/role-request"
-          onClose={() => setShowRequestPopup(false)}
-        />
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white w-full max-w-md p-4 rounded shadow">
+            <RolesRequestPopup
+              federationAddr={federationAddr}
+              urlRole={userRole || ''}
+              onClose={() => setShowRequestPopup(false)}
+            />
+          </div>
+        </div>
       )}
     </div>
   )

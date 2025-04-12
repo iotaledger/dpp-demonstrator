@@ -53,11 +53,11 @@ export default {
     notAuthorizedOrNotFound: 'User is not authorized or the DPP does not exist',
     missingDataError: 'Missing required data to perform the action',
     unknownError: 'An unknown error occurred',
-    actionSelectLabel: 'Select an Action',
+    actionSelectLabel: 'Action',
     copiedToClipboard: 'Copied to clipboard!',
     copyFailed: 'Failed to copy.',
     goBackLink: 'Go Back',
-    updateTitle: 'Record an Action for this DPP',
+    updateTitle: 'Record an Action',
     dppUpdatePlaceholder: 'Provide additional details here...',
   },
   dppIndex: {

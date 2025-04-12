@@ -11,7 +11,7 @@ import { useTranslation } from '~/lib/i18n'
 
 type RolesRequestPopupProps = {
   federationAddr: string
-  urlRole: string
+  urlRole: string | undefined
   onClose: () => void
 }
 

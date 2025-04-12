@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Copy, RecognizedBadge } from '@iota/apps-ui-icons'
-import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType, Title } from '@iota/apps-ui-kit'
+import { Close, Copy, RecognizedBadge } from '@iota/apps-ui-icons'
+import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
 import { useCurrentAccount, useCurrentWallet, useIotaClientQuery } from '@iota/dapp-kit'
 
 import ConnectWallet from '~/components/ConnectWallet'
@@ -15,6 +15,8 @@ type RolesRequestPopupProps = {
   onClose: () => void
 }
 
+const SLEEP_TIME = 5000
+
 export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: RolesRequestPopupProps) {
   const { t } = useTranslation('roles')
   const account = useCurrentAccount()
@@ -22,6 +24,7 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   const [selectedRole, setSelectedRole] = useState('Repairer')
   const [snackbar, setSnackbar] = useState<{ text: string; snackbarType: SnackbarType } | null>(null)
   const [userRole, setUserRole] = useState<JSX.Element | null>(null)
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const roles = [{ name: t('repairer'), disabled: false }]
   const { data, refetch } = useIotaClientQuery('getObject', {
@@ -71,6 +74,9 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
     }
     try {
       setSnackbar({ text: t('sendingTransaction'), snackbarType: SnackbarType.Default })
+      await new Promise((resolve) => setTimeout(resolve, SLEEP_TIME))
+      setSnackbar({ text: t('manufacturerAuthorization'), snackbarType: SnackbarType.Default })
+      await new Promise((resolve) => setTimeout(resolve, SLEEP_TIME))
       const response = await fetch('/api/roles', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -116,43 +122,43 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   }
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen p-6 min-w-[300px]">
-      <div className="w-full max-w-md flex flex-col items-center gap-6">
-        <div className="mb-4 text-xs text-blue-600 underline cursor-pointer">
-          <a onClick={onClose}>{t('goBackLink')}</a>
-        </div>
-        <Title title={t('title')} />
-        <div className="w-full p-6 flex flex-col gap-7 items-stretch">
-          <Input
-            label={t('federationAddressLabel')}
-            type={InputType.Text}
-            value={federationAddr ? truncateAddress(federationAddr) : ''}
-            trailingElement={
-              <div onClick={() => handleCopy(federationAddr || '')} className="cursor-pointer hover:opacity-80">
-                <Copy />
-              </div>
-            }
-            readOnly
-          />
-          <Select
-            label={t('roleSelectLabel')}
-            options={roles.map((role) => role.name)}
-            onValueChange={onOptionValueChange}
-            value={selectedRole}
-          />
-          {!userRole ? (
-            <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} />
-          ) : (
-            <>
-              <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} disabled />
-              <div className="text-center">{userRole}</div>
-            </>
-          )}
-        </div>
-        {snackbar && (
-          <Snackbar text={snackbar.text} type={snackbar.snackbarType} onClose={onCloseSnackbar} duration={15000} />
-        )}
+    <div className="popup-card gap-8">
+      <div className="flex w-full items-center justify-between">
+        <p className="text-title-lg">{t('title')}</p>
+        <button onClick={onClose} className="hover:opacity-80">
+          <Close />
+        </button>
       </div>
+
+      <Input
+        label={t('federationAddressLabel')}
+        type={InputType.Text}
+        value={federationAddr ? truncateAddress(federationAddr) : ''}
+        trailingElement={
+          <div onClick={() => handleCopy(federationAddr || '')} className="cursor-pointer hover:opacity-80">
+            <Copy />
+          </div>
+        }
+        readOnly
+      />
+      <Select
+        label={t('roleSelectLabel')}
+        options={roles.map((role) => role.name)}
+        onValueChange={onOptionValueChange}
+        value={selectedRole}
+      />
+      {!userRole ? (
+        <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} fullWidth />
+      ) : (
+        <>
+          <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} disabled fullWidth />
+          <div className="text-center">{userRole}</div>
+        </>
+      )}
+
+      {snackbar && (
+        <Snackbar text={snackbar.text} type={snackbar.snackbarType} onClose={onCloseSnackbar} duration={15000} />
+      )}
     </div>
   )
 }

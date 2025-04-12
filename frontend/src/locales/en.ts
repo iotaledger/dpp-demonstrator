@@ -33,7 +33,7 @@ export default {
     unknownError: 'An unexpected error occurred. Please try again later.',
     certified: 'Certified',
     sendingTransaction: 'Submitting transaction... Please wait...',
-    manufacturerAuthorization: 'Your request has been received by the manufacturer.',
+    manufacturerAuthorization: 'Your request has been received by the manufacturer... Please wait...',
     copiedToClipboard: 'Copied to clipboard!',
     copyFailed: 'Failed to copy.',
     goBackLink: 'Go Back',

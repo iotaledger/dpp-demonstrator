@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Close, Copy, RecognizedBadge } from '@iota/apps-ui-icons'
+import { Close, Copy } from '@iota/apps-ui-icons'
 import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
 import { useCurrentAccount, useCurrentWallet, useIotaClientQuery } from '@iota/dapp-kit'
 
@@ -23,7 +23,7 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   const { connectionStatus } = useCurrentWallet()
   const [selectedRole, setSelectedRole] = useState('Repairer')
   const [snackbar, setSnackbar] = useState<{ text: string; snackbarType: SnackbarType } | null>(null)
-  const [userRole, setUserRole] = useState<JSX.Element | null>(null)
+  const [userHasRole, setUserHasRole] = useState<boolean>(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const roles = [{ name: t('repairer'), disabled: false }]
@@ -46,20 +46,13 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
 
   useEffect(() => {
     if (!data || !account?.address) {
-      setUserRole(null)
+      setUserHasRole(false)
 
       return
     }
     const federationData = data.data?.content as unknown as Federation
     const role = getRole(federationData, account.address)
-    setUserRole(
-      role ? (
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
-          <RecognizedBadge />
-          {t('certified')} {role}
-        </div>
-      ) : null
-    )
+    setUserHasRole(role ? true : false)
   }, [data, account?.address, t, refetch])
 
   useEffect(() => {
@@ -147,12 +140,11 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
         onValueChange={onOptionValueChange}
         value={selectedRole}
       />
-      {!userRole ? (
+      {!userHasRole ? (
         <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} fullWidth />
       ) : (
         <>
           <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} disabled fullWidth />
-          <div className="text-center">{userRole}</div>
         </>
       )}
 

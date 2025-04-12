@@ -25,12 +25,11 @@
     justify-content: center;
     align-items: center;
     padding: 4px;
-    width: 40%;
+    width: 110px;
     background: #E3EAF6;
     border-radius: 120px;
 
     flex: none;
     order: 1;
     flex-grow: 0;
-
   }

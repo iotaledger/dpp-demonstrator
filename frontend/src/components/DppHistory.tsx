@@ -20,7 +20,7 @@ interface DppHistoryProps {
 export default function DppHistory({ dppId }: DppHistoryProps) {
   const { t } = useTranslation('dppHistory')
   const [historyList, setHistoryList] = useState<DppEntry[]>([])
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const parser = new ProductEntriesParser()
 
   const dppHistoryData = useIotaClientQuery('getOwnedObjects', {
@@ -39,6 +39,7 @@ export default function DppHistory({ dppId }: DppHistoryProps) {
     if (!dppHistoryData.data) return
     parser.parseResponse(dppHistoryData.data as unknown as Result)
     setHistoryList(parser.entries)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dppHistoryData.data])
 
   useEffect(() => {
@@ -68,8 +69,8 @@ export default function DppHistory({ dppId }: DppHistoryProps) {
           {historyList.map((entry) => (
             <div key={entry.objectId} className={styles.detailsBox}>
               {Object.entries(entry.entryData).map(([k, v]) => (
-                <div key={k} className="flex items-center gap-2 mb-2">
-                  <p className="text-title-xs shrink-0">{v as string}</p>
+                <div key={k} className="grid grid-cols-[190px_1fr] items-center gap-2 mb-2 w-full">
+                  <p className="text-title-xs break-words">{v as string}</p>
                   <p className={`text-label-md ${styles.dppTypeBox}`}>{k}</p>
                 </div>
               ))}

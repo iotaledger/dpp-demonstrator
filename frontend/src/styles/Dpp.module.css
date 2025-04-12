@@ -111,3 +111,14 @@
     order: 0;
     flex-grow: 0;
 }
+
+.popup{
+    position: relative;
+    background-color: white;
+    width: 80%;
+    max-width: 28rem; 
+    padding: 1rem;    
+    border-radius: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+  }

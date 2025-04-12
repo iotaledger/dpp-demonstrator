@@ -63,9 +63,9 @@ export default {
   },
   dppIndex: {
     certified: 'Certified',
-    certifiedDescription: 'Access granted to modification tools for relevant product details.',
+    certifiedDescription: 'You have permission to update the product’s DPP history.',
     permissionButton: 'Request Permission',
-    permissionDescription: 'Request a new role for this product.',
+    permissionDescription: 'Submit a role request to gain authorized access to this product.',
     addButton: 'New DPP Update',
     dppManager: 'DPP Manager',
     errorMessage: 'Wrong DPP ID',

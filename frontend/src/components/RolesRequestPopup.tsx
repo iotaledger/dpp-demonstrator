@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Copy, RecognizedBadge } from '@iota/apps-ui-icons'
 import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType, Title } from '@iota/apps-ui-kit'
 import { useCurrentAccount, useCurrentWallet, useIotaClientQuery } from '@iota/dapp-kit'
-import { useSearchParams } from 'next/navigation'
 
 import ConnectWallet from '~/components/ConnectWallet'
 import { truncateAddress } from '~/helpers'
@@ -10,22 +9,21 @@ import { copyToClipboard } from '~/helpers/copyToClipboard'
 import { Federation, getRole } from '~/lib/federation'
 import { useTranslation } from '~/lib/i18n'
 
-export default function Role() {
+type RolesRequestPopupProps = {
+  federationAddr: string
+  urlRole: string
+  onClose: () => void
+}
+
+export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: RolesRequestPopupProps) {
   const { t } = useTranslation('roles')
   const account = useCurrentAccount()
   const { connectionStatus } = useCurrentWallet()
-  const searchParams = useSearchParams()
-
   const [selectedRole, setSelectedRole] = useState('Repairer')
   const [snackbar, setSnackbar] = useState<{ text: string; snackbarType: SnackbarType } | null>(null)
   const [userRole, setUserRole] = useState<JSX.Element | null>(null)
-
-  const federationAddr = searchParams.get('federation_addr')
-  const dppId = searchParams.get('dpp_id')
-  const urlRole = searchParams.get('role')
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const roles = [{ name: t('repairer'), disabled: false }]
-
   const { data, refetch } = useIotaClientQuery('getObject', {
     id: federationAddr || '',
     options: { showContent: true },
@@ -35,8 +33,7 @@ export default function Role() {
     if (urlRole && roles.some((role) => role.name === urlRole && !role.disabled)) {
       setSelectedRole(urlRole)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [urlRole, roles])
 
   useEffect(() => {
     if (account?.address) {
@@ -60,7 +57,7 @@ export default function Role() {
         </div>
       ) : null
     )
-  }, [data, account?.address, t])
+  }, [data, account?.address, t, refetch])
 
   useEffect(() => {
     void refetch()
@@ -74,7 +71,6 @@ export default function Role() {
     }
     try {
       setSnackbar({ text: t('sendingTransaction'), snackbarType: SnackbarType.Default })
-
       const response = await fetch('/api/roles', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -84,12 +80,10 @@ export default function Role() {
           federation_addr: federationAddr,
         }),
       })
-
       const result = await response.json()
       if (!response.ok) {
         throw new Error(result.error || t('unknownError'))
       }
-
       setSnackbar({ text: t('successMessage'), snackbarType: SnackbarType.Default })
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : t('unknownError')
@@ -124,14 +118,10 @@ export default function Role() {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen p-6 min-w-[300px]">
       <div className="w-full max-w-md flex flex-col items-center gap-6">
-        {dppId ? (
-          <div className="mb-4 text-xs text-blue-600 underline cursor-pointer">
-            <a href={`/dpp/${dppId}`}>{t('goBackLink')}</a>
-          </div>
-        ) : null}
-
+        <div className="mb-4 text-xs text-blue-600 underline cursor-pointer">
+          <a onClick={onClose}>{t('goBackLink')}</a>
+        </div>
         <Title title={t('title')} />
-
         <div className="w-full p-6 flex flex-col gap-7 items-stretch">
           <Input
             label={t('federationAddressLabel')}
@@ -144,14 +134,12 @@ export default function Role() {
             }
             readOnly
           />
-
           <Select
             label={t('roleSelectLabel')}
             options={roles.map((role) => role.name)}
             onValueChange={onOptionValueChange}
             value={selectedRole}
           />
-
           {!userRole ? (
             <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} />
           ) : (
@@ -161,7 +149,6 @@ export default function Role() {
             </>
           )}
         </div>
-
         {snackbar && (
           <Snackbar text={snackbar.text} type={snackbar.snackbarType} onClose={onCloseSnackbar} duration={15000} />
         )}

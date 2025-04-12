@@ -24,6 +24,10 @@
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+  
+}
+
+.background{
   background-color: #f7f7f8;
 }
 
@@ -38,11 +42,21 @@
   border-top: 1px solid #D9D9D9; 
 }
 
-@media (max-width: 420px) {
+@media (max-width: 535px) {
   .header {
-    flex-direction: column;
+    flex-direction: column; 
     align-items: center;
-    height: auto;
-    background-color: #FFFFFF;
+    justify-content: center;
+    height: auto; 
+    gap: 16px; 
+    padding: 16px; 
+    margin-bottom: 16px; 
+  }
+
+  .footer{
+    flex-direction: column; 
+    align-items: center;
+    gap: 16px; 
+    text-align: center; 
   }
 }

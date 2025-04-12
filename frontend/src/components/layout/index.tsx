@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation('meta')
 
   return (
-    <>
+    <div className={styles.background}>
       <header className={styles.header}>
         <Image src="/logo_header.png" alt="Header Logo" width={248} height={36} />
         <ConnectButton />
@@ -20,7 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Image src="/logo_footer.png" alt="Footer Logo" width={137} height={36} />
         <p className="text-footer">{t('footer')}</p>
       </div>
-    </>
+    </div>
   )
 }
 

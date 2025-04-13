@@ -68,7 +68,8 @@ export default {
     permissionDescription: 'Submit a role request to gain authorized access to this product.',
     addButton: 'New DPP Update',
     dppManager: 'DPP Manager',
-    errorMessage: 'Wrong DPP ID',
+    errorMessage: 'Error Loading DPP',
+    timeoutMessage: 'Data loading timed out.',
   },
   dppHistory: {
     title: 'DPP History',

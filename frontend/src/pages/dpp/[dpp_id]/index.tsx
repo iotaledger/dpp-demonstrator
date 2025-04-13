@@ -14,17 +14,21 @@ import { Dpp, DppData, getDppData, getFederationAddress } from '~/lib/product'
 import styles from '~/styles/Dpp.module.css'
 
 const REFRESH_INTERVAL_MS = Number(process.env.NEXT_PUBLIC_REFRESH_INTERVAL_MS) || 5000
+const TIMEOUT_THRESHOLD = 10000
 
 export default function DppPage() {
   const { t } = useTranslation('dppIndex')
   const router = useRouter()
   const account = useCurrentAccount()
   const { dpp_id } = router.query
+
   const [userRole, setUserRole] = useState<string | undefined>(undefined)
   const [dppDetails, setDppDetails] = useState<DppData | undefined>(undefined)
   const [federationAddr, setFederationAddr] = useState('')
   const [showAddPopup, setShowAddPopup] = useState(false)
   const [showRequestPopup, setShowRequestPopup] = useState(false)
+  const [fetchTimeout, setFetchTimeout] = useState(false)
+
   const dppData = useIotaClientQuery('getObject', {
     id: dpp_id?.toString() || '',
     options: { showContent: true },
@@ -33,6 +37,20 @@ export default function DppPage() {
     id: federationAddr,
     options: { showContent: true },
   })
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!dppData.data) {
+        setFetchTimeout(true)
+      }
+    }, TIMEOUT_THRESHOLD)
+
+    if (dppData.data) {
+      clearTimeout(timer)
+    }
+
+    return () => clearTimeout(timer)
+  }, [dppData.isFetched])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,12 +78,16 @@ export default function DppPage() {
     }
   }, [federationData.isFetched, federationData.data, account?.address])
 
+  if (fetchTimeout) {
+    return <ErrorComponent message={t('timeoutMessage')} />
+  }
+
   if (!dppData.isFetched) {
     return <Loading />
   }
 
-  if (!dppData.data) {
-    return <ErrorComponent message={t('errorMessage')} />
+  if (dppData?.data?.error?.code) {
+    return <ErrorComponent message={`${t('errorMessage')}: ${dppData?.data?.error?.code}`} />
   }
 
   function ManagerBox() {
@@ -108,6 +130,7 @@ export default function DppPage() {
           </div>
         </div>
       </main>
+
       {showAddPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className={styles.popup}>
@@ -115,6 +138,7 @@ export default function DppPage() {
           </div>
         </div>
       )}
+
       {showRequestPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className={styles.popup}>

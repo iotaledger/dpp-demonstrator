@@ -86,9 +86,9 @@ export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) 
         const errText = await sendRes.text()
         throw new Error(`Transaction execution failed: ${errText}`)
       }
-      const executeResult = await sendRes.json()
+      await sendRes.json()
       setSnackbar({
-        text: `${t('successMessage')} TX Digest: ${executeResult?.effects?.transactionDigest}`,
+        text: `${t('successMessage')}`,
         snackbarType: SnackbarType.Default,
       })
     } catch (error: unknown) {

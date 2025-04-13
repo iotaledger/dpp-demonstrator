@@ -40,12 +40,12 @@ export default function DppPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!dppData.data) {
+      if (!dppData.isFetched) {
         setFetchTimeout(true)
       }
     }, TIMEOUT_THRESHOLD)
 
-    if (dppData.data) {
+    if (dppData.isFetched) {
       clearTimeout(timer)
     }
 

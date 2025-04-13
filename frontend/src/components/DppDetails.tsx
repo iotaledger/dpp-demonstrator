@@ -7,6 +7,7 @@ import fromPosixMsToUtcString from '~/helpers/fromPosixMsToUtcString'
 import { useTranslation } from '~/lib/i18n'
 import { DppData } from '~/lib/product'
 import styles from '~/styles/DppDetails.module.css'
+import Loading from './Loading'
 
 interface DppDetailsProps {
   dppData: DppData | undefined
@@ -20,7 +21,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
   const [isOpen, setIsOpen] = useState(true)
 
   if (!dppData) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const { objectId, imageUrl, manufacturer, serialNumber, federationAddr, timestamp, billOfMaterial, name } = dppData

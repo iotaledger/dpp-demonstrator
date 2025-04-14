@@ -123,8 +123,13 @@ export default function DppPage() {
           <ManagerBox />
         </div>
         {snackbarMessage && (
-          <div>
-            <Snackbar text={snackbarMessage} type={SnackbarType.Default} onClose={() => setSnackbarMessage(null)} />
+          <div className="mb-2 mt-2">
+            <Snackbar
+              text={snackbarMessage}
+              type={SnackbarType.Default}
+              onClose={() => setSnackbarMessage(null)}
+              duration={15000}
+            />
           </div>
         )}
         <div>

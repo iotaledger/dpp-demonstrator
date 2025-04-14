@@ -45,6 +45,7 @@ function App({ Component, pageProps }: AppProps) {
             <meta property="twitter:card" content="summary_large_image" key="twitterCardSummary" />
             <meta property="twitter:title" content={t('title')} key="twitterCardTitle" />
             <meta property="twitter:description" content={t('description')} key="twitterCardDescription" />
+            <link rel="icon" href="/favicon.png" />
           </Head>
 
           <Layout>

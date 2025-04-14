@@ -54,7 +54,6 @@ export default function DPPUpdatePopup({ onClose, dppId, setSnackbar }: DPPUpdat
       return
     }
     try {
-      setSnackbar(t('sendingTransaction'))
       const tx = createDppTx(AUDIT_TRAIL_PKG, {
         dppId,
         federationAddr,

@@ -1,7 +1,7 @@
 export default {
   meta: {
-    title: 'DPP Showcase',
-    description: 'An DPP Showcase application for the IOTA Move ecosystem',
+    title: 'DPP Demonstrator',
+    description: 'A DPP demonstrator built for the IOTA Move ecosystem.',
     footer: '© 2025 IOTA Foundation. All Rights Reserved.',
   },
   home: {

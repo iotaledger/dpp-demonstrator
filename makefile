@@ -20,7 +20,5 @@ run-prod-frontend:
 	cd frontend && npm run build && npm run start
 run-backend:
 	cd backend && cargo run
-run-docker-containers:
-	docker compose down && docker compose up
 build-frontend:
-	docker compose build frontend
+	git pull && docker-compose down && docker-compose build frontend && docker-compose up -d

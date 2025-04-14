@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Snackbar, SnackbarType } from '@iota/apps-ui-kit'
 import { useCurrentAccount, useIotaClientQuery } from '@iota/dapp-kit'
 import { useRouter } from 'next/router'
 
@@ -28,6 +29,7 @@ export default function DppPage() {
   const [showAddPopup, setShowAddPopup] = useState(false)
   const [showRequestPopup, setShowRequestPopup] = useState(false)
   const [fetchTimeout, setFetchTimeout] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null)
 
   const dppData = useIotaClientQuery('getObject', {
     id: dpp_id?.toString() || '',
@@ -44,7 +46,6 @@ export default function DppPage() {
         setFetchTimeout(true)
       }
     }, TIMEOUT_THRESHOLD)
-
     if (dppData.isFetched) {
       clearTimeout(timer)
     }
@@ -121,6 +122,11 @@ export default function DppPage() {
         <div className="flex items-center justify-between min-w-[250px]">
           <ManagerBox />
         </div>
+        {snackbarMessage && (
+          <div>
+            <Snackbar text={snackbarMessage} type={SnackbarType.Default} onClose={() => setSnackbarMessage(null)} />
+          </div>
+        )}
         <div>
           <div>
             <DppDetails dppData={dppDetails} />
@@ -134,7 +140,11 @@ export default function DppPage() {
       {showAddPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className={styles.popup}>
-            <DPPUpdatePopup onClose={() => setShowAddPopup(false)} dppId={dpp_id?.toString() || ''} />
+            <DPPUpdatePopup
+              onClose={() => setShowAddPopup(false)}
+              dppId={dpp_id?.toString() || ''}
+              setSnackbar={setSnackbarMessage}
+            />
           </div>
         </div>
       )}

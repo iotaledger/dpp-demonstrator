@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Close } from '@iota/apps-ui-icons'
-import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
+import { Button, ButtonType, Input, InputType, Select } from '@iota/apps-ui-kit'
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit'
 
 import { Federation, getRole } from '~/lib/federation'
@@ -12,12 +12,13 @@ import styles from '~/styles/Dpp.module.css'
 
 type DPPUpdatePopupProps = {
   onClose: () => void
+  setSnackbar: (message: string) => void
   dppId: string
 }
 
 const AUDIT_TRAIL_PKG = process.env.NEXT_PUBLIC_AUDIT_TRAIL_PKG as string
 
-export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) {
+export default function DPPUpdatePopup({ onClose, dppId, setSnackbar }: DPPUpdatePopupProps) {
   const { t } = useTranslation('dppAdd')
   const { mutateAsync: signTransaction } = useSignTransaction()
   const account = useCurrentAccount()
@@ -28,7 +29,6 @@ export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) 
   const [valueAction, setValueAction] = useState('')
   const [entryDataKeys, setEntryDataKeys] = useState([actions[0]])
   const [entryDataValues, setEntryDataValues] = useState<string[]>([])
-  const [snackbar, setSnackbar] = useState<{ text: string; snackbarType: SnackbarType } | null>(null)
   const [federation, setFederation] = useState<Federation | undefined>(undefined)
   const [dpp, setDpp] = useState<Dpp | undefined>(undefined)
 
@@ -49,12 +49,12 @@ export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) 
 
   const handleSubmit = async () => {
     if (!account?.address || !federationAddr || !dppId || !userRole || !valueAction) {
-      setSnackbar({ text: t('missingDataError'), snackbarType: SnackbarType.Error })
+      setSnackbar(t('missingDataError'))
 
       return
     }
     try {
-      setSnackbar({ text: t('sendingTransaction'), snackbarType: SnackbarType.Default })
+      setSnackbar(t('sendingTransaction'))
       const tx = createDppTx(AUDIT_TRAIL_PKG, {
         dppId,
         federationAddr,
@@ -87,13 +87,11 @@ export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) 
         throw new Error(`Transaction execution failed: ${errText}`)
       }
       await sendRes.json()
-      setSnackbar({
-        text: `${t('successMessage')}`,
-        snackbarType: SnackbarType.Default,
-      })
+      setSnackbar(t('successMessage'))
+      onClose()
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : t('unknownError')
-      setSnackbar({ text: message, snackbarType: SnackbarType.Error })
+      setSnackbar(message)
     }
   }
 
@@ -106,8 +104,6 @@ export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) 
     setValueAction(value)
     setEntryDataValues([value])
   }
-
-  const onCloseSnackbar = () => setSnackbar(null)
 
   return (
     <div className={styles.card}>
@@ -132,9 +128,6 @@ export default function DPPUpdatePopup({ onClose, dppId }: DPPUpdatePopupProps) 
           onChange={(e) => handleEntryDataValueChange(e.target.value)}
         />
         <Button onClick={handleSubmit} type={ButtonType.Primary} text="Submit" />
-        {snackbar && (
-          <Snackbar text={snackbar.text} type={snackbar.snackbarType} onClose={onCloseSnackbar} duration={15000} />
-        )}
       </div>
     </div>
   )

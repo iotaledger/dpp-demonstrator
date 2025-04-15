@@ -37,6 +37,7 @@ export default {
     copiedToClipboard: 'Copied to clipboard!',
     copyFailed: 'Failed to copy.',
     goBackLink: 'Go Back',
+    continue: 'Continue',
   },
   dppAdd: {
     moreValues: 'Add more values',

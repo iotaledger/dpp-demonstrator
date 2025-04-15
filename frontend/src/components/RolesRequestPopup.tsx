@@ -90,6 +90,10 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
     }
   }
 
+  const handleContinue = () => {
+    onClose()
+  }
+
   const onCloseSnackbar = () => {
     setSnackbar(null)
   }
@@ -144,7 +148,7 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
         <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} fullWidth />
       ) : (
         <>
-          <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} disabled fullWidth />
+          <Button onClick={handleContinue} type={ButtonType.Primary} text={t('continue')} fullWidth />
         </>
       )}
 

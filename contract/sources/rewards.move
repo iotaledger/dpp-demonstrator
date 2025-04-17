@@ -1,5 +1,6 @@
 module audit_trails::rewards {
     use std::string::{Self, String};
+    use iota::table::{Self, Table};
     use iota::event;
     use iota::display;
     use iota::package;
@@ -15,11 +16,20 @@ module audit_trails::rewards {
     /// One-Time-Witness for initializing the Display
     public struct REWARDS has drop {}
 
+    public struct REWARD_ADMIN_CAP has key, store{
+        id: UID
+    }
+
     /// Event emitted when an NFT is minted
     public struct NFTMinted has copy, drop {
         object_id: ID,
         creator: address,
         name: String,
+    }
+
+    public struct WHITELIST has key, store {
+        id: UID,
+        hasMinted: Table<address, bool>
     }
 
     // ===== INIT =====
@@ -48,6 +58,14 @@ module audit_trails::rewards {
 
 
         package::burn_publisher(publisher);
+
+        transfer::transfer(REWARD_ADMIN_CAP{
+            id: object::new(ctx)
+        }, tx_context::sender(ctx));
+        transfer::share_object(WHITELIST { 
+           id: object::new(ctx), 
+           hasMinted: table::new<address, bool>(ctx) }
+        );
         transfer::public_freeze_object<display::Display<RewardNFT>>(nft_display);
 
     }
@@ -74,24 +92,34 @@ module audit_trails::rewards {
         description: vector<u8>,
         image_url: vector<u8>,
         recipient: address,
+        whitelist: &mut WHITELIST,
         ctx: &mut TxContext
     ) {
         let sender = tx_context::sender(ctx);
+        if (table::contains<address, bool>(&whitelist.hasMinted, sender)) {
+            let has_minted_ref = table::borrow_mut<address, bool>(&mut whitelist.hasMinted, sender);
+            if (!*has_minted_ref) {
+                let nft = RewardNFT {
+                    id: object::new(ctx),
+                    name: string::utf8(name),
+                    description: string::utf8(description),
+                    image_url: string::utf8(image_url),
+                };
+                event::emit(NFTMinted {
+                    object_id: object::id(&nft),
+                    creator: sender,
+                    name: nft.name,
+                });
+                transfer::public_transfer(nft, recipient);
+                *has_minted_ref = true;
+            }
+        }
+    }
 
-        let nft = RewardNFT {
-            id: object::new(ctx),
-            name: string::utf8(name),
-            description: string::utf8(description),
-            image_url: string::utf8(image_url),
-        };
 
-        event::emit(NFTMinted {
-            object_id: object::id(&nft),
-            creator: sender,
-            name: nft.name,
-        });
 
-        transfer::public_transfer(nft, recipient);
+    public entry fun authorize_address(_admin_cap: &REWARD_ADMIN_CAP, whitelist: &mut WHITELIST,recipient: address){
+        table::add<address, bool>(&mut whitelist.hasMinted, recipient, false);
     }
 
     // ===== Utility =====

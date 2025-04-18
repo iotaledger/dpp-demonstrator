@@ -15,6 +15,8 @@ type RolesRequestPopupProps = {
   onClose: () => void
 }
 
+const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
+
 export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: RolesRequestPopupProps) {
   const { t } = useTranslation('roles')
   const account = useCurrentAccount()
@@ -41,12 +43,6 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   }, [account?.address, refetch])
 
   useEffect(() => {
-    if (!data || !account?.address) {
-      return
-    }
-  }, [data, account?.address, refetch])
-
-  useEffect(() => {
     if (showQrCode && qrCodeUrl)
       QRcode.toDataURL(qrCodeUrl)
         .then(setQrCodeImage)
@@ -59,9 +55,7 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
 
       return
     }
-    setQrCodeUrl(
-      `nightly://v1?network=iota&url=https://dpp-demostrator.if4testing.rocks/admin?account=${account.address}`
-    )
+    setQrCodeUrl(`nightly://v1?network=iota&url=${DAPP_URL}/admin?account=${account.address}`)
     setShowQrCode(true)
   }
 

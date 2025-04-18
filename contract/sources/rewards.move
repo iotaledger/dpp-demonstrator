@@ -20,6 +20,11 @@ module audit_trails::rewards {
         id: UID
     }
 
+    public struct WHITELIST has key, store {
+        id: UID,
+        hasMinted: Table<address, bool>
+    }
+
     /// Event emitted when an NFT is minted
     public struct NFTMinted has copy, drop {
         object_id: ID,
@@ -27,9 +32,8 @@ module audit_trails::rewards {
         name: String,
     }
 
-    public struct WHITELIST has key, store {
-        id: UID,
-        hasMinted: Table<address, bool>
+    public struct AddressAuthorized has copy, drop {
+        account: address,
     }
 
     // ===== INIT =====
@@ -118,8 +122,11 @@ module audit_trails::rewards {
 
 
 
-    public entry fun authorize_address(_admin_cap: &REWARD_ADMIN_CAP, whitelist: &mut WHITELIST,recipient: address){
+    public entry fun authorize_address(_: &REWARD_ADMIN_CAP, whitelist: &mut WHITELIST, recipient: address){
         table::add<address, bool>(&mut whitelist.hasMinted, recipient, false);
+        event::emit(AddressAuthorized{
+            account: recipient
+        })
     }
 
     // ===== Utility =====

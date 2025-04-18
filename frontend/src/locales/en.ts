@@ -38,6 +38,7 @@ export default {
     copyFailed: 'Failed to copy.',
     goBackLink: 'Go Back',
     continue: 'Continue',
+    beAuthorized: 'Show the QR code to be authorized',
   },
   dppAdd: {
     moreValues: 'Add more values',

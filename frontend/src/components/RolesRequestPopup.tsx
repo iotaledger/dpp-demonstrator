@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { Close, Copy } from '@iota/apps-ui-icons'
 import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
 import { useCurrentAccount, useCurrentWallet, useIotaClientQuery } from '@iota/dapp-kit'
+import QRcode from 'qrcode'
 
 import ConnectWallet from '~/components/ConnectWallet'
 import { truncateAddress } from '~/helpers'
 import { copyToClipboard } from '~/helpers/copyToClipboard'
-import { Federation, getRole } from '~/lib/federation'
 import { useTranslation } from '~/lib/i18n'
 
 type RolesRequestPopupProps = {
@@ -15,15 +15,15 @@ type RolesRequestPopupProps = {
   onClose: () => void
 }
 
-const SLEEP_TIME = 5000
-
 export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: RolesRequestPopupProps) {
   const { t } = useTranslation('roles')
   const account = useCurrentAccount()
   const { connectionStatus } = useCurrentWallet()
   const [selectedRole, setSelectedRole] = useState('Repairer')
   const [snackbar, setSnackbar] = useState<{ text: string; snackbarType: SnackbarType } | null>(null)
-  const [userHasRole, setUserHasRole] = useState<boolean>(false)
+  const [showQrCode, setShowQrCode] = useState(false)
+  const [qrCodeUrl, setQrCodeUrl] = useState('')
+  const [qrCodeImage, setQrCodeImage] = useState('')
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const roles = [{ name: t('repairer'), disabled: false }]
@@ -33,43 +33,41 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   })
 
   useEffect(() => {
-    if (urlRole && roles.some((role) => role.name === urlRole && !role.disabled)) {
-      setSelectedRole(urlRole)
-    }
+    if (urlRole && roles.some((role) => role.name === urlRole && !role.disabled)) setSelectedRole(urlRole)
   }, [urlRole, roles])
 
   useEffect(() => {
-    if (account?.address) {
-      void refetch()
-    }
+    if (account?.address) void refetch()
   }, [account?.address, refetch])
 
   useEffect(() => {
     if (!data || !account?.address) {
-      setUserHasRole(false)
-
       return
     }
-    const federationData = data.data?.content as unknown as Federation
-    const role = getRole(federationData, account.address)
-    setUserHasRole(role ? true : false)
-  }, [data, account?.address, t, refetch])
+  }, [data, account?.address, refetch])
 
   useEffect(() => {
-    void refetch()
-  }, [snackbar, refetch])
+    if (showQrCode && qrCodeUrl)
+      QRcode.toDataURL(qrCodeUrl)
+        .then(setQrCodeImage)
+        .catch(() => setSnackbar({ text: t('unknownError'), snackbarType: SnackbarType.Error }))
+  }, [showQrCode, qrCodeUrl, t])
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!account?.address || !federationAddr) {
       setSnackbar({ text: t('missingDataError'), snackbarType: SnackbarType.Error })
 
       return
     }
+    setQrCodeUrl(
+      `nightly://v1?network=iota&url=https://dpp-demostrator.if4testing.rocks/admin?account=${account.address}`
+    )
+    setShowQrCode(true)
+  }
+
+  const handleContinue = async () => {
     try {
-      setSnackbar({ text: t('sendingTransaction'), snackbarType: SnackbarType.Default })
-      await new Promise((resolve) => setTimeout(resolve, SLEEP_TIME))
-      setSnackbar({ text: t('manufacturerAuthorization'), snackbarType: SnackbarType.Default })
-      await new Promise((resolve) => setTimeout(resolve, SLEEP_TIME))
+      if (!account?.address || !federationAddr) throw new Error(t('missingDataError'))
       const response = await fetch('/api/roles', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -80,74 +78,66 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
         }),
       })
       const result = await response.json()
-      if (!response.ok) {
-        throw new Error(result.error || t('unknownError'))
-      }
-      setSnackbar({ text: t('successMessage'), snackbarType: SnackbarType.Default })
+      if (!response.ok) throw new Error(result.error || t('unknownError'))
+      onClose()
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : t('unknownError')
       setSnackbar({ text: message, snackbarType: SnackbarType.Error })
     }
   }
 
-  const handleContinue = () => {
-    onClose()
-  }
-
-  const onCloseSnackbar = () => {
-    setSnackbar(null)
-  }
-
-  const onOptionValueChange = (value: string) => {
-    setSelectedRole(value)
-  }
-
-  const handleCopy = (text: string) => {
+  const onCloseSnackbar = () => setSnackbar(null)
+  const onOptionValueChange = (value: string) => setSelectedRole(value)
+  const handleCopy = (text: string) =>
     copyToClipboard({
       text,
       onResult: setSnackbar,
       t,
     })
-  }
 
-  if (connectionStatus !== 'connected') {
+  if (connectionStatus !== 'connected')
     return (
       <div className="flex flex-col items-center justify-start min-h-screen p-6 min-w-[300px]">
         <ConnectWallet />
       </div>
     )
-  }
 
   return (
     <div className="popup-card gap-8">
       <div className="flex w-full items-center justify-between">
-        <p className="text-title-lg">{t('title')}</p>
+        <p className="text-title-lg">{showQrCode ? t('beAuthorized') : t('title')}</p>
         <button onClick={onClose} className="hover:opacity-80">
           <Close />
         </button>
       </div>
 
-      <Input
-        label={t('federationAddressLabel')}
-        type={InputType.Text}
-        value={federationAddr ? truncateAddress(federationAddr) : ''}
-        trailingElement={
-          <div onClick={() => handleCopy(federationAddr || '')} className="cursor-pointer hover:opacity-80">
-            <Copy />
-          </div>
-        }
-        readOnly
-      />
-      <Select
-        label={t('roleSelectLabel')}
-        options={roles.map((role) => role.name)}
-        onValueChange={onOptionValueChange}
-        value={selectedRole}
-      />
-      {!userHasRole ? (
-        <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} fullWidth />
+      {!showQrCode ? (
+        <>
+          <Input
+            label={t('federationAddressLabel')}
+            type={InputType.Text}
+            value={federationAddr ? truncateAddress(federationAddr) : ''}
+            trailingElement={
+              <div onClick={() => handleCopy(federationAddr || '')} className="cursor-pointer hover:opacity-80">
+                <Copy />
+              </div>
+            }
+            readOnly
+          />
+          <Select
+            label={t('roleSelectLabel')}
+            options={roles.map((role) => role.name)}
+            onValueChange={onOptionValueChange}
+            value={selectedRole}
+          />
+          <Button onClick={handleSubmit} type={ButtonType.Primary} text={t('submitButton')} fullWidth />
+        </>
       ) : (
         <>
+          {
+            // eslint-disable-next-line @next/next/no-img-element
+            qrCodeImage && <img src={qrCodeImage} alt="QR code" className="w-full" />
+          }
           <Button onClick={handleContinue} type={ButtonType.Primary} text={t('continue')} fullWidth />
         </>
       )}

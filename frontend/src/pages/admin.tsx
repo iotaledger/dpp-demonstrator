@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, ButtonType, Input, InputType } from '@iota/apps-ui-kit'
+import { Button, ButtonType, Input, InputType, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit'
 import { useRouter } from 'next/router'
 
@@ -19,21 +19,23 @@ export default function Admin() {
   const account = useCurrentAccount()
   const { t } = useTranslation('admin')
 
-  const [addressValue, setAddressValue] = useState<string>('')
-  const [snackbarMsg, setSnackbarMsg] = useState<string | null>(null)
+  const [addressValue, setAddressValue] = useState('')
+  const [snackbar, setSnackbar] = useState<{ text: string; snackbarType: SnackbarType } | null>(null)
 
   useEffect(() => {
     if (typeof query.recipient === 'string') setAddressValue(query.recipient)
   }, [query.recipient])
 
-  const setSnackbar = (message: string) => {
-    setSnackbarMsg(message)
-    setTimeout(() => setSnackbarMsg(null), 4000)
+  const showSnackbar = (text: string, snackbarType: SnackbarType) => {
+    setSnackbar({ text, snackbarType })
+    setTimeout(() => setSnackbar(null), 4000)
   }
+
+  const onCloseSnackbar = () => setSnackbar(null)
 
   const handleAuthorize = async () => {
     if (!account?.address || !addressValue) {
-      setSnackbar(t('missingDataError'))
+      showSnackbar(t('missingDataError'), SnackbarType.Error)
 
       return
     }
@@ -68,11 +70,10 @@ export default function Admin() {
         throw new Error(`Transaction execution failed: ${errText}`)
       }
       await sendRes.json()
-      setSnackbar(t('successMessage'))
-      setAddressValue('')
-    } catch (error: unknown) {
+      showSnackbar(t('successMessage'), SnackbarType.Default)
+    } catch (error) {
       const message = error instanceof Error ? error.message : t('unknownError')
-      setSnackbar(message)
+      showSnackbar(message, SnackbarType.Error)
     }
   }
 
@@ -91,7 +92,9 @@ export default function Admin() {
           onChange={(e) => setAddressValue(e.target.value)}
         />
         <Button text={t('authorizeButton')} type={ButtonType.Primary} onClick={handleAuthorize} />
-        {snackbarMsg && <div className={styles.snackbar}>{snackbarMsg}</div>}
+        {snackbar && (
+          <Snackbar text={snackbar.text} type={snackbar.snackbarType} onClose={onCloseSnackbar} duration={4000} />
+        )}
       </div>
     </div>
   )

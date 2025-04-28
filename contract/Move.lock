@@ -2,7 +2,7 @@
 
 [move]
 version = 3
-manifest_digest = "D8E8EB95141D99C0192C3EA6ADC4E47FAE53FA319FEF98B4D5AB1959FC5E2C85"
+manifest_digest = "D6B9E1F05B1F918B2508E72CCC80CD35F67AEDED579816F02D712C68DA475E38"
 deps_digest = "060AD7E57DFB13104F21BE5F5C3759D03F0553FC3229247D9A7A6B45F50D03A3"
 dependencies = [
   { id = "Iota", name = "Iota" },
@@ -24,7 +24,7 @@ source = { git = "https://github.com/iotaledger/iota.git", rev = "v0.11.6-rc", s
 
 [[move.package]]
 id = "ith"
-source = { local = "/Users/valeriomellini/source-code/iota/dpp-demonstrator/backend/ith/ith.move" }
+source = { local = "../backend/ith/ith.move" }
 
 dependencies = [
   { id = "Iota", name = "Iota" },

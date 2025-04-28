@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Close, Copy } from '@iota/apps-ui-icons'
 import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
-import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit'
+import { useCurrentAccount, useCurrentWallet, useIotaClientQuery } from '@iota/dapp-kit'
 import QRcode from 'qrcode'
 
 import ConnectWallet from '~/components/ConnectWallet'
 import { truncateAddress } from '~/helpers'
 import { copyToClipboard } from '~/helpers/copyToClipboard'
 import { useTranslation } from '~/lib/i18n'
+import { isAddressInWhitelist } from '~/lib/whitelist'
 
 type RolesRequestPopupProps = {
   federationAddr: string
@@ -16,6 +17,8 @@ type RolesRequestPopupProps = {
 }
 
 const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
+const WHITELIST_ID = process.env.NEXT_PUBLIC_REWARD_WHITELIST_ID as string
+const REFRESH_INTERVAL_MS = process.env.NEXT_PUBLIC_REFRESH_INTERVAL_MS as string
 
 export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: RolesRequestPopupProps) {
   const { t } = useTranslation('roles')
@@ -26,9 +29,30 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   const [showQrCode, setShowQrCode] = useState(false)
   const [qrCodeUrl, setQrCodeUrl] = useState('')
   const [qrCodeImage, setQrCodeImage] = useState('')
+  const [canContinue, setCanContinue] = useState(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const roles = [{ name: t('repairer'), disabled: false }]
+
+  const whitelistData = useIotaClientQuery('getObject', {
+    id: WHITELIST_ID,
+    options: { showContent: true },
+  })
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      whitelistData.refetch()
+    }, Number(REFRESH_INTERVAL_MS))
+
+    return () => clearInterval(interval)
+  }, [whitelistData])
+
+  useEffect(() => {
+    const content = whitelistData.data?.data?.content
+    if (whitelistData.isFetched && content && account?.address) {
+      setCanContinue(isAddressInWhitelist(content, account.address))
+    }
+  }, [account?.address, whitelistData.data, whitelistData.isFetched])
 
   useEffect(() => {
     if (urlRole && roles.some((role) => role.name === urlRole && !role.disabled)) setSelectedRole(urlRole)
@@ -124,7 +148,13 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
             // eslint-disable-next-line @next/next/no-img-element
             qrCodeImage && <img src={qrCodeImage} alt="QR code" className="w-full" />
           }
-          <Button onClick={handleContinue} type={ButtonType.Primary} text={t('continue')} fullWidth />
+          <Button
+            onClick={handleContinue}
+            type={ButtonType.Primary}
+            text={t('continue')}
+            fullWidth
+            disabled={!canContinue}
+          />
         </>
       )}
 

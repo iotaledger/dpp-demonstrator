@@ -1,6 +1,6 @@
 module audit_trails::rewards {
     use std::string::{Self, String};
-    use iota::table::{Self, Table};
+    use iota::vec_map::{Self, VecMap};
     use iota::event;
     use iota::display;
     use iota::package;
@@ -22,7 +22,7 @@ module audit_trails::rewards {
 
     public struct WHITELIST has key, store {
         id: UID,
-        hasMinted: Table<address, bool>
+        hasMinted: VecMap<address, bool>
     }
 
     /// Event emitted when an NFT is minted
@@ -68,7 +68,7 @@ module audit_trails::rewards {
         }, tx_context::sender(ctx));
         transfer::share_object(WHITELIST { 
            id: object::new(ctx), 
-           hasMinted: table::new<address, bool>(ctx) }
+           hasMinted: vec_map::empty<address, bool>() }
         );
         transfer::public_freeze_object<display::Display<RewardNFT>>(nft_display);
 
@@ -101,11 +101,11 @@ module audit_trails::rewards {
     ) {
         let caller = tx_context::sender(ctx);
 
-        if (!table::contains<address, bool>(&whitelist.hasMinted, caller)) {
+        if (!vec_map::contains<address, bool>(&whitelist.hasMinted, &caller)) {
             return
         };
 
-        let minted_ref = table::borrow_mut<address, bool>(&mut whitelist.hasMinted, caller);
+        let minted_ref = vec_map::get_mut<address, bool>(&mut whitelist.hasMinted, &caller);
         if (*minted_ref) {
             return
         };
@@ -130,7 +130,7 @@ module audit_trails::rewards {
 
 
     public entry fun authorize_address(_: &REWARD_ADMIN_CAP, whitelist: &mut WHITELIST, recipient: address){
-        table::add<address, bool>(&mut whitelist.hasMinted, recipient, false);
+        vec_map::insert<address, bool>(&mut whitelist.hasMinted, recipient, false);
         event::emit(AddressAuthorized{
             account: recipient
         })

@@ -98,6 +98,9 @@ export default {
     successMessage: 'User has been authorized',
     unknownError: 'unknownError',
     missingDataError: 'Missing Data Error',
+    addressLabel: 'Recipient address',
+    addressPlaceholder: '0xCAFE',
+    authorizeButton: 'Authorize',
   },
   header: {},
   connectWallet: {

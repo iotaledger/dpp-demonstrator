@@ -81,16 +81,18 @@ export default function Admin() {
   }
 
   return (
-    <div className={styles.card}>
-      <Input
-        label={t('addressLabel')}
-        type={InputType.Text}
-        value={addressValue}
-        placeholder={t('addressPlaceholder')}
-        onChange={(e) => setAddressValue(e.target.value)}
-      />
-      <Button text={t('authorizeButton')} type={ButtonType.Primary} onClick={handleAuthorize} />
-      {snackbarMsg && <div className={styles.snackbar}>{snackbarMsg}</div>}
+    <div className={styles.pageWrapper}>
+      <div className={styles.card}>
+        <Input
+          label={t('addressLabel')}
+          type={InputType.Text}
+          value={addressValue}
+          placeholder={t('addressPlaceholder')}
+          onChange={(e) => setAddressValue(e.target.value)}
+        />
+        <Button text={t('authorizeButton')} type={ButtonType.Primary} onClick={handleAuthorize} />
+        {snackbarMsg && <div className={styles.snackbar}>{snackbarMsg}</div>}
+      </div>
     </div>
   )
 }

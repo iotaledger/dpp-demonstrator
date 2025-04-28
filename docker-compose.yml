@@ -49,7 +49,7 @@ services:
         - BUILD_DATE=${BUILD_DATE:-latest}
         - GIT_REVISION=${GIT_REVISION:-latest}
     container_name: iota-gas-station
-    command: ["--config-path", "/app/config.yaml"]
+    command: [ "--config-path", "/app/config.yaml" ]
     depends_on:
       - redis
     ports:
@@ -82,7 +82,7 @@ services:
         NEXT_PUBLIC_REWARD_WHITELIST_ID: ${NEXT_PUBLIC_REWARD_WHITELIST_ID}
         NEXT_PUBLIC_ADMIN_CAP_ID: ${NEXT_PUBLIC_ADMIN_CAP_ID}
         NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
-        NEXT_PUBLIC_REWARD_FLAG: ${NEXT_PUBLIC_REWARD_FLAG}
+        NEXT_PUBLIC_HAS_REWARD: ${NEXT_PUBLIC_HAS_REWARD}
         BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
         BACKEND_API_KEY: ${BACKEND_API_KEY}
         GAS_STATION_URL: ${GAS_STATION_URL}
@@ -127,6 +127,7 @@ services:
 volumes:
   redis_data:
   traefik_letsencrypt:
+
 
 networks:
   traefik_net:

@@ -18,7 +18,8 @@ type RolesRequestPopupProps = {
 
 const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
 const WHITELIST_ID = process.env.NEXT_PUBLIC_REWARD_WHITELIST_ID as string
-const REFRESH_INTERVAL_MS = process.env.NEXT_PUBLIC_REFRESH_INTERVAL_MS as string
+const REFRESH_INTERVAL_MS = Number(process.env.NEXT_PUBLIC_REFRESH_INTERVAL_MS)
+const HAS_REWARD = Boolean(process.env.NEXT_PUBLIC_HAS_REWARD)
 
 export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: RolesRequestPopupProps) {
   const { t } = useTranslation('roles')
@@ -34,20 +35,18 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const roles = [{ name: t('repairer'), disabled: false }]
 
-  const whitelistData = useIotaClientQuery('getObject', {
-    id: WHITELIST_ID,
-    options: { showContent: true },
-  })
+  const whitelistData = useIotaClientQuery('getObject', { id: WHITELIST_ID, options: { showContent: true } })
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      whitelistData.refetch()
-    }, Number(REFRESH_INTERVAL_MS))
+    if (!HAS_REWARD) return undefined
+
+    const interval = setInterval(whitelistData.refetch, REFRESH_INTERVAL_MS)
 
     return () => clearInterval(interval)
   }, [whitelistData])
 
   useEffect(() => {
+    if (!HAS_REWARD) return
     const content = whitelistData.data?.data?.content
     if (whitelistData.isFetched && content && account?.address) {
       setCanContinue(isAddressInWhitelist(content, account.address))
@@ -55,27 +54,20 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
   }, [account?.address, whitelistData.data, whitelistData.isFetched])
 
   useEffect(() => {
-    if (urlRole && roles.some((role) => role.name === urlRole && !role.disabled)) setSelectedRole(urlRole)
+    if (urlRole && roles.some((role) => role.name === urlRole && !role.disabled)) {
+      setSelectedRole(urlRole)
+    }
   }, [urlRole, roles])
 
   useEffect(() => {
-    if (showQrCode && qrCodeUrl)
+    if (showQrCode && qrCodeUrl) {
       QRcode.toDataURL(qrCodeUrl)
         .then(setQrCodeImage)
         .catch(() => setSnackbar({ text: t('unknownError'), snackbarType: SnackbarType.Error }))
+    }
   }, [showQrCode, qrCodeUrl, t])
 
-  const handleSubmit = () => {
-    if (!account?.address || !federationAddr) {
-      setSnackbar({ text: t('missingDataError'), snackbarType: SnackbarType.Error })
-
-      return
-    }
-    setQrCodeUrl(`nightly://v1?network=iota&url=${DAPP_URL}/admin?recipient=${account.address}`)
-    setShowQrCode(true)
-  }
-
-  const handleContinue = async () => {
+  const sendRoleRequest = async () => {
     try {
       if (!account?.address || !federationAddr) throw new Error(t('missingDataError'))
       const response = await fetch('/api/roles', {
@@ -90,38 +82,49 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
       const result = await response.json()
       if (!response.ok) throw new Error(result.error || t('unknownError'))
       onClose()
-    } catch (error: unknown) {
+    } catch (error) {
       const message = error instanceof Error ? error.message : t('unknownError')
       setSnackbar({ text: message, snackbarType: SnackbarType.Error })
     }
   }
 
+  const handleSubmit = () => {
+    if (!account?.address || !federationAddr) {
+      setSnackbar({ text: t('missingDataError'), snackbarType: SnackbarType.Error })
+
+      return
+    }
+    if (HAS_REWARD) {
+      setQrCodeUrl(`nightly://v1?network=iota&url=${DAPP_URL}/admin?recipient=${account.address}`)
+      setShowQrCode(true)
+
+      return
+    }
+    void sendRoleRequest()
+  }
+
   const onCloseSnackbar = () => setSnackbar(null)
   const onOptionValueChange = (value: string) => setSelectedRole(value)
-  const handleCopy = (text: string) =>
-    copyToClipboard({
-      text,
-      onResult: setSnackbar,
-      t,
-    })
+  const handleCopy = (text: string) => copyToClipboard({ text, onResult: setSnackbar, t })
 
-  if (connectionStatus !== 'connected')
+  if (connectionStatus !== 'connected') {
     return (
       <div className="flex flex-col items-center justify-start min-h-screen p-6 min-w-[300px]">
         <ConnectWallet />
       </div>
     )
+  }
 
   return (
     <div className="popup-card gap-8">
       <div className="flex w-full items-center justify-between">
-        <p className="text-title-lg">{showQrCode ? t('beAuthorized') : t('title')}</p>
+        <p className="text-title-lg">{HAS_REWARD && showQrCode ? t('beAuthorized') : t('title')}</p>
         <button onClick={onClose} className="hover:opacity-80">
           <Close />
         </button>
       </div>
 
-      {!showQrCode ? (
+      {!HAS_REWARD || !showQrCode ? (
         <>
           <Input
             label={t('federationAddressLabel')}
@@ -144,12 +147,9 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
         </>
       ) : (
         <>
-          {
-            // eslint-disable-next-line @next/next/no-img-element
-            qrCodeImage && <img src={qrCodeImage} alt="QR code" className="w-full" />
-          }
+          {qrCodeImage && <img src={qrCodeImage} alt="QR code" className="w-full" />}
           <Button
-            onClick={handleContinue}
+            onClick={sendRoleRequest}
             type={ButtonType.Primary}
             text={t('continue')}
             fullWidth

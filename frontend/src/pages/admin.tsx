@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Button, ButtonType, Input, InputType } from '@iota/apps-ui-kit'
-import { useRouter } from 'next/router'
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit'
-import { useTranslation } from '~/lib/i18n'
+import { useRouter } from 'next/router'
 
-import styles from '~/styles/Admin.module.css'
+import ErrorComponent from '~/components/ErrorComponent'
+import { useTranslation } from '~/lib/i18n'
 import { createRewardAuthTx } from '~/lib/transactions'
 import { ReserveGasResultResponse } from '~/pages/api/sponsor-request'
-import ErrorComponent from '~/components/ErrorComponent'
+import styles from '~/styles/Admin.module.css'
 
 const AUDIT_TRAIL_PKG = process.env.NEXT_PUBLIC_AUDIT_TRAIL_PKG as string
 const ADMIN_CAP = process.env.NEXT_PUBLIC_ADMIN_CAP_ID as string
@@ -24,7 +24,7 @@ export default function Admin() {
 
   useEffect(() => {
     if (typeof query.recipient === 'string') setAddressValue(query.recipient)
-  }, [query.address])
+  }, [query.recipient])
 
   const setSnackbar = (message: string) => {
     setSnackbarMsg(message)
@@ -34,6 +34,7 @@ export default function Admin() {
   const handleAuthorize = async () => {
     if (!account?.address || !addressValue) {
       setSnackbar(t('missingDataError'))
+
       return
     }
     try {

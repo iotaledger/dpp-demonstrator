@@ -97,7 +97,7 @@ export default {
     connectWallet: 'Connect your admin account!',
     successMessage: 'User has been authorized',
     unknownError: 'unknownError',
-    missingDataError: 'Missing Data Error'
+    missingDataError: 'Missing Data Error',
   },
   header: {},
   connectWallet: {

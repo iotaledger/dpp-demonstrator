@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Close, Copy } from '@iota/apps-ui-icons'
 import { Button, ButtonType, Input, InputType, Select, Snackbar, SnackbarType } from '@iota/apps-ui-kit'
-import { useCurrentAccount, useCurrentWallet, useIotaClientQuery } from '@iota/dapp-kit'
+import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit'
 import QRcode from 'qrcode'
 
 import ConnectWallet from '~/components/ConnectWallet'
@@ -29,18 +29,10 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const roles = [{ name: t('repairer'), disabled: false }]
-  const { data, refetch } = useIotaClientQuery('getObject', {
-    id: federationAddr || '',
-    options: { showContent: true },
-  })
 
   useEffect(() => {
     if (urlRole && roles.some((role) => role.name === urlRole && !role.disabled)) setSelectedRole(urlRole)
   }, [urlRole, roles])
-
-  useEffect(() => {
-    if (account?.address) void refetch()
-  }, [account?.address, refetch])
 
   useEffect(() => {
     if (showQrCode && qrCodeUrl)
@@ -55,7 +47,7 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
 
       return
     }
-    setQrCodeUrl(`nightly://v1?network=iota&url=${DAPP_URL}/admin?account=${account.address}`)
+    setQrCodeUrl(`nightly://v1?network=iota&url=${DAPP_URL}/admin?recipient=${account.address}`)
     setShowQrCode(true)
   }
 

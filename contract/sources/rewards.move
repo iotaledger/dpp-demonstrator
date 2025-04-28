@@ -99,25 +99,32 @@ module audit_trails::rewards {
         whitelist: &mut WHITELIST,
         ctx: &mut TxContext
     ) {
-        let sender = tx_context::sender(ctx);
-        if (table::contains<address, bool>(&whitelist.hasMinted, sender)) {
-            let has_minted_ref = table::borrow_mut<address, bool>(&mut whitelist.hasMinted, sender);
-            if (!*has_minted_ref) {
-                let nft = RewardNFT {
-                    id: object::new(ctx),
-                    name: string::utf8(name),
-                    description: string::utf8(description),
-                    image_url: string::utf8(image_url),
-                };
-                event::emit(NFTMinted {
-                    object_id: object::id(&nft),
-                    creator: sender,
-                    name: nft.name,
-                });
-                transfer::public_transfer(nft, recipient);
-                *has_minted_ref = true;
-            }
-        }
+        let caller = tx_context::sender(ctx);
+
+        if (!table::contains<address, bool>(&whitelist.hasMinted, caller)) {
+            return
+        };
+
+        let minted_ref = table::borrow_mut<address, bool>(&mut whitelist.hasMinted, caller);
+        if (*minted_ref) {
+            return
+        };
+
+        let nft = RewardNFT {
+            id: object::new(ctx),
+            name: string::utf8(name),
+            description: string::utf8(description),
+            image_url: string::utf8(image_url),
+        };
+
+        event::emit(NFTMinted {
+            object_id: object::id(&nft),
+            creator: caller,
+            name: nft.name,
+        });
+
+        transfer::public_transfer(nft, recipient);
+        *minted_ref = true;
     }
 
 

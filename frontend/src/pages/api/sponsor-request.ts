@@ -11,11 +11,10 @@ export interface ReserveGasResultResponse extends ReserveGasResult {
   gasBudget: number
 }
 
+const RESERVE_DURATION_SEC = 180
+
 const gasStationUrl = process.env.GAS_STATION_URL as string
 const gasStationToken = process.env.GAS_STATION_AUTH as string
-
-// eslint-disable-next-line no-console
-console.log(`${gasStationUrl} ${gasStationToken}`)
 
 export default async function handler(
   req: NextApiRequest,
@@ -39,7 +38,7 @@ export default async function handler(
 async function getSponsorGas(gasBudget: number): Promise<ReserveGasResult> {
   const requestData = {
     gas_budget: gasBudget,
-    reserve_duration_secs: 60,
+    reserve_duration_secs: RESERVE_DURATION_SEC,
   }
 
   const response = await fetch(`${gasStationUrl}/v1/reserve_gas`, {

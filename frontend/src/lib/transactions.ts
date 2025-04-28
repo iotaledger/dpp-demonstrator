@@ -40,8 +40,8 @@ export function createRewardAuthTx(movePkg: string, { recepient, adminCapId, whi
   const tx = new Transaction()
 
   tx.moveCall({
-    target: `${movePkg}::reward::authorize_address`,
-    arguments: [tx.object(adminCapId), tx.object(whitelistId), tx.pure.string(recepient)],
+    target: `${movePkg}::rewards::authorize_address`,
+    arguments: [tx.object(adminCapId), tx.object(whitelistId), tx.pure.address(recepient)],
   })
 
   return tx

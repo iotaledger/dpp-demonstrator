@@ -5,7 +5,7 @@ import-accounts:
 faucet:
 	cd backend && cargo run --bin faucet
 publish-ith:
-	cd backend/ith/scripts && iota client switch --address root-auth && ./publish_ith.sh
+	cd backend/ith/ith.move && iota client switch --address root-auth && iota client publish --with-unpublished-dependencies --skip-dependency-verification --json --gas-budget 5000000000 .
 init-ith:
 	cd backend && iota client switch --address root-auth && cargo run --bin init_ith
 build-audit-trails-contract:

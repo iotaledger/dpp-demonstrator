@@ -77,8 +77,8 @@ Save the following outputs:
 ### 6. Create a new product:
 
 ```bash
-export AUDIT_TRAIL_PACKAGE_ADDRESS=<AUDIT_TRAIL_PKG>
-export FEDERATION_ADDR=<FEDERATION_ID>
+export AUDIT_TRAIL_PKG=<AUDIT_TRAIL_PKG>
+export FEDERATION_ID=<FEDERATION_ID>
 ```
 
 ```bash

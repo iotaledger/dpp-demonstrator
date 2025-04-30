@@ -1,7 +1,18 @@
  #!/bin/bash
 
-FEDERATION_OBJ_ID=0x8173b3aa4c6ba17a891af0589b8977c9a0dbbcb0d3b9f9d23cfcdeebc8dca9f4 
-AUDIT_TRAIL_PACKAGE_ADDRESS=0xfcd038bf295d47592fec3d5aea6c4e2a2979aff248721dc57f1f213f140c0a7a
+if [ -z "$FEDERATION_ID" ]; then
+  echo "❌ Error: FEDERATION_ID is not set"
+  exit 1
+fi
+
+if [ -z "$AUDIT_TRAIL_PKG" ]; then
+  echo "❌ Error: AUDIT_TRAIL_PKG is not set"
+  exit 1
+fi
+
+echo "✅ Using FEDERATION_ID: $FEDERATION_ID"
+echo "✅ Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
+
 SERIAL_NUMBER=EY74A2-LJ2G-001
 PRODUCT_NAME="Panasonic EY74A2"
 GTIN="5025232813723"
@@ -40,11 +51,11 @@ COMPONENT_DESCRIPTIONS='[
 
 # Esecuzione della chiamata IOTA
 iota client call \
-  --package "$AUDIT_TRAIL_PACKAGE_ADDRESS" \
+  --package "$AUDIT_TRAIL_PKG" \
   --module "app" \
   --function "new_product" \
   --args \
-    $FEDERATION_OBJ_ID \
+    $FEDERATION_ID \
     "$PRODUCT_NAME" \
     "$SERIAL_NUMBER" \
     "$IMAGE_URL" \

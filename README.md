@@ -132,5 +132,3 @@ docker-compose up -d
 * The IOTA Identity integration is planned but not yet implemented.
 
 * The Audit Trails smart-contract is intentionally simplified for demonstration purposes.
-
-Ensure you use the correct CLI version (v0.12.0-rc) to avoid compatibility issues.

@@ -132,9 +132,9 @@ module audit_trails::app {
         });
 
         send_reward(
-            b"Certified Demo Legend!",
+            b"DPP Demonstrator Badge",
             b"Thanks for testing our demo! There's a reward waiting for you!",
-            b"https://daily-ink.davidtruss.com/wp-content/uploads/2019/08/img_6684.jpg",
+            b"https://i.imgur.com/VSaCWsf.png",
             tx_context::sender(ctx),
             whitelist,
             ctx

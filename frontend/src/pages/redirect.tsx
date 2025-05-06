@@ -11,24 +11,20 @@ export default function Redirect() {
 
     if (!url) return
 
-    const decodedUrl = decodeURIComponent(url)
-
     // eslint-disable-next-line no-console
-    console.log(`decoded url: ${decodedUrl}`)
-    const deeplink = `nightly://v1?network=iota&url=${decodedUrl}`
+    console.log(`decoded url: ${url}`)
+    const deeplink = `nightly://v1?network=iota&url=${url}`
 
     window.location.href = deeplink
   }, [searchParams])
 
   const handleManualRedirect = () => {
-    const network = searchParams.get('network')
     const url = searchParams.get('url')
-    if (!network || !url) return
-    const decodedUrl = decodeURIComponent(url)
+    if (!url) return
 
     // eslint-disable-next-line no-console
-    console.log(`decoded url: ${decodedUrl}`)
-    const deeplink = `nightly://v1?network=iota&url=${decodedUrl}`
+    console.log(`decoded url: ${url}`)
+    const deeplink = `nightly://v1?network=iota&url=${url}`
     window.location.href = deeplink
   }
 

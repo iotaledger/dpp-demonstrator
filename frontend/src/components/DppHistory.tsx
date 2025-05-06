@@ -10,6 +10,7 @@ import { useTranslation } from '~/lib/i18n'
 import styles from '~/styles/DppHistory.module.css'
 
 const NEXT_PUBLIC_EXPLORER_URL = process.env.NEXT_PUBLIC_EXPLORER_URL
+const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK
 const REFRESH_INTERVAL_MS = 5000
 const LIMIT = 20
 
@@ -78,7 +79,7 @@ export default function DppHistory({ dppId }: DppHistoryProps) {
               <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mt-2">
                 <p className="text-body-md-grey">{t('objectId')}</p>
                 <Link
-                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${entry.objectId}`}
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${entry.objectId}?network=${NEXT_PUBLIC_NETWORK}`}
                   target="_blank"
                   className="inline-flex items-center text-link hover:underline"
                 >
@@ -90,7 +91,7 @@ export default function DppHistory({ dppId }: DppHistoryProps) {
               <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mt-2">
                 <p className="text-body-md-grey">{t('issuer')}</p>
                 <Link
-                  href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${entry.issuerAddr}`}
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${entry.issuerAddr}?network=${NEXT_PUBLIC_NETWORK}`}
                   target="_blank"
                   className="inline-flex items-center text-link hover:underline"
                 >

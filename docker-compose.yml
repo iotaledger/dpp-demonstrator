@@ -83,6 +83,7 @@ services:
         NEXT_PUBLIC_ADMIN_CAP_ID: ${NEXT_PUBLIC_ADMIN_CAP_ID}
         NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
         NEXT_PUBLIC_HAS_REWARD: ${NEXT_PUBLIC_HAS_REWARD}
+        NEXT_PUBLIC_NETWORK: ${NEXT_PUBLIC_NETWORK}
         BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
         BACKEND_API_KEY: ${BACKEND_API_KEY}
         GAS_STATION_URL: ${GAS_STATION_URL}
@@ -90,14 +91,6 @@ services:
     depends_on:
       - backend
       - iota-gas-station
-    environment:
-      NEXT_PUBLIC_EXPLORER_URL: ${NEXT_PUBLIC_EXPLORER_URL}
-      NEXT_PUBLIC_AUDIT_TRAIL_PKG: ${NEXT_PUBLIC_AUDIT_TRAIL_PKG}
-      NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
-      BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
-      BACKEND_API_KEY: ${BACKEND_API_KEY}
-      GAS_STATION_URL: ${GAS_STATION_URL}
-      GAS_STATION_AUTH: ${GAS_STATION_AUTH}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`dpp-demostrator.if4testing.rocks`)"

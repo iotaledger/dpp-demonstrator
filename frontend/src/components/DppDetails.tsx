@@ -14,6 +14,7 @@ interface DppDetailsProps {
 }
 
 const NEXT_PUBLIC_EXPLORER_URL = process.env.NEXT_PUBLIC_EXPLORER_URL
+const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK
 
 const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
   const { t } = useTranslation('dppDetails')
@@ -42,7 +43,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
             <span className="flex items-center space-x-2 mb-2">
               <p className="text-body-md-grey">{t('objectId')}</p>
               <Link
-                href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
+                href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}?network=${NEXT_PUBLIC_NETWORK}`}
                 target="_blank"
                 className="inline-flex items-center text-link hover:underline"
               >
@@ -75,7 +76,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
                 <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
                   <p className="text-body-md-grey">{t('objectId')}</p>
                   <Link
-                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}`}
+                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}?network=${NEXT_PUBLIC_NETWORK}`}
                     target="_blank"
                     className="inline-flex items-center text-link hover:underline"
                   >
@@ -87,7 +88,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
                 <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
                   <p className="text-body-md-grey">{t('manufacturer')}</p>
                   <Link
-                    href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${manufacturer}`}
+                    href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${manufacturer}?network=${NEXT_PUBLIC_NETWORK}`}
                     target="_blank"
                     className="inline-flex items-center text-link hover:underline"
                   >
@@ -99,7 +100,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
                 <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
                   <p className="text-body-md-grey">{t('federationAddr')}</p>
                   <Link
-                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${federationAddr}`}
+                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${federationAddr}?network=${NEXT_PUBLIC_NETWORK}`}
                     target="_blank"
                     className="inline-flex items-center text-link hover:underline"
                   >

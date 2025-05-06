@@ -102,6 +102,12 @@ export default {
     addressPlaceholder: '0xCAFE',
     authorizeButton: 'Authorize',
   },
+  redirect: {
+    redirecting: 'Redirecting to Nightly Wallet...',
+    instructions: 'If nothing happens, please make sure you have the Nightly Wallet app installed.',
+    openButton: 'Open in Nightly Wallet',
+    downloadLink: 'Download Nightly Wallet',
+  },
   header: {},
   connectWallet: {
     connectMessage: 'Connect your wallet.',

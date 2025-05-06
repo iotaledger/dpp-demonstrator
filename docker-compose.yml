@@ -91,6 +91,11 @@ services:
     depends_on:
       - backend
       - iota-gas-station
+    environment:
+      BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
+      BACKEND_API_KEY: ${BACKEND_API_KEY}
+      GAS_STATION_URL: ${GAS_STATION_URL}
+      GAS_STATION_AUTH: ${GAS_STATION_AUTH}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`dpp-demostrator.if4testing.rocks`)"

@@ -7,13 +7,15 @@ export default function Redirect() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    const network = searchParams.get('network')
     const url = searchParams.get('url')
 
-    if (!network || !url) return
+    if (!url) return
 
-    const encodedUrl = encodeURIComponent(url)
-    const deeplink = `nightly://v1?network=iota&url=${encodedUrl}`
+    const decodedUrl = decodeURIComponent(url)
+
+    // eslint-disable-next-line no-console
+    console.log(`decoded url: ${decodedUrl}`)
+    const deeplink = `nightly://v1?network=iota&url=${decodedUrl}`
 
     window.location.href = deeplink
   }, [searchParams])
@@ -22,8 +24,11 @@ export default function Redirect() {
     const network = searchParams.get('network')
     const url = searchParams.get('url')
     if (!network || !url) return
-    const encodedUrl = encodeURIComponent(url)
-    const deeplink = `nightly://v1?network=iota&url=${encodedUrl}`
+    const decodedUrl = decodeURIComponent(url)
+
+    // eslint-disable-next-line no-console
+    console.log(`decoded url: ${decodedUrl}`)
+    const deeplink = `nightly://v1?network=iota&url=${decodedUrl}`
     window.location.href = deeplink
   }
 

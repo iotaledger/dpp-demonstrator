@@ -14,7 +14,6 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{t('hello')}</h1>
       {connectionStatus === 'connected' ? (
         <>
           <div className={styles.card}>

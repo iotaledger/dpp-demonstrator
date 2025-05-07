@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 
 import { useTranslation } from '~/lib/i18n'
 
-const PRODUCT_ID = process.env.PRODUCT_ID as string
+const PRODUCT_ID = process.env.NEXT_PUBLIC_PRODUCT_ID as string
 const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
 const NETWORK = 'iota'
 

@@ -6,22 +6,20 @@ import { useSearchParams } from 'next/navigation'
 
 import { useTranslation } from '~/lib/i18n'
 
+const PRODUCT_ID = process.env.PRODUCT_ID as string
+const NETWORK = process.env.NEXT_PUBLIC_NETWORK as string
+const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
+
 export default function Redirect() {
   const { t } = useTranslation('redirect')
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    const url = searchParams.get('url')
-    const net = searchParams.get('network') ?? 'iota'
-    if (!url) return
-    window.location.href = `nightly://v1?network=${net}&url=${url}`
+    window.location.href = `nightly://v1?network=${NETWORK}&url=${DAPP_URL}/dpp/${PRODUCT_ID}`
   }, [searchParams])
 
   const manualRedirect = () => {
-    const url = searchParams.get('url')
-    const net = searchParams.get('network') ?? 'iota'
-    if (!url) return
-    window.location.href = `nightly://v1?network=${net}&url=${url}`
+    window.location.href = `nightly://v1?network=${NETWORK}&url=${DAPP_URL}/dpp/${PRODUCT_ID}`
   }
 
   return (

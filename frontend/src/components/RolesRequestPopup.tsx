@@ -95,7 +95,7 @@ export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: 
       return
     }
     if (HAS_REWARD) {
-      setQrCodeUrl(`${DAPP_URL}/redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
+      setQrCodeUrl(`${DAPP_URL}/dynamic_redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
       setShowQrCode(true)
 
       return

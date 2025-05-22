@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 
 import { useTranslation } from '~/lib/i18n'
 
-export default function Redirect() {
+export default function DynamicRedirect() {
   const { t } = useTranslation('redirect')
   const searchParams = useSearchParams()
 

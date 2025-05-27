@@ -9,7 +9,7 @@ anyhow = "1.0.97"
 async-trait = "0.1.87"
 bcs = "0.1"
 fastcrypto = { git = "https://github.com/MystenLabs/fastcrypto", rev = "2f502fd8570fe4e9cff36eea5bbd6fef22002898", package = "fastcrypto" }
-identity_iota = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.1", features=["memstore", "keytool"] }
+identity_iota = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.1", features=["memstore", "keytool", "domain-linkage"] }
 iota = { git = "https://github.com/iotaledger/iota.git", package = "iota", tag = "v0.12.0-rc" }
 iota-keys = { git = "https://github.com/iotaledger/iota.git", package = "iota-keys", tag = "v0.12.0-rc" }
 iota-sdk = { git = "https://github.com/iotaledger/iota.git", package = "iota-sdk", tag = "v0.12.0-rc" }
@@ -26,6 +26,7 @@ ith = { path = "./ith/ith.rs/ith" }
 dotenvy = "0.15.7"
 axum = "0.8.1"
 rand = "0.8.5"
+identity_eddsa_verifier = "1.5.1"
 
 
 [lib]
@@ -52,5 +53,9 @@ name = "faucet"
 path = "src/scripts/faucet.rs"
 
 [[bin]]
-name = "identity"
-path = "src/scripts/identity.rs"
+name = "init_dids"
+path = "src/scripts/init_dids.rs"
+
+[[bin]]
+name = "verify_dids"
+path = "src/scripts/verify_dids.rs"

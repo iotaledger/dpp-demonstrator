@@ -4,14 +4,13 @@
 use std::path::PathBuf;
 
 use anyhow::Context;
-use identity_iota::core::ToJson;
+use identity_iota::credential::Credential;
+use identity_iota::credential::Jwt;
 use identity_iota::iota::IotaDocument;
 use identity_iota::iota_interaction::KeytoolStorage as Keytool;
 use identity_iota::storage::JwkDocumentExt;
-use identity_iota::storage::JwkMemStore;
-use identity_iota::storage::KeyIdMemstore;
+use identity_iota::storage::JwsSignatureOptions;
 use identity_iota::storage::KeytoolStorage;
-use identity_iota::storage::Storage;
 use identity_iota::verification::jws::JwsAlgorithm;
 use identity_iota::verification::MethodScope;
 
@@ -26,11 +25,9 @@ use serde_json::Value;
 
 pub const TEST_GAS_BUDGET: u64 = 50_000_000;
 
-pub type MemStorage = Storage<JwkMemStore, KeyIdMemstore>;
-
 pub async fn create_did_document(alias: &str) -> anyhow::Result<(IotaDocument, String)> {
     let keytool = Keytool::default();
-    let root_authority = keytool
+    let iota_account = keytool
         .get_key_by_alias(alias)
         .expect("Error get_key_by_alias")
         .unwrap_or_else(|| {
@@ -38,8 +35,7 @@ pub async fn create_did_document(alias: &str) -> anyhow::Result<(IotaDocument, S
             std::process::exit(1);
         });
 
-    let address = IotaAddress::from(&root_authority);
-    println!("Root Auth address {address}");
+    let address = IotaAddress::from(&iota_account);
 
     let identity_client = {
         let read_only_client = get_read_only_client().await?;
@@ -67,6 +63,27 @@ pub async fn create_did_document(alias: &str) -> anyhow::Result<(IotaDocument, S
         .output;
 
     Ok((did_document, _vm_fragment))
+}
+
+pub async fn create_credential(
+    credential: Credential,
+    issuer_document: IotaDocument,
+    issuer_vm_fragment: &str,
+) -> anyhow::Result<Jwt> {
+    let keytool = Keytool::default();
+    let keytool_storage = KeytoolStorage::from(keytool);
+
+    let credential_jwt: Jwt = issuer_document
+        .create_credential_jwt(
+            &credential,
+            &keytool_storage,
+            &issuer_vm_fragment,
+            &JwsSignatureOptions::default(),
+            None,
+        )
+        .await?;
+
+    Ok(credential_jwt)
 }
 
 /// Creates a random stronghold path in the temporary directory, whose exact location is OS-dependent.

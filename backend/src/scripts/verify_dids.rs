@@ -3,7 +3,7 @@ use std::str::FromStr;
 // validate_domain_linkage.rs
 use dotenvy::dotenv;
 
-use identity_eddsa_verifier::EdDSAJwsVerifier;
+use identity_ecdsa_verifier::EcDSAJwsVerifier;
 use identity_iota::credential::{
     DomainLinkageConfiguration, DomainLinkageValidationError, JwtCredentialValidationOptions,
     JwtDomainLinkageValidator, LinkedDomainService,
@@ -57,7 +57,7 @@ async fn main() -> anyhow::Result<()> {
 
     // Validate the linkage.
     let validation_result: Result<(), DomainLinkageValidationError> =
-        JwtDomainLinkageValidator::with_signature_verifier(EdDSAJwsVerifier::default())
+        JwtDomainLinkageValidator::with_signature_verifier(EcDSAJwsVerifier::default())
             .validate_linkage(
                 &did_document,
                 &configuration_resource,
@@ -68,6 +68,8 @@ async fn main() -> anyhow::Result<()> {
         println!("✅ Successfull domain linkage validation");
     } else {
         println!("❌ Unsuccessfull domain linkage validation");
+        println!("{:?}", validation_result);
+        println!("{}", did_document)
     }
 
     Ok(())

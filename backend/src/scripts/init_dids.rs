@@ -5,11 +5,8 @@ use identity_iota::iota_interaction::KeytoolStorage as Keytool;
 use identity_iota::storage::KeytoolStorage;
 
 use identity_iota::{
-    core::{Duration, Object, OrderedSet, Timestamp, ToJson, Url},
-    credential::{
-        DomainLinkageConfiguration, DomainLinkageCredentialBuilder, Jwt, LinkedDomainService,
-    },
-    did::{DIDUrl, DID},
+    core::{Duration, Timestamp, ToJson, Url},
+    credential::{DomainLinkageConfiguration, DomainLinkageCredentialBuilder, Jwt},
     storage::{JwkDocumentExt, JwsSignatureOptions},
 };
 
@@ -19,18 +16,15 @@ use backend::{identity_utils::create_did_document, utils::MANUFACTURER_ALIAS};
 async fn main() -> anyhow::Result<()> {
     dotenv().ok();
 
-    let (mut manufacturer_doc, manufacturer_vm_fragment) =
-        create_did_document(MANUFACTURER_ALIAS, true)
-            .await
-            .expect("Error creating manufacturer DID");
+    let (manufacturer_doc, manufacturer_vm_fragment) =
+        create_did_document(MANUFACTURER_ALIAS, true).await?;
 
     let manufacturer_did = manufacturer_doc.id().clone();
     println!("✅ Manufacturer DID created: {manufacturer_did}");
 
     println!("🔗 LinkedDomainService added to DID");
 
-    let domain_str =
-        std::env::var("NEXT_PUBLIC_DAPP_URL").expect("Missing env var NEXT_PUBLIC_DAPP_URL");
+    let domain_str = std::env::var("NEXT_PUBLIC_DAPP_URL")?;
     let domain_url: Url = Url::parse(&domain_str)?;
 
     // Create Domain Linkage Credential

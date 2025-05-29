@@ -123,6 +123,7 @@ pub async fn get_client(alias: &str) -> Result<IdentityClient<KeytoolSigner>, an
         });
 
     let address = IotaAddress::from(&iota_account);
+    println!("Alias address: {}", address);
 
     let identity_client = {
         let read_only_client = get_read_only_client().await?;

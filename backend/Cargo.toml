@@ -26,7 +26,7 @@ ith = { path = "./ith/ith.rs/ith" }
 dotenvy = "0.15.7"
 axum = "0.8.1"
 rand = "0.8.5"
-identity_eddsa_verifier = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.1", package = "identity_eddsa_verifier" }
+identity_ecdsa_verifier = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.1", package = "identity_ecdsa_verifier" }
 
 
 [lib]

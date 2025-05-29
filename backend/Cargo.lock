@@ -1195,7 +1195,7 @@ dependencies = [
  "bcs",
  "dotenvy",
  "fastcrypto",
- "identity_eddsa_verifier",
+ "identity_ecdsa_verifier",
  "identity_iota",
  "iota",
  "iota-config",
@@ -4943,6 +4943,17 @@ dependencies = [
  "serde",
  "strum 0.25.0",
  "thiserror 1.0.69",
+]
+
+[[package]]
+name = "identity_ecdsa_verifier"
+version = "1.6.0-beta"
+source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db9826fab69345fc21e220300e9530573039c"
+dependencies = [
+ "identity_verification",
+ "k256",
+ "p256",
+ "signature 2.2.0",
 ]
 
 [[package]]

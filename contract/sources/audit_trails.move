@@ -137,7 +137,7 @@ module audit_trails::app {
         send_reward(
             b"DPP Demonstrator Badge",
             b"Thanks for testing our demo! There's a reward waiting for you!",
-            b"https://i.imgur.com/VSaCWsf.png",
+            b"https://i.imgur.com/Jw7UvnH.png",
             tx_context::sender(ctx),
             whitelist,
             ctx

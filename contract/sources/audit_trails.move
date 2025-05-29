@@ -25,6 +25,7 @@ module audit_trails::app {
         id: UID,
         federation_addr: address, 
         name: String,
+        manufacturer_did: String,
         serial_number: String,
         manufacturer: address,
         image_url: String,
@@ -50,6 +51,7 @@ module audit_trails::app {
     public entry fun new_product(
         federation: &Federation,
         name: String, 
+        manufacturer_did: String,
         serial_number: String, 
         image_url: String,
         bill_of_materials_keys: vector<String>, 
@@ -72,6 +74,7 @@ module audit_trails::app {
             id: p_id,
             federation_addr,
             name,
+            manufacturer_did,
             serial_number,
             manufacturer: tx_context::sender(ctx),
             image_url,

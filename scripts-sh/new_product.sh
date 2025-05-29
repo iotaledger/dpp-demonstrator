@@ -10,8 +10,14 @@ if [ -z "$AUDIT_TRAIL_PKG" ]; then
   exit 1
 fi
 
+if [ -z "$MANUFACTURER_DID" ]; then
+  echo "❌ Error: MANUFACTURER_DID is not set"
+  exit 1
+fi
+
 echo "✅ Using FEDERATION_ID: $FEDERATION_ID"
 echo "✅ Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
+echo "✅ Using MANUFACTURER_DID: $MANUFACTURER_DID"
 
 SERIAL_NUMBER=EY74A2-LJ2G-001
 PRODUCT_NAME="Berner BACSD-1"
@@ -57,6 +63,7 @@ iota client call \
   --args \
     $FEDERATION_ID \
     "$PRODUCT_NAME" \
+    "$MANUFACTURER_DID" \
     "$SERIAL_NUMBER" \
     "$IMAGE_URL" \
     "$COMPONENT_LABELS" \

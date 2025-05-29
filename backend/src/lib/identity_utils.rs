@@ -7,12 +7,19 @@ use anyhow::Context;
 use identity_iota::credential::Credential;
 use identity_iota::credential::Jwt;
 use identity_iota::iota::IotaDocument;
+use identity_iota::iota_interaction::KeytoolSigner;
 use identity_iota::iota_interaction::KeytoolStorage as Keytool;
 use identity_iota::storage::JwkDocumentExt;
 use identity_iota::storage::JwsSignatureOptions;
 use identity_iota::storage::KeytoolStorage;
 use identity_iota::verification::jws::JwsAlgorithm;
 use identity_iota::verification::MethodScope;
+
+use identity_iota::{
+    core::{Object, OrderedSet, Url},
+    credential::LinkedDomainService,
+    did::{DIDUrl, DID},
+};
 
 use identity_iota::iota::rebased::client::IdentityClient;
 use identity_iota::iota::rebased::client::IdentityClientReadOnly;
@@ -25,7 +32,10 @@ use serde_json::Value;
 
 pub const TEST_GAS_BUDGET: u64 = 50_000_000;
 
-pub async fn create_did_document(alias: &str) -> anyhow::Result<(IotaDocument, String)> {
+pub async fn create_did_document(
+    alias: &str,
+    is_domain_linkage: bool,
+) -> anyhow::Result<(IotaDocument, String)> {
     let keytool = Keytool::default();
     let iota_account = keytool
         .get_key_by_alias(alias)
@@ -56,6 +66,21 @@ pub async fn create_did_document(alias: &str) -> anyhow::Result<(IotaDocument, S
         )
         .await?;
 
+    if is_domain_linkage {
+        // Read the domain from env
+        let domain_str =
+            std::env::var("NEXT_PUBLIC_DAPP_URL").expect("Missing env var NEXT_PUBLIC_DAPP_URL");
+        let domain_url: Url = Url::parse(&domain_str)?;
+
+        // Add LinkedDomainService to the DID document
+        let mut domains = OrderedSet::new();
+        domains.append(domain_url.clone());
+
+        let service_url: DIDUrl = did_document.id().clone().join("#domain-linkage")?;
+        let linked_domain_service = LinkedDomainService::new(service_url, domains, Object::new())?;
+        did_document.insert_service(linked_domain_service.into())?;
+    }
+
     let did_document = identity_client
         .publish_did_document(did_document)
         .build_and_execute(&identity_client)
@@ -84,6 +109,28 @@ pub async fn create_credential(
         .await?;
 
     Ok(credential_jwt)
+}
+
+pub async fn get_client(alias: &str) -> Result<IdentityClient<KeytoolSigner>, anyhow::Error> {
+    // generate new key
+    let keytool = Keytool::default();
+    let iota_account = keytool
+        .get_key_by_alias(alias)
+        .expect("Error get_key_by_alias")
+        .unwrap_or_else(|| {
+            eprintln!("No key found for alias {alias}");
+            std::process::exit(1);
+        });
+
+    let address = IotaAddress::from(&iota_account);
+
+    let identity_client = {
+        let read_only_client = get_read_only_client().await?;
+        let signer = keytool.signer().with_address(address).build()?;
+        IdentityClient::new(read_only_client, signer).await?
+    };
+
+    Ok(identity_client)
 }
 
 /// Creates a random stronghold path in the temporary directory, whose exact location is OS-dependent.

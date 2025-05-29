@@ -1195,7 +1195,7 @@ dependencies = [
  "bcs",
  "dotenvy",
  "fastcrypto",
- "identity_eddsa_verifier 1.5.1",
+ "identity_eddsa_verifier",
  "identity_iota",
  "iota",
  "iota-config",
@@ -3943,6 +3943,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d9c4f5dac5e15c24eb999c26181a6ca40b39fe946cbe4c263c7209467bc83af2"
 
 [[package]]
+name = "foreign-types"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f6f339eb8adc052cd2ca78910fda869aefa38d22d5cb648e6485e4d3fc06f3b1"
+dependencies = [
+ "foreign-types-shared",
+]
+
+[[package]]
+name = "foreign-types-shared"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b"
+
+[[package]]
 name = "form_urlencoded"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4709,6 +4724,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "hyper-tls"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d6183ddfa99b85da61a140bea0efc93fdf56ceaa041b37d553518030827f9905"
+dependencies = [
+ "bytes",
+ "hyper 0.14.32",
+ "native-tls",
+ "tokio",
+ "tokio-native-tls",
+]
+
+[[package]]
 name = "hyper-util"
 version = "0.1.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4846,23 +4874,6 @@ checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
 
 [[package]]
 name = "identity_core"
-version = "1.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cdde09ea5e540c2ba1d5891a7dbb2122d05183afc8c5930ec49ec487ceacbf6f"
-dependencies = [
- "js-sys",
- "multibase",
- "serde",
- "serde_json",
- "strum 0.25.0",
- "thiserror 1.0.69",
- "time",
- "url",
- "zeroize",
-]
-
-[[package]]
-name = "identity_core"
 version = "1.6.0-beta"
 source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db9826fab69345fc21e220300e9530573039c"
 dependencies = [
@@ -4886,13 +4897,15 @@ dependencies = [
  "anyhow",
  "async-trait",
  "flate2",
- "identity_core 1.6.0-beta",
+ "futures",
+ "identity_core",
  "identity_did",
  "identity_document",
  "identity_verification",
  "indexmap 2.9.0",
  "itertools 0.11.0",
  "once_cell",
+ "reqwest 0.11.27",
  "roaring",
  "serde",
  "serde-aux",
@@ -4910,8 +4923,8 @@ source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db
 dependencies = [
  "did_url_parser 0.3.0",
  "form_urlencoded",
- "identity_core 1.6.0-beta",
- "identity_jose 1.6.0-beta",
+ "identity_core",
+ "identity_jose",
  "serde",
  "strum 0.25.0",
  "thiserror 1.0.69",
@@ -4923,7 +4936,7 @@ version = "1.6.0-beta"
 source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db9826fab69345fc21e220300e9530573039c"
 dependencies = [
  "did_url_parser 0.2.0",
- "identity_core 1.6.0-beta",
+ "identity_core",
  "identity_did",
  "identity_verification",
  "indexmap 2.9.0",
@@ -4934,20 +4947,10 @@ dependencies = [
 
 [[package]]
 name = "identity_eddsa_verifier"
-version = "1.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4d1044b913b0456c8853eb1ca0d770a2f53a5415c549732b707d65d54174a1f"
-dependencies = [
- "identity_jose 1.5.1",
- "iota-crypto",
-]
-
-[[package]]
-name = "identity_eddsa_verifier"
 version = "1.6.0-beta"
 source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db9826fab69345fc21e220300e9530573039c"
 dependencies = [
- "identity_jose 1.6.0-beta",
+ "identity_jose",
  "iota-crypto",
 ]
 
@@ -4956,7 +4959,7 @@ name = "identity_iota"
 version = "1.6.0-beta"
 source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db9826fab69345fc21e220300e9530573039c"
 dependencies = [
- "identity_core 1.6.0-beta",
+ "identity_core",
  "identity_credential",
  "identity_did",
  "identity_document",
@@ -4978,12 +4981,12 @@ dependencies = [
  "cfg-if",
  "fastcrypto",
  "futures",
- "identity_core 1.6.0-beta",
+ "identity_core",
  "identity_credential",
  "identity_did",
  "identity_document",
- "identity_eddsa_verifier 1.6.0-beta",
- "identity_jose 1.6.0-beta",
+ "identity_eddsa_verifier",
+ "identity_jose",
  "identity_verification",
  "iota-config",
  "iota-crypto",
@@ -5013,30 +5016,13 @@ dependencies = [
 
 [[package]]
 name = "identity_jose"
-version = "1.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "89f3f605637db6f1a88b7dfd57630f3a05b06b095a7f0564f014341db9712465"
-dependencies = [
- "bls12_381_plus",
- "identity_core 1.5.1",
- "iota-crypto",
- "json-proof-token",
- "serde",
- "serde_json",
- "subtle",
- "thiserror 1.0.69",
- "zeroize",
-]
-
-[[package]]
-name = "identity_jose"
 version = "1.6.0-beta"
 source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db9826fab69345fc21e220300e9530573039c"
 dependencies = [
  "anyhow",
  "bls12_381_plus",
  "fastcrypto",
- "identity_core 1.6.0-beta",
+ "identity_core",
  "iota-crypto",
  "iota_interaction",
  "json-proof-token",
@@ -5055,7 +5041,7 @@ source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db
 dependencies = [
  "async-trait",
  "futures",
- "identity_core 1.6.0-beta",
+ "identity_core",
  "identity_credential",
  "identity_did",
  "identity_document",
@@ -5075,7 +5061,7 @@ dependencies = [
  "bcs",
  "fastcrypto",
  "futures",
- "identity_core 1.6.0-beta",
+ "identity_core",
  "identity_credential",
  "identity_did",
  "identity_document",
@@ -5099,9 +5085,9 @@ name = "identity_verification"
 version = "1.6.0-beta"
 source = "git+https://github.com/iotaledger/identity.git?tag=v1.6.0-beta.1#0e6db9826fab69345fc21e220300e9530573039c"
 dependencies = [
- "identity_core 1.6.0-beta",
+ "identity_core",
  "identity_did",
- "identity_jose 1.6.0-beta",
+ "identity_jose",
  "serde",
  "serde_json",
  "strum 0.25.0",
@@ -8554,6 +8540,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "native-tls"
+version = "0.2.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "87de3442987e9dbec73158d5c715e7ad9072fda936bb03d19d7fa10e00520f0e"
+dependencies = [
+ "libc",
+ "log",
+ "openssl",
+ "openssl-probe",
+ "openssl-sys",
+ "schannel",
+ "security-framework 2.11.1",
+ "security-framework-sys",
+ "tempfile",
+]
+
+[[package]]
 name = "neptune"
 version = "13.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8968,10 +8971,48 @@ dependencies = [
 ]
 
 [[package]]
+name = "openssl"
+version = "0.10.72"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fedfea7d58a1f73118430a55da6a286e7b044961736ce96a16a17068ea25e5da"
+dependencies = [
+ "bitflags 2.9.1",
+ "cfg-if",
+ "foreign-types",
+ "libc",
+ "once_cell",
+ "openssl-macros",
+ "openssl-sys",
+]
+
+[[package]]
+name = "openssl-macros"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a948666b637a0f465e8564c73e89d4dde00d72d4d473cc972f390fc3dcee7d9c"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.101",
+]
+
+[[package]]
 name = "openssl-probe"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
+
+[[package]]
+name = "openssl-sys"
+version = "0.9.108"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e145e1651e858e820e4860f7b9c5e169bc1d8ce1c86043be79fa7b7634821847"
+dependencies = [
+ "cc",
+ "libc",
+ "pkg-config",
+ "vcpkg",
+]
 
 [[package]]
 name = "opentelemetry"
@@ -10470,10 +10511,12 @@ dependencies = [
  "http-body 0.4.6",
  "hyper 0.14.32",
  "hyper-rustls 0.24.2",
+ "hyper-tls",
  "ipnet",
  "js-sys",
  "log",
  "mime",
+ "native-tls",
  "once_cell",
  "percent-encoding",
  "pin-project-lite",
@@ -10485,11 +10528,14 @@ dependencies = [
  "sync_wrapper 0.1.2",
  "system-configuration",
  "tokio",
+ "tokio-native-tls",
  "tokio-rustls 0.24.1",
+ "tokio-util 0.7.15",
  "tower-service",
  "url",
  "wasm-bindgen",
  "wasm-bindgen-futures",
+ "wasm-streams",
  "web-sys",
  "webpki-roots 0.25.4",
  "winreg",
@@ -12334,6 +12380,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.101",
+]
+
+[[package]]
+name = "tokio-native-tls"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbae76ab933c85776efabc971569dd6119c580d8f5d448769dec1764bf796ef2"
+dependencies = [
+ "native-tls",
+ "tokio",
 ]
 
 [[package]]

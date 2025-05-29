@@ -13,42 +13,25 @@ use identity_iota::{
     storage::{JwkDocumentExt, JwsSignatureOptions},
 };
 
-use backend::{
-    identity_utils::create_did_document,
-    utils::{MANUFACTURER_ALIAS, ROOT_AUTH_ALIAS},
-};
+use backend::{identity_utils::create_did_document, utils::MANUFACTURER_ALIAS};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     dotenv().ok();
 
-    // Create root and manufacturer DIDs
-    let (_root_auth_doc, _root_auth_fragment) = create_did_document(ROOT_AUTH_ALIAS.clone())
-        .await
-        .expect("Error creating root authority DID");
-
     let (mut manufacturer_doc, manufacturer_vm_fragment) =
-        create_did_document(MANUFACTURER_ALIAS.clone())
+        create_did_document(MANUFACTURER_ALIAS, true)
             .await
             .expect("Error creating manufacturer DID");
 
     let manufacturer_did = manufacturer_doc.id().clone();
     println!("✅ Manufacturer DID created: {manufacturer_did}");
 
-    // Read the domain from env
+    println!("🔗 LinkedDomainService added to DID");
+
     let domain_str =
         std::env::var("NEXT_PUBLIC_DAPP_URL").expect("Missing env var NEXT_PUBLIC_DAPP_URL");
     let domain_url: Url = Url::parse(&domain_str)?;
-
-    // Add LinkedDomainService to the DID document
-    let mut domains = OrderedSet::new();
-    domains.append(domain_url.clone());
-
-    let service_url: DIDUrl = manufacturer_did.clone().join("#domain-linkage")?;
-    let linked_domain_service = LinkedDomainService::new(service_url, domains, Object::new())?;
-    manufacturer_doc.insert_service(linked_domain_service.into())?;
-
-    println!("🔗 LinkedDomainService added to DID");
 
     // Create Domain Linkage Credential
     let domain_linkage_credential = DomainLinkageCredentialBuilder::new()

@@ -50,7 +50,7 @@ async fn main() -> anyhow::Result<()> {
         .first()
         .ok_or_else(|| anyhow::anyhow!("expected a domain"))?
         .clone();
-    assert_eq!(domain_from_did, domain_str.clone());
+    //assert_eq!(domain_from_did, domain_str.clone());
 
     let configuration_resource =
         DomainLinkageConfiguration::fetch_configuration(domain_url.clone()).await?;

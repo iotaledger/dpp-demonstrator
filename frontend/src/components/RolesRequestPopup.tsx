@@ -5,8 +5,8 @@ import { useCurrentAccount, useCurrentWallet, useIotaClientQuery } from '@iota/d
 import QRcode from 'qrcode'
 
 import ConnectWallet from '~/components/ConnectWallet'
-import { truncateAddress } from '~/helpers'
 import { copyToClipboard } from '~/helpers/copyToClipboard'
+import truncateAddress from '~/helpers/truncateAddress'
 import { useTranslation } from '~/lib/i18n'
 import { isAddressInWhitelist } from '~/lib/whitelist'
 

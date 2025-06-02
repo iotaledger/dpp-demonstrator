@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import { ArrowDown, ArrowUp, Link as LinkIcon } from '@iota/apps-ui-icons'
+import React, { useEffect, useState } from 'react'
+import { ArrowDown, ArrowUp, CheckmarkFilled, Link as LinkIcon, Warning } from '@iota/apps-ui-icons'
 import Link from 'next/link'
 
-import { truncateAddress } from '~/helpers'
 import fromPosixMsToUtcString from '~/helpers/fromPosixMsToUtcString'
+import truncateAddress from '~/helpers/truncateAddress'
+import truncateDid from '~/helpers/truncateDid'
 import { useTranslation } from '~/lib/i18n'
 import { DppData } from '~/lib/product'
 import styles from '~/styles/DppDetails.module.css'
@@ -20,12 +21,51 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
   const { t } = useTranslation('dppDetails')
 
   const [isOpen, setIsOpen] = useState(true)
+  const [domainLinkageStatus, setDomainLinkageStatus] = useState<'verified' | 'unverified' | undefined>(undefined)
+
+  useEffect(() => {
+    if (!dppData?.manufacturerDid) return
+
+    const verifyDomainLinkage = async () => {
+      try {
+        const response = await fetch('/api/verify-domain-linkage', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ did: dppData.manufacturerDid }),
+        })
+
+        if (!response.ok) {
+          setDomainLinkageStatus('unverified')
+
+          return
+        }
+
+        setDomainLinkageStatus('verified')
+      } catch (error) {
+        setDomainLinkageStatus('unverified')
+      }
+    }
+
+    verifyDomainLinkage()
+  }, [dppData?.manufacturerDid])
 
   if (!dppData) {
     return <Loading />
   }
 
-  const { objectId, imageUrl, manufacturer, serialNumber, federationAddr, timestamp, billOfMaterial, name } = dppData
+  const {
+    objectId,
+    imageUrl,
+    manufacturer,
+    serialNumber,
+    federationAddr,
+    timestamp,
+    billOfMaterial,
+    name,
+    manufacturerDid,
+  } = dppData
 
   const hasBOM = Object.keys(billOfMaterial).length > 0
 
@@ -40,16 +80,38 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
           )}
 
           <div className={styles.imageCardText}>
-            <span className="flex items-center space-x-2 mb-2">
-              <p className="text-body-md-grey">{t('objectId')}</p>
-              <Link
-                href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}?network=${NEXT_PUBLIC_NETWORK}`}
-                target="_blank"
-                className="inline-flex items-center text-link hover:underline"
-              >
-                {truncateAddress(objectId)}
-                <LinkIcon className="ml-1 w-4 h-4" />
-              </Link>
+            <span className="flex flex-col space-y-1 mb-2">
+              {domainLinkageStatus && (
+                <span
+                  className={`flex items-center space-x-1 text-sm font-semibold ${
+                    domainLinkageStatus === 'verified' ? 'text-[#3131FF]' : 'text-orange-500'
+                  }`}
+                >
+                  {domainLinkageStatus === 'verified' ? (
+                    <>
+                      <CheckmarkFilled className="w-4 h-4" />
+                      <span>{truncateDid(manufacturerDid)}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Warning className="w-4 h-4" />
+                      <span>{truncateDid(manufacturerDid)}</span>
+                    </>
+                  )}
+                </span>
+              )}
+
+              <span className="flex items-center space-x-2">
+                <p className="text-body-md-grey">{t('objectId')}</p>
+                <Link
+                  href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}?network=${NEXT_PUBLIC_NETWORK}`}
+                  target="_blank"
+                  className="inline-flex items-center text-link hover:underline"
+                >
+                  {truncateAddress(objectId)}
+                  <LinkIcon className="ml-1 w-4 h-4" />
+                </Link>
+              </span>
             </span>
             <p className="text-title-lg">{name}</p>
           </div>
@@ -120,6 +182,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
                 </div>
               </div>
             </div>
+
             {/* Bill of Material */}
             <div className={styles.detailsBox}>
               <p className="text-title-md">{t('billOfMaterials')}</p>

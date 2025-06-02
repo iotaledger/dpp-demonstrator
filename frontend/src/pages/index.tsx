@@ -1,7 +1,7 @@
 import { useCurrentAccount, useCurrentWallet, useDisconnectWallet, useWallets } from '@iota/dapp-kit'
 import Image from 'next/image'
 
-import { truncateAddress } from '~/helpers'
+import truncateAddress from '~/helpers/truncateAddress'
 import { useTranslation } from '~/lib/i18n'
 import styles from '~/styles/Home.module.css'
 

@@ -1,24 +1,25 @@
 import {
+  CoreDID,
   DomainLinkageConfiguration,
   EcDSAJwsVerifier,
   IdentityClientReadOnly,
   IotaDID,
   IotaDocument,
+  Jwt,
   JwtCredentialValidationOptions,
   JwtDomainLinkageValidator,
+  LinkedDomainService,
 } from '@iota/identity-wasm/node'
 import { IotaClient } from '@iota/iota-sdk/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-interface RequestBody {
-  did: string
-}
+import { DomainLinkageResource, VerifyDomainLinkageRequest, VerifyDomainLinkageResponse } from '~/lib/identity'
 
-const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL
-const IOTA_IDENTITY_PKG_ID = process.env.IOTA_IDENTITY_PKG_ID
-const NETWORK_URL = 'testnet'
+const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
+const IOTA_IDENTITY_PKG_ID = process.env.IOTA_IDENTITY_PKG_ID as string
+const NETWORK_URL = process.env.NEXT_PUBLIC_NETWORK_URL as string
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<VerifyDomainLinkageResponse>) {
   if (!IOTA_IDENTITY_PKG_ID || !DAPP_URL) {
     return res.status(500).json({ error: 'Internal server configuration error' })
   }
@@ -27,27 +28,69 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method Not Allowed' })
   }
 
-  const { did }: RequestBody = req.body
+  const { did }: VerifyDomainLinkageRequest = req.body
 
   if (!did) {
     return res.status(400).json({ error: 'Missing required fields' })
   }
 
+  return res.status(200).json({ fromDidCheck: await startingFromDid(did), fromDomainCheck: await startingFromDomain() })
+}
+
+async function startingFromDid(did: string) {
   const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID)
 
   const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did))
 
-  const didConfiguration = await fetchDidConfiguration(DAPP_URL)
-  const fetchedConfigurationResource = DomainLinkageConfiguration.fromJSON(didConfiguration)
+  const linkedDomainServices: LinkedDomainService[] = didDocument
+    .service()
+    .filter((service) => LinkedDomainService.isValid(service))
+    .map((service) => LinkedDomainService.fromService(service))
 
-  new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
-    didDocument,
-    fetchedConfigurationResource,
-    DAPP_URL,
-    new JwtCredentialValidationOptions()
-  )
+  const domains: string[] = linkedDomainServices[0].domains()
 
-  return res.status(200).json({ message: 'Successfully validated Domain Linkage' })
+  const fetchedConfigurationResource = await fetchDidConfiguration(domains[0])
+
+  const configurationResource = new DomainLinkageConfiguration([
+    Jwt.fromJSON(fetchedConfigurationResource.linked_dids[0]),
+  ])
+
+  try {
+    new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
+      didDocument,
+      DomainLinkageConfiguration.fromJSON(configurationResource),
+      domains[0],
+      new JwtCredentialValidationOptions()
+    )
+
+    return true
+  } catch {
+    return false
+  }
+}
+
+async function startingFromDomain() {
+  const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID)
+  const fetchedConfigurationResource = await fetchDidConfiguration(DAPP_URL)
+  const configurationResource = new DomainLinkageConfiguration([
+    Jwt.fromJSON(fetchedConfigurationResource.linked_dids[0]),
+  ])
+
+  const issuers: Array<CoreDID> = configurationResource.issuers()
+  const issuerDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(issuers[0].toString()))
+
+  try {
+    new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
+      issuerDocument,
+      configurationResource,
+      DAPP_URL,
+      new JwtCredentialValidationOptions()
+    )
+
+    return true
+  } catch {
+    return false
+  }
 }
 
 async function getIdentityClient(identityPackageId: string) {
@@ -56,7 +99,7 @@ async function getIdentityClient(identityPackageId: string) {
   return await IdentityClientReadOnly.createWithPkgId(iotaClient, identityPackageId)
 }
 
-export async function fetchDidConfiguration(dappUrl: string): Promise<string> {
+export async function fetchDidConfiguration(dappUrl: string): Promise<DomainLinkageResource> {
   const configurationUrl = `${dappUrl}/.well-known/did-configuration.json`
 
   const response = await fetch(configurationUrl, {
@@ -70,7 +113,5 @@ export async function fetchDidConfiguration(dappUrl: string): Promise<string> {
     throw new Error(`Failed to fetch DID configuration: ${response.status} ${response.statusText}`)
   }
 
-  const data = await response.json()
-
-  return JSON.stringify(data)
+  return await response.json()
 }

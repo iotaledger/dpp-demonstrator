@@ -6,6 +6,7 @@ import fromPosixMsToUtcString from '~/helpers/fromPosixMsToUtcString'
 import truncateAddress from '~/helpers/truncateAddress'
 import truncateDid from '~/helpers/truncateDid'
 import { useTranslation } from '~/lib/i18n'
+import { VerifyDomainLinkageResponse } from '~/lib/identity'
 import { DppData } from '~/lib/product'
 import styles from '~/styles/DppDetails.module.css'
 import Loading from './Loading'
@@ -21,7 +22,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
   const { t } = useTranslation('dppDetails')
 
   const [isOpen, setIsOpen] = useState(true)
-  const [domainLinkageStatus, setDomainLinkageStatus] = useState<'verified' | 'unverified' | undefined>(undefined)
+  const [domainLinkageStatus, setDomainLinkageStatus] = useState<VerifyDomainLinkageResponse | undefined>(undefined)
 
   useEffect(() => {
     if (!dppData?.manufacturerDid) return
@@ -37,14 +38,15 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
         })
 
         if (!response.ok) {
-          setDomainLinkageStatus('unverified')
+          // eslint-disable-next-line no-console
+          console.error('/api/verify-domain-linkage')
 
           return
         }
-
-        setDomainLinkageStatus('verified')
+        setDomainLinkageStatus((await response.json()) as VerifyDomainLinkageResponse)
       } catch (error) {
-        setDomainLinkageStatus('unverified')
+        // eslint-disable-next-line no-console
+        console.error(`${error}`)
       }
     }
 
@@ -84,10 +86,12 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
               {domainLinkageStatus && (
                 <span
                   className={`flex items-center space-x-1 text-sm font-semibold ${
-                    domainLinkageStatus === 'verified' ? 'text-[#3131FF]' : 'text-orange-500'
+                    domainLinkageStatus?.fromDidCheck === true && domainLinkageStatus?.fromDomainCheck === true
+                      ? 'text-[#3131FF]'
+                      : 'text-orange-500'
                   }`}
                 >
-                  {domainLinkageStatus === 'verified' ? (
+                  {domainLinkageStatus?.fromDidCheck === true ? (
                     <>
                       <CheckmarkFilled className="w-4 h-4" />
                       <span>{truncateDid(manufacturerDid)}</span>

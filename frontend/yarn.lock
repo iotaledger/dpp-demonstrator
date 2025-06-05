@@ -484,13 +484,6 @@
     react-dom "^18.3.1"
     react-number-format "^5.2.2"
 
-"@iota/bcs@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/@iota/bcs/-/bcs-0.2.1.tgz"
-  integrity sha512-T+iv5gZhUZP7BiDY7+Ir4MA2rYmyGNZA2b+nxjv219Fp8klFt+l38OWA+1RgJXrCmzuZ+M4hbMAeHhHziURX6Q==
-  dependencies:
-    bs58 "^6.0.0"
-
 "@iota/bcs@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@iota/bcs/-/bcs-1.0.0.tgz"
@@ -498,13 +491,13 @@
   dependencies:
     bs58 "^6.0.0"
 
-"@iota/dapp-kit@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/@iota/dapp-kit/-/dapp-kit-0.4.1.tgz"
-  integrity sha512-V6xUyQs6Rb3HsKYVO+cau60D7DdGq2Eit484OBI4BHc6yM07IrdbIdkZrs5MahmrGr+DexDMz14jlj8W2DH/+w==
+"@iota/dapp-kit@^0.4.6":
+  version "0.4.6"
+  resolved "https://registry.npmjs.org/@iota/dapp-kit/-/dapp-kit-0.4.6.tgz"
+  integrity sha512-34xDwMKXG9EwwcTEjYvCujDr93NxGVV8ybYgWf43k6/IX3noDSMvZK+t5+dCOAvFZw97dKQsqr2fI7oFq0szNg==
   dependencies:
-    "@iota/iota-sdk" "0.6.0"
-    "@iota/wallet-standard" "0.2.5"
+    "@iota/iota-sdk" "1.2.0"
+    "@iota/wallet-standard" "0.2.10"
     "@radix-ui/react-dialog" "^1.1.1"
     "@radix-ui/react-dropdown-menu" "^2.1.1"
     "@radix-ui/react-slot" "^1.1.0"
@@ -532,10 +525,10 @@
   resolved "https://registry.npmjs.org/@iota/iota-interaction-ts/-/iota-interaction-ts-0.4.4.tgz"
   integrity sha512-no5wYtG8hsCZmXgfE3NamNLFSDpNZYtHma5vPJ7Ml9GxWH/0foq3b1w6vG28Tp0SmqTmcwKJObIQX77cu11O4A==
 
-"@iota/iota-sdk@^1.0.0", "@iota/iota-sdk@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@iota/iota-sdk/-/iota-sdk-1.1.0.tgz"
-  integrity sha512-LJeNamqUnjvn43bhyONtggAZ9vNmg/DivduI4jJmvXt/Y6jHM3XCYKF4FSLeDadrY/pp6ir8x7OG/1jmr+fRJA==
+"@iota/iota-sdk@^1.0.0", "@iota/iota-sdk@^1.2.0", "@iota/iota-sdk@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/@iota/iota-sdk/-/iota-sdk-1.2.0.tgz"
+  integrity sha512-SzC3NFYuq2P3dNh79X679p9Frb1XylU8O3nfeOQL4NcEnf/44k5HY0ABeNuWHFoYoeuI0Uk+qSIEcIVSaaMoag==
   dependencies:
     "@graphql-typed-document-node/core" "^3.2.0"
     "@iota/bcs" "1.0.0"
@@ -550,30 +543,12 @@
     tweetnacl "^1.0.3"
     valibot "^0.36.0"
 
-"@iota/iota-sdk@0.6.0":
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/@iota/iota-sdk/-/iota-sdk-0.6.0.tgz"
-  integrity sha512-NEYiE7bdWw2DA3vLV7dO2EnoLDljN9NPhYrjfDGefTbIS9XpqX0JZTHMi//Q/K0aO4NwSHR5gu7n/ywoOTzTKg==
+"@iota/wallet-standard@0.2.10":
+  version "0.2.10"
+  resolved "https://registry.npmjs.org/@iota/wallet-standard/-/wallet-standard-0.2.10.tgz"
+  integrity sha512-myFf9KfQiBsE5LxiM/fjDTYek4XdDkmDAbYXLdMJv05r5sEm8/KqJoWhYAaY350sO/h8H3KHN6wTZY/7Tgmt0Q==
   dependencies:
-    "@graphql-typed-document-node/core" "^3.2.0"
-    "@iota/bcs" "0.2.1"
-    "@noble/curves" "^1.4.2"
-    "@noble/hashes" "^1.4.0"
-    "@scure/bip32" "^1.4.0"
-    "@scure/bip39" "^1.3.0"
-    "@suchipi/femver" "^1.0.0"
-    bech32 "^2.0.0"
-    gql.tada "^1.8.2"
-    graphql "^16.9.0"
-    tweetnacl "^1.0.3"
-    valibot "^0.36.0"
-
-"@iota/wallet-standard@0.2.5":
-  version "0.2.5"
-  resolved "https://registry.npmjs.org/@iota/wallet-standard/-/wallet-standard-0.2.5.tgz"
-  integrity sha512-/UWtTlMxpFeCsKbsxeni/PUm69/uuWOHJu3VlkEP3mfMU8UqJtsz1x+sT8WxoeVt4uJ9rN4RMdaqyRkdNbh1rA==
-  dependencies:
-    "@iota/iota-sdk" "0.6.0"
+    "@iota/iota-sdk" "1.2.0"
     "@wallet-standard/core" "1.0.3"
 
 "@isaacs/cliui@^8.0.2":
@@ -1319,19 +1294,19 @@
     "@radix-ui/react-use-callback-ref" "1.1.0"
     "@radix-ui/react-use-controllable-state" "1.1.0"
 
-"@radix-ui/react-slot@^1.1.0", "@radix-ui/react-slot@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.1.0.tgz"
-  integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
-  dependencies:
-    "@radix-ui/react-compose-refs" "1.1.0"
-
-"@radix-ui/react-slot@1.1.2":
+"@radix-ui/react-slot@^1.1.0", "@radix-ui/react-slot@1.1.2":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.1.2.tgz"
   integrity sha512-YAKxaiGsSQJ38VzKH86/BPRC4rh+b1Jpa+JneA5LRE7skmLPNAyeG8kPJj/oo4STLvlrs8vkf/iYyc3A5stYCQ==
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.1"
+
+"@radix-ui/react-slot@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.1.0.tgz"
+  integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
+  dependencies:
+    "@radix-ui/react-compose-refs" "1.1.0"
 
 "@radix-ui/react-use-callback-ref@1.1.0":
   version "1.1.0"
@@ -4778,12 +4753,7 @@ libnpmversion@^8.0.1:
     proc-log "^5.0.0"
     semver "^7.3.7"
 
-lilconfig@^3.0.0:
-  version "3.1.3"
-  resolved "https://registry.npmjs.org/lilconfig/-/lilconfig-3.1.3.tgz"
-  integrity sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==
-
-lilconfig@^3.1.3:
+lilconfig@^3.0.0, lilconfig@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npmjs.org/lilconfig/-/lilconfig-3.1.3.tgz"
   integrity sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==

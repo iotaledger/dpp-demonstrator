@@ -85,6 +85,7 @@ export default {
   dppDetails: {
     title: 'Product Details',
     objectId: 'Object ID',
+    objectDid: 'Object DID',
     manufacturer: 'Manufacturer Address',
     serialNumber: 'Serial Number',
     federationAddr: 'Federation Address',
@@ -111,5 +112,15 @@ export default {
   header: {},
   connectWallet: {
     connectMessage: 'Connect your wallet.',
+  },
+  domainLinkageStatus: {
+    tooltipTitle: 'Domain Linkage Verification',
+    fromDidCheckLabel: 'From DID Check',
+    fromDidCheckSuccess: 'Entry found in DID Document',
+    fromDidCheckFail: 'entry missing',
+    fromDomainCheckLabel: 'From Domain Check',
+    fromDomainCheckSuccess: 'Domain signed a valid JWT',
+    fromDomainCheckFail: 'missing or invalid signature',
+    explanation: 'Both checks must be true to consider the domain fully verified.',
   },
 } as const

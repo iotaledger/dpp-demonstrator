@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { ArrowDown, ArrowUp, CheckmarkFilled, Link as LinkIcon, Warning } from '@iota/apps-ui-icons'
+import React, { useState } from 'react'
+import { ArrowDown, ArrowUp, Link as LinkIcon } from '@iota/apps-ui-icons'
 import Link from 'next/link'
 
 import fromPosixMsToUtcString from '~/helpers/fromPosixMsToUtcString'
 import truncateAddress from '~/helpers/truncateAddress'
-import truncateDid from '~/helpers/truncateDid'
 import { useTranslation } from '~/lib/i18n'
-import { VerifyDomainLinkageResponse } from '~/lib/identity'
 import { DppData } from '~/lib/product'
 import styles from '~/styles/DppDetails.module.css'
+import DomainLinkageStatus from './atoms/DomainLinkageStatus'
 import Loading from './Loading'
 
 interface DppDetailsProps {
@@ -20,38 +19,7 @@ const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK
 
 const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
   const { t } = useTranslation('dppDetails')
-
   const [isOpen, setIsOpen] = useState(true)
-  const [domainLinkageStatus, setDomainLinkageStatus] = useState<VerifyDomainLinkageResponse | undefined>(undefined)
-
-  useEffect(() => {
-    if (!dppData?.manufacturerDid) return
-
-    const verifyDomainLinkage = async () => {
-      try {
-        const response = await fetch('/api/verify-domain-linkage', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ did: dppData.manufacturerDid }),
-        })
-
-        if (!response.ok) {
-          // eslint-disable-next-line no-console
-          console.error('/api/verify-domain-linkage')
-
-          return
-        }
-        setDomainLinkageStatus((await response.json()) as VerifyDomainLinkageResponse)
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(`${error}`)
-      }
-    }
-
-    verifyDomainLinkage()
-  }, [dppData?.manufacturerDid])
 
   if (!dppData) {
     return <Loading />
@@ -83,27 +51,10 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
 
           <div className={styles.imageCardText}>
             <span className="flex flex-col space-y-1 mb-2">
-              {domainLinkageStatus && (
-                <span
-                  className={`flex items-center space-x-1 text-sm font-semibold ${
-                    domainLinkageStatus?.fromDidCheck === true && domainLinkageStatus?.fromDomainCheck === true
-                      ? 'text-[#3131FF]'
-                      : 'text-orange-500'
-                  }`}
-                >
-                  {domainLinkageStatus?.fromDidCheck === true ? (
-                    <>
-                      <CheckmarkFilled className="w-4 h-4" />
-                      <span>{truncateDid(manufacturerDid)}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Warning className="w-4 h-4" />
-                      <span>{truncateDid(manufacturerDid)}</span>
-                    </>
-                  )}
-                </span>
-              )}
+              <span className="flex items-center space-x-2">
+                <p className="text-body-md-grey">{t('objectDid')}</p>
+                <DomainLinkageStatus did={manufacturerDid} />
+              </span>
 
               <span className="flex items-center space-x-2">
                 <p className="text-body-md-grey">{t('objectId')}</p>
@@ -139,41 +90,9 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
               <p className="text-title-md">{t('details')}</p>
 
               <div className="mt-2">
-                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
-                  <p className="text-body-md-grey">{t('objectId')}</p>
-                  <Link
-                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}?network=${NEXT_PUBLIC_NETWORK}`}
-                    target="_blank"
-                    className="inline-flex items-center text-link hover:underline"
-                  >
-                    {truncateAddress(objectId)}
-                    <LinkIcon className="ml-1 w-4 h-4" />
-                  </Link>
-                </div>
-
-                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
-                  <p className="text-body-md-grey">{t('manufacturer')}</p>
-                  <Link
-                    href={`${NEXT_PUBLIC_EXPLORER_URL}/address/${manufacturer}?network=${NEXT_PUBLIC_NETWORK}`}
-                    target="_blank"
-                    className="inline-flex items-center text-link hover:underline"
-                  >
-                    {truncateAddress(manufacturer)}
-                    <LinkIcon className="ml-1 w-4 h-4" />
-                  </Link>
-                </div>
-
-                <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
-                  <p className="text-body-md-grey">{t('federationAddr')}</p>
-                  <Link
-                    href={`${NEXT_PUBLIC_EXPLORER_URL}/object/${federationAddr}?network=${NEXT_PUBLIC_NETWORK}`}
-                    target="_blank"
-                    className="inline-flex items-center text-link hover:underline"
-                  >
-                    {truncateAddress(federationAddr)}
-                    <LinkIcon className="ml-1 w-4 h-4" />
-                  </Link>
-                </div>
+                <DetailRow label={t('objectId')} value={objectId} type="object" />
+                <DetailRow label={t('manufacturer')} value={manufacturer} type="address" />
+                <DetailRow label={t('federationAddr')} value={federationAddr} type="object" />
 
                 <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
                   <p className="text-body-md-grey">{t('serialNumber')}</p>
@@ -211,3 +130,29 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
 }
 
 export default DppDetails
+
+interface DetailRowProps {
+  label: string
+  value: string
+  type: 'object' | 'address'
+}
+
+const DetailRow: React.FC<DetailRowProps> = ({ label, value, type }) => {
+  if (!value) return null
+
+  const urlType = type === 'object' ? 'object' : 'address'
+
+  return (
+    <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
+      <p className="text-body-md-grey">{label}</p>
+      <Link
+        href={`${NEXT_PUBLIC_EXPLORER_URL}/${urlType}/${value}?network=${NEXT_PUBLIC_NETWORK}`}
+        target="_blank"
+        className="inline-flex items-center text-link hover:underline"
+      >
+        {truncateAddress(value)}
+        <LinkIcon className="ml-1 w-4 h-4" />
+      </Link>
+    </div>
+  )
+}

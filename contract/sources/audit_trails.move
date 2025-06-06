@@ -25,9 +25,8 @@ module audit_trails::app {
         id: UID,
         federation_addr: address, 
         name: String,
-        manufacturer_did: String,
         serial_number: String,
-        manufacturer: address,
+        manufacturer: String,
         image_url: String,
         bill_of_materials: VecMap<String, String>,
         timestamp: u64
@@ -74,9 +73,8 @@ module audit_trails::app {
             id: p_id,
             federation_addr,
             name,
-            manufacturer_did,
             serial_number,
-            manufacturer: tx_context::sender(ctx),
+            manufacturer: manufacturer_did,
             image_url,
             bill_of_materials: vec_map_from_keys_values<String, String>(bill_of_materials_keys, bill_of_materials_values),
             timestamp: clock::timestamp_ms(clock)

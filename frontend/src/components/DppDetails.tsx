@@ -25,17 +25,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
     return <Loading />
   }
 
-  const {
-    objectId,
-    imageUrl,
-    manufacturer,
-    serialNumber,
-    federationAddr,
-    timestamp,
-    billOfMaterial,
-    name,
-    manufacturerDid,
-  } = dppData
+  const { objectId, imageUrl, manufacturer, serialNumber, federationAddr, timestamp, billOfMaterial, name } = dppData
 
   const hasBOM = Object.keys(billOfMaterial).length > 0
 
@@ -51,11 +41,6 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
 
           <div className={styles.imageCardText}>
             <span className="flex flex-col space-y-1 mb-2">
-              <span className="flex items-center space-x-2">
-                <p className="text-body-md-grey">{t('objectDid')}</p>
-                <DomainLinkageStatus did={manufacturerDid} />
-              </span>
-
               <span className="flex items-center space-x-2">
                 <p className="text-body-md-grey">{t('objectId')}</p>
                 <Link
@@ -91,7 +76,7 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
 
               <div className="mt-2">
                 <DetailRow label={t('objectId')} value={objectId} type="object" />
-                <DetailRow label={t('manufacturer')} value={manufacturer} type="address" />
+                <DidRow label={t('manufacturer')} value={manufacturer} />
                 <DetailRow label={t('federationAddr')} value={federationAddr} type="object" />
 
                 <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
@@ -153,6 +138,17 @@ const DetailRow: React.FC<DetailRowProps> = ({ label, value, type }) => {
         {truncateAddress(value)}
         <LinkIcon className="ml-1 w-4 h-4" />
       </Link>
+    </div>
+  )
+}
+
+const DidRow: React.FC<Omit<DetailRowProps, 'type'>> = ({ label, value }) => {
+  if (!value) return null
+
+  return (
+    <div className="md:grid md:grid-cols-[200px_1fr] items-center gap-2 mb-2">
+      <p className="text-body-md-grey">{label}</p>
+      <DomainLinkageStatus did={value} />
     </div>
   )
 }

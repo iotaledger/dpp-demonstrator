@@ -85,8 +85,7 @@ export default {
   dppDetails: {
     title: 'Product Details',
     objectId: 'Object ID',
-    objectDid: 'Object DID',
-    manufacturer: 'Manufacturer Address',
+    manufacturer: 'Manufacturer DID',
     serialNumber: 'Serial Number',
     federationAddr: 'Federation Address',
     timestamp: 'DPP Creation Date',

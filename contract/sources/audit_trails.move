@@ -8,7 +8,7 @@ module audit_trails::app {
     use iota::clock::{Self, Clock};
     use iota::event;
 
-    use audit_trails::rewards::{send_reward, WHITELIST};
+    use audit_trails::nft_reward::{send_reward, WHITELIST};
 
     const E_INVALID_ROLE: u64 = 0;
     const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1; 

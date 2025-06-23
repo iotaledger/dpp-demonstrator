@@ -1,4 +1,4 @@
-module audit_trails::rewards {
+module audit_trails::nft_reward {
     use std::string::{Self, String};
     use iota::vec_map::{Self, VecMap};
     use iota::event;
@@ -14,7 +14,7 @@ module audit_trails::rewards {
     }
 
     /// One-Time-Witness for initializing the Display
-    public struct REWARDS has drop {}
+    public struct NFT_REWARD has drop {}
 
     public struct REWARD_ADMIN_CAP has key, store{
         id: UID
@@ -39,7 +39,7 @@ module audit_trails::rewards {
     // ===== INIT =====
 
     /// Initialize the Display<RewardNFT>
-    fun init(otw: REWARDS, ctx: &mut TxContext) {
+    fun init(otw: NFT_REWARD, ctx: &mut TxContext) {
         let keys = vector[
             b"name".to_string(),
             b"description".to_string(),

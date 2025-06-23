@@ -3,11 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Root variables */
 :root {
   --background: #f7f7f8;
   --foreground: #171717;
+
+  --text-neutral-darkest: #171D26;
+  --text-neutral-medium: #545E6E;
+  --text-link: #3131FF;
 }
 
+/* Base styles */
 html,
 body {
   max-width: 100vw;
@@ -38,3 +44,114 @@ a {
     color-scheme: dark;
   }
 }
+
+/* Custom font utilities */
+@layer utilities {
+  .font-inter {
+    font-family: 'Inter Variable', sans-serif;
+  }
+
+  .font-secondary {
+    font-family: 'Typeface Secondary', sans-serif;
+  }
+}
+
+/* ========== TYPOGRAPHY ========== */
+
+/* Footer Text */
+.text-footer {
+  @apply font-normal text-sm leading-7 tracking-normal font-inter;
+  color: #545E6E
+}
+
+/* Title Large */
+.text-title-lg {
+  @apply font-medium text-[24px] leading-[120%] tracking-[-0.4px] font-secondary;
+  color: var(--text-neutral-darkest);
+}
+
+/* Title Medium */
+.text-title-md {
+  @apply font-medium text-[20px] leading-[120%] tracking-[-0.15px] font-secondary;
+  color: var(--text-neutral-darkest);
+}
+
+/* Title Small */
+.text-title-xs {
+  @apply font-medium text-[17px] leading-[120%] tracking-[-0.15px] font-secondary;
+  color: var(--text-neutral-darkest);
+}
+
+/* Body Medium Grey */
+.text-body-md-grey {
+  @apply font-normal text-[14px] leading-5 tracking-[-0.1px] align-middle font-secondary;
+  color: var(--text-neutral-medium);
+}
+
+/* Body Medium Dark */
+.text-body-md-dark {
+  @apply font-normal text-[14px] leading-5 tracking-[-0.1px] align-middle font-secondary;
+  color: var(--text-neutral-darkest);
+}
+
+/* Label Medium */
+.text-label-md {
+  @apply font-medium text-[12px] leading-4 tracking-[-0.1px] text-center align-middle font-secondary;
+  color: var(--text-neutral-darkest);
+}
+
+/* Link */
+.text-link {
+  @apply font-normal text-[14px] leading-5 tracking-[0.2px] text-right align-middle font-secondary;
+  color: var(--text-link);
+}
+
+.submit-button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px;
+  isolation: isolate;
+
+  width: 144px;
+  min-width: 80px;
+  height: 36px;
+
+  background-color: 1px solid #3131FF;
+  border-radius: 120px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.submit-button-font {
+  width: 97px;
+  height: 16px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: -0.1px;
+  font-feature-settings: 'ss01' on;
+  color: #FFFFFF;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.popup-card{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 16px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  }

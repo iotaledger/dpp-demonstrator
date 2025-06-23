@@ -1,0 +1,124 @@
+.requestPermissionCard {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    background: #DDE9F7;
+    border-radius: 12px;
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.addDppCard {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    background: #C2F1F4;
+    border-radius: 12px;
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.addDpp {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    background: #C2F1F4;
+    border-radius: 12px;
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.addButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    isolation: isolate;
+
+    width: 144px;
+    min-width: 80px;
+    height: 36px;
+
+    background: #3131FF;
+    border-radius: 120px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.addButtonText {
+    width: 97px;
+    height: 16px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: -0.1px;
+    font-feature-settings: 'ss01' on;
+    color: #FFFFFF;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+
+.requestButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    isolation: isolate;
+
+    width: 144px;
+    min-width: 80px;
+    height: 36px;
+
+    border: 1px solid #6E7787;
+    border-radius: 120px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.popup{
+    position: relative;
+    background-color: white;
+    width: 80%;
+    max-width: 28rem; 
+    padding: 1rem;    
+    border-radius: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+  }

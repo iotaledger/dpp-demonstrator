@@ -24,11 +24,12 @@ export function getDppData(content: Dpp | null): DppData | undefined {
   if (!content) return undefined
 
   const billOfMaterial = getBillOfMaterials(content) ?? {}
-  const { id, image_url, manufacturer, timestamp, serial_number, federation_addr } = content.fields
+  const { id, image_url, manufacturer, timestamp, serial_number, federation_addr, name } = content.fields
 
   return {
     billOfMaterial,
     federationAddr: federation_addr,
+    name,
     objectId: id.id,
     imageUrl: image_url,
     manufacturer,
@@ -40,6 +41,7 @@ export function getDppData(content: Dpp | null): DppData | undefined {
 export type DppData = {
   billOfMaterial: Record<string, string>
   federationAddr: string
+  name: string
   objectId: string
   imageUrl: string
   manufacturer: string
@@ -68,6 +70,7 @@ type ProductFields = {
   id: {
     id: string
   }
+  name: string
   image_url: string
   manufacturer: string
   serial_number: string

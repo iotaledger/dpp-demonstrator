@@ -8,7 +8,7 @@ module audit_trails::app {
     use iota::clock::{Self, Clock};
     use iota::event;
 
-    use audit_trails::rewards::send_reward;
+    use audit_trails::rewards::{send_reward, WHITELIST};
 
     const E_INVALID_ROLE: u64 = 0;
     const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1; 
@@ -24,8 +24,9 @@ module audit_trails::app {
     public struct Product has key, store {
         id: UID,
         federation_addr: address, 
+        name: String,
         serial_number: String,
-        manufacturer: address,
+        manufacturer: String,
         image_url: String,
         bill_of_materials: VecMap<String, String>,
         timestamp: u64
@@ -47,7 +48,9 @@ module audit_trails::app {
 
 
     public entry fun new_product(
-        federation: &Federation, 
+        federation: &Federation,
+        name: String, 
+        manufacturer_did: String,
         serial_number: String, 
         image_url: String,
         bill_of_materials_keys: vector<String>, 
@@ -69,8 +72,9 @@ module audit_trails::app {
         transfer::share_object(Product {
             id: p_id,
             federation_addr,
+            name,
             serial_number,
-            manufacturer: tx_context::sender(ctx),
+            manufacturer: manufacturer_did,
             image_url,
             bill_of_materials: vec_map_from_keys_values<String, String>(bill_of_materials_keys, bill_of_materials_values),
             timestamp: clock::timestamp_ms(clock)
@@ -93,6 +97,7 @@ module audit_trails::app {
         entry_data_keys: vector<String>,
         entry_data_values: vector<String>, 
         clock: &Clock,
+        whitelist: &mut WHITELIST,
         ctx: &mut TxContext
     ) {   
         let role = to_role(issuer_role);
@@ -128,10 +133,11 @@ module audit_trails::app {
         });
 
         send_reward(
-            b"Certified Demo Legend!",
+            b"DPP Demonstrator Badge",
             b"Thanks for testing our demo! There's a reward waiting for you!",
-            b"https://daily-ink.davidtruss.com/wp-content/uploads/2019/08/img_6684.jpg",
+            b"https://i.imgur.com/Jw7UvnH.png",
             tx_context::sender(ctx),
+            whitelist,
             ctx
         );
     }

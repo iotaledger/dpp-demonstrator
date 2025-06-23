@@ -1,5 +1,6 @@
 module audit_trails::rewards {
     use std::string::{Self, String};
+    use iota::vec_map::{Self, VecMap};
     use iota::event;
     use iota::display;
     use iota::package;
@@ -15,11 +16,24 @@ module audit_trails::rewards {
     /// One-Time-Witness for initializing the Display
     public struct REWARDS has drop {}
 
+    public struct REWARD_ADMIN_CAP has key, store{
+        id: UID
+    }
+
+    public struct WHITELIST has key, store {
+        id: UID,
+        hasMinted: VecMap<address, bool>
+    }
+
     /// Event emitted when an NFT is minted
     public struct NFTMinted has copy, drop {
         object_id: ID,
         creator: address,
         name: String,
+    }
+
+    public struct AddressAuthorized has copy, drop {
+        account: address,
     }
 
     // ===== INIT =====
@@ -48,6 +62,14 @@ module audit_trails::rewards {
 
 
         package::burn_publisher(publisher);
+
+        transfer::transfer(REWARD_ADMIN_CAP{
+            id: object::new(ctx)
+        }, tx_context::sender(ctx));
+        transfer::share_object(WHITELIST { 
+           id: object::new(ctx), 
+           hasMinted: vec_map::empty<address, bool>() }
+        );
         transfer::public_freeze_object<display::Display<RewardNFT>>(nft_display);
 
     }
@@ -74,9 +96,19 @@ module audit_trails::rewards {
         description: vector<u8>,
         image_url: vector<u8>,
         recipient: address,
+        whitelist: &mut WHITELIST,
         ctx: &mut TxContext
     ) {
-        let sender = tx_context::sender(ctx);
+        let caller = tx_context::sender(ctx);
+
+        if (!vec_map::contains<address, bool>(&whitelist.hasMinted, &caller)) {
+            return
+        };
+
+        let minted_ref = vec_map::get_mut<address, bool>(&mut whitelist.hasMinted, &caller);
+        if (*minted_ref) {
+            return
+        };
 
         let nft = RewardNFT {
             id: object::new(ctx),
@@ -87,11 +119,21 @@ module audit_trails::rewards {
 
         event::emit(NFTMinted {
             object_id: object::id(&nft),
-            creator: sender,
+            creator: caller,
             name: nft.name,
         });
 
         transfer::public_transfer(nft, recipient);
+        *minted_ref = true;
+    }
+
+
+
+    public entry fun authorize_address(_: &REWARD_ADMIN_CAP, whitelist: &mut WHITELIST, recipient: address){
+        vec_map::insert<address, bool>(&mut whitelist.hasMinted, recipient, false);
+        event::emit(AddressAuthorized{
+            account: recipient
+        })
     }
 
     // ===== Utility =====

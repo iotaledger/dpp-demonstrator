@@ -122,7 +122,7 @@ impl SignerTrait<IotaKeySignature> for KeystoreClient {
     type KeyId = ();
     async fn sign(
         &self,
-        hash: &[u8],
+        hash: &Vec<u8>,
     ) -> secret_storage::Result<<IotaKeySignature as SignerSignatureScheme>::Signature> {
         let address = self
             .0
@@ -149,8 +149,8 @@ impl SignerTrait<IotaKeySignature> for KeystoreClient {
             _ => panic!("Unsupported key type"),
         }
     }
-    fn key_id(&self) -> &Self::KeyId {
-        unimplemented!()
+    fn key_id(&self) -> Self::KeyId {
+        ()
     }
 }
 

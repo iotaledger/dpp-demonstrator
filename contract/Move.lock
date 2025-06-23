@@ -2,7 +2,7 @@
 
 [move]
 version = 3
-manifest_digest = "4A3A4625B02AB2302261A34E9D81423DFBFD334CFAA6C24A49C9B7E490B4A1D6"
+manifest_digest = "9D23FEECC3D7EAC93DAA7E45D1D1F319E5976A0AE1CEE575C77225CDD9A92087"
 deps_digest = "060AD7E57DFB13104F21BE5F5C3759D03F0553FC3229247D9A7A6B45F50D03A3"
 dependencies = [
   { id = "Iota", name = "Iota" },
@@ -12,7 +12,7 @@ dependencies = [
 
 [[move.package]]
 id = "Iota"
-source = { git = "https://github.com/iotaledger/iota.git", rev = "v0.1.4", subdir = "crates/iota-framework/packages/iota-framework" }
+source = { git = "https://github.com/iotaledger/iota.git", rev = "v0.12.0-rc", subdir = "crates/iota-framework/packages/iota-framework" }
 
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
@@ -20,11 +20,11 @@ dependencies = [
 
 [[move.package]]
 id = "MoveStdlib"
-source = { git = "https://github.com/iotaledger/iota.git", rev = "v0.1.4", subdir = "crates/iota-framework/packages/move-stdlib" }
+source = { git = "https://github.com/iotaledger/iota.git", rev = "v0.12.0-rc", subdir = "crates/iota-framework/packages/move-stdlib" }
 
 [[move.package]]
 id = "ith"
-source = { local = "/Users/valeriomellini/source-code/iota/ith/ith.move" }
+source = { local = "../backend/ith/ith.move" }
 
 dependencies = [
   { id = "Iota", name = "Iota" },
@@ -32,7 +32,7 @@ dependencies = [
 ]
 
 [move.toolchain-version]
-compiler-version = "0.11.4-rc"
+compiler-version = "1.2.2-rc"
 edition = "2024.beta"
 flavor = "iota"
 
@@ -40,6 +40,6 @@ flavor = "iota"
 
 [env.testnet]
 chain-id = "2304aa97"
-original-published-id = "0xc2b3ad97c8b72c9a76b4963c47f6737b5d1d39aa24474852d909fa895793937f"
-latest-published-id = "0xc2b3ad97c8b72c9a76b4963c47f6737b5d1d39aa24474852d909fa895793937f"
+original-published-id = "0xa2bf25b8b9bd767d08e60dcfb9eff10523e9b807b01cd78077ac34deb49a6f50"
+latest-published-id = "0xa2bf25b8b9bd767d08e60dcfb9eff10523e9b807b01cd78077ac34deb49a6f50"
 published-version = "1"

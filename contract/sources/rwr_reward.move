@@ -44,4 +44,9 @@ module audit_trails::vault {
         transfer::public_transfer(reward, recipient);
     }
 
+    public entry fun read_dpp_value(vault: &mut Vault, dpp_addr: address): u64{
+        let dpp_locked_value = vault.balances.get_mut<address, Coin<RWR>>(&dpp_addr);
+        coin::value<RWR>(dpp_locked_value)
+    }
+
 }

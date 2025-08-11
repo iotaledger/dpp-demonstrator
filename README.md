@@ -29,7 +29,7 @@ This demonstrator integrates several IOTA technologies:
 Before starting, ensure you have the following tools installed:
 
 1. **Docker** 
-2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v0.14.1-rc --features tracing iota`
+2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v0.12.0-rc --features tracing iota`
 
 ---
 

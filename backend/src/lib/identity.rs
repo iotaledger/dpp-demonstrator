@@ -1,6 +1,3 @@
-// Copyright 2020-2023 IOTA Stiftung
-// SPDX-License-Identifier: Apache-2.0
-
 use std::path::PathBuf;
 
 use anyhow::Context;
@@ -67,12 +64,10 @@ pub async fn create_did_document(
         .await?;
 
     if is_domain_linkage {
-        // Read the domain from env
         let domain_str =
             std::env::var("NEXT_PUBLIC_DAPP_URL").expect("Missing env var NEXT_PUBLIC_DAPP_URL");
         let domain_url: Url = Url::parse(&domain_str)?;
 
-        // Add LinkedDomainService to the DID document
         let mut domains = OrderedSet::new();
         domains.append(domain_url.clone());
 
@@ -112,7 +107,6 @@ pub async fn create_credential(
 }
 
 pub async fn get_client(alias: &str) -> Result<IdentityClient<KeytoolSigner>, anyhow::Error> {
-    // generate new key
     let keytool = Keytool::default();
     let iota_account = keytool
         .get_key_by_alias(alias)
@@ -134,7 +128,6 @@ pub async fn get_client(alias: &str) -> Result<IdentityClient<KeytoolSigner>, an
     Ok(identity_client)
 }
 
-/// Creates a random stronghold path in the temporary directory, whose exact location is OS-dependent.
 pub fn random_stronghold_path() -> PathBuf {
     let mut file = std::env::temp_dir();
     file.push("test_strongholds");

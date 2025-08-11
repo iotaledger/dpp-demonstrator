@@ -1,4 +1,4 @@
-# 🚀 IOTA DPP Demonstrator
+# 🚀 IOTA DPP Showcase
 
 This repository demonstrates how multiple products from the IOTA portfolio can be orchestrated to build a Decentralized Permissioned Process (DPP).
 
@@ -29,7 +29,7 @@ This demonstrator integrates several IOTA technologies:
 Before starting, ensure you have the following tools installed:
 
 1. **Docker** 
-2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v0.12.0-rc --features tracing iota`
+2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v0.14.1-rc --features tracing iota`
 
 ---
 
@@ -128,7 +128,43 @@ docker-compose up -d
 
 ---
 
+---
+
+## 🔧 Backend Architecture
+
+The project backend is developed in Rust and provides:
+
+### REST APIs
+- **Endpoint**: `/roles` for ITH role management
+- **Authentication**: API key via `x-api-key` header
+- **Documentation**: [Backend API docs](backend/docs/API.md)
+
+### Setup Scripts
+The backend includes automated configuration scripts:
+- `init_accounts`: Main account creation
+- `faucet`: Testnet account funding
+- `init_ith`: ITH federation setup
+- `init_dids`: Decentralized identity generation
+- **Documentation**: [Backend Scripts docs](backend/docs/SCRIPTS.md)
+
+### Module Structure
+```
+backend/src/
+├── lib/               # Modular libraries
+│   ├── keystore.rs    # Keystore/wallet management  
+│   ├── identity.rs    # DID/credential operations
+│   └── transaction.rs # Signing/execution
+├── routes/            # API routing
+├── handlers/          # Business logic  
+├── services/          # Blockchain services
+└── scripts/           # Setup automation
+```
+
+---
+
 ## 📌 Notes
-* The IOTA Identity integration is planned but not yet implemented.
+* The IOTA Identity integration is implemented with domain linkage support.
 
 * The Audit Trails smart-contract is intentionally simplified for demonstration purposes.
+
+* Backend documentation available in `backend/docs/`.

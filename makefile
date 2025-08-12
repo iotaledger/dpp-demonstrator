@@ -26,3 +26,7 @@ run-backend:
 	cd backend && cargo run
 build-frontend:
 	git pull && docker-compose down && docker-compose build frontend && docker-compose up -d
+dev-start:
+	./scripts-sh/dev-start.sh
+dev-stop:
+	./scripts-sh/dev-stop.sh

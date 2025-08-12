@@ -1,6 +1,36 @@
 version: "3.8"
 
 services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      # Log level and access log are enabled
+      - "--log.level=info"
+      - "--accesslog=true" # Enable Docker provider; disable auto-exposure for extra security
+      - "--entrypoints.web.address=:80"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false" # Define only the TLS (secure) entrypoint on port 443
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.http.tls.certResolver=devops"
+      - "--entrypoints.websecure.http2.maxConcurrentStreams=1000"
+      - "--entrypoints.websecure.http.tls.domains[0].main=dpp-demostrator.if4testing.rocks" # ACME DNS challenge with Cloudflare
+      - "--certificatesresolvers.devops.acme.dnschallenge=true"
+      - "--certificatesresolvers.devops.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.devops.acme.email=devops@iota.org"
+      - "--certificatesresolvers.devops.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.devops.acme.dnschallenge.delaybeforecheck=0"
+    ports:
+      - "443:443"
+    environment:
+      CLOUDFLARE_EMAIL: "it@iota.org"
+      CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - traefik_net
 
   redis:
     image: redis:latest
@@ -32,17 +62,12 @@ services:
       - ${LOCAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gas.rule=Host(`dpp-demostrator-prod.if4testing.rocks`) && PathPrefix(`/gas`)"
+      - "traefik.http.routers.gas.rule=Host(`dpp-demostrator.if4testing.rocks`) && PathPrefix(`/gas`)"
       - "traefik.http.routers.gas.entrypoints=websecure"
       - "traefik.http.routers.gas.tls.certresolver=devops"
       - "traefik.http.services.gas.loadbalancer.server.port=9527"
       - "traefik.http.routers.gas.middlewares=strip-gas-prefix"
       - "traefik.http.middlewares.strip-gas-prefix.stripprefix.prefixes=/gas"
-      # Rate Limit middleware (2 requests per hour)
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.average=2"
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.burst=2"
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.period=1h"
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.sourceCriterion.ipStrategy.depth=0"
     networks:
       - traefik_net
 
@@ -76,7 +101,7 @@ services:
       GAS_STATION_AUTH: ${GAS_STATION_AUTH}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`dpp-demostrator-prod.if4testing.rocks`)"
+      - "traefik.http.routers.frontend.rule=Host(`dpp-demostrator.if4testing.rocks`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=devops"
       - "traefik.http.services.frontend.loadbalancer.server.port=3000"
@@ -108,4 +133,4 @@ volumes:
 
 networks:
   traefik_net:
-    external: true
+    driver: bridge

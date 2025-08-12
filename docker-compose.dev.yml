@@ -1,44 +1,12 @@
 version: "3.8"
 
 services:
-  traefik:
-    image: traefik:v2.11
-    container_name: traefik
-    restart: unless-stopped
-    command:
-      # Log level and access log are enabled
-      - "--log.level=info"
-      - "--accesslog=true" # Enable Docker provider; disable auto-exposure for extra security
-      - "--entrypoints.web.address=:80"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedByDefault=false" # Define only the TLS (secure) entrypoint on port 443
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.websecure.http.tls.certResolver=devops"
-      - "--entrypoints.websecure.http2.maxConcurrentStreams=1000"
-      - "--entrypoints.websecure.http.tls.domains[0].main=dpp-demostrator.if4testing.rocks" # ACME DNS challenge with Cloudflare
-      - "--certificatesresolvers.devops.acme.dnschallenge=true"
-      - "--certificatesresolvers.devops.acme.dnschallenge.provider=cloudflare"
-      - "--certificatesresolvers.devops.acme.email=devops@iota.org"
-      - "--certificatesresolvers.devops.acme.storage=/letsencrypt/acme.json"
-      - "--certificatesresolvers.devops.acme.dnschallenge.delaybeforecheck=0"
-    ports:
-      - "443:443"
-    environment:
-      CLOUDFLARE_EMAIL: "it@iota.org"
-      CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./letsencrypt:/letsencrypt
-    networks:
-      - traefik_net
 
   redis:
     image: redis:latest
     container_name: gas-station-redis
     volumes:
       - redis_data:/data
-    networks:
-      - traefik_net
 
   iota-gas-station:
     image: "${DOCKER_IMAGE:-iotaledger/gas-station:latest}"
@@ -53,65 +21,22 @@ services:
     depends_on:
       - redis
     ports:
-      - "9184:9184" # Metrics port
+      - "9527:9527"  # Gas Station API port
+      - "9184:9184"  # Metrics port
     environment:
       - CONFIG_PATH=/app/config.yaml
       - RUST_BACKTRACE=1
       - GAS_STATION_AUTH=${GAS_STATION_AUTH}
     volumes:
       - ${LOCAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.gas.rule=Host(`dpp-demostrator.if4testing.rocks`) && PathPrefix(`/gas`)"
-      - "traefik.http.routers.gas.entrypoints=websecure"
-      - "traefik.http.routers.gas.tls.certresolver=devops"
-      - "traefik.http.services.gas.loadbalancer.server.port=9527"
-      - "traefik.http.routers.gas.middlewares=strip-gas-prefix"
-      - "traefik.http.middlewares.strip-gas-prefix.stripprefix.prefixes=/gas"
-    networks:
-      - traefik_net
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_EXPLORER_URL: ${NEXT_PUBLIC_EXPLORER_URL}
-        NEXT_PUBLIC_DAPP_URL: ${NEXT_PUBLIC_DAPP_URL}
-        NEXT_PUBLIC_NETWORK_URL: ${NEXT_PUBLIC_NETWORK_URL}
-        NEXT_PUBLIC_AUDIT_TRAIL_PKG: ${NEXT_PUBLIC_AUDIT_TRAIL_PKG}
-        NEXT_PUBLIC_REWARD_WHITELIST_ID: ${NEXT_PUBLIC_REWARD_WHITELIST_ID}
-        NEXT_PUBLIC_ADMIN_CAP_ID: ${NEXT_PUBLIC_ADMIN_CAP_ID}
-        NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
-        NEXT_PUBLIC_HAS_REWARD: ${NEXT_PUBLIC_HAS_REWARD}
-        NEXT_PUBLIC_NETWORK: ${NEXT_PUBLIC_NETWORK}
-        NEXT_PUBLIC_PRODUCT_ID: ${NEXT_PUBLIC_PRODUCT_ID}
-        IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
-        BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
-        BACKEND_API_KEY: ${BACKEND_API_KEY}
-        GAS_STATION_URL: ${GAS_STATION_URL}
-        GAS_STATION_AUTH: ${GAS_STATION_AUTH}
-    depends_on:
-      - backend
-      - iota-gas-station
-    environment:
-      BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
-      BACKEND_API_KEY: ${BACKEND_API_KEY}
-      GAS_STATION_URL: ${GAS_STATION_URL}
-      GAS_STATION_AUTH: ${GAS_STATION_AUTH}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`dpp-demostrator.if4testing.rocks`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=devops"
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-    networks:
-      - traefik_net
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    ports:
+      - "3001:3001"  # Backend API port
     deploy:
       resources:
         limits:
@@ -123,14 +48,8 @@ services:
       ROOT_AUTH_SECRET_KEY: ${ROOT_AUTH_SECRET_KEY}
       MANUFACTURER_SECRET_KEY: ${MANUFACTURER_SECRET_KEY}
       IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
-    networks:
-      - traefik_net
+      NEXT_PUBLIC_DAPP_URL: ${NEXT_PUBLIC_DAPP_URL}
+      API_ENDPOINT: ${API_ENDPOINT:-https://api.testnet.iota.org}
 
 volumes:
   redis_data:
-  traefik_letsencrypt:
-
-
-networks:
-  traefik_net:
-    driver: bridge

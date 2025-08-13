@@ -49,7 +49,6 @@ services:
       MANUFACTURER_SECRET_KEY: ${MANUFACTURER_SECRET_KEY}
       IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
       NEXT_PUBLIC_DAPP_URL: ${NEXT_PUBLIC_DAPP_URL}
-      API_ENDPOINT: ${API_ENDPOINT:-https://api.testnet.iota.org}
 
 volumes:
   redis_data:

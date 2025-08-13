@@ -8,18 +8,22 @@ module audit_trails::app {
     use iota::clock::{Self, Clock};
     use iota::event;
 
-    use audit_trails::nft_reward::{send_reward, WHITELIST};
+    use audit_trails::nft_reward::{send_nft_reward, WHITELIST};
+    use audit_trails::lcc_reward::{send_lcc_reward, Vault};
 
     const E_INVALID_ROLE: u64 = 0;
     const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1; 
     const E_MISMATCHED_FEDERATION: u64 = 2;
-
 
     public enum Role has store, copy, drop {
         Manufacturer,
         Repairer
     }
 
+    public enum RewardType has store, copy, drop {
+        NFT,
+        LCC
+    }
 
     public struct Product has key, store {
         id: UID,
@@ -29,7 +33,8 @@ module audit_trails::app {
         manufacturer: String,
         image_url: String,
         bill_of_materials: VecMap<String, String>,
-        timestamp: u64
+        timestamp: u64,
+        reward_type: RewardType
     }
 
     public struct ProductEntry has key, store {
@@ -46,7 +51,6 @@ module audit_trails::app {
         entry_addr: Option<address>
     }
 
-
     public entry fun new_product(
         federation: &Federation,
         name: String, 
@@ -55,6 +59,7 @@ module audit_trails::app {
         image_url: String,
         bill_of_materials_keys: vector<String>, 
         bill_of_materials_values: vector<String>, 
+        reward_type: String,
         clock: &Clock, 
         ctx :&mut TxContext
     ) {
@@ -69,6 +74,11 @@ module audit_trails::app {
         let federation_id = object::id<Federation>(federation);
         let federation_addr = object::id_to_address(&federation_id);
 
+        let mut reward_type_enum: RewardType = RewardType::LCC;
+        if(reward_type == b"NFT".to_string()){
+            reward_type_enum = RewardType::NFT
+        };
+
         transfer::share_object(Product {
             id: p_id,
             federation_addr,
@@ -77,7 +87,8 @@ module audit_trails::app {
             manufacturer: manufacturer_did,
             image_url,
             bill_of_materials: vec_map_from_keys_values<String, String>(bill_of_materials_keys, bill_of_materials_values),
-            timestamp: clock::timestamp_ms(clock)
+            timestamp: clock::timestamp_ms(clock),
+            reward_type: reward_type_enum
         });
 
         event::emit( 
@@ -89,7 +100,6 @@ module audit_trails::app {
         );
     }
 
-
     public entry fun log_entry_data(
         product: &Product,
         federation: &Federation, 
@@ -98,6 +108,7 @@ module audit_trails::app {
         entry_data_values: vector<String>, 
         clock: &Clock,
         whitelist: &mut WHITELIST,
+        vault: &mut Vault,
         ctx: &mut TxContext
     ) {   
         let role = to_role(issuer_role);
@@ -132,16 +143,25 @@ module audit_trails::app {
             entry_addr: option::some<address>(e_addr),   
         });
 
-        send_reward(
-            b"DPP Showcase Badge",
-            b"Thanks for testing our demo! There's a reward waiting for you!",
-            b"https://i.imgur.com/Jw7UvnH.png",
-            tx_context::sender(ctx),
-            whitelist,
-            ctx
-        );
+        if(product.reward_type == RewardType::NFT){
+            send_nft_reward(
+                b"DPP Showcase Badge",
+                b"Thanks for testing our demo! There's a reward waiting for you!",
+                b"https://i.imgur.com/Jw7UvnH.png",
+                tx_context::sender(ctx),
+                whitelist,
+                ctx
+            );
+        };
+        if(product.reward_type == RewardType::LCC){
+            send_lcc_reward(
+                vault,
+                product_addr,
+                tx_context::sender(ctx),
+                ctx
+            );
+        };
     }
-
 
     fun to_role(role_str: String): Role {
         if (role_str == string::utf8(b"manufacturer")) {
@@ -152,7 +172,6 @@ module audit_trails::app {
             abort E_INVALID_ROLE
         }
     }
-
 
     fun build_trusted_properties(property_name_str: String, property_value_str: String): VecMap<TrustedPropertyName, TrustedPropertyValue>{
         

@@ -91,7 +91,7 @@ module audit_trails::nft_reward {
     // ===== MINT FUNCTION =====
 
     /// Mint a new RewardNFT to a recipient
-    public(package) fun send_reward(
+    public(package) fun send_nft_reward(
         name: vector<u8>,
         description: vector<u8>,
         image_url: vector<u8>,

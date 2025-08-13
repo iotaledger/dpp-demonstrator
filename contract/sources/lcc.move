@@ -1,26 +1,26 @@
-module audit_trails::rwr {
+module audit_trails::LCC {
     use iota::balance::Balance;
     use iota::coin::{Self, Coin, TreasuryCap};
     use iota::url;
 
     const ENotSystemAddress: u64 = 1;
 
-    public struct RWR has drop {}
+    public struct LCC has drop {}
 
-    public struct RWRTreasuryCap has store {
-        inner: TreasuryCap<RWR>,
+    public struct LCCTreasuryCap has store {
+        inner: TreasuryCap<LCC>,
     }
 
-    fun init(otw: RWR, ctx: &mut TxContext) {
+    fun init(otw: LCC, ctx: &mut TxContext) {
         assert!(ctx.sender() == @0x0, ENotSystemAddress);
 
         let (treasury, metadata) = coin::create_currency(
             otw,
             9,
-            b"RWR",
-            b"IOTA RWR",
-            b"IOTA Real World Reward Token",
-            option::some(url::new_unsafe_from_bytes(b"https://i.imgur.com/VSaCWsf.png")),
+            b"LCC",
+            b"IOTA LCC",
+            b"IOTA Lifecycle Credit",
+            option::some(url::new_unsafe_from_bytes(b"https://i.imgur.com/Pap0R3y.png")),
             ctx
         );
 
@@ -28,31 +28,31 @@ module audit_trails::rwr {
         transfer::public_transfer(treasury, ctx.sender());
     }
 
-    public entry fun transfer(c: Coin<RWR>, recipient: address) {
+    public entry fun transfer(c: Coin<LCC>, recipient: address) {
         transfer::public_transfer(c, recipient)
     }
 
-    public fun mint(cap: &mut RWRTreasuryCap, value: u64, ctx: &mut TxContext): Coin<RWR> {
+    public fun mint(cap: &mut LCCTreasuryCap, value: u64, ctx: &mut TxContext): Coin<LCC> {
         assert!(ctx.sender() == @0x0, ENotSystemAddress);
         cap.inner.mint(value, ctx)
     }
 
-    public fun mint_balance(cap: &mut RWRTreasuryCap, value: u64, ctx: &TxContext): Balance<RWR> {
+    public fun mint_balance(cap: &mut LCCTreasuryCap, value: u64, ctx: &TxContext): Balance<LCC> {
         assert!(ctx.sender() == @0x0, ENotSystemAddress);
         cap.inner.mint_balance(value)
     }
 
-    public fun burn(cap: &mut RWRTreasuryCap, c: Coin<RWR>, ctx: &TxContext): u64 {
+    public fun burn(cap: &mut LCCTreasuryCap, c: Coin<LCC>, ctx: &TxContext): u64 {
         assert!(ctx.sender() == @0x0, ENotSystemAddress);
         cap.inner.burn(c)
     }
 
-    public fun burn_balance(cap: &mut RWRTreasuryCap, b: Balance<RWR>, ctx: &TxContext): u64 {
+    public fun burn_balance(cap: &mut LCCTreasuryCap, b: Balance<LCC>, ctx: &TxContext): u64 {
         assert!(ctx.sender() == @0x0, ENotSystemAddress);
         cap.inner.supply_mut().decrease_supply(b)
     }
 
-    public fun total_supply(cap: &RWRTreasuryCap): u64 {
+    public fun total_supply(cap: &LCCTreasuryCap): u64 {
         cap.inner.total_supply()
     }
 }

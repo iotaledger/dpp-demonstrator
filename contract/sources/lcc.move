@@ -3,8 +3,6 @@ module audit_trails::LCC {
     use iota::coin::{Self, Coin, TreasuryCap};
     use iota::url;
 
-    const ENotSystemAddress: u64 = 1;
-
     public struct LCC has drop {}
 
     public struct LCCTreasuryCap has store {
@@ -12,8 +10,6 @@ module audit_trails::LCC {
     }
 
     fun init(otw: LCC, ctx: &mut TxContext) {
-        assert!(ctx.sender() == @0x0, ENotSystemAddress);
-
         let (treasury, metadata) = coin::create_currency(
             otw,
             9,
@@ -33,22 +29,18 @@ module audit_trails::LCC {
     }
 
     public fun mint(cap: &mut LCCTreasuryCap, value: u64, ctx: &mut TxContext): Coin<LCC> {
-        assert!(ctx.sender() == @0x0, ENotSystemAddress);
         cap.inner.mint(value, ctx)
     }
 
-    public fun mint_balance(cap: &mut LCCTreasuryCap, value: u64, ctx: &TxContext): Balance<LCC> {
-        assert!(ctx.sender() == @0x0, ENotSystemAddress);
+    public fun mint_balance(cap: &mut LCCTreasuryCap, value: u64): Balance<LCC> {
         cap.inner.mint_balance(value)
     }
 
-    public fun burn(cap: &mut LCCTreasuryCap, c: Coin<LCC>, ctx: &TxContext): u64 {
-        assert!(ctx.sender() == @0x0, ENotSystemAddress);
+    public fun burn(cap: &mut LCCTreasuryCap, c: Coin<LCC>): u64 {
         cap.inner.burn(c)
     }
 
-    public fun burn_balance(cap: &mut LCCTreasuryCap, b: Balance<LCC>, ctx: &TxContext): u64 {
-        assert!(ctx.sender() == @0x0, ENotSystemAddress);
+    public fun burn_balance(cap: &mut LCCTreasuryCap, b: Balance<LCC>): u64 {
         cap.inner.supply_mut().decrease_supply(b)
     }
 

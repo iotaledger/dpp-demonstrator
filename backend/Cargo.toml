@@ -9,16 +9,16 @@ anyhow = "1.0.97"
 async-trait = "0.1.87"
 bcs = "0.1"
 fastcrypto = { git = "https://github.com/MystenLabs/fastcrypto", rev = "2f502fd8570fe4e9cff36eea5bbd6fef22002898", package = "fastcrypto" }
-iota = { git = "https://github.com/iotaledger/iota.git", package = "iota", tag = "v0.12.0-rc" }
-iota-keys = { git = "https://github.com/iotaledger/iota.git", package = "iota-keys", tag = "v0.12.0-rc" }
-iota-sdk = { git = "https://github.com/iotaledger/iota.git", package = "iota-sdk", tag = "v0.12.0-rc" }
-iota-config = { git = "https://github.com/iotaledger/iota.git", package = 'iota-config', tag = "v0.12.0-rc" }
-iota-json-rpc-types = { git = "https://github.com/iotaledger/iota.git", package = 'iota-json-rpc-types', tag = "v0.12.0-rc" }
-move_core_types = { git = "https://github.com/iotaledger/iota.git", package = "move-core-types", tag = "v0.12.0-rc" }
+iota = { git = "https://github.com/iotaledger/iota.git", package = "iota", tag = "v1.4.1" }
+iota-keys = { git = "https://github.com/iotaledger/iota.git", package = "iota-keys", tag = "v1.4.1" }
+iota-sdk = { git = "https://github.com/iotaledger/iota.git", package = "iota-sdk", tag = "v1.4.1" }
+iota-config = { git = "https://github.com/iotaledger/iota.git", package = 'iota-config', tag = "v1.4.1" }
+iota-json-rpc-types = { git = "https://github.com/iotaledger/iota.git", package = 'iota-json-rpc-types', tag = "v1.4.1" }
+move_core_types = { git = "https://github.com/iotaledger/iota.git", package = "move-core-types", tag = "v1.4.1" }
 secret-storage = { git = "https://github.com/iotaledger/secret-storage", tag = "v0.3.0" }
-shared-crypto = { git = "https://github.com/iotaledger/iota.git", package = "shared-crypto", tag = "v0.12.0-rc" }
-identity_iota = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.1", features=["memstore", "keytool", "domain-linkage", "domain-linkage-fetch"] }
-identity_ecdsa_verifier = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.1", package = "identity_ecdsa_verifier" }
+shared-crypto = { git = "https://github.com/iotaledger/iota.git", package = "shared-crypto", tag = "v1.4.1" }
+identity_iota = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.5", features=["memstore", "keytool", "domain-linkage", "domain-linkage-fetch"] }
+identity_ecdsa_verifier = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.5", package = "identity_ecdsa_verifier" }
 tokio = { version = "1.43.0", features = ["full"] }
 ith = { path = "./ith/ith.rs/ith" }
 jsonpath-rust = "0.7"

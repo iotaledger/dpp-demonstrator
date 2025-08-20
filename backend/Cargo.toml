@@ -8,6 +8,7 @@ default-run = "main"
 anyhow = "1.0.97"
 async-trait = "0.1.87"
 bcs = "0.1"
+iota_interaction = { git = "https://github.com/iotaledger/product-core.git", default-features = false, tag = "v0.8.0", package = "iota_interaction" }
 fastcrypto = { git = "https://github.com/MystenLabs/fastcrypto", rev = "2f502fd8570fe4e9cff36eea5bbd6fef22002898", package = "fastcrypto" }
 iota = { git = "https://github.com/iotaledger/iota.git", package = "iota", tag = "v1.4.1" }
 iota-keys = { git = "https://github.com/iotaledger/iota.git", package = "iota-keys", tag = "v1.4.1" }
@@ -17,10 +18,15 @@ iota-json-rpc-types = { git = "https://github.com/iotaledger/iota.git", package 
 move_core_types = { git = "https://github.com/iotaledger/iota.git", package = "move-core-types", tag = "v1.4.1" }
 secret-storage = { git = "https://github.com/iotaledger/secret-storage", tag = "v0.3.0" }
 shared-crypto = { git = "https://github.com/iotaledger/iota.git", package = "shared-crypto", tag = "v1.4.1" }
-identity_iota = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.5", features=["memstore", "keytool", "domain-linkage", "domain-linkage-fetch"] }
+identity_iota = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.5", features = [
+  "memstore",
+  "keytool",
+  "domain-linkage",
+  "domain-linkage-fetch",
+] }
 identity_ecdsa_verifier = { git = "https://github.com/iotaledger/identity.git", tag = "v1.6.0-beta.5", package = "identity_ecdsa_verifier" }
 tokio = { version = "1.43.0", features = ["full"] }
-ith = { path = "./ith/ith.rs/ith" }
+hierarchies = { git = "https://github.com/iotaledger/hierarchies.git", tag = "v0.1.0" }
 jsonpath-rust = "0.7"
 dotenvy = "0.15.7"
 axum = "0.8.1"
@@ -37,8 +43,8 @@ name = "main"
 path = "src/main.rs"
 
 [[bin]]
-name = "init_ith"
-path = "src/scripts/init_ith.rs"
+name = "init_hierarchies"
+path = "src/scripts/init_hierarchies.rs"
 
 [[bin]]
 name = "init_accounts"

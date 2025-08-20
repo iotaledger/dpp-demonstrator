@@ -28,7 +28,7 @@ This demonstrator integrates several IOTA technologies:
 
 Before starting, ensure you have the following tools installed:
 
-1. **Docker** 
+1. **Docker**
 2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v1.4.1 --features tracing iota`
 
 ---
@@ -143,7 +143,7 @@ The project backend is developed in Rust and provides:
 The backend includes automated configuration scripts:
 - `init_accounts`: Main account creation
 - `faucet`: Testnet account funding
-- `init_ith`: ITH federation setup
+- `init_hierarchies`: Hierarchies federation setup
 - `init_dids`: Decentralized identity generation
 - **Documentation**: [Backend Scripts docs](backend/docs/SCRIPTS.md)
 
@@ -151,11 +151,11 @@ The backend includes automated configuration scripts:
 ```
 backend/src/
 ├── lib/               # Modular libraries
-│   ├── keystore.rs    # Keystore/wallet management  
+│   ├── keystore.rs    # Keystore/wallet management
 │   ├── identity.rs    # DID/credential operations
 │   └── transaction.rs # Signing/execution
 ├── routes/            # API routing
-├── handlers/          # Business logic  
+├── handlers/          # Business logic
 ├── services/          # Blockchain services
 └── scripts/           # Setup automation
 ```

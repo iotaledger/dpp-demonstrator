@@ -19,7 +19,7 @@ Complete REST API documentation:
 - Usage examples
 - Error handling
 
-### [Scripts Documentation](SCRIPTS.md) 
+### [Scripts Documentation](SCRIPTS.md)
 Setup and configuration scripts guide:
 - Account and keystore setup
 - ITH federation initialization
@@ -35,10 +35,10 @@ cargo run --bin init_accounts
 cargo run --bin faucet
 ```
 
-### 2. ITH Setup
+### 2. Hierarchies Setup
 ```bash
 export ITH_PKG_ID="0x..."
-cargo run --bin init_ith
+cargo run --bin hierarchies_init
 ```
 
 ### 3. Start Server

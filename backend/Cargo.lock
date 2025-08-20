@@ -1161,6 +1161,7 @@ dependencies = [
  "bcs",
  "dotenvy",
  "fastcrypto 0.1.8 (git+https://github.com/MystenLabs/fastcrypto?rev=2f502fd8570fe4e9cff36eea5bbd6fef22002898)",
+ "hierarchies",
  "identity_ecdsa_verifier",
  "identity_iota",
  "iota",
@@ -1168,7 +1169,7 @@ dependencies = [
  "iota-json-rpc-types",
  "iota-keys",
  "iota-sdk 1.4.1",
- "ith",
+ "iota_interaction",
  "jsonpath-rust 0.7.5",
  "move-core-types",
  "rand 0.8.5",
@@ -4030,6 +4031,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "hierarchies"
+version = "0.1.0-alpha"
+source = "git+https://github.com/iotaledger/hierarchies.git?tag=v0.1.0#a01ea6d0f20348c2d3fecea7d62bffe2c74c4649"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bcs",
+ "iota_interaction",
+ "iota_interaction_rust",
+ "iota_interaction_ts",
+ "product_common",
+ "secret-storage",
+ "serde",
+ "serde_json",
+ "strum 0.27.2",
+ "thiserror 2.0.15",
+ "tokio",
+]
+
+[[package]]
 name = "hkdf"
 version = "0.12.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6508,25 +6529,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
 dependencies = [
  "either",
-]
-
-[[package]]
-name = "ith"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "bcs",
- "fastcrypto 0.1.8 (git+https://github.com/MystenLabs/fastcrypto?rev=2f502fd8570fe4e9cff36eea5bbd6fef22002898)",
- "iota",
- "iota-keys",
- "iota-sdk 1.4.1",
- "move-core-types",
- "secret-storage",
- "serde",
- "serde_json",
- "shared-crypto",
- "strum 0.26.3",
- "tokio",
 ]
 
 [[package]]
@@ -11139,6 +11141,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "strum"
+version = "0.27.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "af23d6f6c1a224baef9d3f61e287d2761385a5b88fdab4eb4c6f11aeb54c4bcf"
+dependencies = [
+ "strum_macros 0.27.2",
+]
+
+[[package]]
 name = "strum_macros"
 version = "0.25.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -11161,6 +11172,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "rustversion",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "strum_macros"
+version = "0.27.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7695ce3845ea4b33927c055a39dc438a45b059f7c1b3d91d38d10355fb8cbca7"
+dependencies = [
+ "heck 0.5.0",
+ "proc-macro2",
+ "quote",
  "syn 2.0.106",
 ]
 

@@ -1,22 +1,22 @@
 use anyhow::{bail, Context, Result};
-use fastcrypto::traits::{KeyPair, ToFromBytes};
+use hierarchies::client::{HierarchiesClient, HierarchiesClientReadOnly};
 use iota::client_commands;
 use iota_config::{
     iota_config_dir, Config, PersistedConfig, IOTA_CLIENT_CONFIG, IOTA_KEYSTORE_FILENAME,
 };
+use iota_interaction::IotaKeySignature;
 use iota_keys::keystore::{AccountKeystore, FileBasedKeystore};
 use iota_sdk::{
     iota_client_config::{IotaClientConfig, IotaEnv},
     types::{
-        base_types::IotaAddress,
-        crypto::{SignatureScheme::ED25519, IotaSignature},
+        base_types::IotaAddress, crypto::SignatureScheme::ED25519, transaction::TransactionData,
     },
     wallet_context::WalletContext,
     IotaClient, IotaClientBuilder,
 };
-use ith::client::{ITHClient, ITHClientReadOnly};
-use ith::key::IotaKeySignature;
+
 use secret_storage::{SignatureScheme as SignerSignatureScheme, Signer as SignerTrait};
+use shared_crypto::intent::Intent;
 use std::process::Command;
 use std::sync::Arc;
 
@@ -26,7 +26,9 @@ pub const GAS_STATION_ALIAS: &str = "gas-stat";
 
 const GAS_LOCAL_NETWORK: &str = "https://faucet.testnet.iota.cafe/gas";
 
-pub async fn get_ith_client(account_alias: String) -> anyhow::Result<ITHClient<KeystoreClient>> {
+pub async fn get_hierarchies_client(
+    account_alias: String,
+) -> anyhow::Result<HierarchiesClient<KeystoreClient>> {
     let package_id = std::env::var("ITH_PKG_ID")
         .context("ITH_PKG_ID is not set in the environment variables")?
         .parse()?;
@@ -38,8 +40,9 @@ pub async fn get_ith_client(account_alias: String) -> anyhow::Result<ITHClient<K
     let user_address = keystore_client.get_address(account_alias.clone())?;
     println!("ith client address loaded: {:?}", user_address);
 
-    let read_only_client = ITHClientReadOnly::new(client.clone(), package_id);
-    Ok(ITHClient::new(read_only_client, keystore_client).await?)
+    let read_only_client =
+        HierarchiesClientReadOnly::new_with_pkg_id(client.clone(), package_id).await?;
+    Ok(HierarchiesClient::new(read_only_client, keystore_client).await?)
 }
 
 pub async fn faucet(address: IotaAddress) -> anyhow::Result<()> {
@@ -71,9 +74,7 @@ impl KeystoreClient {
             }
             Err(e) => panic!("Unexpected error generating key: {:?}", e),
         }
-        file_based_keystore
-            .save_keystore()
-            .expect("Error save keystore");
+        file_based_keystore.save().expect("Error save keystore");
         KeystoreClient(Arc::new(file_based_keystore))
     }
 
@@ -117,14 +118,17 @@ impl SignerTrait<IotaKeySignature> for KeystoreClient {
     type KeyId = ();
     async fn sign(
         &self,
-        hash: &Vec<u8>,
+        data: &TransactionData,
     ) -> secret_storage::Result<<IotaKeySignature as SignerSignatureScheme>::Signature> {
         let address = self
             .0
             .get_address_by_alias(ROOT_AUTH_ALIAS.to_owned())
             .unwrap();
-        let signature = self.0.sign_hashed(address, hash).unwrap();
-        Ok(signature.signature_bytes().to_vec())
+        let signature = self
+            .0
+            .sign_secure(address, data, Intent::iota_transaction())
+            .unwrap();
+        Ok(signature)
     }
 
     async fn public_key(
@@ -135,15 +139,10 @@ impl SignerTrait<IotaKeySignature> for KeystoreClient {
             .0
             .get_address_by_alias(ROOT_AUTH_ALIAS.to_owned())
             .unwrap();
-        let res = self.0.get_key(address).unwrap();
-
-        match res {
-            iota_sdk::types::crypto::IotaKeyPair::Ed25519(key) => {
-                Ok(key.public().as_bytes().to_vec())
-            }
-            _ => panic!("Unsupported key type"),
-        }
+        let key = self.0.get_key(address).unwrap();
+        Ok(key.public())
     }
+
     fn key_id(&self) -> Self::KeyId {
         ()
     }
@@ -211,11 +210,11 @@ pub fn retrieve_wallet(alias: Option<String>) -> Result<WalletContext, anyhow::E
     let selected_address = if let Some(alias) = alias {
         match keystore.get_address_by_alias(alias.clone()) {
             Ok(address) => {
-                println!("Usando l'alias esistente: {}", alias);
+                println!("Using existing alias: {}", alias);
                 *address
             }
             Err(_) => {
-                println!("Alias '{}' non trovato. Creando un nuovo account.", alias);
+                println!("Alias '{}' not found. Creating a new account.", alias);
                 keystore
                     .generate_and_add_new_key(ED25519, Some(alias.clone()), None, None)?
                     .0

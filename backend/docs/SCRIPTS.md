@@ -16,7 +16,7 @@ The backend includes a series of Rust scripts to configure and manage the DPP De
 - Initializes the local keystore (`../keystore/iota.keystore`)
 - Generates new keys for the three main roles:
   - `root-auth`: Root of Authority
-  - `manu-fact`: Manufacturer  
+  - `manu-fact`: Manufacturer
   - `gas-stat`: Gas Station
 
 **Usage**:
@@ -72,9 +72,9 @@ cargo run --bin faucet
 
 ---
 
-### 4. `init_ith` - ITH Initialization
+### 4. `init_hierarchies` - ITH Initialization
 
-**File**: `src/scripts/init_ith.rs`
+**File**: `src/scripts/init_hierarchies.rs`
 
 **Purpose**: Configures the ITH (IOTA Trusted Hierarchies) federation
 
@@ -82,8 +82,8 @@ cargo run --bin faucet
 - `ITH_PKG_ID`: ITH contract package ID
 
 **Operation**:
-1. **Federation creation**: Creates a new ITH federation
-2. **Trusted Properties**: Adds the `role` property with values `manufacturer` and `repairer`
+1. **Federation creation**: Creates a new Federation
+2. **Federation Properties**: Adds the Property `role` with values `manufacturer` and `repairer`
 3. **Attestation**: Creates attestation for the Manufacturer
 4. **Accreditation**: Enables the Manufacturer to create attestations for Repairers
 5. **Persistence**: Saves the `federation_id` in `../data/ith.json`
@@ -91,7 +91,7 @@ cargo run --bin faucet
 **Usage**:
 ```bash
 export ITH_PKG_ID="0x..."
-cargo run --bin init_ith
+cargo run --bin init_hierarchies
 ```
 
 **Output**: Federation ID for subsequent use
@@ -163,10 +163,10 @@ To fully configure the system, run the scripts in this order:
    cargo run --bin faucet
    ```
 
-3. **ITH setup**:
+3. **Hierarchies setup**:
    ```bash
    export ITH_PKG_ID="0x..."
-   cargo run --bin init_ith
+   cargo run --bin init_hierarchies
    ```
 
 4. **Identity setup** (optional):

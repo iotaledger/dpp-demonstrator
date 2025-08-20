@@ -4,10 +4,11 @@ import-accounts:
 	cd backend && cargo run --bin import_accounts
 faucet:
 	cd backend && cargo run --bin faucet
-publish-ith:
-	cd backend/ith/ith.move && iota client switch --address root-auth && iota client publish --with-unpublished-dependencies --skip-dependency-verification --json --gas-budget 5000000000 .
-init-ith:
-	cd backend && iota client switch --address root-auth && cargo run --bin init_ith
+publish-hierarchies:
+	git clone https://github.com/iotaledger/hierarchies.git
+	cd hierarchies/hierarchies-move && iota client switch --address root-auth && iota client publish --with-unpublished-dependencies --skip-dependency-verification --json --gas-budget 5000000000 .
+init-hierarchies:
+	cd backend && iota client switch --address root-auth && cargo run --bin init_hierarchies
 init-dids:
 	cd backend && iota client switch --address manu-fact && cargo run --bin init_dids
 verify-dids:

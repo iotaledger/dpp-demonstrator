@@ -10,3 +10,4 @@ data/
 keystore/
 test/
 hierarchies/
+.DS_Store

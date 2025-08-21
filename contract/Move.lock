@@ -2,29 +2,51 @@
 
 [move]
 version = 3
-manifest_digest = "9D23FEECC3D7EAC93DAA7E45D1D1F319E5976A0AE1CEE575C77225CDD9A92087"
-deps_digest = "060AD7E57DFB13104F21BE5F5C3759D03F0553FC3229247D9A7A6B45F50D03A3"
+manifest_digest = "BF78A319A9000A1E81D8646084E00F64601075F3C30627C5EC465A8BFDBD37D9"
+deps_digest = "397E6A9F7A624706DBDFEE056CE88391A15876868FD18A88504DA74EB458D697"
+dependencies = [
+  { id = "Hierarchies", name = "Hierarchies" },
+  { id = "Iota", name = "Iota" },
+  { id = "IotaSystem", name = "IotaSystem" },
+  { id = "MoveStdlib", name = "MoveStdlib" },
+  { id = "Stardust", name = "Stardust" },
+]
+
+[[move.package]]
+id = "Hierarchies"
+source = { git = "https://github.com/iotaledger/hierarchies.git", rev = "v0.1.0", subdir = "hierarchies-move" }
+
 dependencies = [
   { id = "Iota", name = "Iota" },
+  { id = "IotaSystem", name = "IotaSystem" },
   { id = "MoveStdlib", name = "MoveStdlib" },
-  { id = "ith", name = "ith" },
+  { id = "Stardust", name = "Stardust" },
 ]
 
 [[move.package]]
 id = "Iota"
-source = { git = "https://github.com/iotaledger/iota.git", rev = "v1.4.1", subdir = "crates/iota-framework/packages/iota-framework" }
+source = { git = "https://github.com/iotaledger/iota.git", rev = "e3c45c9370f14b8137fd1bb9d109d3563d416223", subdir = "crates/iota-framework/packages/iota-framework" }
 
 dependencies = [
+  { id = "MoveStdlib", name = "MoveStdlib" },
+]
+
+[[move.package]]
+id = "IotaSystem"
+source = { git = "https://github.com/iotaledger/iota.git", rev = "e3c45c9370f14b8137fd1bb9d109d3563d416223", subdir = "crates/iota-framework/packages/iota-system" }
+
+dependencies = [
+  { id = "Iota", name = "Iota" },
   { id = "MoveStdlib", name = "MoveStdlib" },
 ]
 
 [[move.package]]
 id = "MoveStdlib"
-source = { git = "https://github.com/iotaledger/iota.git", rev = "v1.4.1", subdir = "crates/iota-framework/packages/move-stdlib" }
+source = { git = "https://github.com/iotaledger/iota.git", rev = "e3c45c9370f14b8137fd1bb9d109d3563d416223", subdir = "crates/iota-framework/packages/move-stdlib" }
 
 [[move.package]]
-id = "ith"
-source = { local = "../backend/ith/ith.move" }
+id = "Stardust"
+source = { git = "https://github.com/iotaledger/iota.git", rev = "e3c45c9370f14b8137fd1bb9d109d3563d416223", subdir = "crates/iota-framework/packages/stardust" }
 
 dependencies = [
   { id = "Iota", name = "Iota" },
@@ -32,7 +54,7 @@ dependencies = [
 ]
 
 [move.toolchain-version]
-compiler-version = "1.2.2-rc"
+compiler-version = "1.4.1"
 edition = "2024.beta"
 flavor = "iota"
 

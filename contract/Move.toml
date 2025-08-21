@@ -6,10 +6,7 @@ edition = "2024.beta"
 
 
 [dependencies]
-ith = { local = "../backend/ith/ith.move" }
-MoveStdlib = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/move-stdlib", rev = "v1.4.1-rc" }
-Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "v1.4.1-rc" }
+Hierarchies = { git = "https://github.com/iotaledger/hierarchies.git", subdir = "hierarchies-move", rev = "v0.1.0" }
 
 [addresses]
 audit_trails = "0x0"
-

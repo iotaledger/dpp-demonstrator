@@ -1,9 +1,9 @@
 module audit_trails::app {
 
-    use std::string::{Self, String}; 
-    use ith::main::{Federation, validate_trusted_properties};
-    use ith::utils::{vec_map_from_keys_values};
-    use ith::trusted_property::{TrustedPropertyName, TrustedPropertyValue, new_property_value_string, new_property_name};
+    use std::string::{Self, String};
+    use hierarchies::main::{Federation, validate_property};
+    use hierarchies::utils::{vec_map_from_keys_values};
+    use hierarchies::{property_name::{new_property_name}, property_value::{new_property_value_string}};
     use iota::vec_map::{VecMap};
     use iota::clock::{Self, Clock};
     use iota::event;
@@ -12,8 +12,9 @@ module audit_trails::app {
     use audit_trails::lcc_reward::{send_lcc_reward, Vault};
 
     const E_INVALID_ROLE: u64 = 0;
-    const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1; 
+    const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1;
     const E_MISMATCHED_FEDERATION: u64 = 2;
+    const E_INVALID_ISSUER: u64 = 3;
 
     public enum Role has store, copy, drop {
         Manufacturer,
@@ -27,7 +28,7 @@ module audit_trails::app {
 
     public struct Product has key, store {
         id: UID,
-        federation_addr: address, 
+        federation_addr: address,
         name: String,
         serial_number: String,
         manufacturer: String,
@@ -53,20 +54,27 @@ module audit_trails::app {
 
     public entry fun new_product(
         federation: &Federation,
-        name: String, 
+        name: String,
         manufacturer_did: String,
-        serial_number: String, 
+        serial_number: String,
         image_url: String,
-        bill_of_materials_keys: vector<String>, 
-        bill_of_materials_values: vector<String>, 
+        bill_of_materials_keys: vector<String>,
+        bill_of_materials_values: vector<String>,
         reward_type: String,
-        clock: &Clock, 
+        clock: &Clock,
         ctx :&mut TxContext
     ) {
         check_vector_length<String>(&bill_of_materials_keys, &bill_of_materials_values);
-        
-        let trusted_properties = build_trusted_properties(string::utf8(b"role"), string::utf8(b"manufacturer"));
-        validate_trusted_properties(federation, &object::id_from_address(ctx.sender()), trusted_properties, ctx);
+
+        if (validate_property(
+            federation,
+            &object::id_from_address(ctx.sender()),
+            new_property_name(string::utf8(b"role")),
+            new_property_value_string(string::utf8(b"manufacturer")),
+            clock
+        ) == false) {
+            abort E_INVALID_ISSUER
+        };
 
         let p_id = object::new(ctx);
         let p_addr = object::uid_to_address(&p_id);
@@ -91,7 +99,7 @@ module audit_trails::app {
             reward_type: reward_type_enum
         });
 
-        event::emit( 
+        event::emit(
             ProductEntryLogged {
                 issuer_role: Role::Manufacturer,
                 product_addr: p_addr,
@@ -102,15 +110,15 @@ module audit_trails::app {
 
     public entry fun log_entry_data(
         product: &Product,
-        federation: &Federation, 
+        federation: &Federation,
         issuer_role: String,
         entry_data_keys: vector<String>,
-        entry_data_values: vector<String>, 
+        entry_data_values: vector<String>,
         clock: &Clock,
         whitelist: &mut WHITELIST,
         vault: &mut Vault,
         ctx: &mut TxContext
-    ) {   
+    ) {
         let role = to_role(issuer_role);
 
         check_vector_length<String>(&entry_data_keys, &entry_data_values);
@@ -122,9 +130,16 @@ module audit_trails::app {
         let product_id = object::id<Product>(product);
         let product_addr = object::id_to_address(&product_id);
 
-        let trusted_properties = build_trusted_properties(string::utf8(b"role"), issuer_role);
         let issuer_id = object::id_from_address(ctx.sender());
-        validate_trusted_properties(federation, &issuer_id, trusted_properties, ctx);
+        if (validate_property(
+            federation,
+            &issuer_id,
+            new_property_name(string::utf8(b"role")),
+            new_property_value_string(issuer_role),
+            clock
+        ) == false) {
+            abort E_INVALID_ISSUER
+        };
 
         let e_id = object::new(ctx);
         let e_addr = object::uid_to_address(&e_id);
@@ -140,7 +155,7 @@ module audit_trails::app {
         event::emit(ProductEntryLogged{
             issuer_role: role,
             product_addr,
-            entry_addr: option::some<address>(e_addr),   
+            entry_addr: option::some<address>(e_addr),
         });
 
         if(product.reward_type == RewardType::NFT){
@@ -171,21 +186,6 @@ module audit_trails::app {
         } else {
             abort E_INVALID_ROLE
         }
-    }
-
-    fun build_trusted_properties(property_name_str: String, property_value_str: String): VecMap<TrustedPropertyName, TrustedPropertyValue>{
-        
-        let mut property_name_vec = vector::empty<TrustedPropertyName>();
-        let property_name = new_property_name(property_name_str);
-
-        let mut property_value_vec = vector::empty<TrustedPropertyValue>();
-        let property_value = new_property_value_string(property_value_str);
-
-
-        vector::push_back<TrustedPropertyName>(&mut property_name_vec, property_name);
-        vector::push_back<TrustedPropertyValue>(&mut property_value_vec, property_value);
-        
-        vec_map_from_keys_values<TrustedPropertyName, TrustedPropertyValue>(property_name_vec, property_value_vec)
     }
 
     fun check_vector_length<K: store + copy + drop>(v1: &vector<K>, v2: &vector<K>){

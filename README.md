@@ -52,14 +52,14 @@ make faucet
 ### 3. Publish the ITH package:
 
 ```bash
-make publish-ith
+make publish-hierarchies
 ```
-Copy the generated ITH_PKG_ID for later use
+Copy the generated HIERARCHIES_PKG_ID for later use
 
 ### 4. Bootstrap the ITH federation:
 
 ```bash
-make init-ith
+make init-hierarchies
 ```
 Copy the generated FEDERATION_ID.
 
@@ -73,6 +73,7 @@ Save the following outputs:
 * AUDIT_TRAIL_PKG
 * WHITELIST_ID
 * ADMIN_CAP_ID
+* 
 
 ### 6. Create a new product:
 
@@ -105,7 +106,7 @@ NEXT_PUBLIC_DAPP_URL=https://dpp-demostrator.if4testing.rocks
 BACKEND_ENDPOINT=http://backend:3001
 BACKEND_API_KEY=12345
 GAS_STATION_URL=http://iota-gas-station:9527
-ITH_PKG_ID=0xfef5a9c6df130e8f60677689f3f414bbaa2b5a31f463a12fd174a925efa604bb
+HIERARCHIES_PKG_ID=0xfef5a9c6df130e8f60677689f3f414bbaa2b5a31f463a12fd174a925efa604bb
 API_KEY=12345
 TCP_LISTNER=0.0.0.0:3001
 ROOT_AUTH_SECRET_KEY=iotaprivkey1qpl6hj5h9ax9fsmulh35us7rvnqalyckhzh58qvrpwmze9u6zulzxlca83x

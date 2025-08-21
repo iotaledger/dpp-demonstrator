@@ -29,8 +29,8 @@ const GAS_LOCAL_NETWORK: &str = "https://faucet.testnet.iota.cafe/gas";
 pub async fn get_hierarchies_client(
     account_alias: String,
 ) -> anyhow::Result<HierarchiesClient<KeystoreClient>> {
-    let package_id = std::env::var("ITH_PKG_ID")
-        .context("ITH_PKG_ID is not set in the environment variables")?
+    let package_id = std::env::var("HIERARCHIES_PKG_ID")
+        .context("HIERARCHIES_PKG_ID is not set in the environment variables")?
         .parse()?;
 
     let client = IotaClientBuilder::default().build_testnet().await?;

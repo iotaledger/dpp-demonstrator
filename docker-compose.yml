@@ -118,7 +118,7 @@ services:
         limits:
           memory: 12G
     environment:
-      ITH_PKG_ID: ${ITH_PKG_ID}
+      HIERARCHIES_PKG_ID: ${HIERARCHIES_PKG_ID}
       API_KEY: ${API_KEY}
       TCP_LISTNER: ${TCP_LISTNER}
       ROOT_AUTH_SECRET_KEY: ${ROOT_AUTH_SECRET_KEY}

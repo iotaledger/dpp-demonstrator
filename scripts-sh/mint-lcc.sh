@@ -1,24 +1,24 @@
 #!/bin/bash
 
-echo "=° Minting LCC Tokens..."
+echo "=ï¿½ Minting LCC Tokens..."
 
 # Check required environment variables
-if [ -z "$LCC_PKG_ID" ]; then
-  echo "L Error: LCC_PKG_ID is not set"
-  echo "=¡ Set it with: export LCC_PKG_ID=<package_id_from_deployment>"
+if [ -z "$AUDIT_TRAIL_PKG" ]; then
+  echo "L Error: AUDIT_TRAIL_PKG is not set"
+  echo "=ï¿½ Set it with: export AUDIT_TRAIL_PKG=<package_id_from_deployment>"
   exit 1
 fi
 
 if [ -z "$LCC_TREASURY_CAP_ID" ]; then
   echo "L Error: LCC_TREASURY_CAP_ID is not set"
-  echo "=¡ Set it with: export LCC_TREASURY_CAP_ID=<treasury_cap_id_from_deployment>"
+  echo "=ï¿½ Set it with: export LCC_TREASURY_CAP_ID=<treasury_cap_id_from_deployment>"
   exit 1
 fi
 
 # Amount to mint: 1,000,000,000,000 (1 trillion with 9 decimals)
-MINT_AMOUNT=1000000000000000000000
+MINT_AMOUNT=1000000000000000
 
-echo " Using LCC_PKG_ID: $LCC_PKG_ID"
+echo " Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
 echo " Using LCC_TREASURY_CAP_ID: $LCC_TREASURY_CAP_ID"
 echo " Minting amount: 1,000,000,000,000 LCC tokens"
 
@@ -27,20 +27,12 @@ echo "= Switching to root-auth address..."
 iota client switch --address root-auth
 
 # Mint LCC tokens
-echo ">™ Minting LCC tokens..."
+echo "> Minting LCC tokens..."
 iota client call \
-  --package "$LCC_PKG_ID" \
+  --package "$AUDIT_TRAIL_PKG" \
   --module "LCC" \
   --function "mint" \
   --args \
-    "$LCC_TREASURY_CAP_ID" \
+    $LCC_TREASURY_CAP_ID \
     "$MINT_AMOUNT" \
   --gas-budget 500000000
-
-if [ $? -eq 0 ]; then
-  echo " Successfully minted 1,000,000,000,000 LCC tokens!"
-  echo "=¡ The minted tokens have been transferred to the root-auth address"
-else
-  echo "L Error: Failed to mint LCC tokens"
-  exit 1
-fi

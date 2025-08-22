@@ -5,10 +5,6 @@ module audit_trails::LCC {
 
     public struct LCC has drop {}
 
-    public struct LCCTreasuryCap has store {
-        inner: TreasuryCap<LCC>,
-    }
-
     fun init(otw: LCC, ctx: &mut TxContext) {
         let (treasury, metadata) = coin::create_currency(
             otw,
@@ -28,23 +24,23 @@ module audit_trails::LCC {
         transfer::public_transfer(c, recipient)
     }
 
-    public fun mint(cap: &mut LCCTreasuryCap, value: u64, ctx: &mut TxContext): Coin<LCC> {
-        cap.inner.mint(value, ctx)
+    public fun mint(cap: &mut TreasuryCap<LCC>, value: u64, ctx: &mut TxContext): Coin<LCC> {
+        cap.mint(value, ctx)
     }
 
-    public fun mint_balance(cap: &mut LCCTreasuryCap, value: u64): Balance<LCC> {
-        cap.inner.mint_balance(value)
+    public fun mint_balance(cap: &mut TreasuryCap<LCC>, value: u64): Balance<LCC> {
+        cap.mint_balance(value)
     }
 
-    public fun burn(cap: &mut LCCTreasuryCap, c: Coin<LCC>): u64 {
-        cap.inner.burn(c)
+    public fun burn(cap: &mut TreasuryCap<LCC>, c: Coin<LCC>): u64 {
+        cap.burn(c)
     }
 
-    public fun burn_balance(cap: &mut LCCTreasuryCap, b: Balance<LCC>): u64 {
-        cap.inner.supply_mut().decrease_supply(b)
+    public fun burn_balance(cap: &mut TreasuryCap<LCC>, b: Balance<LCC>): u64 {
+        cap.supply_mut().decrease_supply(b)
     }
 
-    public fun total_supply(cap: &LCCTreasuryCap): u64 {
-        cap.inner.total_supply()
+    public fun total_supply(cap: &TreasuryCap<LCC>): u64 {
+        cap.total_supply()
     }
 }

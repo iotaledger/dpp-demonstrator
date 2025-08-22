@@ -19,6 +19,8 @@ publish-audit-trails-contract:
 	cd contract && iota client switch --address root-auth && iota client publish --with-unpublished-dependencies --skip-dependency-verification --json --gas-budget 5000000000 .
 create-new-product:
 	iota client switch --address manu-fact && ./scripts-sh/new-product.sh
+mint-llc:
+	iota client switch --address root-auth && ./scripts-sh/mint-lcc.sh
 run-frontend:
 	cd frontend && npm run dev
 run-prod-frontend:

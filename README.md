@@ -49,37 +49,41 @@ This will create the Root of Authority, Manufacturer, and Gas Station accounts.
 make faucet
 ```
 
-### 3. Publish the ITH package:
-
-```bash
-make publish-hierarchies
-```
-Copy the generated HIERARCHIES_PKG_ID for later use
-
-### 4. Bootstrap the ITH federation:
+### 3. Bootstrap the ITH federation:
 
 ```bash
 make init-hierarchies
 ```
+[Here](https://github.com/iotaledger/hierarchies/blob/main/hierarchies-move/Move.lock) you can find HIERARCHIES_PKG_ID
 Copy the generated FEDERATION_ID.
 
-### 5. Deploy the Audit Trails contract:
+### 4. Deploy the Audit Trails contract:
 
 ```bash
 make publish-audit-trails-contract
 ```
 
-Save the following outputs:
+From the Transaction Save the following outputs:
 * AUDIT_TRAIL_PKG
 * WHITELIST_ID
 * ADMIN_CAP_ID
-* 
+* VAULT_ID
+* LCCTreasuryCap
+
+### 5. Create DIDs
+```bash
+make init-dids
+```
+
+Save the output for the did and the domain linkage configuration.
+Save the JWT credential into `frontend/public/.well-known/did-configuration.json`
 
 ### 6. Create a new product:
 
 ```bash
 export AUDIT_TRAIL_PKG=<AUDIT_TRAIL_PKG>
 export FEDERATION_ID=<FEDERATION_ID>
+export MANUFACTURER_DID=<MANUFACTURER_DID>
 ```
 
 ```bash

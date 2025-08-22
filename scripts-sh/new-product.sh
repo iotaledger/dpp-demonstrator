@@ -49,7 +49,7 @@ BILL_OF_MATERIALS_VALUES='[
   "BMS v2.1"
 ]'
 
-# Esecuzione della chiamata IOTA
+
 iota client call \
   --package "$AUDIT_TRAIL_PKG" \
   --module "app" \

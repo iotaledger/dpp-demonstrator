@@ -21,6 +21,8 @@ create-new-product:
 	iota client switch --address manu-fact && ./scripts-sh/new-product.sh
 mint-llc:
 	iota client switch --address root-auth && ./scripts-sh/mint-lcc.sh
+top-up-reward-pool:
+	iota client switch --address root-auth && ./scripts-sh/top-up-reward-pool.sh
 run-frontend:
 	cd frontend && npm run dev
 run-prod-frontend:

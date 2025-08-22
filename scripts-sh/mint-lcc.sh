@@ -15,12 +15,12 @@ if [ -z "$LCC_TREASURY_CAP_ID" ]; then
   exit 1
 fi
 
-# Amount to mint: 1,000,000,000,000 (1 trillion with 9 decimals)
-MINT_AMOUNT=1000000000000000
+# Amount to mint: 1,000,000
+MINT_AMOUNT=100000000000000000
 
-echo " Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
-echo " Using LCC_TREASURY_CAP_ID: $LCC_TREASURY_CAP_ID"
-echo " Minting amount: 1,000,000,000,000 LCC tokens"
+echo "Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
+echo "Using LCC_TREASURY_CAP_ID: $LCC_TREASURY_CAP_ID"
+echo "Minting amount: 1,000,000,000,000 LCC tokens"
 
 # Switch to root-auth address (required for minting)
 echo "= Switching to root-auth address..."

@@ -24,8 +24,9 @@ module audit_trails::LCC {
         transfer::public_transfer(c, recipient)
     }
 
-    public fun mint(cap: &mut TreasuryCap<LCC>, value: u64, ctx: &mut TxContext): Coin<LCC> {
-        cap.mint(value, ctx)
+    public fun mint(cap: &mut TreasuryCap<LCC>, value: u64, ctx: &mut TxContext) {
+        let minted_coin = cap.mint(value, ctx);
+        transfer(minted_coin, ctx.sender())
     }
 
     public fun mint_balance(cap: &mut TreasuryCap<LCC>, value: u64): Balance<LCC> {

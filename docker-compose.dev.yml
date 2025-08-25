@@ -10,6 +10,7 @@ services:
 
   iota-gas-station:
     image: "${DOCKER_IMAGE:-iotaledger/gas-station:latest}"
+    platform: linux/amd64
     build:
       context: ..
       dockerfile: docker/Dockerfile

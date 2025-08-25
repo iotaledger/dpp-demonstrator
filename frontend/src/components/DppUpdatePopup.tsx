@@ -18,6 +18,7 @@ type DPPUpdatePopupProps = {
 
 const AUDIT_TRAIL_PKG = process.env.NEXT_PUBLIC_AUDIT_TRAIL_PKG as string
 const WHITELIST_ID = process.env.NEXT_PUBLIC_REWARD_WHITELIST_ID as string
+const VAULT_ID = process.env.NEXT_PUBLIC_REWARD_VAULT_ID as string
 
 export default function DPPUpdatePopup({ onClose, dppId, setSnackbar }: DPPUpdatePopupProps) {
   const { t } = useTranslation('dppAdd')
@@ -62,6 +63,7 @@ export default function DPPUpdatePopup({ onClose, dppId, setSnackbar }: DPPUpdat
         entryDataKeys,
         entryDataValues,
         whitelistId: WHITELIST_ID,
+        vaultId: VAULT_ID,
       })
       const sponsorRes = await fetch('/api/sponsor-request')
       if (!sponsorRes.ok) throw new Error('Sponsor gas reservation failed')

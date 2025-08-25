@@ -8,6 +8,7 @@ interface DppMoveCallParams {
   entryDataKeys: string[]
   entryDataValues: string[]
   whitelistId: string
+  vaultId: string
 }
 
 interface RewardAuthParams {
@@ -18,7 +19,7 @@ interface RewardAuthParams {
 
 export function createDppTx(
   movePkg: string,
-  { dppId, federationAddr, issuerRole, entryDataKeys, entryDataValues, whitelistId }: DppMoveCallParams
+  { dppId, federationAddr, issuerRole, entryDataKeys, entryDataValues, whitelistId, vaultId }: DppMoveCallParams
 ) {
   const tx = new Transaction()
 
@@ -32,6 +33,7 @@ export function createDppTx(
       tx.pure(bcs.vector(bcs.string()).serialize(entryDataValues)),
       tx.object('0x6'),
       tx.object(whitelistId),
+      tx.object(vaultId),
     ],
   })
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source .env
+
 if [ -z "$FEDERATION_ID" ]; then
   echo "❌ Error: FEDERATION_ID is not set"
   exit 1

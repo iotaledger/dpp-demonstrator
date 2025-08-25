@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source .env
+
 echo "=� Minting LCC Tokens..."
 
 # Check required environment variables

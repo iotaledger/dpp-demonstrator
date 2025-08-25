@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source .env
+
 echo "🔐 Top-up DPP with LCC..."
 
 # --- Required env vars -------------------------------------------------------

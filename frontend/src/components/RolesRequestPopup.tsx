@@ -19,7 +19,7 @@ type RolesRequestPopupProps = {
 const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
 const WHITELIST_ID = process.env.NEXT_PUBLIC_REWARD_WHITELIST_ID as string
 const REFRESH_INTERVAL_MS = Number(process.env.NEXT_PUBLIC_REFRESH_INTERVAL_MS)
-const HAS_REWARD = process.env.NEXT_PUBLIC_HAS_REWARD?.toLocaleLowerCase() == 'false' ? false : true
+const HAS_REWARD = process.env.NEXT_PUBLIC_HAS_NFT_REWARD?.toLocaleLowerCase() == 'false' ? false : true
 
 export default function RolesRequestPopup({ federationAddr, urlRole, onClose }: RolesRequestPopupProps) {
   const { t } = useTranslation('roles')

@@ -1,23 +1,30 @@
 export function getRole(content: Federation, address: string): string | null {
-  const attesters = content.fields.governance.fields.attesters.fields.contents
-  const roleFromAttesters = findRole(attesters, address)
-  if (roleFromAttesters) return roleFromAttesters
+  // Check accreditations_to_accredit
+  const accreditations = content.fields.governance.fields.accreditations_to_accredit.fields.contents
+  const roleFromAccreditations = findRoleInAccreditations(accreditations, address)
+  if (roleFromAccreditations) return roleFromAccreditations
+
+  // Check accreditations_to_attest
+  const attestations = content.fields.governance.fields.accreditations_to_attest.fields.contents
+  const roleFromAttestations = findRoleInAccreditations(attestations, address)
+  if (roleFromAttestations) return roleFromAttestations
 
   return null
 }
 
-function findRole(entries: VecMapPermissionsEntry[], address: string): string | null {
+function findRoleInAccreditations(entries: AccreditationEntry[], address: string): string | null {
   for (const entry of entries) {
     if (entry.fields.key.toLowerCase() === address.toLowerCase()) {
-      const perms = entry.fields.value.fields.permissions
-      for (const perm of perms) {
-        for (const constraintEntry of perm.fields.constraints.fields.contents) {
-          const key = constraintEntry.fields.key.fields.names[0]
+      const accreditations = entry.fields.value.fields.accreditations
+      for (const accreditation of accreditations) {
+        const properties = accreditation.fields.properties.fields.contents
+        for (const property of properties) {
+          const key = property.fields.key.fields.names[0]
           if (key === 'role') {
-            const allowedValues = constraintEntry.fields.value.fields.allowed_values.fields.contents
+            const allowedValues = property.fields.value.fields.allowed_values.fields.contents
             if (allowedValues.length > 0) {
-              const textValue = allowedValues[0].fields.text
-              if (textValue) return textValue
+              const roleValue = allowedValues[0].fields.pos0
+              if (roleValue) return roleValue
             }
           }
         }
@@ -35,75 +42,99 @@ export interface Federation {
 }
 
 export interface FederationFields {
-  governance: GovernanceContainer
+  governance: Governance
+  revoked_root_authorities: unknown
+  root_authorities: unknown
   id: IdObject
-  root_authorities: RootAuthority[]
 }
 
-export interface GovernanceContainer {
-  type: string
+export interface Governance {
   fields: GovernanceFields
+  type: string
 }
-
 export interface GovernanceFields {
-  accreditors: VecMapPermissions
-  attesters: VecMapPermissions
+  accreditations_to_accredit: AccreditationMap
+  accreditations_to_attest: AccreditationMap
   id: IdObject
-  trusted_constraints: TrustedConstraintsContainer
+  properties: FederationPropertiesContainer
 }
 
-export interface TrustedConstraintsContainer {
+export interface AccreditationMap {
   type: string
   fields: {
-    data: VecMapTrustedConstraint
+    contents: AccreditationEntry[]
   }
 }
 
-export interface VecMapTrustedConstraint {
+export interface AccreditationEntry {
   type: string
   fields: {
-    contents: VecMapTrustedConstraintEntry[]
+    key: string
+    value: Accreditations
   }
 }
 
-export interface VecMapTrustedConstraintEntry {
+export interface Accreditations {
   type: string
   fields: {
-    key: TrustedPropertyName
-    value: TrustedConstraint
+    accreditations: Accreditation[]
   }
 }
 
-export interface TrustedPropertyName {
+export interface Accreditation {
+  type: string
+  fields: {
+    accredited_by: string
+    id: IdObject
+    properties: PropertyMap
+  }
+}
+
+export interface PropertyMap {
+  type: string
+  fields: {
+    contents: PropertyEntry[]
+  }
+}
+
+export interface PropertyEntry {
+  type: string
+  fields: {
+    key: PropertyName
+    value: FederationProperty
+  }
+}
+
+export interface PropertyName {
   type: string
   fields: {
     names: string[]
   }
 }
 
-export interface TrustedConstraint {
+export interface FederationProperty {
   type: string
   fields: {
     allow_any: boolean
-    allowed_values: VecSetTrustedPropertyValue
-    expression: unknown | null
-    property_name: TrustedPropertyName
+    allowed_values: PropertyValueSet
+    name: PropertyName
+    shape: unknown | null
     timespan: Timespan
   }
 }
 
-export interface VecSetTrustedPropertyValue {
+export interface PropertyValueSet {
   type: string
   fields: {
-    contents: TrustedPropertyValue[]
+    contents: PropertyValue[]
   }
 }
 
-export interface TrustedPropertyValue {
+export interface PropertyValue {
   type: string
+  variant: string
   fields: {
-    number: number | null
-    text: string | null
+    pos0: string
   }
 }
 
@@ -115,61 +146,13 @@ export interface Timespan {
   }
 }
 
-export interface VecMapPermissions {
+export interface FederationPropertiesContainer {
   type: string
   fields: {
-    contents: VecMapPermissionsEntry[]
-  }
-}
-
-export interface VecMapPermissionsEntry {
-  type: string
-  fields: {
-    key: string
-    value: Permissions
-  }
-}
-
-export interface Permissions {
-  type: string
-  fields: {
-    permissions: Permission[]
-  }
-}
-
-export interface Permission {
-  type: string
-  fields: {
-    constraints: VecMapConstraints
-    created_by: string
-    federation_id: string
-    id: IdObject
-  }
-}
-
-export interface VecMapConstraints {
-  type: string
-  fields: {
-    contents: VecMapConstraintEntry[]
-  }
-}
-
-export interface VecMapConstraintEntry {
-  type: string
-  fields: {
-    key: TrustedPropertyName
-    value: TrustedConstraint
+    data: PropertyMap
   }
 }
 
 export interface IdObject {
   id: string
-}
-
-export interface RootAuthority {
-  type: string
-  fields: {
-    account_id: string
-    id: IdObject
-  }
 }

@@ -65,17 +65,21 @@ export default function DppPage() {
   useEffect(() => {
     if (dppData.isFetched && dppData.data?.data?.content) {
       const dppContent = dppData.data.data.content as Dpp
-      setDppDetails(getDppData(dppContent))
-      setFederationAddr(getFederationAddress(dppContent) || '')
-      sessionStorage.setItem('dppContent', JSON.stringify(dppContent))
+      if (dppContent && dppContent.fields) {
+        setDppDetails(getDppData(dppContent))
+        setFederationAddr(getFederationAddress(dppContent) || '')
+        sessionStorage.setItem('dppContent', JSON.stringify(dppContent))
+      }
     }
   }, [dppData.isFetched, dppData.data])
 
   useEffect(() => {
     if (federationData.isFetched && federationData.data?.data?.content && account?.address) {
       const federationContent = federationData.data.data.content as unknown as Federation
-      setUserRole(getRole(federationContent, account.address) || undefined)
-      sessionStorage.setItem('federationContent', JSON.stringify(federationContent))
+      if (federationContent && federationContent.fields) {
+        setUserRole(getRole(federationContent, account.address) || undefined)
+        sessionStorage.setItem('federationContent', JSON.stringify(federationContent))
+      }
     }
   }, [federationData.isFetched, federationData.data, account?.address])
 

@@ -10,4 +10,5 @@ data/
 keystore/
 test/
 hierarchies/
+clipboard/
 .DS_Store

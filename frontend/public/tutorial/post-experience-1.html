@@ -1,0 +1,418 @@
+<html lang="en">
+  <head>
+    <style>
+      body {
+      transition: opacity ease-in 0.2s;
+    }
+
+    body[unresolved] {
+      opacity: 0;
+      display: block;
+      overflow: hidden;
+      position: relative;
+    }
+    </style>
+    <meta charset="utf-8">
+    <link rel="icon" href="http://localhost:5173/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+    <!--[-->
+    <meta name="description" content="Explore the Digital Product Passport with IOTA Trust Framework"><!--]-->
+    <title>Digital Product Passport Demo</title>
+    <style type="text/css" data-vite-dev-id="/Users/alexrusenhack/repos/iota/dpp-demo/src/routes/+layout.svelte?svelte&amp;type=style&amp;lang.css">
+      /*! tailwindcss v4.1.11 | MIT License | https://tailwindcss.com */
+    html {
+      background-color: oklch(96.7% 0.003 264.542);
+    }
+
+    html {
+      overscroll-behavior: none;
+      overscroll-behavior-y: none;
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
+    body {
+      margin: 0;
+      overscroll-behavior: none;
+      overscroll-behavior-y: none;
+      overflow-x: hidden;
+      max-width: 100vw;
+      box-sizing: border-box;
+    }
+
+    #tutorial-scroll-container {
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
+      overscroll-behavior-y: contain;
+    }
+
+    @media (max-width: 1023px) {
+      #tutorial-scroll-container {
+        touch-action: auto;
+      }
+    }
+
+    body.pwa-standalone {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    @supports (padding: max(0px)) {
+      body.pwa-standalone {
+        padding-top: max(env(safe-area-inset-top), 0px);
+        padding-bottom: max(env(safe-area-inset-bottom), 0px);
+        padding-left: max(env(safe-area-inset-left), 0px);
+        padding-right: max(env(safe-area-inset-right), 0px);
+      }
+    }
+
+    @media (display-mode: standalone),
+    (display-mode: fullscreen) {
+      .min-h-screen {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+    }
+
+    @media (display-mode: standalone) {
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+    </style>
+    <style type="text/css" data-vite-dev-id="/Users/alexrusenhack/repos/iota/dpp-demo/src/lib/components/ui/Button.svelte?svelte&amp;type=style&amp;lang.css">
+      @-webkit-keyframes s-R7G0-bQFHUk3-ripple {
+      0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 89, 255, 0.4);
+      }
+
+      70% {
+        -webkit-box-shadow: 0 0 2px 10px rgba(0, 94, 255, 0);
+      }
+
+      100% {
+        -webkit-box-shadow: 0 0 10px 0 rgba(0, 72, 255, 0);
+      }
+    }
+
+    @keyframes s-R7G0-bQFHUk3-ripple {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 89, 255, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 2px 10px rgba(0, 94, 255, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 10px 0 rgba(0, 72, 255, 0);
+      }
+    }
+
+    @keyframes s-R7G0-bQFHUk3-smallRipple {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 89, 255, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0px 3px rgba(0, 94, 255, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 3px 0 rgba(0, 72, 255, 0);
+      }
+    }
+
+    .s-R7G0-bQFHUk3 {}
+    </style>
+    <style type="text/css" data-vite-dev-id="/Users/alexrusenhack/repos/iota/dpp-demo/src/lib/components/ui/Card.svelte?svelte&amp;type=style&amp;lang.css">
+      @-webkit-keyframes s-V5EjiGq1x_HT-ripple {
+      0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 89, 255, 0.4);
+      }
+
+      70% {
+        -webkit-box-shadow: 0 0 2px 10px rgba(0, 94, 255, 0);
+      }
+
+      100% {
+        -webkit-box-shadow: 0 0 10px 0 rgba(0, 72, 255, 0);
+      }
+    }
+
+    @keyframes s-V5EjiGq1x_HT-ripple {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 89, 255, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 2px 10px rgba(0, 94, 255, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 10px 0 rgba(0, 72, 255, 0);
+      }
+    }
+
+    @keyframes s-V5EjiGq1x_HT-smallRipple {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 89, 255, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0px 3px rgba(0, 94, 255, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 3px 0 rgba(0, 72, 255, 0);
+      }
+    }
+
+    .s-V5EjiGq1x_HT {}
+    </style>
+    <style type="text/css" data-vite-dev-id="/Users/alexrusenhack/repos/iota/dpp-demo/src/lib/components/ui/ItemValue.svelte?svelte&amp;type=style&amp;lang.css">
+      /* Blur entire row */
+    .blur-full.s-BTMaVI4aSlkU,
+    .blur-values.s-BTMaVI4aSlkU {
+      filter: blur(2px);
+      opacity: 0.6;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Blur only the label (first child) */
+    /* (unused) .blur-label > *:first-child {
+		filter: blur(2px);
+		opacity: 0.6;
+		transition: filter 0.3s ease, opacity 0.3s ease;
+		user-select: none;
+		pointer-events: none;
+	}*/
+
+    /* Blur only the value content */
+    .blur-value.s-BTMaVI4aSlkU .value-content {
+      filter: blur(2px);
+      opacity: 0.6;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Alternative skeleton loading effect */
+    /* .blur-values :global(.value-skeleton) {
+		background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+		background-size: 200% 100%;
+		animation: loading 1.5s infinite;
+		border-radius: 4px;
+		color: transparent;
+		height: 1.2em;
+		min-width: 120px;
+	} */
+
+    @keyframes s-BTMaVI4aSlkU-loading {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    .s-BTMaVI4aSlkU {}
+    </style>
+    <style type="text/css" data-vite-dev-id="/Users/alexrusenhack/repos/iota/dpp-demo/src/lib/components/ui/Dialog.svelte?svelte&amp;type=style&amp;lang.css">
+      body:has(.dialog-open) {
+      overflow: hidden;
+    }
+
+    .s-9bJQhM9mUpCv {}
+    </style>
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents"><!--[--><!--[--><!----><!---->
+      <div class="bg-gray-100 flex flex-col" style="min-height: 100vh; min-height: -webkit-fill-available; min-height: 100dvh;">
+        <header class="flex-shrink-0 border-b border-gray-200 px-12 py-3 hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2"><span class="text-sm text-gray-500">Empowered by IOTA</span></div>
+            <div class="text-sm text-gray-500">IOTA Trust Framework</div>
+          </div>
+        </header>
+        <main class="p-3 overflow-hidden" style="height: 100dvh;">
+          <div class="h-full">
+            <div class="h-full grid overflow-hidden transition-all duration-700 ease-out " style="grid-template-columns: 1fr 0px 0px;">
+              <main class="overflow-hidden transition-all duration-700 ease-out" style="">
+                <div class="h-full transition-all duration-700 ease-out"><!---->
+                  <div slot="content" class="h-full">
+                    <div class="bg-slate-50 rounded-2xl border border-gray-300 flex flex-col relative" style="height: 100%; overflow: hidden;">
+                      <div class="flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500">
+                        <div class="flex items-center justify-between w-full leading-1"><!--[--><!---->
+                          <h4>Recap</h4><!--]--></div><!---->
+                      </div><!---->
+                      <div id="tutorial-scroll-container" class="flex-1 overflow-y-auto overflow-x-hidden relative" style="touch-action: pan-y; -webkit-overflow-scrolling: touch; min-height: 0; position: relative; z-index: 1;">
+                        <!--[--><!--]--><!---->
+                        <!--[!--><!----><!---->
+                        <div class="recap-content-container">
+                          <div class="fixed inset-0 w-full min-h-dvh overflow-y-scroll overflow-x-hidden  bg-slate-100">
+                            <!---->
+                            <div style="transition-delay: 0.2s;" class="h-full flex items-center justify-center opacity-0 scale-95 transition-all duration-800 ease-out opacity-100 scale-100">
+                              <div class="max-w-6xl mx-auto p-6 md:p-12">
+                                <div class="flex flex-col gap-6">
+                                  <div class="flex flex-col gap-4">
+                                    <div class="flex justify-between items-start gap-4">
+                                      <div class="flex justify-start"><button class=" inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 border border-gray-700  hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2   s-R7G0-bQFHUk3">Back
+                                        to DPP<!----></button><!----></div>
+                                    </div>
+                                    <div class="text-gray-900 text-3xl md:text-4xl lg:text-5xl tracking-[-0.56px]">
+                                      <p class="leading-[1.2]">What You Just Experienced</p>
+                                    </div>
+                                    <div class="text-gray-600 text-lg md:text-xl tracking-[0.1px] max-w-3xl">
+                                      <p class="leading-[28px]">You stepped into the role of a certified service
+                                      technician and experienced how IOTA infrastructure enables verifiable and
+                                      incentivized lifecycle actions:</p>
+                                    </div>
+                                  </div>
+                                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+                                    <div class="flex flex-row gap-3 items-center">
+                                      <div class="relative shrink-0 size-6"><svg class="block size-full text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                          <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                                          </path>
+                                        </svg></div>
+                                      <div class="font-normal text-gray-900 text-base md:text-lg tracking-[-0.16px]">
+                                        <p class="leading-[1.6]">Verified manufacturer identity via domain linkage</p>
+                                      </div>
+                                    </div>
+                                    <div class="flex flex-row gap-3 items-center">
+                                      <div class="relative shrink-0 size-6"><svg class="block size-full text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                          <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                                          </path>
+                                        </svg></div>
+                                      <div class="font-normal text-gray-900 text-base md:text-lg tracking-[-0.16px]">
+                                        <p class="leading-[1.6]">Became certified through IOTA Hierarchies</p>
+                                      </div>
+                                    </div>
+                                    <div class="flex flex-row gap-3 items-center">
+                                      <div class="relative shrink-0 size-6"><svg class="block size-full text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                          <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                                          </path>
+                                        </svg></div>
+                                      <div class="font-normal text-gray-900 text-base md:text-lg tracking-[-0.16px]">
+                                        <p class="leading-[1.6]">Added a signed health snapshot using IOTA Notarization</p>
+                                      </div>
+                                    </div>
+                                    <div class="flex flex-row gap-3 items-center">
+                                      <div class="relative shrink-0 size-6"><svg class="block size-full text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                          <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                                          </path>
+                                        </svg></div>
+                                      <div class="font-normal text-gray-900 text-base md:text-lg tracking-[-0.16px]">
+                                        <p class="leading-[1.6]">Received a token payout via IOTA Tokenization</p>
+                                      </div>
+                                    </div>
+                                    <div class="flex flex-row gap-3 items-center">
+                                      <div class="relative shrink-0 size-6"><svg class="block size-full text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                          <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                                          </path>
+                                        </svg></div>
+                                      <div class="font-normal text-gray-900 text-base md:text-lg tracking-[-0.16px]">
+                                        <p class="leading-[1.6]">Paid no fees thanks to IOTA Gas Station</p>
+                                      </div>
+                                    </div>
+                                    <div class="flex flex-row gap-3 items-center">
+                                      <div class="relative shrink-0 size-6"><svg class="block size-full text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                          <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                                          </path>
+                                        </svg></div>
+                                      <div class="font-normal text-gray-900 text-base md:text-lg tracking-[-0.16px]">
+                                        <p class="leading-[1.6]">Connected securely via a browser or mobile wallet</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div><!---->
+                            </div><!---->
+                            <div class="fixed top-0 left-0 w-full h-2 bg-black/20 z-50">
+                              <div class="h-full bg-blue-500 transition-all duration-300 ease-out" style="width: 25%;">
+                              </div>
+                            </div>
+                            <div class="fixed top-4 right-4 z-50 bg-black/30 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
+                              1 of 4
+                            </div>
+                            <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3"><button class="w-12 h-12 bg-slate-300 hover:bg-slate-400 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer
+				   text-gray-600 rounded-full flex items-center justify-center transition-all duration-200 
+				   shadow-lg hover:shadow-xl disabled:shadow-none" aria-label="Previous slide" disabled=""><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg></button>
+                              <button class="w-12 h-12 bg-blue-600 hover:bg-blue-700 disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed 
+				   text-white rounded-full flex items-center justify-center transition-all duration-200 
+				   shadow-lg hover:shadow-xl disabled:shadow-none" aria-label="Next slide"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                  </path>
+                                </svg></button></div>
+                          </div><!---->
+                        </div><!---->
+                        <!----><!--]--><!---->
+                        <!--[!--><!--]-->
+                      </div>
+                    </div>
+                  </div><!----></div>
+              </main>
+              <!--[!--><!---->
+              <div class="w-0"></div><!--]-->
+              <!--[!--><!---->
+              <div class="w-0"></div><!--]-->
+            </div>
+            <!--[!--><!--]-->
+          </div>
+          <!--[!--><!--]--><!---->
+        </main>
+      </div><!---->
+      <!--[!--><!--]--><!----><!---->
+      <!--[!--><!--]--><!----><!---->
+      <!--[!--><!--]--><!----><!---->
+      <!--[!--><!--]--><!----><!----><!----><!----><!--]-->
+      <!--[!-->
+      <div id="svelte-announcer" aria-live="assertive" aria-atomic="true" style="position: absolute; left: 0; top: 0; clip: rect(0 0 0 0); clip-path: inset(50%); overflow: hidden; white-space: nowrap; width: 1px; height: 1px">
+        <!---->
+      </div><!--]--><!--]-->
+      <script>
+        {
+        __sveltekit_dev = {
+          base: new URL(".", location).pathname.slice(0, -1),
+          env: {}
+        };
+
+        const element = document.currentScript.parentElement;
+
+        Promise.all([
+          import("/node_modules/@sveltejs/kit/src/runtime/client/entry.js"),
+          import("/@fs/Users/alexrusenhack/repos/iota/dpp-demo/.svelte-kit/generated/client/app.js")
+        ]).then(([kit, app]) => {
+          kit.start(app, element, {
+            node_ids: [0, 2],
+            data: [null, {type: "data", data: null, uses: {}}],
+            form: null,
+            error: null
+          });
+        });
+      }
+      </script></div>
+    <readwise-tooltip-container></readwise-tooltip-container><protonpass-root-51b2 data-protonpass-role="root" data-protonpass-theme="os"></protonpass-root-51b2>
+  </body>
+</html>

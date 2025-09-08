@@ -1,0 +1,461 @@
+// This is a JSON RPC call output made to `https://api.testnet.iota.cafe/` in which the request
+// payload is the following: {"jsonrpc":"2.0","id":1,"method":"iota_getObject","params":["0x93f6e173eedf74064f7e0aa270c29667ded63c489f6cb6f91455de6fcc817da4",{"showContent":true}]}
+// Consider the IOTA Rebase protocol, which is a fork of SUI.
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+        "data": {
+            "objectId": "0x93f6e173eedf74064f7e0aa270c29667ded63c489f6cb6f91455de6fcc817da4",
+            "version": "453349105",
+            "digest": "HH1DvVktCAsrrm68MhN3qCiie86udH8CdCVEkLqy4wx1",
+            "content": {
+                "dataType": "moveObject",
+                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::main::Federation",
+                "fields": {
+                    "governance": {
+                        "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::main::Governance",
+                        "fields": {
+                            "accreditations_to_accredit": {
+                                "type": "0x2::vec_map::VecMap<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                "fields": {
+                                    "contents": [
+                                        {
+                                            "type": "0x2::vec_map::Entry<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                            "fields": {
+                                                "key": "0xac2d89ae41285809064ed49191f29b93a31014c752206a793295afead3c10978",
+                                                "value": {
+                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations",
+                                                    "fields": {
+                                                        "accreditations": []
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "0x2::vec_map::Entry<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                            "fields": {
+                                                "key": "0xa77cc3269b20ed6e8dd08637feabb2c4eb177463bfb466fdff4b91a0291c729d",
+                                                "value": {
+                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations",
+                                                    "fields": {
+                                                        "accreditations": [
+                                                            {
+                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditation",
+                                                                "fields": {
+                                                                    "accredited_by": "ac2d89ae41285809064ed49191f29b93a31014c752206a793295afead3c10978",
+                                                                    "id": {
+                                                                        "id": "0x87385ea46b121c79eae6341deda946850d633232f3176e885363a7505da821d5"
+                                                                    },
+                                                                    "properties": {
+                                                                        "type": "0x2::vec_map::VecMap<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                        "fields": {
+                                                                            "contents": [
+                                                                                {
+                                                                                    "type": "0x2::vec_map::Entry<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                                    "fields": {
+                                                                                        "key": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                            "fields": {
+                                                                                                "names": [
+                                                                                                    "role"
+                                                                                                ]
+                                                                                            }
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty",
+                                                                                            "fields": {
+                                                                                                "allow_any": false,
+                                                                                                "allowed_values": {
+                                                                                                    "type": "0x2::vec_set::VecSet<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue>",
+                                                                                                    "fields": {
+                                                                                                        "contents": [
+                                                                                                            {
+                                                                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue",
+                                                                                                                "variant": "String",
+                                                                                                                "fields": {
+                                                                                                                    "pos0": "repairer"
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "name": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                                    "fields": {
+                                                                                                        "names": [
+                                                                                                            "role"
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "shape": null,
+                                                                                                "timespan": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::Timespan",
+                                                                                                    "fields": {
+                                                                                                        "valid_from_ms": null,
+                                                                                                        "valid_until_ms": null
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "accreditations_to_attest": {
+                                "type": "0x2::vec_map::VecMap<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                "fields": {
+                                    "contents": [
+                                        {
+                                            "type": "0x2::vec_map::Entry<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                            "fields": {
+                                                "key": "0xac2d89ae41285809064ed49191f29b93a31014c752206a793295afead3c10978",
+                                                "value": {
+                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations",
+                                                    "fields": {
+                                                        "accreditations": []
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "0x2::vec_map::Entry<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                            "fields": {
+                                                "key": "0xa77cc3269b20ed6e8dd08637feabb2c4eb177463bfb466fdff4b91a0291c729d",
+                                                "value": {
+                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations",
+                                                    "fields": {
+                                                        "accreditations": [
+                                                            {
+                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditation",
+                                                                "fields": {
+                                                                    "accredited_by": "ac2d89ae41285809064ed49191f29b93a31014c752206a793295afead3c10978",
+                                                                    "id": {
+                                                                        "id": "0x734c5d6499e6013ad359fa2e4bc8a3d0791a624be9f7634c5903b98d4bbec14e"
+                                                                    },
+                                                                    "properties": {
+                                                                        "type": "0x2::vec_map::VecMap<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                        "fields": {
+                                                                            "contents": [
+                                                                                {
+                                                                                    "type": "0x2::vec_map::Entry<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                                    "fields": {
+                                                                                        "key": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                            "fields": {
+                                                                                                "names": [
+                                                                                                    "role"
+                                                                                                ]
+                                                                                            }
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty",
+                                                                                            "fields": {
+                                                                                                "allow_any": false,
+                                                                                                "allowed_values": {
+                                                                                                    "type": "0x2::vec_set::VecSet<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue>",
+                                                                                                    "fields": {
+                                                                                                        "contents": [
+                                                                                                            {
+                                                                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue",
+                                                                                                                "variant": "String",
+                                                                                                                "fields": {
+                                                                                                                    "pos0": "manufacturer"
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "name": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                                    "fields": {
+                                                                                                        "names": [
+                                                                                                            "role"
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "shape": null,
+                                                                                                "timespan": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::Timespan",
+                                                                                                    "fields": {
+                                                                                                        "valid_from_ms": null,
+                                                                                                        "valid_until_ms": null
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "0x2::vec_map::Entry<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                            "fields": {
+                                                "key": "0x5ddf340c72378d35d18789c7d36e8cdfbd7ad59abe81dc88e6d9dcfd06e1a983",
+                                                "value": {
+                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations",
+                                                    "fields": {
+                                                        "accreditations": [
+                                                            {
+                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditation",
+                                                                "fields": {
+                                                                    "accredited_by": "ac2d89ae41285809064ed49191f29b93a31014c752206a793295afead3c10978",
+                                                                    "id": {
+                                                                        "id": "0xafdbd9085a244871045d87aae8dfb172b87321261f5836b60e0682dfd94cb851"
+                                                                    },
+                                                                    "properties": {
+                                                                        "type": "0x2::vec_map::VecMap<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                        "fields": {
+                                                                            "contents": [
+                                                                                {
+                                                                                    "type": "0x2::vec_map::Entry<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                                    "fields": {
+                                                                                        "key": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                            "fields": {
+                                                                                                "names": [
+                                                                                                    "role"
+                                                                                                ]
+                                                                                            }
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty",
+                                                                                            "fields": {
+                                                                                                "allow_any": false,
+                                                                                                "allowed_values": {
+                                                                                                    "type": "0x2::vec_set::VecSet<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue>",
+                                                                                                    "fields": {
+                                                                                                        "contents": [
+                                                                                                            {
+                                                                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue",
+                                                                                                                "variant": "String",
+                                                                                                                "fields": {
+                                                                                                                    "pos0": "repairer"
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "name": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                                    "fields": {
+                                                                                                        "names": [
+                                                                                                            "role"
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "shape": null,
+                                                                                                "timespan": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::Timespan",
+                                                                                                    "fields": {
+                                                                                                        "valid_from_ms": null,
+                                                                                                        "valid_until_ms": null
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "0x2::vec_map::Entry<0x2::object::ID, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations>",
+                                            "fields": {
+                                                "key": "0x1f9699f7b7baee05b2a6eea4eb41bb923fb64732069a1bf010506cd3d2d9ab26",
+                                                "value": {
+                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditations",
+                                                    "fields": {
+                                                        "accreditations": [
+                                                            {
+                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::accreditation::Accreditation",
+                                                                "fields": {
+                                                                    "accredited_by": "ac2d89ae41285809064ed49191f29b93a31014c752206a793295afead3c10978",
+                                                                    "id": {
+                                                                        "id": "0x470e8ba861ff0bb2dbe165813f89a46a8aabb1f57d605d99fb9c8af113ff0b4a"
+                                                                    },
+                                                                    "properties": {
+                                                                        "type": "0x2::vec_map::VecMap<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                        "fields": {
+                                                                            "contents": [
+                                                                                {
+                                                                                    "type": "0x2::vec_map::Entry<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                                                    "fields": {
+                                                                                        "key": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                            "fields": {
+                                                                                                "names": [
+                                                                                                    "role"
+                                                                                                ]
+                                                                                            }
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty",
+                                                                                            "fields": {
+                                                                                                "allow_any": false,
+                                                                                                "allowed_values": {
+                                                                                                    "type": "0x2::vec_set::VecSet<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue>",
+                                                                                                    "fields": {
+                                                                                                        "contents": [
+                                                                                                            {
+                                                                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue",
+                                                                                                                "variant": "String",
+                                                                                                                "fields": {
+                                                                                                                    "pos0": "repairer"
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "name": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                                                    "fields": {
+                                                                                                        "names": [
+                                                                                                            "role"
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "shape": null,
+                                                                                                "timespan": {
+                                                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::Timespan",
+                                                                                                    "fields": {
+                                                                                                        "valid_from_ms": null,
+                                                                                                        "valid_until_ms": null
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": {
+                                "id": "0xf8b25927d52e9c97c7e8dd831b28c31999726002f93476c3ece4a2c4f0f125d8"
+                            },
+                            "properties": {
+                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperties",
+                                "fields": {
+                                    "data": {
+                                        "type": "0x2::vec_map::VecMap<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                        "fields": {
+                                            "contents": [
+                                                {
+                                                    "type": "0x2::vec_map::Entry<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName, 0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty>",
+                                                    "fields": {
+                                                        "key": {
+                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                            "fields": {
+                                                                "names": [
+                                                                    "role"
+                                                                ]
+                                                            }
+                                                        },
+                                                        "value": {
+                                                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::FederationProperty",
+                                                            "fields": {
+                                                                "allow_any": false,
+                                                                "allowed_values": {
+                                                                    "type": "0x2::vec_set::VecSet<0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue>",
+                                                                    "fields": {
+                                                                        "contents": [
+                                                                            {
+                                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue",
+                                                                                "variant": "String",
+                                                                                "fields": {
+                                                                                    "pos0": "manufacturer"
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_value::PropertyValue",
+                                                                                "variant": "String",
+                                                                                "fields": {
+                                                                                    "pos0": "repairer"
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                "name": {
+                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property_name::PropertyName",
+                                                                    "fields": {
+                                                                        "names": [
+                                                                            "role"
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                "shape": null,
+                                                                "timespan": {
+                                                                    "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::property::Timespan",
+                                                                    "fields": {
+                                                                        "valid_from_ms": null,
+                                                                        "valid_until_ms": null
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "id": {
+                        "id": "0x93f6e173eedf74064f7e0aa270c29667ded63c489f6cb6f91455de6fcc817da4"
+                    },
+                    "revoked_root_authorities": [],
+                    "root_authorities": [
+                        {
+                            "type": "0xbaa47178b92a43d08f79c029a385d5aff75e4e1010e12ea5105fe68f4e9ce8ef::main::RootAuthority",
+                            "fields": {
+                                "account_id": "0xac2d89ae41285809064ed49191f29b93a31014c752206a793295afead3c10978",
+                                "id": {
+                                    "id": "0xa4adedfe9f4e0b092d59f4eb059a4386c5fc06baf9a5f5bee59cdd56089707b4"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

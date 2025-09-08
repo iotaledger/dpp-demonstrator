@@ -21,6 +21,12 @@ const DppDetails: React.FC<DppDetailsProps> = ({ dppData }) => {
   const { t } = useTranslation('dppDetails')
   const [isOpen, setIsOpen] = useState(true)
 
+  React.useEffect(() => {
+    if (dppData?.manufacturer) {
+      console.log('manufacturer', manufacturer);
+    }
+  }, [dppData])
+
   if (!dppData) {
     return <Loading />
   }

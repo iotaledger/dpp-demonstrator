@@ -39,7 +39,7 @@ function runMiddleware(
   });
 }
 
-import { DomainLinkageResource, VerifyDomainLinkageRequest, VerifyDomainLinkageResponse } from '~/lib/identity'
+import { DomainLinkageResource, VerifyDomainLinkageRequest, VerifyDomainLinkageResponse } from '@/types/identity';
 
 const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
 const IOTA_IDENTITY_PKG_ID = process.env.IOTA_IDENTITY_PKG_ID as string

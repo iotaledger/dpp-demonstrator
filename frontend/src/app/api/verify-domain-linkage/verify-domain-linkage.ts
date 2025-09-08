@@ -1,3 +1,4 @@
+// TODO: remove page implementation
 import {
   CoreDID,
   DomainLinkageConfiguration,

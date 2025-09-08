@@ -1,3 +1,4 @@
+// TODO: remove page implementation
 import { fromB64, toB64 } from '@iota/bcs'
 import { TransactionEffects } from '@iota/iota-sdk/client'
 import type { NextApiRequest, NextApiResponse } from 'next'

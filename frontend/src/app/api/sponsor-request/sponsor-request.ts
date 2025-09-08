@@ -1,3 +1,4 @@
+// TODO: remove page implementation
 import { ObjectRef } from '@iota/iota-sdk/transactions'
 import type { NextApiRequest, NextApiResponse } from 'next'
 

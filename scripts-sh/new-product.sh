@@ -30,6 +30,7 @@ GAS_BUDGET=500000000
 REWARD_TYPE="LCC"
 
 BILL_OF_MATERIALS_KEYS='[
+  "Manufacturer Name",
   "Model",
   "Manufacturing Date",
   "Capacity",
@@ -41,6 +42,7 @@ BILL_OF_MATERIALS_KEYS='[
 ]'
 
 BILL_OF_MATERIALS_VALUES='[
+  "EcoBike", 
   "EcoBike Pro 48V Battery",
   "March 15, 2022",
   "14Ah (672Wh)",

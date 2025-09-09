@@ -6,17 +6,17 @@ import FeaturesGrid from './FeaturesGrid';
 import FeatureCard from './FeatureCard';
 import NoticeCard from './NoticeCard';
 
-const Slide9: React.FC = () => {
+const IntroSlide9: React.FC = () => {
   return (
     <>
       <div className="mb-10 pt-4 md:pt-0">
         <SlideContent textAlign="center" opacity={100} translateY={0} delay={0.15}>
           <SlideTitle size="large">Prepare your Wallet</SlideTitle>
           <SlideDescription>
-            Desktop extension or mobile app — choose your path for the demo. Both wallets 
+            Desktop extension or mobile app — choose your path for the demo. Both wallets
             enable secure interaction with this demo without requiring any token balance.
             <br /><br />
-            Note: Mockup testers don't need a wallet for this walkthrough. We're seeking 
+            Note: Mockup testers don't need a wallet for this walkthrough. We're seeking
             feedback on storyline, structure, and design.
           </SlideDescription>
         </SlideContent>
@@ -35,7 +35,7 @@ const Slide9: React.FC = () => {
             titleWeight="semibold"
             variant="default"
           />
-          
+
           <FeatureCard
             image="/assets/intro/mobile.webp"
             alt="On mobile"
@@ -47,7 +47,7 @@ const Slide9: React.FC = () => {
             titleWeight="semibold"
             variant="default"
           />
-          
+
           <FeatureCard
             image="/assets/intro/both.webp"
             alt="Both wallets"
@@ -60,8 +60,8 @@ const Slide9: React.FC = () => {
             titleWeight="semibold"
             variant="default"
           />
-          
-          <NoticeCard 
+
+          <NoticeCard
             background="bg-gradient-to-br from-blue-500 to-blue-600"
             colSpan="col-span-1 sm:col-span-3"
             delay={0.55}
@@ -70,7 +70,7 @@ const Slide9: React.FC = () => {
           >
             <div className="text-white/80">
               <h4 className="text-sm md:text-sm">
-                Note for Demo User: The current walkthrough not require a wallet connection. 
+                Note for Demo User: The current walkthrough not require a wallet connection.
                 For internal UX & UI feedback only.
               </h4>
             </div>
@@ -81,4 +81,4 @@ const Slide9: React.FC = () => {
   );
 };
 
-export default Slide9;
+export default IntroSlide9;

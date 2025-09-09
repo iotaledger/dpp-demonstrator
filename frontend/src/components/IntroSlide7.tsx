@@ -6,7 +6,7 @@ import TwoColumnSection from './TwoColumnSection';
 import FeaturesGrid from './FeaturesGrid';
 import ProductCard from './ProductCard';
 
-const Slide7: React.FC = () => {
+const IntroSlide7: React.FC = () => {
   return (
     <div className="grid grid-cols-1 items-center self-center mx-auto px-4 md:px-0">
       <div className="mb-8 max-w-3xl pt-6 md:pt-0">
@@ -70,4 +70,4 @@ const Slide7: React.FC = () => {
   );
 };
 
-export default Slide7;
+export default IntroSlide7;

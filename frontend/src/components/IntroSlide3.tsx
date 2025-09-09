@@ -5,18 +5,18 @@ import SlideContent from './SlideContent';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
 
-const Slide6: React.FC = () => {
+const IntroSlide3: React.FC = () => {
   return (
     <ImageTextLayout>
-      <SlideImage 
-        src="/assets/intro/help.webp" 
-        alt="How IOTA Helps"
+      <SlideImage
+        src="/assets/intro/map.webp"
+        alt="Products Move, Data Doesn't"
         opacity={100}
         scale={100}
         delay={0.15}
       />
-      
-      <SlideContent 
+
+      <SlideContent
         textAlign="left"
         order="order-1 md:order-2"
         opacity={100}
@@ -24,16 +24,16 @@ const Slide6: React.FC = () => {
         translateX={0}
         delay={0.25}
       >
-        <SlideTitle size="large">How IOTA Helps</SlideTitle>
+        <SlideTitle size="large">Products Move, Data Doesn't</SlideTitle>
         <SlideDescription>
-          IOTA provides a global, public, and permissionless ledger for moving 
-          products, where records are immutable, cryptographically verifiable, 
-          persist beyond any single company, and enable transparent incentive 
-          distribution.
+          Products move between companies, countries, and lifecycles. But their
+          data is often siloed, overwritten, or lost. This creates inefficiencies,
+          greenwashing, and missed chances for circularity. And it leaves little
+          incentive for stakeholders to contribute meaningful lifecycle data.
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>
   );
 };
 
-export default Slide6;
+export default IntroSlide3;

@@ -5,12 +5,12 @@ import SlideContent from './SlideContent';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
 
-const Slide2: React.FC = () => {
+const IntroSlide8: React.FC = () => {
   return (
     <ImageTextLayout>
       <SlideImage
-        src="/assets/intro/disclaimer.webp"
-        alt="Disclaimer"
+        src="/assets/intro/misson.webp"
+        alt="Your Mission"
         opacity={100}
         scale={100}
         delay={0.15}
@@ -24,16 +24,17 @@ const Slide2: React.FC = () => {
         translateX={0}
         delay={0.25}
       >
-        <SlideTitle size="large">Disclaimer</SlideTitle>
+        <SlideTitle size="large">Your Mission</SlideTitle>
         <SlideDescription>
-          This demo is a reference implementation, not a fully-functional or
-          regulation-compliant DPP application. It was built to showcase how
-          IOTA's components can power real-world use cases, using Digital
-          Product Passports as one example.
+          You will step into the shoes of a service technician. Scan the product,
+          review previous data, request write access, perform a diagnostic, write a
+          health snapshot to the Digital Product Passport, and collect a token reward.
+          Before you can do that, we need to make sure your wallet is set up correctly
+          and you are good to go.
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>
   );
 };
 
-export default Slide2;
+export default IntroSlide8;

@@ -6,7 +6,7 @@ import OverlayText from './OverlayText';
 import FeaturesGrid from './FeaturesGrid';
 import FeatureCard from './FeatureCard';
 
-const Slide1: React.FC = () => {
+const IntroSlide1: React.FC = () => {
   return (
     <>
       {/* Video Section */}
@@ -64,4 +64,4 @@ const Slide1: React.FC = () => {
   );
 }
 
-export default Slide1;
+export default IntroSlide1;

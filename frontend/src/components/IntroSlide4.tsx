@@ -5,18 +5,18 @@ import SlideContent from './SlideContent';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
 
-const Slide4: React.FC = () => {
+const IntroSlide4: React.FC = () => {
   return (
     <ImageTextLayout>
-      <SlideImage 
-        src="/assets/intro/passport.webp" 
+      <SlideImage
+        src="/assets/intro/passport.webp"
         alt="What is a Digital Product Passport?"
         opacity={100}
         scale={100}
         delay={0.15}
       />
-      
-      <SlideContent 
+
+      <SlideContent
         textAlign="left"
         order="order-1 md:order-2"
         opacity={100}
@@ -26,9 +26,9 @@ const Slide4: React.FC = () => {
       >
         <SlideTitle size="large">What is a Digital Product Passport?</SlideTitle>
         <SlideDescription>
-          A Digital Product Passport is a portable, tamper-evident data record, 
-          linked to a verifiable product identity, that stores standardised 
-          specifications, lifecycle and compliance events, and can be selectively 
+          A Digital Product Passport is a portable, tamper-evident data record,
+          linked to a verifiable product identity, that stores standardised
+          specifications, lifecycle and compliance events, and can be selectively
           accessed by authorised stakeholders across its life cycle.
         </SlideDescription>
       </SlideContent>
@@ -36,4 +36,4 @@ const Slide4: React.FC = () => {
   );
 };
 
-export default Slide4;
+export default IntroSlide4;

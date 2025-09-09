@@ -1,26 +1,26 @@
 import React from "react";
-import Slide1 from "./Slide1";
-import Slide10 from "./Slide10";
-import Slide2 from "./Slide2";
-import Slide3 from "./Slide3";
-import Slide4 from "./Slide4";
-import Slide5 from "./Slide5";
-import Slide6 from "./Slide6";
-import Slide7 from "./Slide7";
-import Slide8 from "./Slide8";
-import Slide9 from "./Slide9";
+import IntroSlide1 from "./IntroSlide1";
+import IntroSlide10 from "./IntroSlide10";
+import IntroSlide2 from "./IntroSlide2";
+import IntroSlide3 from "./IntroSlide3";
+import IntroSlide4 from "./IntroSlide4";
+import IntroSlide5 from "./IntroSlide5";
+import IntroSlide6 from "./IntroSlide6";
+import IntroSlide7 from "./IntroSlide7";
+import IntroSlide8 from "./IntroSlide8";
+import IntroSlide9 from "./IntroSlide9";
 
 export const SLIDES_MAP = new Map([
-  [1, <Slide1 />],
-  [2, <Slide2 />],
-  [3, <Slide3 />],
-  [4, <Slide4 />],
-  [5, <Slide5 />],
-  [6, <Slide6 />],
-  [7, <Slide7 />],
-  [8, <Slide8 />],
-  [9, <Slide9 />],
-  [10, <Slide10 />],
+  [1, <IntroSlide1 />],
+  [2, <IntroSlide2 />],
+  [3, <IntroSlide3 />],
+  [4, <IntroSlide4 />],
+  [5, <IntroSlide5 />],
+  [6, <IntroSlide6 />],
+  [7, <IntroSlide7 />],
+  [8, <IntroSlide8 />],
+  [9, <IntroSlide9 />],
+  [10, <IntroSlide10 />],
 ]);
 
 interface IntroSlideManagerProps {

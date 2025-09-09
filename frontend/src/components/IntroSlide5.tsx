@@ -7,19 +7,19 @@ import SlideDescription from './SlideDescription';
 import FeaturesGrid from './FeaturesGrid';
 import RoleItem from './RoleItem';
 
-const Slide5: React.FC = () => {
+const IntroSlide5: React.FC = () => {
   return (
     <>
       <ImageTextLayout gap="gap-12 md:gap-16">
-        <SlideImage 
-          src="/assets/intro/lifecycle.webp" 
+        <SlideImage
+          src="/assets/intro/lifecycle.webp"
           alt="The Roles: Benefits and Responsibilities"
           opacity={100}
           scale={100}
           delay={0.15}
         />
-        
-        <SlideContent 
+
+        <SlideContent
           textAlign="left"
           order="order-1 md:order-2"
           opacity={100}
@@ -29,13 +29,13 @@ const Slide5: React.FC = () => {
         >
           <SlideTitle size="large">The Roles: Benefits and Responsibilities</SlideTitle>
           <SlideDescription>
-            Digital Product Passports connect many actors, each with distinct 
+            Digital Product Passports connect many actors, each with distinct
             responsibilities and potential benefits.
           </SlideDescription>
         </SlideContent>
       </ImageTextLayout>
 
-      <div 
+      <div
         className="grid grid-cols-1 md:grid-cols-2 justify-items-start items-center gap-1 md:gap-2 max-w-5xl pb-6 md:pb-0 mx-auto opacity-0 translate-y-4 opacity-100 translate-y-0"
         style={{ transition: 'opacity 0.6s ease-out 0.35s, transform 0.6s ease-out 0.35s' }}
       >
@@ -97,4 +97,4 @@ const Slide5: React.FC = () => {
   );
 };
 
-export default Slide5;
+export default IntroSlide5;

@@ -11,7 +11,7 @@ interface Slide10Props {
   onStartGuidedTour?: () => void;
 }
 
-const Slide10: React.FC<Slide10Props> = ({
+const IntroSlide10: React.FC<Slide10Props> = ({
   onExploreFree,
   onStartGuidedTour
 }) => {
@@ -29,15 +29,15 @@ const Slide10: React.FC<Slide10Props> = ({
 
   return (
     <ImageTextLayout gap="gap-12">
-      <SlideImage 
-        src="/assets/intro/dapp.webp" 
+      <SlideImage
+        src="/assets/intro/dapp.webp"
         alt="Let's step into the dApp"
         opacity={100}
         scale={100}
         delay={0.15}
       />
-      
-      <SlideContent 
+
+      <SlideContent
         textAlign="left"
         order="order-1 md:order-2"
         opacity={100}
@@ -52,7 +52,7 @@ const Slide10: React.FC<Slide10Props> = ({
           <SlideDescription>
             See how verifiable lifecycle data is recorded, shared, and rewarded.
           </SlideDescription>
-          
+
           <ActionButtons
             primaryButton={{
               text: "Start Guided Tour",
@@ -71,4 +71,4 @@ const Slide10: React.FC<Slide10Props> = ({
   );
 };
 
-export default Slide10;
+export default IntroSlide10;

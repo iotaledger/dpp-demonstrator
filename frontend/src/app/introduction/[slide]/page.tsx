@@ -15,7 +15,7 @@ import TutorialScrollContainer from '@/components/TutorialScrollContainer';
 import IntroSlide from '@/components/IntroSlide';
 import IntroSlideManager, { SLIDES_MAP } from '@/components/IntroSlideManager';
 import { useParams } from 'next/navigation';
-import { useIntroSlideNavigation } from '@/hooks/useIntroSlideNavigation';
+import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 
 export default function IntroductionPage() {
   const { slide: slideParam } = useParams();
@@ -27,7 +27,7 @@ export default function IntroductionPage() {
     progress,
     goNext,
     goPrevious,
-  } = useIntroSlideNavigation(getSlide(slideParam), SLIDES_MAP.size, getPathCallback);
+  } = useSlideNavigation(getSlide(slideParam), SLIDES_MAP.size, getPathCallback);
 
   function getSlide(slideParam: string | string[] | undefined) {
     if (slideParam != null && !Array.isArray(slideParam) && Number.isInteger(Number.parseInt(slideParam as string))) {

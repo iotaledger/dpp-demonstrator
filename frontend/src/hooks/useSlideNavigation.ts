@@ -3,7 +3,7 @@ import React from "react";
 
 const initialSlide = 1;
 
-export function useIntroSlideNavigation(externalCurrentSlide: number, totalSlides: number, getPathCb: (target: number) => string) {
+export function useSlideNavigation(externalCurrentSlide: number, totalSlides: number, getPathCb: (target: number) => string) {
   const [currentSlide, setInternalCurrentSlide] = React.useState(externalCurrentSlide ?? initialSlide);
   const router = useRouter();
 

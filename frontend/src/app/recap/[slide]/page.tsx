@@ -5,7 +5,7 @@ import NavigationButtons from "@/components/NavigationButtons";
 import PostExperienceRecap, { RECAP_SLIDES_MAP } from "@/components/PostExperienceRecap";
 import ProgressBar from "@/components/ProgressBar";
 import SlideCounter from "@/components/SlideCounter";
-import { useIntroSlideNavigation } from "@/hooks/useIntroSlideNavigation";
+import { useSlideNavigation } from "@/hooks/useSlideNavigation";
 import { useParams } from "next/navigation";
 
 export default function PostExperiencePage() {
@@ -18,7 +18,7 @@ export default function PostExperiencePage() {
     progress,
     goNext,
     goPrevious,
-  } = useIntroSlideNavigation(getSlide(slideParam), RECAP_SLIDES_MAP.size, getPathCallback);
+  } = useSlideNavigation(getSlide(slideParam), RECAP_SLIDES_MAP.size, getPathCallback);
 
   function getSlide(slideParam: string | string[] | undefined) {
     if (slideParam != null && !Array.isArray(slideParam) && Number.isInteger(Number.parseInt(slideParam as string))) {

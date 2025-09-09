@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import Header from '@/components/Header';
 import HeaderContent from '@/components/HeaderContent';
 import Main from '@/components/Main';
@@ -15,26 +13,28 @@ import TutorialCard from '@/components/TutorialCard';
 import CardHeader from '@/components/CardHeader';
 import TutorialScrollContainer from '@/components/TutorialScrollContainer';
 import IntroSlide from '@/components/IntroSlide';
+import IntroSlideManager, { SLIDES_MAP } from '@/components/IntroSlideManager';
+import { useParams } from 'next/navigation';
+import { useIntroSlideNavigation } from '@/hooks/useIntroSlideNavigation';
 
-const TutorialLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [currentSlide, setCurrentSlide] = React.useState(1);
-  const [totalSlides] = React.useState(10);
+export default function IntroductionPage() {
+  const { slide: slideParam } = useParams();
+  const {
+    currentSlide,
+    totalSlides,
+    canGoNext,
+    canGoPrevious,
+    progress,
+    goNext,
+    goPrevious,
+  } = useIntroSlideNavigation(getSlide(slideParam), SLIDES_MAP.size);
 
-  const handlePrevious = () => {
-    if (currentSlide > 1) {
-      setCurrentSlide(prev => prev - 1);
+  function getSlide(slideParam: string | string[] | undefined) {
+    if (slideParam != null && !Array.isArray(slideParam) && Number.isInteger(Number.parseInt(slideParam as string))) {
+      return Number.parseInt(slideParam as string);
     }
+    return 1;
   };
-
-  const handleNext = () => {
-    if (currentSlide < totalSlides) {
-      setCurrentSlide(prev => prev + 1);
-    }
-  };
-
-  const canGoPrevious = currentSlide > 1;
-  const canGoNext = currentSlide < totalSlides;
-  const progress = (currentSlide / totalSlides) * 100;
 
   return (
     <>
@@ -51,14 +51,11 @@ const TutorialLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
               <CardHeader title="Welcome" />
               <TutorialScrollContainer>
                 <IntroSlide opacity={100} scale={100}>
-                  {children}
+                  <IntroSlideManager currentSlide={currentSlide} />
                 </IntroSlide>
               </TutorialScrollContainer>
             </TutorialCard>
           </MainContent>
-          {/* Empty divs for grid layout */}
-          <div className="w-0"></div>
-          <div className="w-0"></div>
         </GridContainer>
       </Main>
       {/* Navigation Overlays */}
@@ -70,8 +67,8 @@ const TutorialLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
       />
 
       <NavigationButtons
-        onPrevious={handlePrevious}
-        onNext={handleNext}
+        onPrevious={goPrevious}
+        onNext={goNext}
         canGoPrevious={canGoPrevious}
         canGoNext={canGoNext}
       />
@@ -84,5 +81,3 @@ const TutorialLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     </>
   );
 }
-
-export default TutorialLayout;

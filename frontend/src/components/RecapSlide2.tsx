@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface PostExperience2Props {
+interface RecapSlide2Props {
   title?: string;
   description?: string;
   imageSrc?: string;
@@ -9,7 +9,7 @@ interface PostExperience2Props {
   delay?: number;
 }
 
-const PostExperience2: React.FC<PostExperience2Props> = ({
+const RecapSlide2: React.FC<RecapSlide2Props> = ({
   title = "Beyond Digital Product Passports",
   description = "While this demo used a DPPs as its example, the principles and components you just explored are not tied to one sector or regulation. All showcased IOTA components are designed to be modular, open, and industry-agnostic.",
   imageSrc = "/assets/recap/recap_1.webp",
@@ -50,4 +50,4 @@ const PostExperience2: React.FC<PostExperience2Props> = ({
   );
 };
 
-export default PostExperience2;
+export default RecapSlide2;

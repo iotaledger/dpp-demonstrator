@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import NavigationButtons from "@/components/NavigationButtons";
-import PostExperienceRecap, { RECAP_SLIDES_MAP } from "@/components/PostExperienceRecap";
+import RecapSlideManager, { RECAP_SLIDES_MAP } from "@/components/RecapSlideManager";
 import ProgressBar from "@/components/ProgressBar";
 import SlideCounter from "@/components/SlideCounter";
 import { useSlideNavigation } from "@/hooks/useSlideNavigation";
@@ -58,7 +58,7 @@ export default function PostExperiencePage() {
       {/* Fullscreen slide container */}
       <div className="fixed inset-0 w-full min-h-dvh overflow-y-scroll overflow-x-hidden bg-slate-100">
         <div className="h-full flex items-center justify-center">
-          <PostExperienceRecap currentSlide={currentSlide} />
+          <RecapSlideManager currentSlide={currentSlide} />
         </div>
       </div>
 

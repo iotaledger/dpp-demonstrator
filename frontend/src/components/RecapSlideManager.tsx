@@ -3,25 +3,25 @@ import IntroSlide from './IntroSlide';
 import ProgressBar from './ProgressBar';
 import SlideCounter from './SlideCounter';
 import NavigationButtons from './NavigationButtons';
-import PostExperience1 from './PostExperience1';
-import PostExperience2 from './PostExperience2';
-import PostExperience3 from './PostExperience3';
-import PostExperience4 from './PostExperience4';
+import RecapSlide1 from './RecapSlide1';
+import RecapSlide2 from './RecapSlide2';
+import RecapSlide3 from './RecapSlide3';
+import RecapSlide4 from './RecapSlide4';
 
 export const RECAP_SLIDES_MAP = new Map([
-  [1, <PostExperience1
+  [1, <RecapSlide1
     opacity={100}
     delay={0.2}
   />],
-  [2, <PostExperience2
+  [2, <RecapSlide2
     opacity={100}
     delay={0.3}
   />],
-  [3, <PostExperience3
+  [3, <RecapSlide3
     opacity={100}
     delay={0.3}
   />],
-  [4, <PostExperience4
+  [4, <RecapSlide4
     opacity={100}
     delay={0.3}
   />],
@@ -29,11 +29,11 @@ export const RECAP_SLIDES_MAP = new Map([
 
 const initialSlide = 1;
 
-interface PostExperienceRecapProps {
+interface RecapSlideManagerProps {
   currentSlide?: number;
 }
 
-const PostExperienceRecap: React.FC<PostExperienceRecapProps> = ({
+const RecapSlideManager: React.FC<RecapSlideManagerProps> = ({
   currentSlide: externalCurrentSlide,
 }) => {
   const [currentSlide, setInternalCurrentSlide] = useState(externalCurrentSlide ?? initialSlide);
@@ -52,4 +52,4 @@ const PostExperienceRecap: React.FC<PostExperienceRecapProps> = ({
   );
 };
 
-export default PostExperienceRecap;
+export default RecapSlideManager;

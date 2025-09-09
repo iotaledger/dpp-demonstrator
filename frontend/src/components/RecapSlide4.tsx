@@ -2,13 +2,13 @@ import React from 'react';
 import FeatureCard from './FeatureCard';
 import ContactSection from './ContactSection';
 
-interface PostExperience4Props {
+interface RecapSlide4Props {
   title?: string;
   opacity?: number;
   delay?: number;
 }
 
-const PostExperience4: React.FC<PostExperience4Props> = ({
+const RecapSlide4: React.FC<RecapSlide4Props> = ({
   title = "Get Started with IOTA",
   opacity = 100,
   delay = 0.3
@@ -110,4 +110,4 @@ const PostExperience4: React.FC<PostExperience4Props> = ({
   );
 };
 
-export default PostExperience4;
+export default RecapSlide4;

@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckmarkList from './CheckmarkList';
 
-interface PostExperience1Props {
+interface RecapSlide1Props {
   title?: string;
   description?: string;
   checkmarkItems?: string[];
@@ -10,7 +10,7 @@ interface PostExperience1Props {
   delay?: number;
 }
 
-const PostExperience1: React.FC<PostExperience1Props> = ({
+const RecapSlide1: React.FC<RecapSlide1Props> = ({
   title = "What You Just Experienced",
   description = "You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:",
   checkmarkItems = [
@@ -69,4 +69,4 @@ const PostExperience1: React.FC<PostExperience1Props> = ({
   );
 };
 
-export default PostExperience1;
+export default RecapSlide1;

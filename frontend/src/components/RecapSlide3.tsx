@@ -1,14 +1,14 @@
 import React from 'react';
 import FeatureCard from './FeatureCard';
 
-interface PostExperience3Props {
+interface RecapSlide3Props {
   title?: string;
   description?: string;
   opacity?: number;
   delay?: number;
 }
 
-const PostExperience3: React.FC<PostExperience3Props> = ({
+const RecapSlide3: React.FC<RecapSlide3Props> = ({
   title = "IOTA Product Recap",
   description = "The IOTA Trust Framework enables trusted digital collaboration across the product lifecycle:",
   opacity = 100,
@@ -180,4 +180,4 @@ const PostExperience3: React.FC<PostExperience3Props> = ({
   );
 };
 
-export default PostExperience3;
+export default RecapSlide3;

@@ -54,7 +54,7 @@ export default function IntroductionPage() {
             <TutorialCard>
               <CardHeader title="Welcome" />
               <TutorialScrollContainer>
-                <IntroSlide opacity={100} scale={100}>
+                <IntroSlide>
                   <IntroSlideManager currentSlide={currentSlide} />
                 </IntroSlide>
               </TutorialScrollContainer>

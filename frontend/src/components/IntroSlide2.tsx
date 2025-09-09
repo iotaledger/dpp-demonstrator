@@ -11,18 +11,10 @@ const IntroSlide2: React.FC = () => {
       <SlideImage
         src="/assets/intro/disclaimer.webp"
         alt="Disclaimer"
-        opacity={100}
-        scale={100}
-        delay={0.15}
       />
 
       <SlideContent
         textAlign="left"
-        order="order-1 md:order-2"
-        opacity={100}
-        translateY={0}
-        translateX={0}
-        delay={0.25}
       >
         <SlideTitle size="large">Disclaimer</SlideTitle>
         <SlideDescription>

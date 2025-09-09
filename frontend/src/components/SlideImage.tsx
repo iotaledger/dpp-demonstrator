@@ -1,3 +1,5 @@
+import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
+import clsx from 'clsx';
 import React from 'react';
 
 interface SlideImageProps {
@@ -13,20 +15,22 @@ const SlideImage: React.FC<SlideImageProps> = ({
   alt,
   opacity = 0,
   scale = 95,
-  delay = 0.15
+  delay = 250
 }) => {
+  const { isTriggered } = useTransitionTrigger(delay);
   return (
     <div className="flex justify-center md:justify-end order-2 md:order-1">
       <div className="relative">
-        <div className="relative w-full max-w-md h-full max-h-[320px] aspect-[4/3] rounded-2xl overflow-hidden">
+        <div
+          className="relative w-full max-w-md h-full max-h-[320px] aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-blue-100 to-blue-200">
           <img
             style={{
-              transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s ease-out ${delay}s`
+              transition: `opacity 0.6s ease-out 0.15s, transform 0.6s ease-out 0.15s`
             }}
             loading="lazy"
             src={src}
             alt={alt}
-            className={`w-full h-full object-contain p-6 opacity-${opacity} scale-${scale} opacity-100 scale-100`}
+            className={clsx(`w-full h-full object-contain p-6 opacity-${opacity} scale-${scale}`, isTriggered && 'opacity-100 scale-100')}
           />
         </div>
       </div>

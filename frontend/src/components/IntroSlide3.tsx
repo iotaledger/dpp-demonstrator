@@ -11,18 +11,10 @@ const IntroSlide3: React.FC = () => {
       <SlideImage
         src="/assets/intro/map.webp"
         alt="Products Move, Data Doesn't"
-        opacity={100}
-        scale={100}
-        delay={0.15}
       />
 
       <SlideContent
         textAlign="left"
-        order="order-1 md:order-2"
-        opacity={100}
-        translateY={0}
-        translateX={0}
-        delay={0.25}
       >
         <SlideTitle size="large">Products Move, Data Doesn't</SlideTitle>
         <SlideDescription>

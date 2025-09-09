@@ -10,7 +10,8 @@ const SlideDescription: React.FC<SlideDescriptionProps> = ({
   opacity = 80
 }) => {
   return (
-    <p className={`text-base md:text-xl opacity-${opacity} mb-8 leading-relaxed`}>
+    <p
+      className={`text-base md:text-xl opacity-${opacity} mb-6 leading-relaxed`}>
       {children}
     </p>
   );

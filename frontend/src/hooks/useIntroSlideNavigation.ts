@@ -3,7 +3,7 @@ import React from "react";
 
 const initialSlide = 1;
 
-export function useIntroSlideNavigation(externalCurrentSlide: number, totalSlides: number) {
+export function useIntroSlideNavigation(externalCurrentSlide: number, totalSlides: number, getPathCb: (target: number) => string) {
   const [currentSlide, setInternalCurrentSlide] = React.useState(externalCurrentSlide ?? initialSlide);
   const router = useRouter();
 
@@ -23,14 +23,14 @@ export function useIntroSlideNavigation(externalCurrentSlide: number, totalSlide
    */
   const handlePrevious = () => {
     if (currentSlide > 1) {
-      router.push(`/introduction/${currentSlide - 1}`)
+      router.push(getPathCb(currentSlide - 1))
     }
   };
 
   const handleNext = () => {
     if (currentSlide < totalSlides) {
       handleSlideChange(currentSlide + 1);
-      router.push(`/introduction/${currentSlide + 1}`)
+      router.push(getPathCb(currentSlide + 1))
     }
   };
 

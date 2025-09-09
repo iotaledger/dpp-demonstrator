@@ -6,7 +6,6 @@ interface PostExperience1Props {
   description?: string;
   checkmarkItems?: string[];
   buttonText?: string;
-  onButtonClick?: () => void;
   opacity?: number;
   delay?: number;
 }
@@ -16,14 +15,13 @@ const PostExperience1: React.FC<PostExperience1Props> = ({
   description = "You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:",
   checkmarkItems = [
     "Verified manufacturer identity via domain linkage",
-    "Became certified through IOTA Hierarchies", 
+    "Became certified through IOTA Hierarchies",
     "Added a signed health snapshot using IOTA Notarization",
     "Received a token payout via IOTA Tokenization",
     "Paid no fees thanks to IOTA Gas Station",
     "Connected securely via a browser or mobile wallet"
   ],
   buttonText = "Back to DPP",
-  onButtonClick,
   opacity = 100,
   delay = 0.2
 }) => {
@@ -34,8 +32,11 @@ const PostExperience1: React.FC<PostExperience1Props> = ({
     transition: `opacity 0.8s ease-out, transform 0.8s ease-out`
   };
 
+  // TODO: implement nativation back to DPP (introduction?)
+  const handleBackToDpp = () => { };
+
   return (
-    <div 
+    <div
       className="max-w-6xl mx-auto p-6 md:p-12"
       style={containerStyle}
     >
@@ -43,9 +44,9 @@ const PostExperience1: React.FC<PostExperience1Props> = ({
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-start gap-4">
             <div className="flex justify-start">
-              <button 
+              <button
                 className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 border border-gray-700 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
-                onClick={onButtonClick}
+                onClick={handleBackToDpp}
               >
                 {buttonText}
               </button>
@@ -58,8 +59,8 @@ const PostExperience1: React.FC<PostExperience1Props> = ({
             <p className="leading-[28px]">{description}</p>
           </div>
         </div>
-        <CheckmarkList 
-          items={checkmarkItems} 
+        <CheckmarkList
+          items={checkmarkItems}
           opacity={100}
           delay={delay + 0.2}
         />

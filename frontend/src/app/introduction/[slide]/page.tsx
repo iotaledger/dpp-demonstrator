@@ -27,7 +27,7 @@ export default function IntroductionPage() {
     progress,
     goNext,
     goPrevious,
-  } = useIntroSlideNavigation(getSlide(slideParam), SLIDES_MAP.size);
+  } = useIntroSlideNavigation(getSlide(slideParam), SLIDES_MAP.size, getPathCallback);
 
   function getSlide(slideParam: string | string[] | undefined) {
     if (slideParam != null && !Array.isArray(slideParam) && Number.isInteger(Number.parseInt(slideParam as string))) {
@@ -35,6 +35,10 @@ export default function IntroductionPage() {
     }
     return 1;
   };
+
+  function getPathCallback(targetSlide: number) {
+    return `/introduction/${targetSlide}`;
+  }
 
   return (
     <>

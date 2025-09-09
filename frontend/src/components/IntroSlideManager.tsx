@@ -38,7 +38,7 @@ const IntroSlideManager: React.FC<IntroSlideManagerProps> = ({ currentSlide }) =
 
   return (
     <>
-      {renderComponent(currentSlide)}
+      {renderComponent(currentSlide!)}
     </>
   );
 };

@@ -4,14 +4,12 @@ import ContactSection from './ContactSection';
 
 interface PostExperience4Props {
   title?: string;
-  onEmailCopy?: (email: string) => void;
   opacity?: number;
   delay?: number;
 }
 
 const PostExperience4: React.FC<PostExperience4Props> = ({
   title = "Get Started with IOTA",
-  onEmailCopy,
   opacity = 100,
   delay = 0.3
 }) => {
@@ -43,6 +41,9 @@ const PostExperience4: React.FC<PostExperience4Props> = ({
     image: "/assets/recap/bip.webp",
     url: "https://www.iota.org/build/business-innovation-program"
   };
+
+  // TODO: implement email content copy to clipboard, maybe it coulbe be a hook
+  const handleEmailCopy = () => { };
 
   return (
     <div
@@ -99,7 +100,7 @@ const PostExperience4: React.FC<PostExperience4Props> = ({
             title="Contact us"
             email="partnerships@iota.org"
             emailLabel="Email Address"
-            onCopy={onEmailCopy}
+            onCopy={handleEmailCopy}
             opacity={100}
             delay={delay + 0.4}
           />

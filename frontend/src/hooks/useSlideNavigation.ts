@@ -29,18 +29,39 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
 
   const handleNext = () => {
     if (currentSlide < totalSlides) {
-      handleSlideChange(currentSlide + 1);
       router.push(getPathCb(currentSlide + 1))
     }
   };
+
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          if (canGoPrevious) handlePrevious();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          if (canGoNext) handleNext();
+          break;
+        case 'Escape':
+          event.preventDefault();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentSlide, canGoPrevious, canGoNext]);
+
 
   return {
     currentSlide,
     totalSlides,
     canGoPrevious,
     canGoNext,
-    progress,
-    goNext: handleNext,
     goPrevious: handlePrevious,
+    goNext: handleNext,
+    progress,
   }
 }

@@ -3,14 +3,14 @@
 import Main from '@/components/Main';
 import GridContainer from '@/components/GridContainer';
 import MainContent from '@/components/MainContent';
-import GuidedExploration from "@/components/GuidedExploration";
+import ExploreGuided from "@/components/ExploreGuided";
 
 export default function ExploreGuidedPage() {
   return (
     <Main>
       <GridContainer>
         <MainContent>
-          <GuidedExploration />
+          <ExploreGuided />
         </MainContent>
       </GridContainer>
     </Main>

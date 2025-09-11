@@ -14,7 +14,7 @@ import ServiceHistoryCard from './ServiceHistoryCard';
 import EndOfPassportMessage from './EndOfPassportMessage';
 import GuidedSidebar from './GuidedSidebar';
 
-interface GuidedExplorationProps {
+interface ExploreGuidedProps {
   title?: string;
   headerButtonText?: string;
   onHeaderButtonClick?: () => void;
@@ -53,7 +53,7 @@ interface GuidedExplorationProps {
   nextLabel?: string;
 }
 
-const GuidedExploration: React.FC<GuidedExplorationProps> = ({
+const ExploreGuided: React.FC<ExploreGuidedProps> = ({
   title = "Digital Product Passport",
   headerButtonText = "Switch to Freely",
   onHeaderButtonClick,
@@ -96,9 +96,7 @@ const GuidedExploration: React.FC<GuidedExplorationProps> = ({
       <CardHeader
         title={title}
         linkText={headerButtonText}
-        linkUrl={onHeaderButtonClick}
       />
-
       <TutorialScrollContainer>
         <div className="dpp-content-container">
           <ProductHeaderCard
@@ -150,4 +148,4 @@ const GuidedExploration: React.FC<GuidedExplorationProps> = ({
   );
 };
 
-export default GuidedExploration;
+export default ExploreGuided;

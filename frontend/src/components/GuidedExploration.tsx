@@ -95,10 +95,8 @@ const GuidedExploration: React.FC<GuidedExplorationProps> = ({
     <TutorialCard>
       <CardHeader
         title={title}
-        showButton={true}
-        buttonText={headerButtonText}
-        onButtonClick={onHeaderButtonClick}
-        buttonVariant="outlined"
+        linkText={headerButtonText}
+        linkUrl={onHeaderButtonClick}
       />
 
       <TutorialScrollContainer>

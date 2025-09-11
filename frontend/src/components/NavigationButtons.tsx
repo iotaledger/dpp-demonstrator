@@ -25,7 +25,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-      
+
       <button
         disabled={!canGoNext}
         onClick={onNext}

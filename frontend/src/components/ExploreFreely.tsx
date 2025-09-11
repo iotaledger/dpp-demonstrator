@@ -79,10 +79,8 @@ const ExploreFreely: React.FC<ExploreFreeyProps> = ({
     <TutorialCard>
       <CardHeader
         title={title}
-        showButton={true}
-        buttonText={headerButtonText}
-        onButtonClick={onHeaderButtonClick}
-        buttonVariant="outlined"
+        linkText={headerButtonText}
+        linkUrl={onHeaderButtonClick}
       />
       <TutorialScrollContainer>
         <div className="dpp-content-container">

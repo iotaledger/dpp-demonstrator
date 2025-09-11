@@ -4,7 +4,7 @@
 
 :root {
   /* Base Variables */
-  /* --font-size: 14px; */
+  --font-size: 14px;
   /* --background: #ffffff; */
   /* --foreground: oklch(0.145 0 0); */
   /* --card: #ffffff; */
@@ -126,12 +126,9 @@ body {
   overflow-x: hidden;
 }
 
-/**/
-/* html { */
-/*   font-size: 16px; */
-/*   -webkit-font-smoothing: antialiased; */
-/*   -moz-osx-font-smoothing: grayscale; */
-/* } */
+html {
+  font-size: var(--font-size);
+}
 
 /* Utility classes */
 /* .flex { display: flex; } */

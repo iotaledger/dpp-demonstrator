@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Header from '@/components/Header';
 import HeaderContent from '@/components/HeaderContent';
 import Main from '@/components/Main';
@@ -52,7 +53,7 @@ export default function IntroductionPage() {
         <GridContainer>
           <MainContent>
             <TutorialCard>
-              <CardHeader title="Welcome" />
+              <CardHeader title="Welcome" linkText='Skip Intro' linkUrl='/explore-freely' backUrl='/introduction/1' canGoBack={canGoPrevious} />
               <TutorialScrollContainer>
                 <IntroSlide>
                   <IntroSlideManager currentSlide={currentSlide} />

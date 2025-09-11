@@ -3,11 +3,13 @@ import React from 'react';
 interface SlideTitleProps {
   children: React.ReactNode;
   size?: 'large' | 'medium';
+  margin?: string;
 }
 
 const SlideTitle: React.FC<SlideTitleProps> = ({
   children,
-  size = 'large'
+  size = 'large',
+  margin = 'mb-6',
 }) => {
   const getSizeClasses = () => {
     switch (size) {
@@ -20,7 +22,7 @@ const SlideTitle: React.FC<SlideTitleProps> = ({
   };
 
   return (
-    <h2 className={`${getSizeClasses()} font-medium mb-6 leading-tight`}>
+    <h2 className={`${getSizeClasses()} ${margin} font-medium leading-tight`}>
       {children}
     </h2>
   );

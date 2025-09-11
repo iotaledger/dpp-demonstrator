@@ -78,8 +78,11 @@ const ExploreFreely: React.FC<ExploreFreeyProps> = ({
   return (
     <TutorialCard>
       <CardHeader
-        title={title}
-        linkText={headerButtonText}
+        canGoBack={true}
+        backText='↺ Reset to Intro'
+        backUrl='/introduction/1'
+        linkText='Switch to Guided Tour'
+        linkUrl='/explore-guided'
       />
       <TutorialScrollContainer>
         <div className="dpp-content-container">

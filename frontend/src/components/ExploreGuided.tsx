@@ -94,8 +94,11 @@ const ExploreGuided: React.FC<ExploreGuidedProps> = ({
   const mainContent = (
     <TutorialCard>
       <CardHeader
-        title={title}
-        linkText={headerButtonText}
+        canGoBack={true}
+        backText='↺ Reset to Intro'
+        backUrl='/introduction/1'
+        linkText='Switch to free exploration'
+        linkUrl='/explore-freely'
       />
       <TutorialScrollContainer>
         <div className="dpp-content-container">

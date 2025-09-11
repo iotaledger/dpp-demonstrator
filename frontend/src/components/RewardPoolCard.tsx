@@ -54,13 +54,14 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
         <TwoColumnSection
           gap="gap-4"
           leftColumn={
-            <div className="panel space-y-4 border-1 rounded-lg p-4 transition-all duration-300 ease-out">
-              <h3 className="font-medium text-gray-900">Lifecycle Rewards</h3>
+            <div className="panel space-y-4 border-1 rounded-lg p-4 border-gray-200 transition-all duration-300 ease-out">
+              <h3 className="font-medium text-gray-900">Lifecycle Credit (LCC) Rewards</h3>
               <DataGrid>
                 {/* TODO: Truncate the address */}
                 <ItemValueRow
                   label="Reward contract"
                   value={truncateAddress(rewardContract)}
+                  columnMaxWidth={250}
                   fontMono={true}
                   valueColor="text-blue-600"
                   isLink={true}
@@ -70,18 +71,21 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 <ItemValueRow
                   label="Total Lifecycle Fund"
                   value={totalLifecycleFund}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
                 {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
                 <ItemValueRow
                   label="End-of-life Rewards"
                   value={endOfLifeRewards}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
                 {/* TODO: Remove the fraction when it is zero */}
                 <ItemValueRow
                   label="Maintenance Rewards remaining"
                   value={isSuccess && rewardDetails && getVaultTotalValue(rewardDetails)}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
                 {/* NOTE: Supply - Balance */}
@@ -89,37 +93,42 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 <ItemValueRow
                   label="Used"
                   value={usedPercentage}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
               </DataGrid>
             </div>
           }
           rightColumn={
-            <div className="panel space-y-4 border-1 rounded-lg p-4 transition-all duration-300 ease-out">
+            <div className="panel space-y-4 border-1 rounded-lg p-4 border-gray-200 transition-all duration-300 ease-out">
               <h3 className="font-medium text-gray-900">Reward Table</h3>
               <DataGrid>
                 {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
                 <ItemValueRow
                   label="Annual Maintenance Reward"
                   value={annualMaintenanceReward}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
                 {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
                 <ItemValueRow
                   label="Recycling Reward"
                   value={recyclingReward}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
                 {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
                 <ItemValueRow
                   label="Final owner"
                   value={finalOwnerReward}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
                 {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
                 <ItemValueRow
                   label="Manufacturer return"
                   value={manufacturerReturnReward}
+                  columnMaxWidth={250}
                   showBorder={true}
                 />
               </DataGrid>

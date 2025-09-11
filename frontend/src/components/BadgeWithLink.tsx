@@ -20,7 +20,7 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
   linkText,
   linkHref = "#",
   linkTarget = "_blank",
-  showVerification = false,
+  showVerification = true,
   verificationIcon = 'check',
   verificationDid = null,
   spacing = "gap-2",
@@ -35,11 +35,12 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
         transition: `opacity ${delay}s ease-out`
       }}
     >
-      <div className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/80">
+      <div
+        className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/80">
         <span className="value-content">{badgeText}</span>
       </div>
 
-      {verificationDid &&
+      {showVerification &&
         <VerificationIcon
           showVerification={showVerification}
           verificationIcon={verificationIcon}
@@ -56,8 +57,14 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
   );
 };
 
+interface VerificationIconProps {
+  showVerification?: boolean;
+  verificationIcon?: 'check' | 'none';
+  verificationDid?: string | null;
+}
+
 // TODO: Getting an error while calling the check linkage API endpoint
-function VerificationIcon({ showVerification, verificationIcon, verificationDid }) {
+const VerificationIcon: React.FC<VerificationIconProps> = ({ showVerification, verificationIcon, verificationDid }) => {
   const { checkStatus, isSuccess } = useCheckLinkage(verificationDid as string);
 
   React.useEffect(() => {

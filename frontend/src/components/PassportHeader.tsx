@@ -71,6 +71,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
         <div className="max-w-7xl mx-auto px-6 xl:px-12 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
+              {/* TODO: Load the logo from `/assets` source */}
               <svg
                 aria-hidden="true"
                 role="figure"
@@ -87,8 +88,8 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
                 <path d="M129.392 10.4233L120.442 30.4266H117.512L127.321 8.4965C127.673 7.68621 128.495 7.18585 129.354 7.18585C130.252 7.18585 131.035 7.68621 131.388 8.4965L141.197 30.4266H138.267L129.392 10.4233Z" fill="currentColor" />
               </svg>
             </div>
+            {/* TODO: Set style to connection button */}
             <ConnectButton />
-            {/* <MyConnectButton handleConnect={handleConnect} connectText={connectText} /> */}
           </div>
         </div>
       </header>

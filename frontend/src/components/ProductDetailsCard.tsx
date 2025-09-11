@@ -35,7 +35,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
         title="Product Details" opacity={opacity}
         delay={delay}
       >
-        <div className="panel space-y-4 border-1 rounded-lg p-4 transition-all duration-300 ease-out">
+        <div className="panel space-y-4 border-1 rounded-lg p-4 border-gray-200 transition-all duration-300 ease-out">
           <h3 className="font-medium text-gray-900">Product Passport Details</h3>
           <DataGrid>
             <ItemValueRow
@@ -69,7 +69,6 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
         </div>
 
         <TwoColumnSection
-          gap="gap-4"
           leftColumn={(
             <CollapsibleInnerSection
               title="Battery Details"

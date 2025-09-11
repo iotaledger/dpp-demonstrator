@@ -6,6 +6,7 @@ interface ItemValueRowProps {
   isLink?: boolean;
   linkHref?: string;
   linkTarget?: '_blank' | '_self';
+  columnMaxWidth?: number;
   fontMono?: boolean;
   valueColor?: string;
   showBorder?: boolean;
@@ -19,6 +20,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
   isLink = false,
   linkHref = "#",
   linkTarget = "_blank",
+  columnMaxWidth = 150,
   fontMono = false,
   valueColor = "text-gray-900",
   showBorder = false,
@@ -51,13 +53,12 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
     'value-content'
   ].filter(Boolean).join(' ');
 
-  const borderClasses = showBorder 
-    ? 'border-1 border-transparent' 
+  const borderClasses = showBorder
+    ? 'border-1 border-transparent'
     : '';
 
   return (
-    <div
-      className={`grid-cols-1 gap-1 sm:grid-cols-[minmax(max-content,250px)_auto] grid-flow-col grid items-center ${borderClasses}`}
+    <div className={`grid-cols-1 sm:grid-cols-[minmax(max-content,${columnMaxWidth}px)_auto] gap-1 grid-flow-col  grid items-center ${borderClasses}`}
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`

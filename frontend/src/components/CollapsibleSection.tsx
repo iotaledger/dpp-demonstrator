@@ -1,8 +1,10 @@
+import clsx from 'clsx';
 import React, { useState } from 'react';
 
 interface CollapsibleSectionProps {
-  title: string;
   children: React.ReactNode;
+  title: string;
+  subtitle?: string;
   defaultExpanded?: boolean;
   showButton?: boolean;
   cardStyle?: boolean;
@@ -12,8 +14,9 @@ interface CollapsibleSectionProps {
 }
 
 const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
-  title,
   children,
+  title,
+  subtitle = '',
   defaultExpanded = true,
   showButton = true,
   cardStyle = true,
@@ -37,18 +40,25 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     transition: `opacity ${delay}s ease-out, transform ${delay}s ease-out`
   };
 
+  const hasSubtitle = () => {
+    return subtitle != null && subtitle.trim() !== '';
+  };
+
   return (
     <div
       className={cardClasses}
       style={containerStyle}
     >
       <div className="transition-all duration-500 ease-out opacity-100 scale-100">
-        <div className="flex flex-col space-y-1.5 px-0.5 pb-3">
+        <div className={clsx("flex flex-col space-y-1.5 px-0.5", isExpanded && "pb-3")} >
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold leading-none tracking-tight">{title}</h3>
+            <div>
+              <h3 className="font-semibold leading-none tracking-tight">{title}</h3>
+              {hasSubtitle() && <p className="text-sm text-gray-500">{subtitle}</p>}
+            </div>
             {showButton && (
               <button
-                className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                className=" inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
                 onClick={toggleExpanded}
                 aria-expanded={isExpanded}
               >
@@ -70,6 +80,7 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
           </div>
         </div>
 
+        {/* TODO: Implement smooth transition to collapsable section */}
         {isExpanded && (
           <div>
             <div className="p-0 space-y-6">

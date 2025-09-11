@@ -73,7 +73,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
         opacity={opacity}
         delay={delay}
       >
-        <div className="panel space-y-4 border-1 rounded-lg p-4 transition-all duration-300 ease-out">
+        <div className="panel space-y-4 border-1 rounded-lg p-4 border-gray-200 transition-all duration-300 ease-out">
           <DataGrid gap="gap-y-3 gap-x-6">
             {/* First, renders root authorities as "Service Network" */}
             {/* NOTE: What exactly a "Service Network" means?

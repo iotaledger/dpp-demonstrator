@@ -11,7 +11,7 @@ interface DataGridProps {
 
 const DataGrid: React.FC<DataGridProps> = ({
   children,
-  columns = "grid-cols-1",
+  columns = "",
   gap = "gap-y-1.5 gap-x-6",
   textSize = "text-sm",
   opacity = 100,

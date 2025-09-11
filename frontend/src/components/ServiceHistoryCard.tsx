@@ -79,15 +79,23 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     <section className="px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
       <CollapsibleSection
         title="Service History"
+        subtitle='Maintenance and Repairs'
         opacity={opacity}
         delay={delay}
       >
-        <div className="panel space-y-4 border-1 rounded-lg p-4 transition-all duration-300 ease-out">
-          <h3 className="font-medium text-gray-900">Latest Service Entry</h3>
+        <div className="panel space-y-4 border-1 rounded-lg p-4 border-gray-200 transition-all duration-300 ease-out">
+          <div className='flex items-center gap-2 mb-3'>
+            <h3 className="font-medium text-gray-900">Health Snapshot</h3>
+            <BadgeWithLink
+              badgeText="#1"
+              spacing="gap-0"
+            />
+          </div>
           <DataGrid gap="gap-y-2 gap-x-6">
             <ItemValueRow
               label="DPP ID"
               value={truncateAddress(latestService?.entryId)}
+              columnMaxWidth={250}
               fontMono={true}
               valueColor="text-blue-600"
               isLink={true}
@@ -97,26 +105,30 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <ItemValueRow
               label="Entry Type"
               value={latestService?.serviceType}
+              columnMaxWidth={250}
               showBorder={true}
             />
             <ItemValueRow
               label="Timestamp"
               value={fromPosixMsToUtcDateFormat(latestService?.timestamp)}
+              columnMaxWidth={250}
               showBorder={true}
             />
 
-            <hr className="my-1" />
+            <hr className="my-1 border-gray-200" />
 
             {/* TODO: How do I calculate it? */}
             <ItemValueRow
               label="Health Score"
               value={healthScore}
+              columnMaxWidth={250}
               valueColor="text-gray-900 font-semibold"
               showBorder={true}
             />
             <ItemValueRow
               label="Findings"
               value={latestService?.serviceDescription}
+              columnMaxWidth={250}
               showBorder={true}
             />
             {/* NOTE: It shows the info: "Notarized at (Epoch 512) block 0x9ef...429e" */}
@@ -124,10 +136,11 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <ItemValueRow
               label="Verification"
               value={verification}
+              columnMaxWidth={250}
               showBorder={true}
             />
 
-            <hr className="my-1" />
+            <hr className="my-1 border-gray-200" />
 
             {manufacturerEntities && manufacturerEntities.map((entityAddress) => (
               <ItemValueRow
@@ -149,6 +162,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                     </a>
                   </div>
                 }
+                columnMaxWidth={250}
                 showBorder={true}
               />
             ))}
@@ -171,15 +185,17 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                     </a>
                   </div>
                 }
+                columnMaxWidth={250}
                 showBorder={true}
               />
             )}
 
-            <hr className="my-1" />
+            <hr className="my-1 border-gray-200" />
 
             <ItemValueRow
               label="Reward contract"
               value={truncateAddress(latestService?.packageId)}
+              columnMaxWidth={250}
               fontMono={true}
               valueColor="text-blue-600"
               linkHref={`https://explorer.iota.org/object/${latestService?.packageId}?network=testnet`}
@@ -191,6 +207,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <ItemValueRow
               label="Reward Distributed"
               value={rewardDistributed}
+              columnMaxWidth={250}
               showBorder={true}
             />
           </DataGrid>

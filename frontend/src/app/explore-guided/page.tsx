@@ -3,16 +3,14 @@
 import Main from '@/components/Main';
 import GridContainer from '@/components/GridContainer';
 import MainContent from '@/components/MainContent';
-import TutorialCard from '@/components/TutorialCard';
-import CardHeader from '@/components/CardHeader';
-import TutorialScrollContainer from '@/components/TutorialScrollContainer';
+import GuidedExploration from "@/components/GuidedExploration";
 
-export default function GuidedExploreLayout({ children }: React.PropsWithChildren) {
+export default function ExploreGuidedPage() {
   return (
     <Main>
       <GridContainer>
         <MainContent>
-          {children}
+          <GuidedExploration />
         </MainContent>
       </GridContainer>
     </Main>

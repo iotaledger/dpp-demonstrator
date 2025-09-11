@@ -43,6 +43,7 @@ export default function IntroductionPage() {
 
   return (
     <>
+      {/* TODO: Assess if this header should be kept */}
       {/* Hidden Header */}
       <Header hidden={true}>
         <HeaderContent />
@@ -53,7 +54,12 @@ export default function IntroductionPage() {
         <GridContainer>
           <MainContent>
             <TutorialCard>
-              <CardHeader title="Welcome" linkText='Skip Intro' linkUrl='/explore-freely' backUrl='/introduction/1' canGoBack={canGoPrevious} />
+              <CardHeader
+                title="Welcome"
+                linkText='Skip Intro'
+                linkUrl='/explore-freely'
+                backUrl='/introduction/1'
+                canGoBack={canGoPrevious} />
               <TutorialScrollContainer>
                 <IntroSlide>
                   <IntroSlideManager currentSlide={currentSlide} />

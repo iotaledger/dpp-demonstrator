@@ -6,6 +6,7 @@ interface CardHeaderProps {
   showLink?: boolean;
   linkText?: string;
   linkUrl?: string;
+  backText?: string;
   backUrl?: string;
   canGoBack?: boolean;
 }
@@ -17,6 +18,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   showLink = true,
   linkText = "Button",
   linkUrl = '/introduction/1',
+  backText = 'Back to the Start',
   backUrl = '/introduction/1',
   canGoBack = false,
 }) => {
@@ -32,7 +34,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
             prefetch={true}
             className={`inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ${BUTTON_OUTLINE_STYLE}`}
           >
-            Back to the Start
+            {backText}
           </Link>
         )}
         {showLink && (

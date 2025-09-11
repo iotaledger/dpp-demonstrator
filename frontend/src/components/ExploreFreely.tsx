@@ -80,7 +80,6 @@ const ExploreFreely: React.FC<ExploreFreeyProps> = ({
       <CardHeader
         title={title}
         linkText={headerButtonText}
-        linkUrl={onHeaderButtonClick}
       />
       <TutorialScrollContainer>
         <div className="dpp-content-container">

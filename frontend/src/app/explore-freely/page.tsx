@@ -2,8 +2,11 @@
 
 // In your page.tsx or component
 import ExploreFreely from '@/components/ExploreFreely';
+import GridContainer from '@/components/GridContainer';
+import Main from '@/components/Main';
+import MainContent from '@/components/MainContent';
 
-export default function ExplorePage() {
+export default function ExploreFreelyPage() {
   const handleSwitchToGuided = () => {
     // Your navigation logic
   };
@@ -13,9 +16,15 @@ export default function ExplorePage() {
   };
 
   return (
-    <ExploreFreely
-      onHeaderButtonClick={handleSwitchToGuided}
-      onConnectWallet={handleConnectWallet}
-    />
+    <Main>
+      <GridContainer>
+        <MainContent>
+          <ExploreFreely
+            onHeaderButtonClick={handleSwitchToGuided}
+            onConnectWallet={handleConnectWallet}
+          />
+        </MainContent>
+      </GridContainer>
+    </Main>
   );
 }

@@ -57,7 +57,7 @@ export default function IntroductionPage() {
               <CardHeader
                 title="Welcome"
                 linkText='Skip Intro'
-                linkUrl='/explore-freely'
+                linkUrl='/explore-guided'
                 backUrl='/introduction/1'
                 canGoBack={canGoPrevious} />
               <TutorialScrollContainer>

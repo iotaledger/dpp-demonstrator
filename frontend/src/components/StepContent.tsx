@@ -13,7 +13,6 @@ interface StepContentProps {
 const StepContent: React.FC<StepContentProps> = ({
   imageSrc = "/assets/steps/step_8.webp",
   imageAlt = "Step Image",
-  stepType = "",
   stepTitle = "Step Title",
   stepDescription = "Step description content goes here.",
   opacity = 100,
@@ -35,12 +34,6 @@ const StepContent: React.FC<StepContentProps> = ({
             alt={imageAlt}
           />
         </div>
-
-        {stepType && (
-          <div className="text-xs text-gray-500 uppercase tracking-wide">
-            {stepType}
-          </div>
-        )}
 
         <h3 className="text-lg font-semibold text-gray-900 pb-3">
           {stepTitle}

@@ -8,32 +8,21 @@ import { useProductDetails } from '@/hooks/useProductDetails';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { getAllAccreditationsFlat } from '@/helpers/federation';
 import { firstLetterUpperCase, truncateAddress } from '@/utils/common';
-import { log } from 'node:console';
-import { LoggedIn } from '@/stories/Header.stories';
-import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
+import { useCurrentAccount } from '@iota/dapp-kit';
 import { useCheckLinkage } from '@/hooks/useCheckLinkage';
+import PanelContent from './PanelContent';
 
 interface RoleDetailsCardProps {
-  manufacturerName?: string;
-  manufacturerLink?: string;
-  serviceNetworkName?: string;
-  serviceNetworkLink?: string;
-  technicianName?: string;
-  technicianLink?: string;
   opacity?: number;
   delay?: number;
+  tutorialState?: 'manufacturerSelected' | 'networkSelected' | 'muted' | 'no';
 }
 
 // TODO: Implement loading state
 const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
-  manufacturerName = "EcoBike",
-  manufacturerLink = "https://explorer.iota.org/txblock/3BDwVQffoQ55ke72oevpLjjVCdFzYDVQeSRiAktgZxCp",
-  serviceNetworkName = "Hierarchy",
-  serviceNetworkLink = "https://explorer.iota.org/txblock/3BDwVQffoQ55ke72oevpLjjVCdFzYDVQeSRiAktgZxCp",
-  technicianName = "You",
-  technicianLink = "",
   opacity = 100,
-  delay = 0.4
+  delay = 0.4,
+  tutorialState = 'no',
 }) => {
   // NOTE: I'm using this hook to get the `manufacturer` value, and I aim to use it
   // in the `useCheckLinkage` hook. But, should I present it here in the Role Details?
@@ -66,69 +55,108 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
     }
   }, [currentAccount]);
 
+  const getSectionExpanded = () => {
+    if (tutorialState === 'no' || tutorialState !== 'muted') {
+      return true;
+    }
+    return false;
+  }
+
+  const getSectionState = () => {
+    if (tutorialState === 'muted') {
+      return 'muted';
+    }
+    return 'default';
+  }
+
+  const getPanelState = () => {
+    if (tutorialState === 'no' || tutorialState === 'muted') {
+      return 'default';
+    }
+    return 'selected';
+  };
+
+  const getRowState = (rowTag: string) => {
+    if (tutorialState === 'no') {
+      return 'default';
+    }
+
+    if (tutorialState === 'manufacturerSelected' && rowTag === 'manufacturer') {
+      return 'selected'
+    }
+
+    if (tutorialState === 'networkSelected' && rowTag === 'network') {
+      return 'selected'
+    }
+
+    return 'muted';
+  }
+
   return (
-    <section className="px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
-      <CollapsibleSection
-        title="Role Details"
-        opacity={opacity}
-        delay={delay}
-      >
-        <div className="panel space-y-4 border-1 rounded-lg p-4 border-gray-200 transition-all duration-300 ease-out">
-          <DataGrid gap="gap-y-3 gap-x-6">
-            {/* First, renders root authorities as "Service Network" */}
-            {/* NOTE: What exactly a "Service Network" means?
+    <CollapsibleSection
+      defaultExpanded={getSectionExpanded()}
+      cardState={getSectionState()}
+      title="Role Details"
+      opacity={opacity}
+      delay={delay}
+    >
+      <PanelContent panelState={getPanelState()}>
+        <DataGrid gap="gap-y-3 gap-x-6">
+          {/* First, renders root authorities as "Service Network" */}
+          {/* NOTE: What exactly a "Service Network" means?
                 - Another way to invoke the federation itself, backed by the Trust Framework
             */}
 
-            {isSuccessFederatilDetails && (
-              federationDetails!.rootAuthorities.map((eachHierarchy) => (
-                <ItemValueRow
-                  key={eachHierarchy.id}
-                  label="Service Network"
-                  value={
-                    <BadgeWithLink
-                      badgeText={"Hierarchy"}
-                      // NOTE: which one should be used, the `accountId` or the `id`?
-                      // - What is the difference between them?
-                      //   - A: the `accountid` is just a reference to the address owner of the federation
-                      //
-                      //   - Is the `accountId` the address to the accredited entity? It seems so
-                      //   - Is the `id` the unique identifier for this accreditation? Isn't it an object?
-                      //     I couldn't access it as object in the explorer
-                      linkText={truncateAddress(federationDetails?.federationId)}
-                      linkHref={`https://explorer.iota.org/object/${federationDetails?.federationId}?network=testnet`}
-                    />
-                  }
-                  showBorder={true}
-                />
-              ))
-            )}
-            {isSuccessFederatilDetails && isSuccessProductDetails && (
-              getAllAccreditationsFlat(federationDetails!).map((accreditation) => (
-                <ItemValueRow
-                  key={`${accreditation.id}`}
-                  label={firstLetterUpperCase(accreditation.role)}
-                  value={
-                    <BadgeWithLink
-                      // NOTE: Do I need to get this information from identity?
-                      // badgeText={firstLetterUpperCase(accreditation.role)}
-                      // TODO: Implement address verification from the connected wallet and place
-                      //   "You" in `badgeText` if match your current address
-                      badgeText={getCurrentAccountBadge(accreditation.entityId)}
-                      linkText={truncateAddress(accreditation.entityId)}
-                      linkHref={`https://explorer.iota.org/address/${accreditation.entityId}?network=testnet`}
-                      // TODO: Implement the accreditation validation
-                      showVerification={true}
-                    />
-                  }
-                  showBorder={true}
-                />
-              ))
-            )}
-          </DataGrid>
-        </div>
-      </CollapsibleSection>
-    </section>
+          {isSuccessFederatilDetails && (
+            federationDetails!.rootAuthorities.map((eachHierarchy) => (
+              <ItemValueRow
+                rowState={getRowState('network')}
+                key={eachHierarchy.id}
+                label="Service Network"
+                value={
+                  <BadgeWithLink
+                    badgeText={"Hierarchy"}
+                    // NOTE: which one should be used, the `accountId` or the `id`?
+                    // - What is the difference between them?
+                    //   - A: the `accountid` is just a reference to the address owner of the federation
+                    //
+                    //   - Is the `accountId` the address to the accredited entity? It seems so
+                    //   - Is the `id` the unique identifier for this accreditation? Isn't it an object?
+                    //     I couldn't access it as object in the explorer
+                    linkText={truncateAddress(federationDetails?.federationId)}
+                    linkHref={`https://explorer.iota.org/object/${federationDetails?.federationId}?network=testnet`}
+                  />
+                }
+                showBorder={true}
+              />
+            ))
+          )}
+          {isSuccessFederatilDetails && isSuccessProductDetails && (
+            getAllAccreditationsFlat(federationDetails!).map((accreditation) => (
+              <ItemValueRow
+                rowState={getRowState(getCurrentAccountBadge(accreditation.entityId))}
+                key={`${accreditation.id}`}
+                label={firstLetterUpperCase(accreditation.role)}
+                value={
+                  <BadgeWithLink
+                    // NOTE: Do I need to get this information from identity?
+                    // badgeText={firstLetterUpperCase(accreditation.role)}
+                    // TODO: Implement address verification from the connected wallet and place
+                    //   "You" in `badgeText` if match your current address
+                    badgeText={getCurrentAccountBadge(accreditation.entityId)}
+                    linkText={truncateAddress(accreditation.entityId)}
+                    linkHref={`https://explorer.iota.org/address/${accreditation.entityId}?network=testnet`}
+                    // TODO: Implement the accreditation validation
+                    showVerification={true}
+                  />
+                }
+                showBorder={true}
+              />
+            ))
+          )}
+        </DataGrid>
+      </PanelContent>
+    </CollapsibleSection>
   );
 };
 

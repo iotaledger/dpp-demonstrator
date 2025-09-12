@@ -130,6 +130,18 @@ html {
   font-size: var(--font-size);
 }
 
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 89, 255, 0.4);
+  }
+  70% {
+      box-shadow: 0 0 2px 10px rgba(0, 94, 255, 0);
+  }
+  100% {
+      box-shadow: 0 0 10px 0 rgba(0, 72, 255, 0);
+  }
+}
+
 /* Utility classes */
 /* .flex { display: flex; } */
 /* .flex-col { flex-direction: column; } */

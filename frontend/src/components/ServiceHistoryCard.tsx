@@ -8,40 +8,21 @@ import { FEDERATION_DETAILS, PRODUCT_DETAILS } from '@/utils/constants';
 import { firstLetterUpperCase, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { getAllEntitiesByRole, getRolesByEntity, Role } from '@/helpers/federation';
+import PanelContent from './PanelContent';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
-  entryType?: string;
-  timestamp?: string;
-  healthScore?: string;
-  findings?: string;
-  verification?: string;
-  manufacturerName?: string;
-  manufacturerId?: string;
-  technicianName?: string;
-  technicianId?: string;
-  rewardContract?: string;
-  rewardDistributed?: string;
   opacity?: number;
   delay?: number;
+  tutorialState?: 'selected' | 'muted' | 'no';
 }
 
 // TODO: Implement loading state
 const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
   dppId = PRODUCT_DETAILS.dppId as string,
-  entryType = "Annual Maintenance",
-  timestamp = "2023-03-31 14:24:08",
-  healthScore = "99.98%",
-  findings = "All systems nominal",
-  verification = "Notarized at (Epoch 512) block 0x9ef...429e",
-  manufacturerName = "EcoBike",
-  manufacturerId = "0x9ef...429e",
-  technicianName = "Prev. Technician",
-  technicianId = "0x9ef....429e",
-  rewardContract = "0x9ef...429e",
-  rewardDistributed = "1 RWR",
   opacity = 100,
-  delay = 0.4
+  delay = 0.4,
+  tutorialState = 'no',
 }) => {
   const { serviceHistory, isSuccess } = useServiceHistory(dppId);
   const { federationDetails, isSuccess: isFederationDetailsSuccess } = useFederationDetails(FEDERATION_DETAILS.federationAddr as string);
@@ -74,150 +55,189 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     }
   }, [serviceHistory, isSuccess])
 
+  const getSectionExpanded = () => {
+    if (tutorialState === 'no' || tutorialState === 'selected') {
+      return true;
+    }
+    return false;
+  }
+
+  const getSectionState = () => {
+    if (tutorialState === 'muted') {
+      return 'muted';
+    }
+
+    if (tutorialState === 'selected') {
+      return 'selected';
+    }
+
+    return 'default';
+  }
+
+  const getRowState = () => {
+    if (tutorialState === 'no') {
+      return 'default';
+    }
+
+    return 'muted';
+  }
+
   // TODO: Bind the service history entries to the cards
   return (
-    <section className="px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
-      <CollapsibleSection
-        title="Service History"
-        subtitle='Maintenance and Repairs'
-        opacity={opacity}
-        delay={delay}
-      >
-        <div className="panel space-y-4 border-1 rounded-lg p-4 border-gray-200 transition-all duration-300 ease-out">
-          <div className='flex items-center gap-2 mb-3'>
-            <h3 className="font-medium text-gray-900">Health Snapshot</h3>
-            <BadgeWithLink
-              badgeText="#1"
-              spacing="gap-0"
-            />
-          </div>
-          <DataGrid gap="gap-y-2 gap-x-6">
-            <ItemValueRow
-              label="DPP ID"
-              value={truncateAddress(latestService?.entryId)}
-              columnMaxWidth={250}
-              fontMono={true}
-              valueColor="text-blue-600"
-              isLink={true}
-              linkHref={`https://explorer.iota.org/object/${dppId}?network=testnet`}
-              showBorder={true}
-            />
-            <ItemValueRow
-              label="Entry Type"
-              value={latestService?.serviceType}
-              columnMaxWidth={250}
-              showBorder={true}
-            />
-            <ItemValueRow
-              label="Timestamp"
-              value={fromPosixMsToUtcDateFormat(latestService?.timestamp)}
-              columnMaxWidth={250}
-              showBorder={true}
-            />
+    <CollapsibleSection
+      defaultExpanded={getSectionExpanded()}
+      cardState={getSectionState()}
+      title="Service History"
+      subtitle='Maintenance and Repairs'
+      opacity={opacity}
+      delay={delay}
+    >
+      <PanelContent
+        title='Health Snapshot'
+        badge={
+          <BadgeWithLink
+            badgeText="#1"
+            spacing="gap-0"
+          />
+        }>
+        <DataGrid gap="gap-y-2 gap-x-6">
+          <ItemValueRow
+            rowState={getRowState()}
+            label="DPP ID"
+            value={truncateAddress(latestService?.entryId)}
+            columnMaxWidth={250}
+            fontMono={true}
+            valueColor="text-blue-600"
+            isLink={true}
+            linkHref={`https://explorer.iota.org/object/${dppId}?network=testnet`}
+            showBorder={true}
+          />
+          <ItemValueRow
+            rowState={getRowState()}
+            label="Entry Type"
+            value={latestService?.serviceType}
+            columnMaxWidth={250}
+            showBorder={true}
+          />
+          <ItemValueRow
+            rowState={getRowState()}
+            label="Timestamp"
+            value={fromPosixMsToUtcDateFormat(latestService?.timestamp)}
+            columnMaxWidth={250}
+            showBorder={true}
+          />
 
-            <hr className="my-1 border-gray-200" />
+          <hr className="my-1 border-gray-200" />
 
-            {/* TODO: How do I calculate it? */}
-            <ItemValueRow
-              label="Health Score"
-              value={healthScore}
-              columnMaxWidth={250}
-              valueColor="text-gray-900 font-semibold"
-              showBorder={true}
-            />
-            <ItemValueRow
-              label="Findings"
-              value={latestService?.serviceDescription}
-              columnMaxWidth={250}
-              showBorder={true}
-            />
-            {/* NOTE: It shows the info: "Notarized at (Epoch 512) block 0x9ef...429e" */}
-            {/* TODO: How do I get this? */}
-            <ItemValueRow
-              label="Verification"
-              value={verification}
-              columnMaxWidth={250}
-              showBorder={true}
-            />
+          {/* NOTE: Hardcoded */}
+          {/* TODO: How do I calculate it? */}
+          <ItemValueRow
+            rowState={getRowState()}
+            label="Health Score"
+            value={"99.98%"}
+            columnMaxWidth={250}
+            valueColor="text-gray-900 font-semibold"
+            showBorder={true}
+          />
+          <ItemValueRow
+            rowState={getRowState()}
+            label="Findings"
+            value={latestService?.serviceDescription}
+            columnMaxWidth={250}
+            showBorder={true}
+          />
+          {/* NOTE: Hardcoded, It shows the info: "Notarized at (Epoch 512) block 0x9ef...429e" */}
+          {/* TODO: How do I get this? */}
+          <ItemValueRow
+            rowState={getRowState()}
+            label="Verification"
+            value={"Notarized at (Epoch 512) block 0x9ef...429e"}
+            columnMaxWidth={250}
+            showBorder={true}
+          />
 
-            <hr className="my-1 border-gray-200" />
+          <hr className="my-1 border-gray-200" />
 
-            {manufacturerEntities && manufacturerEntities.map((entityAddress) => (
-              <ItemValueRow
-                key={entityAddress}
-                label="Manufacturer"
-                value={
-                  <div className="flex items-center gap-2">
-                    {/* TODO: Get manufacturer name from product details */}
-                    <BadgeWithLink
-                      badgeText={manufacturerName}
-                      spacing="gap-0"
-                    />
-                    <a
-                      target='_blank'
-                      href={`https://explorer.iota.org/address/${entityAddress}?network=testnet`}
-                      className="text-blue-600 hover:text-blue-700 transition-colors"
-                    >
-                      {truncateAddress(entityAddress)}
-                    </a>
-                  </div>
-                }
-                columnMaxWidth={250}
-                showBorder={true}
-              />
-            ))}
-            {latestServiceRole && (
-              <ItemValueRow
-                label={firstLetterUpperCase(latestServiceRole)}
-                value={
-                  <div className="flex items-center gap-2">
-                    {/* TODO: How do I get the technician name? */}
-                    <BadgeWithLink
-                      badgeText={technicianName}
-                      spacing="gap-0"
-                    />
-                    <a
-                      target='_blank'
-                      href={`https://explorer.iota.org/address/${latestService?.issuerAddress}?network=testnet`}
-                      className="text-blue-600 hover:text-blue-700 transition-colors"
-                    >
-                      {truncateAddress(latestService?.issuerAddress)}
-                    </a>
-                  </div>
-                }
-                columnMaxWidth={250}
-                showBorder={true}
-              />
-            )}
-
-            <hr className="my-1 border-gray-200" />
-
+          {manufacturerEntities && manufacturerEntities.map((entityAddress) => (
             <ItemValueRow
-              label="Reward contract"
-              value={truncateAddress(latestService?.packageId)}
-              columnMaxWidth={250}
-              fontMono={true}
-              valueColor="text-blue-600"
-              linkHref={`https://explorer.iota.org/object/${latestService?.packageId}?network=testnet`}
-              isLink={true}
-              showBorder={true}
-            />
-            {/* NOTE: Sum of all rewards given */}
-            {/* TODO: Discover a way to get this information from the reward contract. Maybe analysing calls to  */}
-            <ItemValueRow
-              label="Reward Distributed"
-              value={rewardDistributed}
+              rowState={getRowState()}
+              key={entityAddress}
+              label="Manufacturer"
+              value={
+                <div className="flex items-center gap-2">
+                  {/* NOTE: Hardcoded */}
+                  {/* TODO: Get manufacturer name from product details */}
+                  <BadgeWithLink
+                    badgeText={"EcoBike"}
+                    spacing="gap-0"
+                  />
+                  <a
+                    target='_blank'
+                    href={`https://explorer.iota.org/address/${entityAddress}?network=testnet`}
+                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    {truncateAddress(entityAddress)}
+                  </a>
+                </div>
+              }
               columnMaxWidth={250}
               showBorder={true}
             />
-          </DataGrid>
-        </div>
+          ))}
+          {latestServiceRole && (
+            <ItemValueRow
+              rowState={getRowState()}
+              label={firstLetterUpperCase(latestServiceRole)}
+              value={
+                <div className="flex items-center gap-2">
+                  {/* NOTE: Hardcoded */}
+                  {/* TODO: How do I get the technician name? */}
+                  <BadgeWithLink
+                    badgeText={"Prev. Technician"}
+                    spacing="gap-0"
+                  />
+                  <a
+                    target='_blank'
+                    href={`https://explorer.iota.org/address/${latestService?.issuerAddress}?network=testnet`}
+                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    {truncateAddress(latestService?.issuerAddress)}
+                  </a>
+                </div>
+              }
+              columnMaxWidth={250}
+              showBorder={true}
+            />
+          )}
 
-        <div className="w-full grid justify-center mt-6">
-          {/* Placeholder for additional content */}
-        </div>
-      </CollapsibleSection>
-    </section>
+          <hr className="my-1 border-gray-200" />
+
+          <ItemValueRow
+            rowState={getRowState()}
+            label="Reward contract"
+            value={truncateAddress(latestService?.packageId)}
+            columnMaxWidth={250}
+            fontMono={true}
+            valueColor="text-blue-600"
+            linkHref={`https://explorer.iota.org/object/${latestService?.packageId}?network=testnet`}
+            isLink={true}
+            showBorder={true}
+          />
+          {/* NOTE: Hardcoded, Sum of all rewards given */}
+          {/* TODO: Discover a way to get this information from the reward contract. Maybe analysing calls to  */}
+          <ItemValueRow
+            rowState={getRowState()}
+            label="Reward Distributed"
+            value={"1 RWR"}
+            columnMaxWidth={250}
+            showBorder={true}
+          />
+        </DataGrid>
+      </PanelContent>
+      <div className="w-full grid justify-center mt-6">
+        {/* Placeholder for additional content */}
+      </div>
+    </CollapsibleSection>
   );
 };
 

@@ -11,13 +11,107 @@ import ProductDetailsCard from './ProductDetailsCard';
 import RoleDetailsCard from './RoleDetailsCard';
 import RewardPoolCard from './RewardPoolCard';
 import ServiceHistoryCard from './ServiceHistoryCard';
-import EndOfPassportMessage from './EndOfPassportMessage';
 import GuidedSidebar from './GuidedSidebar';
 import DiagnosticCard from './DiagnosticCard';
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 
 const INITIAL_STEP = 1;
-const GUIDE_STEPS = 13;
+const TUTORIAL_STEPS = new Map([
+  [1, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='selected' />,
+  ]],
+  [2, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='selected' />,
+  ]],
+  [3, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='manufacturerSelected' />,
+  ]],
+  [4, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='networkSelected' />,
+  ]],
+  [5, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='selected' />,
+  ]],
+  [6, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
+    // TODO: Add rewards transactions
+  ]],
+  [7, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
+    <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='selected' />,
+  ]],
+  [8, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='no' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='no' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='no' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='no' />,
+    <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='no' />,
+  ]],
+  [9, [
+    <PassportHeader key={'passportHeader'} tutorialState='selected' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='open-muted' />,
+    <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='open-muted' />,
+  ]],
+  [10, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ServiceRequestCard key={'ServiceRequestCard'} cardState='highlighted' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='open-muted' />,
+    <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='open-muted' />,
+  ]],
+  [11, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <DiagnosticCard key={'DiagnosticCard'} cardState='highlighted' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='open-muted' />,
+    <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='open-muted' />,
+  ]],
+  [12, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
+    <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='detailsSelected' />,
+  ]],
+  [13, [
+    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
+    <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
+    <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
+    <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
+    <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='rewardSelected' />,
+  ]],
+]);
 
 const ExploreGuided: React.FC = () => {
   const {
@@ -28,9 +122,7 @@ const ExploreGuided: React.FC = () => {
     progress,
     goNext,
     goPrevious,
-  } = useTutorialNavigation(INITIAL_STEP, GUIDE_STEPS);
-
-  // TODO: Manage tutorial steps
+  } = useTutorialNavigation(INITIAL_STEP, TUTORIAL_STEPS.size);
 
   const mainContent = (
     <TutorialCard>
@@ -44,16 +136,7 @@ const ExploreGuided: React.FC = () => {
       />
       <TutorialScrollContainer>
         <div className="dpp-content-container">
-          <PassportHeader />
-          <ServiceRequestCard />
-          <DiagnosticCard />
-          <ProductHeaderCard tutorialState='no' />
-          <ProductDetailsCard tutorialState='no' />
-          <RoleDetailsCard tutorialState='no' />
-          <RewardPoolCard tutorialState='no' />
-          {/* TODO: Implement Reward Transactions component */}
-          <ServiceHistoryCard tutorialState='no' />
-          <EndOfPassportMessage />
+          {TUTORIAL_STEPS.get(currentStep)}
           <div className="absolute top-4 right-4 z-[70] space-y-3 pointer-events-none" />
         </div>
       </TutorialScrollContainer>

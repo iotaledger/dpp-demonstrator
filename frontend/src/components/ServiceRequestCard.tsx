@@ -49,6 +49,7 @@ const ServiceRequestCard: React.FC<ServiceRequestCardProps> = ({
 
   return (
     <>
+      {/* TODO: Replace by `CollapsibleSection` without button */}
       <section className="px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
         <div>
           <div

@@ -15,7 +15,7 @@ import PanelContent from './PanelContent';
 interface RoleDetailsCardProps {
   opacity?: number;
   delay?: number;
-  tutorialState?: 'manufacturerSelected' | 'networkSelected' | 'muted' | 'no';
+  tutorialState?: 'manufacturerSelected' | 'networkSelected' | 'muted' | 'open-muted' | 'no';
 }
 
 // TODO: Implement loading state
@@ -56,24 +56,27 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   }, [currentAccount]);
 
   const getSectionExpanded = () => {
-    if (tutorialState === 'no' || tutorialState !== 'muted') {
-      return true;
+    const open = true;
+    const close = false;
+    if (tutorialState === 'muted') {
+      return close;
     }
-    return false;
+    return open;
   }
 
   const getSectionState = () => {
-    if (tutorialState === 'muted') {
+    if (tutorialState === 'muted' || tutorialState === 'open-muted') {
       return 'muted';
     }
     return 'default';
   }
 
   const getPanelState = () => {
-    if (tutorialState === 'no' || tutorialState === 'muted') {
-      return 'default';
+    if (tutorialState === 'manufacturerSelected' || tutorialState === 'networkSelected') {
+      return 'selected';
     }
-    return 'selected';
+
+    return 'default';
   };
 
   const getRowState = (rowTag: string) => {

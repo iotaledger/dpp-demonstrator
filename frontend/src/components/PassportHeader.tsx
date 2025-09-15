@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject, useRef } from 'react';
 import { ConnectButton } from '@iota/dapp-kit';
 
 interface ConnectButtonProps {
@@ -42,6 +42,7 @@ interface PassportHeaderProps {
   connectText?: string;
   opacity?: number;
   delay?: number;
+  tutorialState?: 'selected' | 'no';
 }
 
 const PassportHeader: React.FC<PassportHeaderProps> = ({
@@ -50,8 +51,17 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   onConnect,
   connectText = "Connect",
   opacity = 100,
-  delay = 0
+  delay = 0,
+  tutorialState = 'no',
 }) => {
+  const connectRef: RefObject<HTMLButtonElement | null> = useRef(null);
+
+  React.useEffect(() => {
+    if (tutorialState === 'selected') {
+      (connectRef.current as HTMLElement).focus();
+    }
+  }, [tutorialState]);
+
   const handleConnect = () => {
     if (onConnect) {
       onConnect();
@@ -89,7 +99,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
               </svg>
             </div>
             {/* TODO: Set style to connection button */}
-            <ConnectButton />
+            <ConnectButton ref={connectRef} connectText={'Connect'} />
           </div>
         </div>
       </header>

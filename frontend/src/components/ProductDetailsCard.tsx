@@ -13,7 +13,7 @@ interface ProductDetailsCardProps {
   opacity?: number;
   delay?: number;
   sectionState?: 'selected' | 'muted' | 'default';
-  tutorialState?: 'selected' | 'muted' | 'no';
+  tutorialState?: 'selected' | 'muted' | 'open-muted' | 'no';
 }
 
 // TODO: Implement loading state
@@ -26,11 +26,20 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   const { productDetails, isSuccess } = useProductDetails(PRODUCT_DETAILS.dppId as string);
 
   const getSectionState = () => {
-    if (tutorialState === 'muted') {
-      return tutorialState;
+    if (tutorialState === 'muted' || tutorialState === 'open-muted') {
+      return 'muted';
     }
     return sectionState;
   };
+
+  const getSectionExpanded = () => {
+    const open = true;
+    const close = false;
+    if (tutorialState === 'muted') {
+      return close;
+    }
+    return open;
+  }
 
   const getPanelState = () => {
     if (tutorialState === 'selected') {
@@ -56,7 +65,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
       cardState={getSectionState()}
       title="Product Details" opacity={opacity}
       delay={delay}
-      defaultExpanded={true}
+      defaultExpanded={getSectionExpanded()}
     >
       <PanelContent title={"Product Passport Details"} panelState={getPanelState()}>
         <DataGrid>

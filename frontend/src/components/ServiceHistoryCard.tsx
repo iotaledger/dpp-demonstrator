@@ -14,7 +14,7 @@ interface ServiceHistoryCardProps {
   dppId?: string;
   opacity?: number;
   delay?: number;
-  tutorialState?: 'selected' | 'muted' | 'no';
+  tutorialState?: 'selected' | 'detailsSelected' | 'rewardSelected' | 'muted' | 'open-muted' | 'no';
 }
 
 // TODO: Implement loading state
@@ -56,14 +56,16 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
   }, [serviceHistory, isSuccess])
 
   const getSectionExpanded = () => {
-    if (tutorialState === 'no' || tutorialState === 'selected') {
-      return true;
+    const open = true;
+    const close = false;
+    if (tutorialState === 'muted') {
+      return close;
     }
-    return false;
+    return open;
   }
 
   const getSectionState = () => {
-    if (tutorialState === 'muted') {
+    if (tutorialState === 'muted' || tutorialState === 'open-muted') {
       return 'muted';
     }
 
@@ -74,8 +76,16 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     return 'default';
   }
 
-  const getRowState = () => {
-    if (tutorialState === 'no') {
+  const getRowState = (target: 'detailsSelected' | 'rewardSelected') => {
+    if (tutorialState === 'selected' || tutorialState === 'no') {
+      return 'default';
+    }
+
+    if (tutorialState === 'detailsSelected' && target === 'detailsSelected') {
+      return 'default';
+    }
+
+    if (tutorialState === 'rewardSelected' && target === 'rewardSelected') {
       return 'default';
     }
 
@@ -102,7 +112,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
         }>
         <DataGrid gap="gap-y-2 gap-x-6">
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('detailsSelected')}
             label="DPP ID"
             value={truncateAddress(latestService?.entryId)}
             columnMaxWidth={250}
@@ -113,14 +123,14 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             showBorder={true}
           />
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('detailsSelected')}
             label="Entry Type"
             value={latestService?.serviceType}
             columnMaxWidth={250}
             showBorder={true}
           />
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('detailsSelected')}
             label="Timestamp"
             value={fromPosixMsToUtcDateFormat(latestService?.timestamp)}
             columnMaxWidth={250}
@@ -132,7 +142,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
           {/* NOTE: Hardcoded */}
           {/* TODO: How do I calculate it? */}
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('detailsSelected')}
             label="Health Score"
             value={"99.98%"}
             columnMaxWidth={250}
@@ -140,7 +150,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             showBorder={true}
           />
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('detailsSelected')}
             label="Findings"
             value={latestService?.serviceDescription}
             columnMaxWidth={250}
@@ -149,7 +159,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
           {/* NOTE: Hardcoded, It shows the info: "Notarized at (Epoch 512) block 0x9ef...429e" */}
           {/* TODO: How do I get this? */}
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('detailsSelected')}
             label="Verification"
             value={"Notarized at (Epoch 512) block 0x9ef...429e"}
             columnMaxWidth={250}
@@ -160,7 +170,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 
           {manufacturerEntities && manufacturerEntities.map((entityAddress) => (
             <ItemValueRow
-              rowState={getRowState()}
+              rowState={getRowState('detailsSelected')}
               key={entityAddress}
               label="Manufacturer"
               value={
@@ -186,7 +196,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
           ))}
           {latestServiceRole && (
             <ItemValueRow
-              rowState={getRowState()}
+              rowState={getRowState('detailsSelected')}
               label={firstLetterUpperCase(latestServiceRole)}
               value={
                 <div className="flex items-center gap-2">
@@ -213,7 +223,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
           <hr className="my-1 border-gray-200" />
 
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('rewardSelected')}
             label="Reward contract"
             value={truncateAddress(latestService?.packageId)}
             columnMaxWidth={250}
@@ -226,7 +236,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
           {/* NOTE: Hardcoded, Sum of all rewards given */}
           {/* TODO: Discover a way to get this information from the reward contract. Maybe analysing calls to  */}
           <ItemValueRow
-            rowState={getRowState()}
+            rowState={getRowState('rewardSelected')}
             label="Reward Distributed"
             value={"1 RWR"}
             columnMaxWidth={250}

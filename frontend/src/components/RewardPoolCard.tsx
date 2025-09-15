@@ -12,7 +12,7 @@ import PanelContent from './PanelContent';
 interface RewardPoolCardProps {
   opacity?: number;
   delay?: number;
-  tutorialState?: 'selected' | 'muted' | 'no';
+  tutorialState?: 'selected' | 'muted' | 'open-muted' | 'no';
 }
 
 // TODO: Implement loading state
@@ -30,24 +30,26 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   }, [rewardDetails, isSuccess])
 
   const getSectionExpanded = () => {
-    if (tutorialState === 'no' || tutorialState === 'selected') {
-      return true;
+    const open = true;
+    const close = false;
+    if (tutorialState === 'muted') {
+      return close;
     }
-    return false;
+    return open;
   }
 
   const getSectionState = () => {
-    if (tutorialState === 'muted') {
+    if (tutorialState === 'muted' || tutorialState === 'open-muted') {
       return 'muted';
     }
     return 'default';
   }
 
   const getPanelState = () => {
-    if (tutorialState === 'no' || tutorialState === 'muted') {
-      return 'default';
+    if (tutorialState === 'selected') {
+      return 'selected';
     }
-    return 'selected';
+    return 'default';
   };
 
   const getRowState = (rowTag: string) => {

@@ -18,35 +18,35 @@ import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
   [1, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='selected' />,
   ]],
   [2, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='selected' />,
   ]],
   [3, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='manufacturerSelected' />,
   ]],
   [4, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='networkSelected' />,
   ]],
   [5, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='selected' />,
   ]],
   [6, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
@@ -54,7 +54,7 @@ const TUTORIAL_STEPS = new Map([
     // TODO: Add rewards transactions
   ]],
   [7, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
@@ -62,7 +62,7 @@ const TUTORIAL_STEPS = new Map([
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='selected' />,
   ]],
   [8, [
-    <PassportHeader key={'passportHeader'} tutorialState='no' />,
+    <PassportHeader key={'passportHeader'} tutorialState='muted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='no' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='no' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='no' />,

@@ -42,7 +42,7 @@ interface PassportHeaderProps {
   connectText?: string;
   opacity?: number;
   delay?: number;
-  tutorialState?: 'selected' | 'no';
+  tutorialState?: 'selected' | 'muted' | 'no';
 }
 
 const PassportHeader: React.FC<PassportHeaderProps> = ({
@@ -66,6 +66,15 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
     if (onConnect) {
       onConnect();
     }
+  };
+
+  const getConnectionDisabled = () => {
+    const disabled = true;
+    const enabled = false;
+    if (tutorialState === 'muted') {
+      return disabled;
+    }
+    return enabled;
   };
 
   return (
@@ -99,7 +108,21 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
               </svg>
             </div>
             {/* TODO: Set style to connection button */}
-            <ConnectButton ref={connectRef} connectText={'Connect'} />
+
+            <ConnectButton
+              ref={connectRef}
+              variant='primary'
+              size='md'
+              className='transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 p-6 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:text-primary'
+              style={{
+                '--dapp-kit-backgroundColors-primaryButton': 'var(--color-blue-700)',
+                '--dapp-kit-backgroundColors-primaryButtonHover': 'var(--color-blue-600)',
+                '--tw-ring-color': 'var(--color-blue-700)',
+                color: 'var(--color-primary-foreground)',
+              }}
+              connectText={'Connect'}
+              disabled={getConnectionDisabled()}
+            />
           </div>
         </div>
       </header>

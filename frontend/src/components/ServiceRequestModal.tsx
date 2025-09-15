@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useTransition, useCallback } from 'react';
-import { useCurrentAccount, useCurrentWallet, useSignTransaction } from '@iota/dapp-kit';
+import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import Dialog from './Dialog';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { createDppTx } from '@/helpers/transaction';
@@ -113,6 +113,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         const { isError, result } = await createAccreditation(federationAddress, account!.address, selectedRole.value);
         if (isError) throw new Error(isError || 'unknownError')
         // TODO: notification success
+        console.log('🟢 Accredidation created with succes!');
       } catch (error) {
         console.log('❌ Error while calling createAccreditation.');
         const message = error instanceof Error ? error.message : 'unknownError'
@@ -143,7 +144,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
           </h2>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+            className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer focus-visible:outline-gray-300"
             disabled={isPending}
             aria-label="Close modal"
           >
@@ -157,7 +158,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Federation Address - exact structure match */}
           <div className="space-y-2">
-            <label htmlFor="federationAddress" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="federationAddressCopy" className="block text-sm font-medium text-gray-700">
               {MODAL_CONTENT.labels.federationAddress}
             </label>
             <div className="relative">
@@ -169,11 +170,13 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 value={truncateAddress(federationAddress)}
                 onChange={() => { }} // Controlled component requirement
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
+                disabled={true}
               />
               <button
+                id="federationAddressCopy"
                 type="button"
                 onClick={handleCopyAddress}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 focus-visible:outline-gray-300 cursor-pointer"
                 title={copied ? "Copied!" : "Copy address"}
                 aria-label={copied ? "Address copied" : "Copy address"}
               >
@@ -194,7 +197,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               name="selectedRole"
               value={selectedRole.value}
               onChange={(e) => setSelectedRole(MODAL_CONTENT.roleOptions[e.target.value as Role])}
-              className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus-visible focus-visible:ring-ring focus-visible:outline-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value={MODAL_CONTENT.roleOptions[Role.repairer].value}>{MODAL_CONTENT.roleOptions[Role.repairer].label}</option>
               <option disabled value={MODAL_CONTENT.roleOptions[Role.manufacturer].value}>{MODAL_CONTENT.roleOptions[Role.manufacturer].label}</option>

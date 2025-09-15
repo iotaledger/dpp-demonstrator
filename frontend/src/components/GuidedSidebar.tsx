@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import StepContent from './StepContent';
 import StepProgress from './StepProgress';
 import StepNavigation from './StepNavigation';
+import { useCurrentWallet } from '@iota/dapp-kit';
 
 const TUTORIAL_STEPS = new Map([
   [1, <StepContent
@@ -92,10 +93,10 @@ interface GuidedSidebarProps {
   canGoNext: boolean;
   onPrevious: () => void;
   onNext: () => void;
-  previousLabel?: string;
-  nextLabel?: string;
   opacity?: number;
   delay?: number;
+  isHierarchySent?: boolean;
+  isNotarizationSent?: boolean;
 }
 
 const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
@@ -106,11 +107,50 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
   canGoNext,
   onPrevious,
   onNext,
-  previousLabel = "Back",
-  nextLabel = "Next",
   opacity = 100,
-  delay = 0
+  delay = 0,
+  isHierarchySent: hierarchySent = false,
+  isNotarizationSent: notarizationSent = false,
 }) => {
+  const { isConnected } = useCurrentWallet();
+
+  const getCanGoNext = useCallback(() => {
+    const dontGoNext = false;
+    if (currentStep === 9 && !isConnected) {
+      return dontGoNext;
+    }
+
+    if (currentStep === 10 && !hierarchySent) {
+      return dontGoNext;
+    }
+
+    if (currentStep === 11 && !notarizationSent) {
+      return dontGoNext;
+    }
+
+    return canGoNext;
+  }, [currentStep, canGoNext, hierarchySent, notarizationSent, isConnected]);
+
+  const getPreviousLabel = (): string => {
+    return "Back";
+  };
+
+  const getNextLabel = (): string => {
+    if (currentStep === 9 && !isConnected) {
+      return "Connect";
+    }
+
+    if (currentStep === 10 && !hierarchySent) {
+      return "Request";
+    }
+
+    if (currentStep === 11 && !notarizationSent) {
+      return "Diagnostic";
+    }
+
+    return "Next";
+  };
+
   return (
     <div
       className="bg-white rounded-xl border border-gray-300 h-full flex flex-col overflow-hidden"
@@ -135,11 +175,11 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
 
           <StepNavigation
             canGoPrevious={canGoPrevious}
-            canGoNext={canGoNext}
+            canGoNext={getCanGoNext()}
             onPrevious={onPrevious}
             onNext={onNext}
-            previousLabel={previousLabel}
-            nextLabel={nextLabel}
+            previousLabel={getPreviousLabel()}
+            nextLabel={getNextLabel()}
           />
         </div>
       </div>

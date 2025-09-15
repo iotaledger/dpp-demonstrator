@@ -15,7 +15,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   const connectRef: RefObject<HTMLButtonElement | null> = useRef(null);
 
   React.useEffect(() => {
-    if (tutorialState === 'selected') {
+    if (tutorialState === 'selected' && connectRef.current) {
       (connectRef.current as HTMLElement).focus();
     }
   }, [tutorialState]);

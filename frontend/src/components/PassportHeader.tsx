@@ -1,55 +1,13 @@
 import React, { RefObject, useRef } from 'react';
 import { ConnectButton } from '@iota/dapp-kit';
 
-interface ConnectButtonProps {
-  handleConnect?: () => void;
-  connectText?: string;
-}
-
-
-const MyConnectButton: React.FC<ConnectButtonProps> = ({
-  handleConnect,
-  connectText,
-}) => {
-  return (
-    <button
-      className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 p-6 bg-blue-500 hover:bg-blue-600 text-white"
-      id="tutorial-connect-button"
-      onClick={handleConnect}
-    >
-      {connectText}
-    </button>
-  );
-};
-
-const MyWalletConnectedButton: React.FC = () => {
-  return (
-    <button className=" inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 border border-gray-700  hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 p-6  s-R7G0-bQFHUk3">
-      <span className="flex items-center gap-2">
-        <div className="flex flex-col items-end text-right">
-          <span className="text-xs opacity-75 font-mono">0x5c94...cf1e</span>
-        </div>
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"></path></svg>
-      </span>
-    </button>
-  );
-};
-
 interface PassportHeaderProps {
-  logoSrc?: string;
-  logoAlt?: string;
-  onConnect?: () => void;
-  connectText?: string;
   opacity?: number;
   delay?: number;
   tutorialState?: 'selected' | 'muted' | 'no';
 }
 
 const PassportHeader: React.FC<PassportHeaderProps> = ({
-  logoSrc = "/assets/iota-logo.svg",
-  logoAlt = "IOTA Digital Product Passport",
-  onConnect,
-  connectText = "Connect",
   opacity = 100,
   delay = 0,
   tutorialState = 'no',
@@ -61,12 +19,6 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
       (connectRef.current as HTMLElement).focus();
     }
   }, [tutorialState]);
-
-  const handleConnect = () => {
-    if (onConnect) {
-      onConnect();
-    }
-  };
 
   const getConnectionDisabled = () => {
     const disabled = true;
@@ -109,11 +61,15 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
             </div>
             {/* TODO: Set style to connection button */}
 
+            {/* NOTE: There is a style method mismatch between this project and dapp-kit UI
+              *  because the other uses radix and a custom style and this uses tailwind.
+              *  I believe it would be beneficial to decide on which one we should relly on as a whole.
+              */}
             <ConnectButton
               ref={connectRef}
               variant='primary'
               size='md'
-              className='transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 p-6 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:text-primary'
+              className='transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground h-10 px-4 py-2 p-6 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:text-primary'
               style={{
                 '--dapp-kit-backgroundColors-primaryButton': 'var(--color-blue-700)',
                 '--dapp-kit-backgroundColors-primaryButtonHover': 'var(--color-blue-600)',

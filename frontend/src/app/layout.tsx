@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createNetworkConfig, IotaClientProvider, WalletProvider } from '@iota/dapp-kit';
 import { getFullnodeUrl, Network } from '@iota/iota-sdk/client';
 import Layout from '@/components/Layout';
+import { AppProvider } from '@/providers/appProvider';
 
 // Required to give sytle to UI components imported from dapp-kit such as ConnectButton
 import '@iota/dapp-kit/dist/index.css'
@@ -45,11 +46,13 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <IotaClientProvider networks={networkConfig} defaultNetwork='testnet'>
             <WalletProvider>
-              <Layout>
-                {children}
-              </Layout>
-              {/* Portal target for modals */}
-              <div id="modal-root" />
+              <AppProvider>
+                <Layout>
+                  {children}
+                </Layout>
+                {/* Portal target for modals */}
+                <div id="modal-root" />
+              </AppProvider>
             </WalletProvider>
           </IotaClientProvider>
         </QueryClientProvider>

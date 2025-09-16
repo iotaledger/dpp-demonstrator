@@ -9,7 +9,8 @@ import { AUDIT_TRAIL_DETAILS, FEDERATION_DETAILS, HAS_NFT_REWARD, PRODUCT_DETAIL
 import { ObjectRef } from '@iota/iota-sdk/transactions'
 import { createAccreditation } from '@/helpers/api';
 import { Role } from '@/helpers/federation';
-import { truncateAddress } from '@/utils/common';
+import { generateRequestId, truncateAddress } from '@/utils/common';
+import { useAppProvider } from '@/providers/appProvider';
 
 const HAS_REWARD = HAS_NFT_REWARD;
 
@@ -47,6 +48,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   onSuccess
 }) => {
   const { isConnected } = useCurrentWallet();
+  const { handleHierarchySentSuccess } = useAppProvider();
 
   const [isPending, startTransition] = useTransition();
   const [federationAddress] = useState(FEDERATION_DETAILS.federationAddr);
@@ -104,16 +106,23 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
       // Simulate API call (replace with actual API call later)
       console.log('🔴 Form submit started');
       console.log('📋 Federation Address:', federationAddress);
-      console.log('👤 Selected Role:', selectedRole.label);
+      console.log('👤 Selected Role:', selectedRole.label, selectedRole.value);
 
       try {
         // TODO: validate `account.address and `federationAddr`, if fails trigger an error notification
         // like: 'Missing required data to perform the action'
 
         const { isError, result } = await createAccreditation(federationAddress, account!.address, selectedRole.value);
-        if (isError) throw new Error(isError || 'unknownError')
-        // TODO: notification success
+
+        if (isError) {
+          throw new Error(isError);
+        }
+
+        const requestId = generateRequestId();
+        handleHierarchySentSuccess(requestId);
+        onSuccess && onSuccess();
         console.log('🟢 Accredidation created with succes!');
+        // TODO: notification success
       } catch (error) {
         console.log('❌ Error while calling createAccreditation.');
         const message = error instanceof Error ? error.message : 'unknownError'

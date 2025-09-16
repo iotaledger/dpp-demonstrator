@@ -61,3 +61,7 @@ export function truncateAddress(address = '', numOfCharacters = 4) {
 
   return `${firstPart}...${secondPart}`
 }
+
+export function generateRequestId(): string {
+  return crypto.randomUUID();
+}

@@ -152,8 +152,6 @@ const ExploreGuided: React.FC = () => {
       canGoNext={canGoNext}
       onPrevious={goPrevious}
       onNext={goNext}
-      previousLabel={"Back"}
-      nextLabel={"Next"}
     />
   );
 

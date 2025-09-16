@@ -118,10 +118,20 @@ export async function sendTransaction(bytes: string, signature: string, gasReser
         result: null,
       }
     }
+
+    const result = await res.json();
+    if (result.effects.status.status === "failure") {
+      return {
+        isSuccess: false,
+        isError: new Error(`Transaction execution failed: ${result.effects.status.error}`),
+        result: null,
+      };
+    }
+
     return {
       isSuccess: true,
       isError: false,
-      result: await res.json(),
+      result,
     };
   }).catch((err) => {
     return {

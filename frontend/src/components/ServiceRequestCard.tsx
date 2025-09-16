@@ -88,11 +88,7 @@ const ServiceRequestCard: React.FC<ServiceRequestCardProps> = ({
       <ServiceRequestModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSuccess={() => {
-          setIsModalOpen(false);
-          // Success callback - will be enhanced with toast system later
-          console.log('✅ Service request completed successfully');
-        }}
+        onSuccess={() => setIsModalOpen(false)}
       />
     </>
   );

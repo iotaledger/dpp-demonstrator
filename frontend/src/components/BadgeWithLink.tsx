@@ -1,6 +1,5 @@
 import { useCheckLinkage } from '@/hooks/useCheckLinkage';
 import React from 'react';
-import { isCallChain } from 'typescript';
 
 interface BadgeWithLinkProps {
   badgeText: string;

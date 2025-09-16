@@ -164,18 +164,7 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
       <SaveDiagnosticModal
         isOpen={isSnapshotModalOpen}
         onClose={() => setIsSnapshotModalOpen(false)}
-        dppId="0xef23081d"
-        manufacturerName="EcoBike"
-        manufacturerAddress="0x9ef...429e"
-        technicianName="You"
-        technicianAddress={userAddress}
-        event="Diagnostic Completed"
-        healthScore="76%"
-        findings={findings}
-        onSave={(snapshot) => {
-          console.log('✅ Diagnostic snapshot saved:', snapshot);
-          // TODO: Replace with actual save functionality
-        }}
+        onSave={() => setIsSnapshotModalOpen(false)}
       />
     </>
   );

@@ -3,6 +3,7 @@ import StepContent from './StepContent';
 import StepProgress from './StepProgress';
 import StepNavigation from './StepNavigation';
 import { useCurrentWallet } from '@iota/dapp-kit';
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 
 const TUTORIAL_STEPS = new Map([
   [1, <StepContent
@@ -95,8 +96,6 @@ interface GuidedSidebarProps {
   onNext: () => void;
   opacity?: number;
   delay?: number;
-  isHierarchySent?: boolean;
-  isNotarizationSent?: boolean;
 }
 
 const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
@@ -109,10 +108,10 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
   onNext,
   opacity = 100,
   delay = 0,
-  isHierarchySent: hierarchySent = false,
-  isNotarizationSent: notarizationSent = false,
 }) => {
   const { isConnected } = useCurrentWallet();
+  const { isHierarchySent } = useHierarchySent();
+  const { isNotarizationSent } = useNotarizationSent();
 
   const getCanGoNext = useCallback(() => {
     const dontGoNext = false;
@@ -120,16 +119,16 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
       return dontGoNext;
     }
 
-    if (currentStep === 10 && !hierarchySent) {
+    if (currentStep === 10 && !isHierarchySent) {
       return dontGoNext;
     }
 
-    if (currentStep === 11 && !notarizationSent) {
+    if (currentStep === 11 && !isNotarizationSent) {
       return dontGoNext;
     }
 
     return canGoNext;
-  }, [currentStep, canGoNext, hierarchySent, notarizationSent, isConnected]);
+  }, [currentStep, canGoNext, isHierarchySent, isNotarizationSent, isConnected]);
 
   const getPreviousLabel = (): string => {
     return "Back";
@@ -140,11 +139,11 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
       return "Connect";
     }
 
-    if (currentStep === 10 && !hierarchySent) {
+    if (currentStep === 10 && !isHierarchySent) {
       return "Request";
     }
 
-    if (currentStep === 11 && !notarizationSent) {
+    if (currentStep === 11 && !isNotarizationSent) {
       return "Diagnostic";
     }
 

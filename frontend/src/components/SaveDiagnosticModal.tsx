@@ -4,14 +4,22 @@ import React, { useCallback, useState, useTransition } from 'react';
 import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
-import { FEDERATION_DETAILS, PRODUCT_DETAILS, REWARD_POOL_STATUS } from '@/utils/constants';
-import { createDppTx } from '@/helpers/transaction';
+import { DPP_ID, FEDERATION_ID, MANUFACTURER_NAME, NETWORK } from '@/utils/constants';
 import { ObjectRef, Transaction } from '@iota/iota-sdk/transactions';
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
 import { createNotarizationEventTransaction, type CreateNotarizationEventTransactionArgs, getSponsorGas, sendTransaction } from '@/helpers/api';
 import { Role } from '@/helpers/federation';
 import { useProductDetails } from '@/hooks/useProductDetails';
-import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
+import { useAppProvider } from '@/providers/appProvider';
+
+const diagnosticInfo = {
+  technicianName: "You",
+  eventName: "Health Checkup", // NOTE: what should be the event name? It is empty in the example, but I'm assuming "Health Checkup"
+  eventDate: fromPosixMsToUtcDateFormat(Date.now()),
+  healthScore: "76%",
+  findings: "Routine maintenance completed successfully",
+};
 
 interface ReserveGasResult {
   sponsor_address: string
@@ -23,44 +31,38 @@ export interface ReserveGasResultResponse extends ReserveGasResult {
   gasBudget: number
 }
 
-const AUDIT_TRAIL_PKG = "0x1d0b1bdb1b5ff25102e2e9d3858f898cd6c9f016b87b496c2e041f0ac060c5e7";
-const WHITELIST_ID = "0xaa90b38876f747ffe4bf405b3639f528e4d78d6230812817bbfd20b5b34e6df6";
-const VAULT_ID = REWARD_POOL_STATUS.vaultId;
-const CURRENT_CHAIN = "iota:testnet";
-
-const DPP_ID = PRODUCT_DETAILS.dppId;
-// TODO: Extract from product details
-const MANUFACTURER_NAME = "EcoBike";
-
 interface SaveDiagnosticModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSave: () => void;
 }
 
 const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
   isOpen,
   onClose,
+  onSave,
 }) => {
-  const technicianName = "You";
-  // NOTE: what should be the event name? It is empty in the example, but I'm assuming "Health Checkup"
-  const eventName = "Health Checkup";
-  const eventDate = fromPosixMsToUtcDateFormat(Date.now())
-  // NOTE: make an input out or these values?
-  const [healthScore, setHealthScore] = useState("76%");
-  const [findings, setFindings] = useState("Routine maintenance completed successfully");
+  // NOTE: These values should be collected by user input?
+  const [healthScore] = useState(diagnosticInfo.healthScore);
+  const [findings] = useState(diagnosticInfo.findings);
+  const [federationAddress] = useState(FEDERATION_ID);
 
-  const { mutateAsync: signTransaction } = useSignTransaction();
-  const account = useCurrentAccount()
+  /**
+   * Coordinates component state during transaction processing
+   */
   const [isPending, startTransition] = useTransition();
-  const [federationAddress] = useState(FEDERATION_DETAILS.federationAddr);
 
-  const { productDetails, isSuccess } = useProductDetails(DPP_ID);
-  const getManufacturerAddress = useCallback(() => {
-    if (productDetails) {
-      return productDetails?.manufacturer;
-    }
-    return null;
-  }, [productDetails]);
+  /**
+   * Pre-requisit information to send a transaction
+   */
+  const account = useCurrentAccount()
+  const { productDetails, isLoading } = useProductDetails(DPP_ID);
+
+  /**
+   * To be called in transaction submission
+   */
+  const { mutateAsync: signTransaction } = useSignTransaction();
+  const { handleNotarizationSentSuccess } = useAppProvider();
 
   // Handle modal close
   const handleClose = useCallback(() => {
@@ -75,7 +77,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
   const handleSignature = useCallback(async (transaction: Transaction) => {
     const { bytes, signature } = await signTransaction({
       transaction,
-      chain: CURRENT_CHAIN,
+      chain: `iota:${NETWORK}`,
     })
 
     return {
@@ -104,14 +106,21 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
         };
         const tx = createNotarizationEventTransaction(txInputs);
         const { bytes, signature } = await handleSignature(tx);
-        const sendResult = await sendTransaction(bytes, signature, sponsoredGas.result!.reservation_id!);
+        const { result, isError } = await sendTransaction(bytes, signature, sponsoredGas.result!.reservation_id!);
+
+        if (isError) {
+          throw new Error(isError);
+        }
 
         startTransition(() => {
-          // TODO: call success notification
+          const requestId = generateRequestId();
+          handleNotarizationSentSuccess(requestId);
           console.log('🟢 Diagnostic snapshot saved successfully');
-          onClose();
+          onSave();
+          // TODO: call success notification
         });
       } catch (error: unknown) {
+        console.log('❌ Error while calling sendTransaction.', (error as Error).message);
         const message = error instanceof Error ? error.message : 'unknownError';
         // TODO: call error notification
       } finally {
@@ -122,6 +131,18 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
     });
 
   }, [handleSignature, handleClose]);
+
+  const getButtonText = () => {
+    if (isPending) {
+      return 'Saving...';
+    }
+
+    if (isLoading) {
+      return 'Loading...';
+    }
+
+    return 'Save Snapshot';
+  };
 
   return (
     <Dialog
@@ -161,14 +182,13 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
           {/* Manufacturer with badge and address */}
           <ItemValueRow
             label="Manufacturer"
+            isValuePending={isLoading}
             value={
               <div className="flex items-center gap-3">
                 <BadgeWithLink
                   badgeText={MANUFACTURER_NAME}
-                // className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 />
-                {/* TODO: show only when address is loaded */}
-                <span className="text-blue-600 font-mono text-sm">{truncateAddress(getManufacturerAddress()!)}</span>
+                <span className="text-blue-600 font-mono text-sm">{truncateAddress(productDetails?.manufacturer)}</span>
               </div>
             }
           />
@@ -179,8 +199,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
             value={
               <div className="flex items-center gap-3">
                 <BadgeWithLink
-                  badgeText={technicianName}
-                // className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                  badgeText={diagnosticInfo.technicianName}
                 />
                 <span className="text-blue-600 font-mono text-sm">{truncateAddress(account?.address)}</span>
               </div>
@@ -193,13 +212,13 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
           {/* Event */}
           <ItemValueRow
             label="Event"
-            value={eventName}
+            value={diagnosticInfo.eventName}
           />
 
           {/* Date */}
           <ItemValueRow
             label="Date"
-            value={eventDate}
+            value={diagnosticInfo.eventDate}
           />
 
           {/* HR Separator */}
@@ -222,10 +241,10 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
         <div className="mt-8">
           <button
             onClick={handleSave}
-            disabled={isPending}
+            disabled={isPending || isLoading}
             className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-full font-medium"
           >
-            {isPending ? 'Saving...' : 'Save Snapshot'}
+            {getButtonText()}
           </button>
         </div>
       </div>

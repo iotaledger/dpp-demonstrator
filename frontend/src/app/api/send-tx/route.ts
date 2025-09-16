@@ -1,12 +1,7 @@
+import { GAS_STATION_TOKEN, GAS_STATION_URL } from '@/utils/constants'
 import { fromB64, toB64 } from '@iota/bcs'
 import { TransactionEffects } from '@iota/iota-sdk/client'
 import { NextRequest, NextResponse } from 'next/server'
-
-const gasStationUrl = process.env.GAS_STATION_URL as string
-const gasStationToken = process.env.GAS_STATION_AUTH as string
-
-// eslint-disable-next-line no-console
-console.log(`${gasStationUrl} ${gasStationToken}`)
 
 interface SendTxRequest {
   tx: string
@@ -44,10 +39,10 @@ export async function POST(req: NextRequest) {
       tx_bytes: toB64(transaction),
       user_sig: senderSignature,
     }
-    const response = await fetch(`${gasStationUrl}/v1/execute_tx`, {
+    const response = await fetch(`${GAS_STATION_URL}/v1/execute_tx`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${gasStationToken}`,
+        Authorization: `Bearer ${GAS_STATION_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),

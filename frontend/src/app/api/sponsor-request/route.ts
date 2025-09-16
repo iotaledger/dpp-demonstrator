@@ -1,3 +1,4 @@
+import { GAS_STATION_TOKEN, GAS_STATION_URL, RESERVE_DURATION_SEC } from '@/utils/constants'
 import { ObjectRef } from '@iota/iota-sdk/transactions'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -10,11 +11,6 @@ interface ReserveGasResult {
 export interface ReserveGasResultResponse extends ReserveGasResult {
   gasBudget: number
 }
-
-const RESERVE_DURATION_SEC = 180
-
-const gasStationUrl = process.env.GAS_STATION_URL as string
-const gasStationToken = process.env.GAS_STATION_AUTH as string
 
 export async function GET(req: NextRequest) {
   try {
@@ -35,10 +31,10 @@ async function getSponsorGas(gasBudget: number): Promise<ReserveGasResult> {
     reserve_duration_secs: RESERVE_DURATION_SEC,
   }
 
-  const response = await fetch(`${gasStationUrl}/v1/reserve_gas`, {
+  const response = await fetch(`${GAS_STATION_URL}/v1/reserve_gas`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${gasStationToken}`,
+      Authorization: `Bearer ${GAS_STATION_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(requestData),

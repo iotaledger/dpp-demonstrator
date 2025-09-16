@@ -1,12 +1,6 @@
 import { ObjectRef, Transaction } from "@iota/iota-sdk/transactions";
 import { createDppTx } from "./transaction";
-import { AUDIT_TRAIL_DETAILS, FEDERATION_DETAILS, HAS_NFT_REWARD, PRODUCT_DETAILS, REWARD_POOL_STATUS } from '@/utils/constants';
-import { UseMutateAsyncFunction } from "@tanstack/react-query";
-
-// TODO: extract to constants
-const PKG_ID = AUDIT_TRAIL_DETAILS.packageId;
-const WHITELIST_ID = REWARD_POOL_STATUS.whitelistId;
-const VAULT_ID = REWARD_POOL_STATUS.vaultId;
+import { AUDIT_TRAIL_PKG_ID, DPP_ID, FEDERATION_ID, VAULT_ID, WHITELIST_ID } from '@/utils/constants';
 
 // TODO: Evaluate extraction to central place of types
 interface ReserveGasResult {
@@ -87,14 +81,14 @@ export interface CreateNotarizationEventTransactionArgs {
 
 export function createNotarizationEventTransaction({ accountAddress, gas, issuerRole, entryDataKeys, entryDataValues }: CreateNotarizationEventTransactionArgs): Transaction {
   // TODO: validate inputs
-  const tx = createDppTx(PKG_ID, {
-    dppId: PRODUCT_DETAILS.dppId,
-    federationAddr: FEDERATION_DETAILS.federationAddr,
+  const tx = createDppTx(AUDIT_TRAIL_PKG_ID!, {
+    dppId: DPP_ID,
+    federationAddr: FEDERATION_ID!,
     issuerRole,
     entryDataKeys,
     entryDataValues,
-    whitelistId: WHITELIST_ID,
-    vaultId: VAULT_ID,
+    whitelistId: WHITELIST_ID!,
+    vaultId: VAULT_ID!,
   });
 
   tx.setSender(accountAddress);

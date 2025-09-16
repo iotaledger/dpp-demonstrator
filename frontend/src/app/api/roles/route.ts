@@ -1,14 +1,5 @@
-import dotenv from 'dotenv'
+import { BACKEND_API_KEY, BACKEND_ENDPOINT } from '@/utils/constants'
 import { NextRequest, NextResponse } from 'next/server'
-
-dotenv.config()
-
-const BACKEND_ENDPOINT = process.env.BACKEND_ENDPOINT
-const BACKEND_API_KEY = process.env.BACKEND_API_KEY as string
-
-if (!BACKEND_ENDPOINT || !BACKEND_API_KEY) {
-  throw new Error('BACKEND_ENDPOINT or BACKEND_API_KEY is not defined in environment variables.')
-}
 
 type UserRole = 'Repairer'
 
@@ -28,14 +19,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(validationPayload, { status: 400 });
     }
 
-    const response = await fetch(`${BACKEND_ENDPOINT}/roles`, {
+    const rolesUrl = `${BACKEND_ENDPOINT!}/roles`;
+    const headers = new Headers([
+      ['Content-Type', 'application/json'],
+      ['x-api-key', BACKEND_API_KEY || '']
+    ]);
+    const response = await fetch(rolesUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': BACKEND_API_KEY,
-      },
+      headers,
       body: JSON.stringify({ user_addr, user_role, federation_addr }),
-    })
+    });
 
     if (!response.ok) {
       const errorBody = await response.text()

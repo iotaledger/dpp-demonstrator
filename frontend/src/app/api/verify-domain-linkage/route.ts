@@ -14,6 +14,7 @@ import { IotaClient } from '@iota/iota-sdk/client'
 import Cors from "cors";
 import { DomainLinkageResource, VerifyDomainLinkageRequest, VerifyDomainLinkageResponse } from '@/types/identity'
 import { NextRequest, NextResponse } from 'next/server';
+import { DAPP_URL, IOTA_IDENTITY_PKG_ID, NETWORK_URL } from '@/utils/constants';
 
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -22,6 +23,8 @@ const cors = Cors({
   methods: ["POST", "GET", "HEAD"],
 });
 
+// TODO: remove or adapt the POST as instructed at:
+//   https://nextjs.org/docs/app/api-reference/file-conventions/route#cors
 // Helper method to wait for a middleware to execute before continuing
 // And to throw an error when an error happens in a middleware
 function runMiddleware(
@@ -40,16 +43,9 @@ function runMiddleware(
   });
 }
 
-
-const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL as string
-const IOTA_IDENTITY_PKG_ID = process.env.IOTA_IDENTITY_PKG_ID as string
-const NETWORK_URL = process.env.NEXT_PUBLIC_NETWORK_URL as string
-
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   console.log('running middleware');
   // Run the middleware
-  await runMiddleware(req, res, cors);
-
   if (!IOTA_IDENTITY_PKG_ID || !DAPP_URL) {
     const configErrPayload = { error: 'Internal server configuration error' };
     return NextResponse.json(configErrPayload, { status: 500 });
@@ -67,7 +63,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 }
 
 async function startingFromDid(did: string) {
-  const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID)
+  const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID!)
 
   const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did))
 
@@ -99,8 +95,8 @@ async function startingFromDid(did: string) {
 }
 
 async function startingFromDomain() {
-  const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID)
-  const fetchedConfigurationResource = await fetchDidConfiguration(DAPP_URL)
+  const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID!)
+  const fetchedConfigurationResource = await fetchDidConfiguration(DAPP_URL!)
   const configurationResource = new DomainLinkageConfiguration([
     Jwt.fromJSON(fetchedConfigurationResource.linked_dids[0]),
   ])
@@ -112,7 +108,7 @@ async function startingFromDomain() {
     new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
       issuerDocument,
       configurationResource,
-      DAPP_URL,
+      DAPP_URL!,
       new JwtCredentialValidationOptions()
     )
 
@@ -123,7 +119,7 @@ async function startingFromDomain() {
 }
 
 async function getIdentityClient(identityPackageId: string) {
-  const iotaClient = new IotaClient({ url: NETWORK_URL })
+  const iotaClient = new IotaClient({ url: NETWORK_URL! })
 
   return await IdentityClientReadOnly.createWithPkgId(iotaClient, identityPackageId)
 }

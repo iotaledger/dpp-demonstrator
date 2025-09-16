@@ -1,10 +1,4 @@
-import { extractFederationData } from "@/helpers/federation";
-import { type Dpp, getDppData } from "@/helpers/product";
-import { isStringEmpty } from "@/utils/common";
-import { useIotaClientQuery } from "@iota/dapp-kit";
 import { useQuery } from "@tanstack/react-query";
-import { useProductDetails } from "./useProductDetails";
-import { PRODUCT_DETAILS } from "@/utils/constants";
 
 // TODO: what is the purpose of this hook?
 export function useCheckLinkage(did: string) {

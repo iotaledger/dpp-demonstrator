@@ -103,8 +103,8 @@ interface FederationData {
 }
 
 export enum Role {
-  manufacturer = "manufacturer",
-  repairer = "repairer"
+  manufacturer = "Manufacturer",
+  repairer = "Repairer"
 }
 
 /**

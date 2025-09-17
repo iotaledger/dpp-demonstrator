@@ -1,45 +1,37 @@
 'use client';
 
-import { useCurrentWallet } from '@iota/dapp-kit';
+import { useAccounts, useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import React, { useTransition, useCallback, useState } from 'react';
 import SaveDiagnosticModal from './SaveDiagnosticModal';
 
+const DIAGNOSTIC_MUTED_STYLE = 'border border-gray-200 !opacity-40';
+const DIAGNOSTIC_HIGHLIGHTED_STYLE = 'border border-blue-500 !bg-blue-50';
+const DIAGNOSTIC_NORMAL_STYLE = 'border border-gray-200 !bg-gray-100';
+
+const diagnosticInfo = {
+  title: "EcoBike Pro Battery diagnostic tool",
+  subtitle: "Annual Health Snapshot",
+  imageUrl: "https://dpp-demo-three.vercel.app/_app/immutable/assets/step_11.DFR7MaqW.webp",
+  imageAlt: "Diagnostic tool",
+  userAddress: "0xad2f16bc4d93c294d655abfebac363c010f05fb8",
+  findings: "Routine maintenance completed successfully",
+  buttonTextStartDiagnostic: "Start diagnostic now",
+  buttonTextRunningDiagnostic: "Running diagnostic...",
+};
+
 interface DiagnosticCardProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  imageUrl?: string;
-  imageAlt?: string;
-  userAddress?: string;
-  findings?: string;
-  buttonText?: string;
-  formAction?: string;
-  formMethod?: 'POST' | 'GET';
-  onSubmit?: (data: { userAddress: string; findings: string }) => void;
   opacity?: number;
   delay?: number;
   cardState?: 'normal' | 'muted' | 'highlighted';
-  buttonId?: string;
 }
 
 const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
-  title = "EcoBike Pro Battery diagnostic tool",
-  subtitle = "Annual Health Snapshot",
-  description,
-  imageUrl = "https://dpp-demo-three.vercel.app/_app/immutable/assets/step_11.DFR7MaqW.webp",
-  imageAlt = "Diagnostic tool",
-  userAddress = "0xad2f16bc4d93c294d655abfebac363c010f05fb8",
-  findings = "Routine maintenance completed successfully",
-  buttonText = "Start diagnostic now",
-  formAction = "?/submitDiagnostic",
-  formMethod = "POST",
-  onSubmit,
   opacity = 100,
   delay = 0.4,
-  cardState = 'highlighted',
-  buttonId = "diagnostic-button"
+  cardState = 'normal',
 }) => {
   const { isConnected } = useCurrentWallet();
+  const currentAccount = useCurrentAccount();
   const [isPending, startTransition] = useTransition();
   const [isSnapshotModalOpen, setIsSnapshotModalOpen] = useState(false);
 
@@ -48,42 +40,30 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
     event.preventDefault();
 
     startTransition(() => {
-      const formData = new FormData(event.currentTarget as HTMLFormElement);
-      const data = {
-        userAddress: formData.get('userAddress') as string,
-        findings: formData.get('findings') as string
-      };
-
-      console.log('🔴 Diagnostic form submitted:', data);
-
-      // Call optional onSubmit callback
-      onSubmit?.(data);
-
-      // TODO: Replace with actual API call or form handling
+      console.log('🔴 Diagnostic loading...:');
       setTimeout(() => {
-        console.log('🟢 Diagnostic submission completed');
-        // Open save snapshot modal after successful diagnostic
+        console.log('🟢 Diagnostic loaded');
         setIsSnapshotModalOpen(true);
       }, 1000);
     });
-  }, [onSubmit]);
-
-  if (!isConnected) {
-    return null;
-  }
+  }, []);
 
   // Card state styling (following ServiceRequestCard pattern)
   const getCardStateClasses = () => {
     switch (cardState) {
       case 'muted':
-        return 'border border-gray-200 !opacity-40';
+        return DIAGNOSTIC_MUTED_STYLE;
       case 'highlighted':
-        return 'border border-blue-500 !bg-blue-50';
+        return DIAGNOSTIC_HIGHLIGHTED_STYLE;
       case 'normal':
       default:
-        return 'border border-gray-200 !bg-gray-100';
+        return DIAGNOSTIC_NORMAL_STYLE;
     }
   };
+
+  if (!isConnected) {
+    return null;
+  }
 
   return (
     <>
@@ -108,8 +88,8 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                     <div className="w-full max-h-[220px] bg-blue-50 relative overflow-hidden rounded-lg">
                       <img
                         className="w-full h-full object-cover"
-                        alt={imageAlt}
-                        src={imageUrl}
+                        alt={diagnosticInfo.imageAlt}
+                        src={diagnosticInfo.imageUrl}
                       />
                     </div>
                   </div>
@@ -118,31 +98,28 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                   <div className="flex-1 flex flex-col justify-center space-y-4 p-6">
                     {/* Text Content */}
                     <div className="space-y-0.5">
-                      <div className="text-sm text-gray-500 font-medium">{title}</div>
-                      <div className="text-lg text-gray-900 font-medium">{subtitle}</div>
-                      {description && (
-                        <p className="text-gray-600 mt-2">{description}</p>
-                      )}
+                      <div className="text-sm text-gray-500 font-medium">{diagnosticInfo.title}</div>
+                      <div className="text-lg text-gray-900 font-medium">{diagnosticInfo.subtitle}</div>
+                      {/* NOTE: Left it commented because it may receive a description latter on */}
+                      {/* TODO: Remove if final version doesn't account for this */}
+                      {/* <p className="text-gray-600 mt-2">{description}</p> */}
                     </div>
 
                     {/* Form Section */}
                     <div className="mt-2 space-y-3">
-                      <form method={formMethod} action={formAction} onSubmit={handleSubmit}>
-                        {/* Hidden Inputs (matching HTML structure) */}
-                        <input type="hidden" name="userAddress" value={userAddress} />
-                        <input type="hidden" name="findings" value={findings} />
-
+                      <form onSubmit={handleSubmit}>
                         {/* Submit Button */}
                         <button
                           className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2"
                           type="submit"
                           data-diagnostic-button="true"
-                          id={buttonId}
+                          id={"diagnostic-button"}
                           disabled={isPending}
                         >
-                          {isPending ? 'Running diagnostic...' : buttonText}
+                          {isPending ? diagnosticInfo.buttonTextRunningDiagnostic : diagnosticInfo.buttonTextStartDiagnostic}
                         </button>
                       </form>
+                      {/* TODO: Enable animation */}
                       {isPending && (
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm text-gray-600">

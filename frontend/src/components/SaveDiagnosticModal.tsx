@@ -8,7 +8,6 @@ import { DPP_ID, FEDERATION_ID, MANUFACTURER_NAME, NETWORK } from '@/utils/const
 import { ObjectRef, Transaction } from '@iota/iota-sdk/transactions';
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
 import { createNotarizationEventTransaction, type CreateNotarizationEventTransactionArgs, getSponsorGas, sendTransaction } from '@/helpers/api';
-import { Role } from '@/helpers/federation';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
 import { useAppProvider } from '@/providers/appProvider';
@@ -19,6 +18,7 @@ const diagnosticInfo = {
   eventDate: fromPosixMsToUtcDateFormat(Date.now()),
   healthScore: "76%",
   findings: "Routine maintenance completed successfully",
+  issuerRole: "repairer",
 };
 
 interface ReserveGasResult {
@@ -100,7 +100,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
         const txInputs: CreateNotarizationEventTransactionArgs = {
           accountAddress: account!.address,
           gas: sponsoredGas.result!,
-          issuerRole: Role.manufacturer,
+          issuerRole: diagnosticInfo.issuerRole,
           entryDataKeys: ['HealthScore', 'Findings'],
           entryDataValues: [healthScore, findings],
         };

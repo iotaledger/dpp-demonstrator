@@ -19,7 +19,7 @@ echo "================================================="
 
 # Stop Docker services
 print_step "Stopping Docker services..."
-docker-compose -f docker-compose.dev.yml down
+docker-compose -f docker-compose.local.yml down
 
 if [ $? -eq 0 ]; then
     print_success "Docker services stopped"

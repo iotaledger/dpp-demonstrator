@@ -32,7 +32,7 @@ cleanup() {
         kill $FRONTEND_PID 2>/dev/null
     fi
     print_step "Stopping Docker services"
-    docker-compose -f docker-compose.dev.yml down
+    docker-compose -f docker-compose.local.yml down
     exit 0
 }
 
@@ -40,8 +40,8 @@ cleanup() {
 trap cleanup SIGINT SIGTERM EXIT
 
 # Check if required files exist
-if [ ! -f "docker-compose.dev.yml" ]; then
-    print_error "docker-compose.dev.yml not found!"
+if [ ! -f "docker-compose.local.yml" ]; then
+    print_error "docker-compose.local.yml not found!"
     exit 1
 fi
 
@@ -60,7 +60,7 @@ echo "================================================="
 
 # Start Docker services
 print_step "Starting Docker services (backend, gas-station, redis)..."
-docker-compose -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.local.yml up -d
 
 if [ $? -ne 0 ]; then
     print_error "Failed to start Docker services"
@@ -138,13 +138,13 @@ echo "   • Frontend:    http://localhost:3000"
 echo "   • Gas Station: http://localhost:9527"
 echo ""
 echo "📊 Docker services:"
-docker-compose -f docker-compose.dev.yml ps
+docker-compose -f docker-compose.local.yml ps
 echo ""
 echo "💡 Tips:"
 echo "   • Press Ctrl+C to stop all services"
 echo "   • Frontend has hot reload enabled"
-echo "   • Backend logs: docker-compose -f docker-compose.dev.yml logs backend"
-echo "   • Gas Station logs: docker-compose -f docker-compose.dev.yml logs iota-gas-station"
+echo "   • Backend logs: docker-compose -f docker-compose.local.yml logs backend"
+echo "   • Gas Station logs: docker-compose -f docker-compose.local.yml logs iota-gas-station"
 echo ""
 print_step "Watching for changes... (Press Ctrl+C to stop)"
 

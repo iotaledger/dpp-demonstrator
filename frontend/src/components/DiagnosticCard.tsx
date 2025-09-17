@@ -3,6 +3,8 @@
 import { useAccounts, useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import React, { useTransition, useCallback, useState } from 'react';
 import SaveDiagnosticModal from './SaveDiagnosticModal';
+import { useProgress } from '@/hooks/useProgress';
+import { LoadingBar } from './LoadingBar';
 
 const DIAGNOSTIC_MUTED_STYLE = 'border border-gray-200 !opacity-40';
 const DIAGNOSTIC_HIGHLIGHTED_STYLE = 'border border-blue-500 !bg-blue-50';
@@ -30,21 +32,28 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
   delay = 0.4,
   cardState = 'normal',
 }) => {
-  const { isConnected } = useCurrentWallet();
-  const currentAccount = useCurrentAccount();
   const [isPending, startTransition] = useTransition();
+  const { progress, isComplete, startProgress, resetProgress } = useProgress();
+
+  const { isConnected } = useCurrentWallet();
   const [isSnapshotModalOpen, setIsSnapshotModalOpen] = useState(false);
 
   // Handle form submission
   const handleSubmit = useCallback((event: React.FormEvent) => {
     event.preventDefault();
-
-    startTransition(() => {
+    startTransition(async () => {
       console.log('🔴 Diagnostic loading...:');
-      setTimeout(() => {
+      const hasCompleted = await startProgress();
+      if (hasCompleted) {
         console.log('🟢 Diagnostic loaded');
-        setIsSnapshotModalOpen(true);
-      }, 1000);
+        startTransition(() => {
+          setIsSnapshotModalOpen(true);
+          // TODO: notify success 
+        });
+      } else {
+        console.log('❌ Error while loading diagnostic.');
+        // TODO: notify failure
+      }
     });
   }, []);
 
@@ -119,16 +128,8 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                           {isPending ? diagnosticInfo.buttonTextRunningDiagnostic : diagnosticInfo.buttonTextStartDiagnostic}
                         </button>
                       </form>
-                      {/* TODO: Enable animation */}
                       {isPending && (
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm text-gray-600">
-                            <span className="animate-pulse">Analyzing battery health...</span>
-                            <span>100%</span></div>
-                          <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                            <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full transition-all duration-75 ease-out shadow-sm"></div>
-                          </div>
-                        </div>
+                        <LoadingBar progress={progress} loadingText='Analyzing battery health...' />
                       )}
                     </div>
                   </div>
@@ -140,7 +141,10 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
       </section>
       <SaveDiagnosticModal
         isOpen={isSnapshotModalOpen}
-        onClose={() => setIsSnapshotModalOpen(false)}
+        onClose={() => {
+          setIsSnapshotModalOpen(false);
+          resetProgress();
+        }}
         onSave={() => setIsSnapshotModalOpen(false)}
       />
     </>

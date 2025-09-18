@@ -14,6 +14,7 @@ import ServiceHistoryCard from './ServiceHistoryCard';
 import GuidedSidebar from './GuidedSidebar';
 import DiagnosticCard from './DiagnosticCard';
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
+import { Notifications } from './Notifications';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -137,7 +138,7 @@ const ExploreGuided: React.FC = () => {
       <TutorialScrollContainer>
         <div className="dpp-content-container">
           {TUTORIAL_STEPS.get(currentStep)}
-          <div className="absolute top-4 right-4 z-[70] space-y-3 pointer-events-none" />
+          <Notifications />
         </div>
       </TutorialScrollContainer>
     </TutorialCard>

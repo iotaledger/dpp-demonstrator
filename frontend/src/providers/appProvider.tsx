@@ -1,10 +1,12 @@
 import React, { PropsWithChildren } from 'react';
+import { type Notification } from '@/components/Toast';
 
 interface AppState {
   isHierarchySent: boolean;
   isNotarizationSent: boolean;
   hierarchySent: { key: string }[];
   notarizationSent: { key: string }[],
+  notifications: Notification[],
 }
 
 interface AppReducerAction {
@@ -17,11 +19,15 @@ interface AppContextValue {
   dispatch: React.ActionDispatch<[AppReducerAction]>;
   handleHierarchySentSuccess: (requestId: string) => void,
   handleNotarizationSentSuccess: (requestId: string) => void,
+  handleNotificationSent: (notification: Notification) => void;
+  handleNotificationRemoved: (id: string) => void;
 }
 
 const actionTypes = {
   hierarchySentSuccess: 'hierarchySentSuccess',
   notarizationSentSuccess: 'notarizationSentSuccess',
+  notificationSent: 'notificationSent',
+  notificationRemoved: 'notificationRemoved',
 }
 
 const actions = {
@@ -51,6 +57,30 @@ const actions = {
       };
     }
   },
+  notificationSent: {
+    type: actionTypes.notificationSent,
+    action: function(notification: Notification): AppReducerAction {
+      return { type: actionTypes.notificationSent, payload: notification };
+    },
+    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+      return {
+        ...prevState,
+        notifications: [...prevState.notifications, action.payload as Notification],
+      }
+    }
+  },
+  notificationRemoved: {
+    type: actionTypes.notificationRemoved,
+    action: function(id: string): AppReducerAction {
+      return { type: actionTypes.notificationRemoved, payload: id };
+    },
+    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+      return {
+        ...prevState,
+        notifications: prevState.notifications.filter((each) => each.id !== action.payload),
+      };
+    },
+  },
 };
 
 const initialState: AppState = {
@@ -58,6 +88,7 @@ const initialState: AppState = {
   isNotarizationSent: false,
   hierarchySent: [],
   notarizationSent: [],
+  notifications: [],
 };
 
 function reducer(state: AppState, action: AppReducerAction): AppState {
@@ -67,6 +98,12 @@ function reducer(state: AppState, action: AppReducerAction): AppState {
     }
     case actions.notarizationSentSuccess.type: {
       return actions.notarizationSentSuccess.reduce(state);
+    }
+    case actions.notificationSent.type: {
+      return actions.notificationSent.reduce(state, action);
+    }
+    case actions.notificationRemoved.type: {
+      return actions.notificationRemoved.reduce(state, action);
     }
     default: {
       throw new Error('Could not find action');
@@ -87,12 +124,22 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
     dispatch(actions.notarizationSentSuccess.action(requestId));
   }
 
+  const handleNotificationSent = (notification: Notification) => {
+    dispatch(actions.notificationSent.action(notification));
+  }
+
+  const handleNotificationRemoved = (id: string) => {
+    dispatch(actions.notificationRemoved.action(id));
+  }
+
   return (
     <AppContext value={{
       state,
       dispatch,
       handleHierarchySentSuccess,
       handleNotarizationSentSuccess,
+      handleNotificationSent,
+      handleNotificationRemoved,
     }}>
       {children}
     </AppContext>
@@ -145,5 +192,22 @@ export const useNotarizationSent = () => {
   return {
     isNotarizationSent,
     notarizationSent,
+  }
+}
+
+export const useNotification = () => {
+  const value: AppContextValue | null = React.useContext(AppContext);
+
+  if (value === null) {
+    return {
+      notifications: [],
+    }
+  }
+
+  const { state: { notifications }, handleNotificationSent, handleNotificationRemoved } = value;
+  return {
+    notifications,
+    handleNotificationSent,
+    handleNotificationRemoved,
   }
 }

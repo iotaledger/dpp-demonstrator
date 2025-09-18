@@ -58,7 +58,7 @@ interface ServiceEntry {
   /** The timestamp when the service was performed (milliseconds) */
   timestamp: string;
   /** The app package ID where this service entry is defined */
-  packageId: string;
+  packageId: string | null;
 }
 
 /**
@@ -95,7 +95,7 @@ interface ServiceHistoryData {
   /** Whether there are more service entries to fetch */
   hasNextPage: boolean;
   /** Cursor for fetching next page of results */
-  nextCursor?: string;
+  nextCursor?: string | null;
 }
 
 /**

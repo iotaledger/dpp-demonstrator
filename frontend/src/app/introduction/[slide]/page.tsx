@@ -1,8 +1,6 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/Header';
-import HeaderContent from '@/components/HeaderContent';
 import Main from '@/components/Main';
 import GridContainer from '@/components/GridContainer';
 import MainContent from '@/components/MainContent';

@@ -113,7 +113,7 @@ interface RewardVaultData {
  */
 function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   const data = jsonData.data as IotaObjectData;
-  // TODO: Better understand the Iota types and make use of it
+  // @ts-expect-error - TODO: Better understand the Iota types and make use of it
   const vault = data.content?.fields;
   let lccPackageId = "";
   let lccTypeName = "";

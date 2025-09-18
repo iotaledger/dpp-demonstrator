@@ -55,7 +55,9 @@ export function firstLetterUpperCase(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-export function truncateAddress(address = '', numOfCharacters = 4) {
+export function truncateAddress(address?: string | null, numOfCharacters = 4) {
+  if (address == null) return '';
+
   const firstPart = address.substring(0, numOfCharacters + 1)
   const secondPart = address.substring(address?.length - numOfCharacters)
 

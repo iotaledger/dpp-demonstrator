@@ -5,7 +5,7 @@ import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { DPP_ID, FEDERATION_ID, MANUFACTURER_NAME, NETWORK } from '@/utils/constants';
-import { ObjectRef } from '@iota/iota-sdk/transactions';
+import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
 import { createNotarizationEventTransaction, type CreateNotarizationEventTransactionArgs, getSponsorGas, sendTransaction } from '@/helpers/api';
 import { useProductDetails } from '@/hooks/useProductDetails';
@@ -78,9 +78,10 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
     handleClose();
   }, [handleClose]);
 
-  const handleSignature = useCallback(async (transaction: any) => {
+  const handleSignature = useCallback(async (transaction: Transaction) => {
     const { bytes, signature } = await signTransaction({
-      transaction,
+      // eslint-disable-next-line -- TODO: replace `any` by Transaction type from dapp-kit, currently not available
+      transaction: transaction as any,
       chain: `iota:${NETWORK}`,
     })
 

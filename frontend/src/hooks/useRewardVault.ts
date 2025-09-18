@@ -1,4 +1,4 @@
-import { extractRewardVaultData, type RewardVaultData } from "@/helpers/rewardVault";
+import { extractRewardVaultData } from "@/helpers/rewardVault";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 
 // TODO: document the purpose of this hook
@@ -9,7 +9,7 @@ export function useRewardVaultDetails(vaultId: string) {
   });
 
   return {
-    rewardDetails: data?.data && extractRewardVaultData(data as RewardVaultData),
+    rewardDetails: data?.data && extractRewardVaultData(data),
     isSuccess,
     isLoading,
     isError,

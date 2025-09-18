@@ -144,7 +144,7 @@ export enum Role {
  */
 function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
   const data = jsonResult.data as IotaObjectData;
-  // TODO: Better understand the Iota types and make use of it
+  // @ts-expect-error - TODO: Better understand the Iota types and make use of it
   const federation = data.content?.fields;
   const governance = federation.governance.fields;
 

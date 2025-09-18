@@ -12,12 +12,6 @@ services:
 
   iota-gas-station:
     image: "${DOCKER_IMAGE:-iotaledger/gas-station:latest}"
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-      args:
-        - BUILD_DATE=${BUILD_DATE:-latest}
-        - GIT_REVISION=${GIT_REVISION:-latest}
     container_name: iota-gas-station
     command: [ "--config-path", "/app/config.yaml" ]
     depends_on:

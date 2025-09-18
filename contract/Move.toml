@@ -6,7 +6,7 @@ edition = "2024.beta"
 
 
 [dependencies]
-Hierarchies = { git = "https://github.com/iotaledger/hierarchies.git", subdir = "hierarchies-move", rev = "v0.1.0" }
+Hierarchies = { git = "https://github.com/iotaledger/hierarchies.git", subdir = "hierarchies-move", rev = "v0.1.2" }
 
 [addresses]
 audit_trails = "0x0"

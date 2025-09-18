@@ -10,7 +10,7 @@ import { ObjectRef } from '@iota/iota-sdk/transactions'
 import { createAccreditation } from '@/helpers/api';
 import { Role } from '@/helpers/federation';
 import { generateRequestId, truncateAddress } from '@/utils/common';
-import { useAppProvider } from '@/providers/appProvider';
+import { useAppProvider, useNotification } from '@/providers/appProvider';
 
 const HAS_REWARD = HAS_NFT_REWARD;
 
@@ -53,6 +53,11 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   const [isPending, startTransition] = useTransition();
   const [federationAddress] = useState(FEDERATION_DETAILS.federationAddr);
   const [selectedRole, setSelectedRole] = useState(MODAL_CONTENT.roleOptions[Role.repairer]);
+
+  /**
+   * To notify the user
+   */
+  const { handleNotificationSent } = useNotification();
 
   // Copy to clipboard functionality using extracted hook
   const { copied, copyToClipboard } = useCopyToClipboard({
@@ -122,11 +127,11 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         handleHierarchySentSuccess(requestId);
         onSuccess && onSuccess();
         console.log('🟢 Accredidation created with succes!');
-        // TODO: notification success
+        handleNotificationSent!({ id: generateRequestId(), type: 'success', message: 'Accredidation created with succes!' })
       } catch (error) {
         console.log('❌ Error while calling createAccreditation.');
         const message = error instanceof Error ? error.message : 'unknownError'
-        // TODO: notification error
+        handleNotificationSent!({ id: generateRequestId(), type: 'error', message: 'Error while calling createAccreditation.' })
       } finally {
         startTransition(() => {
           onClose();

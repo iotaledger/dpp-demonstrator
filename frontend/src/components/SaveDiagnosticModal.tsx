@@ -10,7 +10,7 @@ import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
 import { createNotarizationEventTransaction, type CreateNotarizationEventTransactionArgs, getSponsorGas, sendTransaction } from '@/helpers/api';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
-import { useAppProvider } from '@/providers/appProvider';
+import { useAppProvider, useNotification } from '@/providers/appProvider';
 
 const diagnosticInfo = {
   technicianName: "You",
@@ -63,6 +63,11 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
    */
   const { mutateAsync: signTransaction } = useSignTransaction();
   const { handleNotarizationSentSuccess } = useAppProvider();
+
+  /**
+   * To notify the user
+   */
+  const { handleNotificationSent } = useNotification();
 
   // Handle modal close
   const handleClose = useCallback(() => {
@@ -117,10 +122,11 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
           handleNotarizationSentSuccess(requestId);
           console.log('🟢 Diagnostic snapshot saved successfully');
           onSave();
-          // TODO: call success notification
+          handleNotificationSent!({ id: generateRequestId(), type: 'success', message: 'Diagnostic snapshot saved successfully!' })
         });
       } catch (error: unknown) {
         console.log('❌ Error while calling sendTransaction.', (error as Error).message);
+        handleNotificationSent!({ id: generateRequestId(), type: 'error', message: 'Error while calling sendTransaction.' })
         const message = error instanceof Error ? error.message : 'unknownError';
         // TODO: call error notification
       } finally {

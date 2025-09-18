@@ -71,10 +71,14 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
               size='md'
               className='transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground h-10 px-4 py-2 p-6 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:text-primary'
               style={{
-                '--dapp-kit-backgroundColors-primaryButton': 'var(--color-blue-700)',
+                "--dapp-kit-backgroundColors-primaryButton": 'var(--color-blue-700)',
                 '--dapp-kit-backgroundColors-primaryButtonHover': 'var(--color-blue-600)',
                 '--tw-ring-color': 'var(--color-blue-700)',
                 color: 'var(--color-primary-foreground)',
+              } as React.CSSProperties & {
+                '--dapp-kit-backgroundColors-primaryButton': string;
+                '--dapp-kit-backgroundColors-primaryButtonHover': string;
+                '--tw-ring-color': string;
               }}
               connectText={'Connect'}
               disabled={getConnectionDisabled()}

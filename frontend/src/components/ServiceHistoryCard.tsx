@@ -4,11 +4,11 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { useServiceHistory } from '@/hooks/useServiceHistory';
-import { FEDERATION_DETAILS, PRODUCT_DETAILS } from '@/utils/constants';
 import { firstLetterUpperCase, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { getAllEntitiesByRole, getRolesByEntity, Role } from '@/helpers/federation';
 import PanelContent from './PanelContent';
+import { DPP_ID, FEDERATION_ID } from '@/utils/constants';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
@@ -19,13 +19,13 @@ interface ServiceHistoryCardProps {
 
 // TODO: Implement loading state
 const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
-  dppId = PRODUCT_DETAILS.dppId as string,
+  dppId = DPP_ID as string,
   opacity = 100,
   delay = 0.4,
   tutorialState = 'no',
 }) => {
   const { serviceHistory, isSuccess } = useServiceHistory(dppId);
-  const { federationDetails, isSuccess: isFederationDetailsSuccess } = useFederationDetails(FEDERATION_DETAILS.federationAddr as string);
+  const { federationDetails, isSuccess: isFederationDetailsSuccess } = useFederationDetails(FEDERATION_ID as string);
   /**
    * NOTE: I'm extracting the latestService because the UI seems to be only interested in it.
    */

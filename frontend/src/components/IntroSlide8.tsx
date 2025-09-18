@@ -12,7 +12,7 @@ const IntroSlide8: React.FC = () => {
       <div className="mb-8 max-w-3xl pt-6 md:pt-0">
         <SlideTitle size="large" margin='mb-4'>Powered by IOTA</SlideTitle>
         <SlideDescription margin='mb-2' width='max-w-4xl'>
-          This journey is powered by IOTA's public infrastructure and the IOTA Trust Framework.
+          {"This journey is powered by IOTA's public infrastructure and the IOTA Trust Framework."}
         </SlideDescription>
       </div>
 

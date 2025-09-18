@@ -3,14 +3,13 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
-import { FEDERATION_DETAILS, PRODUCT_DETAILS } from '@/utils/constants';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { getAllAccreditationsFlat } from '@/helpers/federation';
 import { firstLetterUpperCase, truncateAddress } from '@/utils/common';
 import { useCurrentAccount } from '@iota/dapp-kit';
-import { useCheckLinkage } from '@/hooks/useCheckLinkage';
 import PanelContent from './PanelContent';
+import { DPP_ID, FEDERATION_ID } from '@/utils/constants';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -27,8 +26,8 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   // NOTE: I'm using this hook to get the `manufacturer` value, and I aim to use it
   // in the `useCheckLinkage` hook. But, should I present it here in the Role Details?
   // The manufactor address bellow do belongs to the manufacture DiD? I don't get it.
-  const { productDetails, isSuccess: isSuccessProductDetails } = useProductDetails(PRODUCT_DETAILS.dppId as string);
-  const { federationDetails, isSuccess: isSuccessFederatilDetails } = useFederationDetails(FEDERATION_DETAILS.federationAddr as string);
+  const { productDetails, isSuccess: isSuccessProductDetails } = useProductDetails(DPP_ID as string);
+  const { federationDetails, isSuccess: isSuccessFederatilDetails } = useFederationDetails(FEDERATION_ID as string);
   const currentAccount = useCurrentAccount();
 
   const getCurrentAccountBadge = React.useCallback((otherAddress: string): string => {

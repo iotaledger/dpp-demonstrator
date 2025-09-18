@@ -12,7 +12,7 @@ const IntroSlide10: React.FC = () => {
       <div className="mb-8 max-w-3xl pt-6 md:pt-0">
         <SlideTitle size="large">Prepare your Wallet</SlideTitle>
         <SlideDescription margin='mb-2' width='max-w-4xl'>
-          Desktop extension or mobile app — choose your path for the demo. Both wallets enable secure interaction with this demo without requiring any token balance. Note: Mockup testers don't need a wallet for this walkthrough. We're seeking feedback on storyline, structure, and design.
+          {"Desktop extension or mobile app — choose your path for the demo. Both wallets enable secure interaction with this demo without requiring any token balance. Note: Mockup testers don't need a wallet for this walkthrough. We're seeking feedback on storyline, structure, and design."}
         </SlideDescription>
       </div>
 

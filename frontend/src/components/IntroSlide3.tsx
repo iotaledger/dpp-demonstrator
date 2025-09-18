@@ -16,12 +16,9 @@ const IntroSlide3: React.FC = () => {
       <SlideContent
         textAlign="left"
       >
-        <SlideTitle size="large">Products Move, Data Doesn't</SlideTitle>
+        <SlideTitle size="large">{"Products Move, Data Doesn't"}</SlideTitle>
         <SlideDescription>
-          Products move between companies, countries, and lifecycles. But their
-          data is often siloed, overwritten, or lost. This creates inefficiencies,
-          greenwashing, and missed chances for circularity. And it leaves little
-          incentive for stakeholders to contribute meaningful lifecycle data.
+          {"Products move between companies, countries, and lifecycles. But their data is often siloed, overwritten, or lost. This creates inefficiencies, greenwashing, and missed chances for circularity. And it leaves little incentive for stakeholders to contribute meaningful lifecycle data."}
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

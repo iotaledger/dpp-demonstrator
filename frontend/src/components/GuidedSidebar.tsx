@@ -8,78 +8,91 @@ import { useRouter } from 'next/navigation';
 
 const TUTORIAL_STEPS = new Map([
   [1, <StepContent
+    key={1}
     imageSrc="/assets/steps/step_1.webp"
     imageAlt="Meet the Product"
     stepTitle="Meet the Product"
     stepDescription={"<p>This e-bike battery is the product we will track throughout the demo. Its Digital Product Passport was created by EcoBike, and every service event or reward you add later will link back to this single on-chain identity.</p>"}
   />],
   [2, <StepContent
+    key={2}
     imageSrc="/assets/steps/step_2.webp"
     imageAlt="Product Details"
     stepTitle="Product Details"
     stepDescription={"<p>Here you can review the product details that the manufacturer initially attached to the passport, including production facts, key attributes, and the bill of materials. The DPP ID is this battery's unique identifier on the IOTA network. Follow the link to open the <strong>IOTA Explorer</strong> and view the on-chain record and metadata in full. Thanks to IOTA's core characteristics and <strong>IOTA Notarization</strong>, this information is immutably stored and accessible to everyone.</p>"}
   />],
   [3, <StepContent
+    key={3}
     imageSrc="/assets/steps/step_3.webp"
     imageAlt="Manufacturer Identity"
     stepTitle="Manufacturer Identity"
     stepDescription={"<p>EcoBike is the legal entity that produced this battery and is responsible for its Digital Product Passport. EcoBike represents itself via an <strong>IOTA Identity</strong> called a Decentralized Identifier (DID) on the IOTA network. To prove that this identity truly belongs to EcoBike, the company cryptographically links it to their own official web domain (ecobike.com). This domain link shows other actors in the supply chain that the data really comes from EcoBike, not an imposter.</p>"}
   />],
   [4, <StepContent
+    key={4}
     imageSrc="/assets/steps/step_4.webp"
     imageAlt="Service Network"
     stepTitle="Service Network"
     stepDescription={"<p>For products that can move freely across this planet, a manufacturer needs a reliable way to let trusted repairers and recyclers add information to the passport. EcoBike solves this by keeping an on-chain Service Network via <strong>IOTA Hierarchies</strong>. Only trusted actors on that list are eligible to write to the passport. Your address - the Technician - isn't on that list yet, but you'll request access throughout this demo.</p>"}
   />],
   [5, <StepContent
+    key={5}
     imageSrc="/assets/steps/step_5.webp"
     imageAlt="Reward Pool"
     stepTitle="Reward Pool"
     stepDescription={"<p>A major challenge in building useful DPPs is motivating actors to participate in this circular economy. Why should a service technician document their actions? Why should an owner bring the product to a certified recycler?<br><br>EcoBike solves this with a pre-funded reward pool using <strong>IOTA Tokenization</strong>. Each verified service or recycling event automatically triggers a token reward through transparent smart contract logic. This creates direct economic incentives for proper product care throughout the entire lifecycle.</p>"}
   />],
   [6, <StepContent
+    key={6}
     imageSrc="/assets/steps/step_6.webp"
     imageAlt="Reward Transactions"
     stepTitle="Reward Transactions"
     stepDescription={"<p>Each time a certified technician performs a verified action like an annual health check, the DPP triggers an automated reward token payout. Each payout is recorded immutably on the IOTA ledger and can be verified publicly via the <strong>IOTA Explorer</strong>. This ensures transparency, traceability, and accountability for every reward that gets distributed.</p>"}
   />],
   [7, <StepContent
+    key={7}
     imageSrc="/assets/steps/step_7.webp"
     imageAlt="Service History"
     stepTitle="Service History"
     stepDescription={"<p>Every entry in this timeline reflects a real action, such as a maintenance check or component replacement, performed by a certified actor. The data is digitally signed, timestamped, and immutably anchored on the IOTA network using <strong>IOTA Notarization</strong>.<br><br>This creates a tamper-proof audit trail that regulators, manufacturers, and future owners can rely on to verify that the product was properly maintained throughout its lifecycle.</p>"}
   />],
   [8, <StepContent
+    key={8}
     imageSrc="/assets/steps/step_8.webp"
     imageAlt="Explore Mode"
     stepTitle="Explore Mode"
     stepDescription={"<p>You've now been guided through each section of the Digital Product Passport and seen how different IOTA components contribute to it.<br><br>Take a moment to explore freely: scroll through the full DPP, review product details, inspect service records, and follow any links to the <strong>IOTA Explorer</strong> for a deeper look at on-chain data.<br><br>When you're ready, continue to the next step to connect your wallet and begin interacting with the system as a certified technician.</p>"}
   />],
   [9, <StepContent
+    key={9}
     imageSrc="/assets/steps/step_9.webp"
     imageAlt="Connect Wallet"
     stepTitle="Connect Wallet"
     stepDescription={"<p>In order to let the DPP application know who you are, you now need to connect your wallet. This lets the system recognize your identity and determine which actions you're allowed to perform.<br><br>On the desktop, use the <strong>IOTA Browser Wallet</strong> extension. On mobile, use the Nightly app.<br><br>Don't worry, you don't need to hold IOTA or any other tokens. The wallet simply proves who you are and lets you sign messages and transactions when needed.<br><br>Once connected, you'll be able to request access and start interacting with the product's Digital Product Passport.</p>"}
   />],
   [10, <StepContent
+    key={10}
     imageSrc="/assets/steps/step_10.webp"
     imageAlt="Request Access"
     stepTitle="Request Access"
     stepDescription={"<p>Earlier, you learned that EcoBike maintains a trusted Service Network through <strong>IOTA Hierarchies</strong>. Only certified technicians in that list are allowed to add information to the Digital Product Passport.<br><br>Now that your wallet is connected, you can request to join. Clicking the button simulates how a technician contacts the manufacturer through one of the channels defined in EcoBike's <strong>IOTA Identity</strong>.<br><br>If approved, you will be able to add verified service records to the passport.</p>"}
   />],
   [11, <StepContent
+    key={11}
     imageSrc="/assets/steps/step_11.webp"
     imageAlt="Start Diagnostic"
     stepTitle="Start Diagnostic"
     stepDescription={"<p>You've been approved as a trusted technician! EcoBike has added your wallet address to their Service Network through <strong>IOTA Hierarchies</strong>.<br><br>Now you can simulate running a diagnostic and writing a health snapshot to the passport. Your service record will become part of the product's permanent, verifiable history.</p>"}
   />],
   [12, <StepContent
+    key={12}
     imageSrc="/assets/steps/step_12.webp"
     imageAlt="View New History Entry"
     stepTitle="View New History Entry"
     stepDescription={"<p>Your health snapshot has been written to the IOTA network — immutably and verifiably. You didn't need to pay fees or hold tokens. The <strong>IOTA Gas Station</strong> sponsored your transaction in the background, ensuring a smooth experience.<br><br>Your entry is now part of the product's permanent service history, visible to all future owners and stakeholders.</p>"}
   />],
   [13, <StepContent
+    key={13}
     imageSrc="/assets/steps/step_13.webp"
     imageAlt="View Reward Information"
     stepTitle="View Reward Information"

@@ -1,7 +1,7 @@
-import { PRODUCT_DETAILS } from '@/utils/constants';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import React from 'react';
 import CollapsibleSection from './CollapsibleSection';
+import { DPP_ID } from '@/utils/constants';
 
 interface ProductHeaderCardProps {
   tutorialState?: 'selected' | 'muted' | 'no';
@@ -11,7 +11,7 @@ interface ProductHeaderCardProps {
 const ProductHeaderCard: React.FC<ProductHeaderCardProps> = ({
   tutorialState = 'no',
 }) => {
-  const { productDetails, isSuccess } = useProductDetails(PRODUCT_DETAILS.dppId as string);
+  const { productDetails, isSuccess } = useProductDetails(DPP_ID);
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'selected') {

@@ -4,16 +4,12 @@ import React from "react";
 const initialSlide = 1;
 
 export function useSlideNavigation(externalCurrentSlide: number, totalSlides: number, getPathCb: (target: number) => string) {
-  const [currentSlide, setInternalCurrentSlide] = React.useState(externalCurrentSlide ?? initialSlide);
+  const [currentSlide] = React.useState(externalCurrentSlide ?? initialSlide);
   const router = useRouter();
 
   const canGoPrevious = currentSlide > 1;
   const canGoNext = currentSlide < totalSlides;
   const progress = (currentSlide / totalSlides) * 100;
-
-  const handleSlideChange = (newSlide: number) => {
-    setInternalCurrentSlide(newSlide);
-  };
 
   /**
    * NOTE: Maybe we should review this method in favor of <Link /> usage,
@@ -52,7 +48,7 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, canGoPrevious, canGoNext]);
+  }, [canGoPrevious, canGoNext, handlePrevious, handleNext]);
 
 
   return {

@@ -12,17 +12,17 @@ import IntroSlide10 from "./IntroSlide10";
 import IntroSlide11 from "./IntroSlide11";
 
 export const SLIDES_MAP = new Map([
-  [1, <IntroSlide1 />],
-  [2, <IntroSlide2 />],
-  [3, <IntroSlide3 />],
-  [4, <IntroSlide4 />],
-  [5, <IntroSlide5 />],
-  [6, <IntroSlide6 />],
-  [7, <IntroSlide7 />],
-  [8, <IntroSlide8 />],
-  [9, <IntroSlide9 />],
-  [10, <IntroSlide10 />],
-  [11, <IntroSlide11 />],
+  [1, <IntroSlide1 key={1} />],
+  [2, <IntroSlide2 key={2} />],
+  [3, <IntroSlide3 key={3} />],
+  [4, <IntroSlide4 key={4} />],
+  [5, <IntroSlide5 key={5} />],
+  [6, <IntroSlide6 key={6} />],
+  [7, <IntroSlide7 key={7} />],
+  [8, <IntroSlide8 key={8} />],
+  [9, <IntroSlide9 key={9} />],
+  [10, <IntroSlide10 key={10} />],
+  [11, <IntroSlide11 key={11} />],
 ]);
 
 interface IntroSlideManagerProps {

@@ -5,9 +5,9 @@ import ItemValueRow from './ItemValueRow';
 import TwoColumnSection from './TwoColumnSection';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import CollapsibleInnerSection from './CollapsableInnerSection';
-import { PRODUCT_DETAILS } from '@/utils/constants';
 import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
+import { DPP_ID } from '@/utils/constants';
 
 interface ProductDetailsCardProps {
   opacity?: number;
@@ -23,7 +23,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   sectionState = 'default',
   tutorialState = 'no',
 }) => {
-  const { productDetails, isSuccess } = useProductDetails(PRODUCT_DETAILS.dppId as string);
+  const { productDetails } = useProductDetails(DPP_ID as string);
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
@@ -72,14 +72,14 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
           <ItemValueRow
             rowState={getRowState('dppId')}
             label="DPP ID"
-            value={truncateAddress(PRODUCT_DETAILS.dppId as string)}
+            value={truncateAddress(DPP_ID as string)}
             isLink={true}
             // TODO: mount the link to the object ID, probably getting it from explorer in a template like: "https://explorer.iota.org/txblock/3BDwVQffoQ55ke72oevpLjjVCdFzYDVQeSRiAktgZxCp"
             // This is how it is soved in the demonstrator: `${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}?network=${NEXT_PUBLIC_NETWORK}`
             // Being the network constants hardcoded as following:
             // - process.env.NEXT_PUBLIC_EXPLORER_URL
             // - process.env.NEXT_PUBLIC_NETWORK
-            linkHref={`https://explorer.iota.org/object/${PRODUCT_DETAILS.dppId as string}?network=testnet`}
+            linkHref={`https://explorer.iota.org/object/${DPP_ID as string}?network=testnet`}
             fontMono={true}
             valueColor="text-blue-600"
             showBorder={true}

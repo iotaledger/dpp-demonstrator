@@ -18,10 +18,7 @@ const IntroSlide2: React.FC = () => {
       >
         <SlideTitle size="large">Disclaimer</SlideTitle>
         <SlideDescription>
-          This demo is a reference implementation, not a fully-functional or
-          regulation-compliant DPP application. It was built to showcase how
-          IOTA's components can power real-world use cases, using Digital
-          Product Passports as one example.
+          {"This demo is a reference implementation, not a fully-functional or regulation-compliant DPP application. It was built to showcase how IOTA's components can power real-world use cases, using Digital Product Passports as one example."}
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

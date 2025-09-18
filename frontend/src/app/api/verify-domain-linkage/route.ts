@@ -2,46 +2,18 @@ import {
   CoreDID,
   DomainLinkageConfiguration,
   EcDSAJwsVerifier,
-  IdentityClientReadOnly,
   IotaDID,
   IotaDocument,
+  IotaIdentityClient,
   Jwt,
   JwtCredentialValidationOptions,
   JwtDomainLinkageValidator,
   LinkedDomainService,
 } from '@iota/identity-wasm/node'
 import { IotaClient } from '@iota/iota-sdk/client'
-import Cors from "cors";
-import { DomainLinkageResource, VerifyDomainLinkageRequest, VerifyDomainLinkageResponse } from '@/types/identity'
+import { DomainLinkageResource, VerifyDomainLinkageRequest } from '@/types/identity'
 import { NextRequest, NextResponse } from 'next/server';
 import { DAPP_URL, IOTA_IDENTITY_PKG_ID, NETWORK_URL } from '@/utils/constants';
-
-// Initializing the cors middleware
-// You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
-const cors = Cors({
-  origin: '*', // disabled, allows anonymous
-  methods: ["POST", "GET", "HEAD"],
-});
-
-// TODO: remove or adapt the POST as instructed at:
-//   https://nextjs.org/docs/app/api-reference/file-conventions/route#cors
-// Helper method to wait for a middleware to execute before continuing
-// And to throw an error when an error happens in a middleware
-function runMiddleware(
-  req: NextRequest,
-  res: NextResponse,
-  fn: Function,
-) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-
-      return resolve(result);
-    });
-  });
-}
 
 export async function POST(req: NextRequest) {
   console.log('running middleware');
@@ -121,7 +93,12 @@ async function startingFromDomain() {
 async function getIdentityClient(identityPackageId: string) {
   const iotaClient = new IotaClient({ url: NETWORK_URL! })
 
-  return await IdentityClientReadOnly.createWithPkgId(iotaClient, identityPackageId)
+  // NOTE: Not in the wasm anymore
+  // TODO: Find a replacement
+  // return await IdentityClientReadOnly.createWithPkgId(iotaClient, identityPackageId)
+  // eslint ignore #2445
+  return new IotaIdentityClient(null);
+
 }
 
 export async function fetchDidConfiguration(dappUrl: string): Promise<DomainLinkageResource> {

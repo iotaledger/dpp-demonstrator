@@ -5,9 +5,9 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
 import { getVaultTotalValue } from '@/helpers/rewardVault';
-import { REWARD_POOL_STATUS } from '@/utils/constants';
 import { truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
+import { VAULT_ID } from '@/utils/constants';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -21,7 +21,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   delay = 0.4,
   tutorialState = 'no',
 }) => {
-  const { rewardDetails, isSuccess } = useRewardVaultDetails(REWARD_POOL_STATUS.vaultId as string);
+  const { rewardDetails, isSuccess } = useRewardVaultDetails(VAULT_ID as string);
 
   React.useEffect(() => {
     if (isSuccess) {
@@ -81,7 +81,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
                 label="Reward contract"
-                value={truncateAddress(REWARD_POOL_STATUS.vaultId as string)}
+                value={truncateAddress(VAULT_ID as string)}
                 columnMaxWidth={250}
                 fontMono={true}
                 valueColor="text-blue-600"

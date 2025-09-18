@@ -4,11 +4,11 @@ import {
   EcDSAJwsVerifier,
   IotaDID,
   IotaDocument,
-  IotaIdentityClient,
   Jwt,
   JwtCredentialValidationOptions,
   JwtDomainLinkageValidator,
   LinkedDomainService,
+  IdentityClientReadOnly,
 } from '@iota/identity-wasm/node'
 import { IotaClient } from '@iota/iota-sdk/client'
 import { DomainLinkageResource, VerifyDomainLinkageRequest } from '@/types/identity'
@@ -93,15 +93,10 @@ async function startingFromDomain() {
 async function getIdentityClient(identityPackageId: string) {
   const iotaClient = new IotaClient({ url: NETWORK_URL! })
 
-  // NOTE: Not in the wasm anymore
-  // TODO: Find a replacement
-  // return await IdentityClientReadOnly.createWithPkgId(iotaClient, identityPackageId)
-  // eslint ignore #2445
-  return new IotaIdentityClient(null);
-
+  return await IdentityClientReadOnly.createWithPkgId(iotaClient, identityPackageId)
 }
 
-export async function fetchDidConfiguration(dappUrl: string): Promise<DomainLinkageResource> {
+async function fetchDidConfiguration(dappUrl: string): Promise<DomainLinkageResource> {
   const configurationUrl = `${dappUrl}/.well-known/did-configuration.json`
 
   const response = await fetch(configurationUrl, {

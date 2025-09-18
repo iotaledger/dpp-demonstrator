@@ -4,15 +4,6 @@ import { useNotification } from '@/providers/appProvider';
 
 export const Notifications = () => {
   const { notifications, handleNotificationSent, handleNotificationRemoved } = useNotification();
-  // const [notifications, setNotifications] = React.useState<Notification[]>([]);
-
-  React.useEffect(() => {
-    handleNotificationSent!({
-      id: 'abc',
-      type: 'success',
-      message: '✓ Health snapshot saved to service history',
-    });
-  }, []);
 
   const handleRemove = (id: string) => {
     handleNotificationRemoved!(id);

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
+import { type IotaObjectData, type IotaObjectResponse } from "@iota/iota-sdk/client";
+
 /*
 Reward Vault Data Structure:
 ┌─────────────────────────────────────────────────────────────┐
@@ -108,9 +111,10 @@ interface RewardVaultData {
  * console.log(`Loaded vault: ${vaultData.vaultId}`);
  * ```
  */
-function extractRewardVaultData(jsonData: any): RewardVaultData {
-  const data = jsonData.data;
-  const vault = data.content.fields;
+function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
+  const data = jsonData.data as IotaObjectData;
+  // TODO: Better understand the Iota types and make use of it
+  const vault = data.content?.fields;
   let lccPackageId = "";
   let lccTypeName = "";
 

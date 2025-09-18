@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
+import { type IotaObjectData, type IotaObjectResponse } from "@iota/iota-sdk/client";
+
 /*
 Federation Data Structure:
 ┌─────────────────────────────────────────────────────────────┐
@@ -139,9 +142,10 @@ export enum Role {
  * console.log(`Loaded federation: ${federationData.federationId}`);
  * ```
  */
-function extractFederationData(jsonResult: any): FederationData {
-  const data = jsonResult.data;
-  const federation = data.content.fields;
+function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
+  const data = jsonResult.data as IotaObjectData;
+  // TODO: Better understand the Iota types and make use of it
+  const federation = data.content?.fields;
   const governance = federation.governance.fields;
 
   // Extract Federation metadata

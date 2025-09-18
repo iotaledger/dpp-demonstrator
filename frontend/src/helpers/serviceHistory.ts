@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
+import { type PaginatedObjectsResponse } from "@iota/iota-sdk/client";
+
 /*
 Service History Data Structure:
 ┌─────────────────────────────────────────────────────────────┐
@@ -130,8 +133,9 @@ interface ServiceHistoryData {
  * console.log(`Loaded ${historyData.entries.length} service entries`);
  * ```
  */
-function extractServiceHistoryData(jsonData: any): ServiceHistoryData {
+function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceHistoryData {
   const result = jsonData;
+  // TODO: Better understand the Iota types and make use of it
   const dataArray = result.data || [];
 
   // Extract pagination info

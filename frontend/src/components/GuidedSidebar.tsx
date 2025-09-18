@@ -4,6 +4,7 @@ import StepProgress from './StepProgress';
 import StepNavigation from './StepNavigation';
 import { useCurrentWallet } from '@iota/dapp-kit';
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { useRouter } from 'next/navigation';
 
 const TUTORIAL_STEPS = new Map([
   [1, <StepContent
@@ -112,9 +113,12 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
   const { isConnected } = useCurrentWallet();
   const { isHierarchySent } = useHierarchySent();
   const { isNotarizationSent } = useNotarizationSent();
+  const router = useRouter();
 
   const getCanGoNext = useCallback(() => {
     const dontGoNext = false;
+    const canGoNext = true;
+
     if (currentStep === 9 && !isConnected) {
       return dontGoNext;
     }
@@ -125,6 +129,10 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
 
     if (currentStep === 11 && !isNotarizationSent) {
       return dontGoNext;
+    }
+
+    if (currentStep === 13) {
+      return canGoNext;
     }
 
     return canGoNext;
@@ -147,8 +155,20 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
       return "Diagnostic";
     }
 
+    if (currentStep === 13) {
+      return "Finish";
+    }
+
     return "Next";
   };
+
+  const handleOnNext = () => {
+    if (currentStep === 13) {
+      router.push('/recap/1');
+      return;
+    }
+    onNext();
+  }
 
   return (
     <div
@@ -176,7 +196,7 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
             canGoPrevious={canGoPrevious}
             canGoNext={getCanGoNext()}
             onPrevious={onPrevious}
-            onNext={onNext}
+            onNext={handleOnNext}
             previousLabel={getPreviousLabel()}
             nextLabel={getNextLabel()}
           />

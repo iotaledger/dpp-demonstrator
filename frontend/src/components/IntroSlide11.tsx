@@ -5,10 +5,13 @@ import SlideContent from './SlideContent';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
 import ActionButtons from './ActionButtons';
+import { useRouter } from 'next/navigation';
 
 const IntroSlide11: React.FC = () => {
+  const router = useRouter();
+
   const handleStartGuidedTour = () => {
-    // TODO: navigate to guided-tour page
+    router.push('/explore-guided');
   };
 
   return (

@@ -43,12 +43,6 @@ export default function IntroductionPage() {
 
   return (
     <>
-      {/* TODO: Assess if this header should be kept */}
-      {/* Hidden Header */}
-      <Header hidden={true}>
-        <HeaderContent />
-      </Header>
-
       {/* Main Content */}
       <Main>
         <GridContainer>

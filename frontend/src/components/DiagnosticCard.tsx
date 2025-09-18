@@ -33,7 +33,7 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
   cardState = 'normal',
 }) => {
   const [isPending, startTransition] = useTransition();
-  const { progress, isComplete, startProgress, resetProgress } = useProgress();
+  const { progress, startProgress, resetProgress } = useProgress();
 
   const { isConnected } = useCurrentWallet();
   const [isSnapshotModalOpen, setIsSnapshotModalOpen] = useState(false);
@@ -48,11 +48,9 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
         console.log('🟢 Diagnostic loaded');
         startTransition(() => {
           setIsSnapshotModalOpen(true);
-          // TODO: notify success 
         });
       } else {
         console.log('❌ Error while loading diagnostic.');
-        // TODO: notify failure
       }
     });
   }, []);

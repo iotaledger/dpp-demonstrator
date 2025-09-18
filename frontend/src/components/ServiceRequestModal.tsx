@@ -4,15 +4,11 @@ import React, { useState, useTransition, useCallback } from 'react';
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import Dialog from './Dialog';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
-import { createDppTx } from '@/helpers/transaction';
-import { AUDIT_TRAIL_DETAILS, FEDERATION_DETAILS, HAS_NFT_REWARD, PRODUCT_DETAILS, REWARD_POOL_STATUS } from '@/utils/constants';
-import { ObjectRef } from '@iota/iota-sdk/transactions'
+import { FEDERATION_ID, HAS_NFT_REWARD } from '@/utils/constants';
 import { createAccreditation } from '@/helpers/api';
 import { Role } from '@/helpers/federation';
 import { generateRequestId, truncateAddress } from '@/utils/common';
 import { useAppProvider, useNotification } from '@/providers/appProvider';
-
-const HAS_REWARD = HAS_NFT_REWARD;
 
 interface ServiceRequestModalProps {
   isOpen: boolean;
@@ -51,7 +47,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   const { handleHierarchySentSuccess } = useAppProvider();
 
   const [isPending, startTransition] = useTransition();
-  const [federationAddress] = useState(FEDERATION_DETAILS.federationAddr);
+  const [federationAddress] = useState(FEDERATION_ID!);
   const [selectedRole, setSelectedRole] = useState(MODAL_CONTENT.roleOptions[Role.repairer]);
 
   /**
@@ -100,7 +96,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
       onClose();
     }
 
-    if (HAS_REWARD) {
+    if (HAS_NFT_REWARD) {
       // TODO: Implement QR code interaction route
       // setQrCodeUrl(`${DAPP_URL}/dynamic_redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
       // setShowQrCode(true)
@@ -108,7 +104,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
     }
 
     startTransition(async () => {
-      // Simulate API call (replace with actual API call later)
       console.log('🔴 Form submit started');
       console.log('📋 Federation Address:', federationAddress);
       console.log('👤 Selected Role:', selectedRole.label, selectedRole.value);

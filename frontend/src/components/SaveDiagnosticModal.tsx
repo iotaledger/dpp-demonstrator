@@ -42,7 +42,6 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
   onClose,
   onSave,
 }) => {
-  // NOTE: These values should be collected by user input?
   const [healthScore] = useState(diagnosticInfo.healthScore);
   const [findings] = useState(diagnosticInfo.findings);
   const [federationAddress] = useState(FEDERATION_ID);
@@ -126,9 +125,8 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
         });
       } catch (error: unknown) {
         console.log('❌ Error while calling sendTransaction.', (error as Error).message);
-        handleNotificationSent!({ id: generateRequestId(), type: 'error', message: 'Error while calling sendTransaction.' })
         const message = error instanceof Error ? error.message : 'unknownError';
-        // TODO: call error notification
+        handleNotificationSent!({ id: generateRequestId(), type: 'error', message: 'Error while calling sendTransaction.' })
       } finally {
         startTransition(() => {
           handleClose();

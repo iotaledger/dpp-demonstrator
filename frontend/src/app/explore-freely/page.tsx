@@ -7,22 +7,11 @@ import Main from '@/components/Main';
 import MainContent from '@/components/MainContent';
 
 export default function ExploreFreelyPage() {
-  const handleSwitchToGuided = () => {
-    // Your navigation logic
-  };
-
-  const handleConnectWallet = () => {
-    // Your wallet connection logic
-  };
-
   return (
     <Main>
       <GridContainer>
         <MainContent>
-          <ExploreFreely
-            onHeaderButtonClick={handleSwitchToGuided}
-            onConnectWallet={handleConnectWallet}
-          />
+          <ExploreFreely />
         </MainContent>
       </GridContainer>
     </Main>

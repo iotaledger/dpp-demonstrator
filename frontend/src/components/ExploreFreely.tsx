@@ -12,8 +12,12 @@ import RoleDetailsCard from './RoleDetailsCard';
 import RewardPoolCard from './RewardPoolCard';
 import ServiceHistoryCard from './ServiceHistoryCard';
 import EndOfPassportMessage from './EndOfPassportMessage';
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { Notifications } from './Notifications';
 
 const ExploreFreely: React.FC = () => {
+  const { isHierarchySent } = useHierarchySent();
+  const { isNotarizationSent } = useNotarizationSent();
   return (
     <TutorialCard>
       <CardHeader
@@ -26,8 +30,8 @@ const ExploreFreely: React.FC = () => {
       <TutorialScrollContainer>
         <div className="dpp-content-container">
           <PassportHeader />
-          <ServiceRequestCard />
-          <DiagnosticCard />
+          {!isHierarchySent && <ServiceRequestCard />}
+          {isHierarchySent && !isNotarizationSent && <DiagnosticCard />}
           <ProductHeaderCard />
           <ProductDetailsCard />
           <RoleDetailsCard />
@@ -35,7 +39,7 @@ const ExploreFreely: React.FC = () => {
           {/* TODO: Implement Reward Transactions component */}
           <ServiceHistoryCard />
           <EndOfPassportMessage />
-          <div className="absolute top-4 right-4 z-[70] space-y-3 pointer-events-none" />
+          <Notifications />
         </div>
       </TutorialScrollContainer>
     </TutorialCard>

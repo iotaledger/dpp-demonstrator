@@ -32,9 +32,9 @@ services:
       - "traefik.http.services.gas.loadbalancer.server.port=9527"
       - "traefik.http.routers.gas.middlewares=strip-gas-prefix"
       - "traefik.http.middlewares.strip-gas-prefix.stripprefix.prefixes=/gas"
-      # Rate Limit middleware (2 requests per hour)
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.average=2"
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.burst=2"
+      # Rate Limit middleware (10 requests per hour)
+      - "traefik.http.middlewares.gas-rate-limit.rateLimit.average=10"
+      - "traefik.http.middlewares.gas-rate-limit.rateLimit.burst=10"
       - "traefik.http.middlewares.gas-rate-limit.rateLimit.period=1h"
       - "traefik.http.middlewares.gas-rate-limit.rateLimit.sourceCriterion.ipStrategy.depth=0"
     networks:

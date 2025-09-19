@@ -74,6 +74,7 @@ From the Transaction Save the following outputs:
 ```bash
 make init-dids
 ```
+[Here](https://github.com/iotaledger/identity/blob/main/identity_iota_core/packages/iota_identity/Move.lock) you can find IDENTITY_PKG_ID.
 
 Save the output for the did and the domain linkage configuration.
 Save the JWT credential into `frontend/public/.well-known/did-configuration.json`
@@ -90,6 +91,16 @@ export MANUFACTURER_DID=<MANUFACTURER_DID>
 make create-new-product
 ```
 Save the generated PRODUCT_ID.
+
+### 7. Mint LCC Tokens
+```bash
+make mint-llc 
+```
+
+### 8. Top up the reward vault
+```bash
+make top-up-reward-pool
+```
 
 ---
 

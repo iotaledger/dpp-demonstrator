@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+
+  redis:
+    image: redis:latest
+    container_name: gas-station-redis-test
+    volumes:
+      - redis_data_test:/data
+    networks:
+      - test_net
+
+  iota-gas-station:
+    image: "${DOCKER_IMAGE:-iotaledger/gas-station:latest}"
+    container_name: iota-gas-station-test
+    command: [ "--config-path", "/app/config.yaml" ]
+    depends_on:
+      - redis
+    ports:
+      - "9527:9527"  # Gas Station API port
+      - "9184:9184"  # Metrics port
+    environment:
+      - CONFIG_PATH=/app/config.yaml
+      - RUST_BACKTRACE=1
+      - GAS_STATION_AUTH=${GAS_STATION_AUTH}
+    volumes:
+      - ${LOCAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml
+    networks:
+      - test_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_EXPLORER_URL: ${NEXT_PUBLIC_EXPLORER_URL}
+        NEXT_PUBLIC_DAPP_URL: http://localhost:3000
+        NEXT_PUBLIC_NETWORK_URL: ${NEXT_PUBLIC_NETWORK_URL}
+        NEXT_PUBLIC_AUDIT_TRAIL_PKG: ${NEXT_PUBLIC_AUDIT_TRAIL_PKG}
+        NEXT_PUBLIC_REWARD_WHITELIST_ID: ${NEXT_PUBLIC_REWARD_WHITELIST_ID}
+        NEXT_PUBLIC_REWARD_VAULT_ID: ${NEXT_PUBLIC_REWARD_VAULT_ID}
+        NEXT_PUBLIC_ADMIN_CAP_ID: ${NEXT_PUBLIC_ADMIN_CAP_ID}
+        NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
+        NEXT_PUBLIC_HAS_NFT_REWARD: ${NEXT_PUBLIC_HAS_NFT_REWARD}
+        NEXT_PUBLIC_NETWORK: ${NEXT_PUBLIC_NETWORK}
+        NEXT_PUBLIC_PRODUCT_ID: ${NEXT_PUBLIC_PRODUCT_ID}
+        IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
+        NEXT_PUBLIC_FEDERATION_ID: ${NEXT_PUBLIC_FEDERATION_ID}
+        NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID: ${NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID}
+        BACKEND_ENDPOINT: http://backend:3001
+        BACKEND_API_KEY: ${BACKEND_API_KEY}
+        GAS_STATION_URL: http://iota-gas-station:9527
+        GAS_STATION_AUTH: ${GAS_STATION_AUTH}
+    depends_on:
+      - backend
+      - iota-gas-station
+    ports:
+      - "3000:3000"  # Frontend port
+    environment:
+      BACKEND_ENDPOINT: http://backend:3001
+      BACKEND_API_KEY: ${BACKEND_API_KEY}
+      GAS_STATION_URL: http://iota-gas-station:9527
+      GAS_STATION_AUTH: ${GAS_STATION_AUTH}
+    networks:
+      - test_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"  # Backend port
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+    environment:
+      HIERARCHIES_PKG_ID: ${HIERARCHIES_PKG_ID}
+      API_KEY: ${API_KEY}
+      TCP_LISTNER: ${TCP_LISTNER}
+      ROOT_AUTH_SECRET_KEY: ${ROOT_AUTH_SECRET_KEY}
+      MANUFACTURER_SECRET_KEY: ${MANUFACTURER_SECRET_KEY}
+      IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
+    networks:
+      - test_net
+
+volumes:
+  redis_data_test:
+
+networks:
+  test_net:
+    driver: bridge

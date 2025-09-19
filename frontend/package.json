@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "dotenvx run -- next dev",
-    "build": "dotenvx run -- next build",
+    "build": "next build",
     "start": "dotenvx run -- next start",
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",

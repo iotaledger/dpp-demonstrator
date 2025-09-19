@@ -66,6 +66,7 @@ class CopyFileWebpackPlugin {
             }
           }
 
+          await fs.mkdir(path.dirname(this.to), { recursive: true });
           await fs.copyFile(this.from, this.to);
           console.log(`\t[CopyFileWebpackPlugin] ✓ file copied from ${this.from} to ${this.to}`);
         }

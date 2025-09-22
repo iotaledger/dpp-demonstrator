@@ -5,7 +5,7 @@ import SlideContent from './SlideContent';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
 import FeaturesGrid from './FeaturesGrid';
-import FeatureCard from './FeatureCard';
+import LeanFeatureCard from './LeanFeatureCard';
 
 const IntroSlide6: React.FC = () => {
   return (
@@ -14,33 +14,39 @@ const IntroSlide6: React.FC = () => {
         <SlideImage
           width='w-full max-w-xl'
           height='h-full'
-          src="/assets/intro/help.webp"
-          alt="How IOTA Helps"
+          src="/assets/intro/lifecycle.webp"
+          alt="Key Players in the DPP ecosystem"
         />
-
         <SlideContent textAlign="left">
-          <SlideTitle size="large">How IOTA Helps</SlideTitle>
-          <SlideDescription>
-            IOTA provides a global, public, and permissionless ledger for moving
-            products, where records are immutable, cryptographically verifiable,
-            persist beyond any single company, and enable transparent incentive
-            distribution.
-          </SlideDescription>
+          <SlideTitle size="large">Key Players in the DPP ecosystem</SlideTitle>
+          <SlideDescription>These are the key players in a minimal product lifecycle, each interacting with the Digital Product Passport at different stages.</SlideDescription>
         </SlideContent>
       </ImageTextLayout>
 
       <FeaturesGrid>
-        <FeatureCard
+        <LeanFeatureCard
+          title='Manufacturers'
+          description='Design and produce goods, adding material, sustainability, and compliance data to the DPP.'
+        />
+        <LeanFeatureCard
+          title='Distributors'
+          description='Handle product logistics and market delivery, updating the DPP with tracking, certification, and transport data.'
+        />
+        <LeanFeatureCard
           title='Consumers'
-          description='Purchase products and access their DPPs to view trusted information about materials, history, and repairs. This transparency supports informed choices and maintains resale value.'
+          description='Purchase and use products, consulting the DPP for origin, sustainability, and repair options.'
         />
-        <FeatureCard
+        <LeanFeatureCard
+          title='Service Providers'
+          description='Offer repair, maintenance, and upgrades, relying on the DPP for product history and part details.'
+        />
+        <LeanFeatureCard
           title='Recyclers'
-          description='Earn Lifecycle Credits when they properly process products and update the DPP with material recovery data. This incentivizes responsible recycling and provides crucial end-of-life information.'
+          description='Process end-of-life products, using the DPP to identify materials and improve recovery.'
         />
-        <FeatureCard
-          title='Regulators'
-          description="Use the DPP's permanent audit trail to monitor compliance with environmental laws and verify that manufacturers meet their extended producer responsibilities."
+        <LeanFeatureCard
+          title='Extended Producer Responsibility Organizations (EPRO)'
+          description='Support manufacturers in end-of-life obligations and oversee recycling & compliance.'
         />
       </FeaturesGrid>
     </>

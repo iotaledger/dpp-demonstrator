@@ -1,27 +1,27 @@
 import React from 'react';
-import ImageTextLayout from './ImageTextLayout';
-import SlideImage from './SlideImage';
-import SlideContent from './SlideContent';
-import SlideTitle from './SlideTitle';
-import SlideDescription from './SlideDescription';
+
+import VideoSection from './VideoSection';
+import BackgroundVideo from './BackgroundVideo';
+import OverlayText from './OverlayText';
 
 const IntroSlide2: React.FC = () => {
   return (
-    <ImageTextLayout>
-      <SlideImage
-        src="/assets/intro/disclaimer.webp"
-        alt="Disclaimer"
-      />
-
-      <SlideContent
-        textAlign="left"
-      >
-        <SlideTitle size="large">Disclaimer</SlideTitle>
-        <SlideDescription>
-          {"This demo is a reference implementation, not a fully-functional or regulation-compliant DPP application. It was built to showcase how IOTA's components can power real-world use cases, using Digital Product Passports as one example."}
-        </SlideDescription>
-      </SlideContent>
-    </ImageTextLayout>
+    <>
+      {/* Video Section */}
+      <VideoSection>
+        <BackgroundVideo
+          src="/assets/intro/placeholder-video.mp4"
+          poster="/assets/intro/placeholder-poster.jpg"
+        />
+        <OverlayText
+          description={(
+            <span dangerouslySetInnerHTML={{ __html: "Today, you’ll see how IOTA makes this possible through <strong>a hands-on Digital Product Passport (DPP) example.</strong>" }} />
+          )}
+          opacity={100}
+          translateY={0}
+        />
+      </VideoSection>
+    </>
   );
 };
 

@@ -9,19 +9,18 @@ const IntroSlide4: React.FC = () => {
   return (
     <ImageTextLayout>
       <SlideImage
-        src="/assets/intro/passport.webp"
-        alt="What is a Digital Product Passport?"
+        src="/assets/intro/map.webp"
+        alt="Products Move, Data Doesn't"
       />
 
       <SlideContent
         textAlign="left"
       >
-        <SlideTitle size="large">What is a Digital Product Passport?</SlideTitle>
+        <SlideTitle size="large">{"Products Move, Data Doesn't"}</SlideTitle>
         <SlideDescription>
-          A Digital Product Passport is a portable, tamper-evident data record,
-          linked to a verifiable product identity, that stores standardised
-          specifications, lifecycle and compliance events, and can be selectively
-          accessed by authorised stakeholders across its life cycle.
+          <p>
+            Lifecycle data often gets <strong>trapped in silos</strong>, lost along the product journey, or duplicated. Without incentives to share data, stakeholders <strong>hold onto information</strong>, creating gaps in trust, compliance, and sustainability.
+          </p>
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

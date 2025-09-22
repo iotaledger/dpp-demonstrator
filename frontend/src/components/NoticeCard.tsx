@@ -11,7 +11,7 @@ interface NoticeCardProps {
 
 const NoticeCard: React.FC<NoticeCardProps> = ({
   children,
-  background = "bg-gradient-to-br from-blue-500 to-blue-600",
+  background,
   colSpan = "col-span-1 sm:col-span-3",
   delay = 0.55,
   opacity = 0,
@@ -24,7 +24,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
         transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s ease-out ${delay}s`
       }}
     >
-      <div className={`h-full w-full ${background} rounded-lg p-3 border border-blue-400 relative overflow-hidden`}>
+      <div className={`h-full w-full ${background} rounded-lg p-3 border border-transparent relative overflow-hidden`}>
         <div className="flex flex-col">
           <div className="flex-1 flex flex-col justify-end">
             {children}

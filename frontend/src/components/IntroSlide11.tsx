@@ -1,41 +1,54 @@
 import React from 'react';
-import ImageTextLayout from './ImageTextLayout';
-import SlideImage from './SlideImage';
-import SlideContent from './SlideContent';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
-import ActionButtons from './ActionButtons';
-import { useRouter } from 'next/navigation';
+import FeaturesGrid from './FeaturesGrid';
+import ClientCard from './ClientCard';
+import NoticeCard from './NoticeCard';
 
 const IntroSlide11: React.FC = () => {
-  const router = useRouter();
-
-  const handleStartGuidedTour = () => {
-    router.push('/explore-guided');
-  };
-
   return (
-    <ImageTextLayout>
-      <SlideImage
-        src="/assets/intro/dapp.webp"
-        alt="Let's step into the dApp"
-      />
-      <SlideContent
-        textAlign="left"
-      >
-        <SlideTitle size="large">Ready? Enter the Demo</SlideTitle>
-        <SlideDescription>
-          See how verifiable lifecycle data is recorded, shared, and rewarded.
+    <div className="flex flex-col items-center md:px-0 w-full mx-auto max-w-6xl py-6 sm:py-0">
+      <div className="flex flex-col items-center mb-8 max-w-3xl pt-6 md:pt-0">
+        <SlideTitle size="large">Prepare your Wallet</SlideTitle>
+        <SlideDescription margin='mb-2' width='max-w-4xl'>
+          {"Choose your setup:"}
         </SlideDescription>
-        <ActionButtons
-          primaryButton={{
-            text: "Start Tour",
-            onClick: handleStartGuidedTour,
-            variant: "primary"
-          }}
+      </div>
+
+      <FeaturesGrid columns="grid-cols-2" width="max-w-6xl" gap="gap-10">
+        <ClientCard
+          image="/assets/intro/desktop.webp"
+          alt="Desktop"
+          title="Desktop"
+          description="Install IOTA Browser Wallet and connect when prompted"
+          opacity={100}
+          translateY={0}
+          delay={0.25}
         />
-      </SlideContent>
-    </ImageTextLayout>
+
+        <ClientCard
+          image="/assets/intro/mobile.webp"
+          alt="Mobile"
+          title="Mobile"
+          description="Install Nightly Wallet (iOS/Android) and connect when prompted"
+          opacity={100}
+          translateY={0}
+          delay={0.35}
+        />
+
+        <NoticeCard
+          background="bg-[#ADCEFF]"
+          colSpan="col-span-1 sm:col-span-3"
+          delay={0.55}
+          opacity={100}
+          translateY={0}
+        >
+          <div className="text-black/80">
+            <h4 className="text-sm md:text-sm">Both wallets enable secure interaction with this demo without requiring any token balance.</h4>
+          </div>
+        </NoticeCard>
+      </FeaturesGrid>
+    </div>
   );
 };
 

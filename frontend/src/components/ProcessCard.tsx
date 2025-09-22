@@ -13,7 +13,7 @@ const ProcessCard: React.FC<ProcessCardProps> = ({
 }) => {
   return (
     <>
-      <div className={`bg-slate-100/50 border border-slate-200/80 rounded-2xl h-full flex flex-col p-4`}>
+      <div className={`bg-slate-100/50 border border-slate-200/80 rounded-2xl w-full h-full flex flex-col p-4`}>
         <div className="w-8 h-8 md:w-10 md:h-10 mb-4">
           <img className="w-full h-full object-contain" src={icon} alt={title} />
         </div>

@@ -3,8 +3,6 @@ import React from 'react';
 import VideoSection from './VideoSection';
 import BackgroundVideo from './BackgroundVideo';
 import OverlayText from './OverlayText';
-import FeaturesGrid from './FeaturesGrid';
-import FeatureCard from './FeatureCard';
 
 const IntroSlide1: React.FC = () => {
   return (
@@ -16,9 +14,11 @@ const IntroSlide1: React.FC = () => {
           poster="/assets/intro/placeholder-poster.jpg"
         />
         <OverlayText
-          welcomeText="Welcome to this"
+          welcomeText="Welcome to the"
           title="IOTA Product Demo"
-          description="In this guided experience you will..."
+          description={(
+            <span dangerouslySetInnerHTML={{ __html: "Imagine a product traveling through its entire lifecycle – from manufacturing to repairs, resale, and recycling. How can we ensure <strong>data about the product is trustworthy, complete, and accessible?</strong>" }} />
+          )}
           opacity={100}
           translateY={0}
         />

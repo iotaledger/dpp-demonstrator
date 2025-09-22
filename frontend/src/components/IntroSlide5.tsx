@@ -4,44 +4,26 @@ import SlideImage from './SlideImage';
 import SlideContent from './SlideContent';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
-import FeaturesGrid from './FeaturesGrid';
-import RoleItem from './RoleItem';
-import FeatureCard from './FeatureCard';
 
 const IntroSlide5: React.FC = () => {
   return (
-    <>
-      <ImageTextLayout maxWidth='max-w-5xl'>
-        <SlideImage
-          width='w-full max-w-xl'
-          height='h-full'
-          src="/assets/intro/lifecycle.webp"
-          alt="The Roles: Benefits and Responsibilities"
-        />
-        <SlideContent textAlign="left">
-          <SlideTitle size="large">The Roles: Benefits and Responsibilities</SlideTitle>
-          <SlideDescription>
-            Digital Product Passports connect many actors, each with distinct
-            responsibilities and potential benefits.
-          </SlideDescription>
-        </SlideContent>
-      </ImageTextLayout>
+    <ImageTextLayout>
+      <SlideImage
+        src="/assets/intro/passport.webp"
+        alt="Introducing the Digital Product Passport (DPP)"
+      />
 
-      <FeaturesGrid>
-        <FeatureCard
-          title='Manufacturers'
-          description='Build products and initially create their DPPs. They pre-fund each DPP with reward credits to ensure their products receive proper care, documentation and end-of-life treatment.'
-        />
-        <FeatureCard
-          title='EPROs'
-          description='Extended Producer Responsibility Organizations define how many reward credits manufacturers need to attach to their DPPs, preventing system abuse. They also serve as redemption centers where reward recipients exchange earned credits for real-world value, completing the economic loop.'
-        />
-        <FeatureCard
-          title='Service Providers'
-          description="When repair shops document verified service events, smart contracts automatically release Lifecycle Credits from the DPP's reward wallet. These tokens compensate them for extending product life and contributing valuable data"
-        />
-      </FeaturesGrid>
-    </>
+      <SlideContent
+        textAlign="left"
+      >
+        <SlideTitle size="large">Introducing the Digital Product Passport (DPP)</SlideTitle>
+        <SlideDescription>
+          <p>
+            A DPP is a <strong>digital record</strong>that tracks a product throughout its entire life cycle – from design to recycling. It is linked to a <strong>unique product ID</strong>, stores specifications, repairs, material data, compliance info, and more, and is soon to be <strong>required by EU regulation</strong>for many products.  It transforms scattered data into <strong>trusted; permanent record.</strong>
+          </p>
+        </SlideDescription>
+      </SlideContent>
+    </ImageTextLayout>
   );
 };
 

@@ -1,8 +1,6 @@
 import { extractServiceHistoryData } from "@/helpers/serviceHistory";
+import { REQUEST_SIZE_LIMIT } from "@/utils/constants";
 import { useIotaClientQuery } from "@iota/dapp-kit";
-
-// TODO: migrate to constant
-const LIMIT = 20
 
 // TODO: document the purpose of this hook
 export function useServiceHistory(dppId: string) {
@@ -12,7 +10,7 @@ export function useServiceHistory(dppId: string) {
       MatchNone: [{ StructType: '0x2::coin::Coin' }],
     },
     cursor: undefined,
-    limit: LIMIT,
+    limit: REQUEST_SIZE_LIMIT,
     options: {
       showContent: true,
     },

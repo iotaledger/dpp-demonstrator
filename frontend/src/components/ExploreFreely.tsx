@@ -14,6 +14,7 @@ import ServiceHistoryCard from './ServiceHistoryCard';
 import EndOfPassportMessage from './EndOfPassportMessage';
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 import { Notifications } from './Notifications';
+import RewardTransactionsCard from './RewardTransactionsCard';
 
 const ExploreFreely: React.FC = () => {
   const { isHierarchySent } = useHierarchySent();
@@ -36,7 +37,7 @@ const ExploreFreely: React.FC = () => {
           <ProductDetailsCard />
           <RoleDetailsCard />
           <RewardPoolCard />
-          {/* TODO: Implement Reward Transactions component */}
+          <RewardTransactionsCard />
           <ServiceHistoryCard />
           <EndOfPassportMessage />
           <Notifications />

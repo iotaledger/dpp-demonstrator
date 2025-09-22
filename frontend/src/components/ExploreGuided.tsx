@@ -15,6 +15,7 @@ import GuidedSidebar from './GuidedSidebar';
 import DiagnosticCard from './DiagnosticCard';
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { Notifications } from './Notifications';
+import RewardTransactionsCard from './RewardTransactionsCard';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -52,7 +53,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
-    // TODO: Add rewards transactions
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='selected' />,
   ]],
   [7, [
     <PassportHeader key={'passportHeader'} tutorialState='muted' />,
@@ -60,6 +61,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='muted' />,
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='selected' />,
   ]],
   [8, [
@@ -68,6 +70,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='no' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='no' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='no' />,
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='no' />,
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='no' />,
   ]],
   [9, [
@@ -76,6 +79,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='open-muted' />,
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='open-muted' />,
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='open-muted' />,
   ]],
   [10, [
@@ -85,6 +89,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='open-muted' />,
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='open-muted' />,
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='open-muted' />,
   ]],
   [11, [
@@ -94,6 +99,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='open-muted' />,
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='open-muted' />,
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='open-muted' />,
   ]],
   [12, [
@@ -102,6 +108,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='muted' />,
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='detailsSelected' />,
   ]],
   [13, [
@@ -110,6 +117,7 @@ const TUTORIAL_STEPS = new Map([
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='muted' />,
     <RewardPoolCard key={'RewardPoolCard'} tutorialState='muted' />,
+    <RewardTransactionsCard key={'RewardTransactionsCard'} tutorialState='muted' />,
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='rewardSelected' />,
   ]],
 ]);

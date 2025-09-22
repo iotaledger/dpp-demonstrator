@@ -67,3 +67,35 @@ export function truncateAddress(address?: string | null, numOfCharacters = 4) {
 export function generateRequestId(): string {
   return crypto.randomUUID();
 }
+
+/**
+ * Formats LCC balance from smallest units to human-readable format, only the whole part.
+ * 
+ * Formatting Pattern:
+ * "9999998000000000" → "9,999,998" LCC
+ * 
+ * @param balanceStr - LCC balance in smallest units (string or LCCBalance object)
+ * @returns Formatted balance string without decimals
+ * 
+ * @example
+ * ```typescript
+ * const formatted = formatLCCBalance("9999998000000000");
+ * console.log(formatted); // "9,999,998"
+ * 
+ * const balance = getBalanceByAddress(vaultData, address);
+ * console.log(`You have ${formatLCCBalance(balance)} LCC tokens`);
+ * ```
+ */
+export function formatTokenBalance(balanceStr: string): string {
+  const balanceBigInt = BigInt(balanceStr);
+
+  // Token has 9 decimal places (like IOTA)
+  const decimals = 9;
+  const divisor = BigInt(10 ** decimals);
+
+  const wholePart = balanceBigInt / divisor;
+
+  const wholeFormatted = wholePart.toLocaleString();
+
+  return `${wholeFormatted}`;
+}

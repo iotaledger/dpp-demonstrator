@@ -1,4 +1,5 @@
 export const HAS_NFT_REWARD: boolean = false;
+export const REQUEST_SIZE_LIMIT = 20
 
 // Support to frontend components
 export const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL;

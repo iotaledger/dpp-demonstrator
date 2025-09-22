@@ -24,7 +24,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
   delay = 0.4,
   tutorialState = 'no',
 }) => {
-  const { serviceHistory, isSuccess } = useServiceHistory(dppId);
+  const { serviceHistory } = useServiceHistory(dppId);
   const { federationDetails, isSuccess: isFederationDetailsSuccess } = useFederationDetails(FEDERATION_ID as string);
   /**
    * NOTE: I'm extracting the latestService because the UI seems to be only interested in it.
@@ -48,12 +48,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       return firstRole;
     }
   }, [latestService, federationDetails, isFederationDetailsSuccess])
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      console.log('service history extracted: ', serviceHistory);
-    }
-  }, [serviceHistory, isSuccess])
 
   const getSectionExpanded = () => {
     const open = true;
@@ -92,7 +86,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     return 'muted';
   }
 
-  // TODO: Bind the service history entries to the cards
   return (
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}

@@ -66,10 +66,6 @@ interface VerificationIconProps {
 const VerificationIcon: React.FC<VerificationIconProps> = ({ showVerification, verificationIcon, verificationDid }) => {
   const { checkStatus, isSuccess } = useCheckLinkage(verificationDid as string);
 
-  React.useEffect(() => {
-    console.log('check status: ', checkStatus, 'verification did: ', verificationDid);
-  }, [checkStatus, isSuccess]);
-
   if (!showVerification || verificationIcon === 'none' || !isSuccess) return null;
 
   return (

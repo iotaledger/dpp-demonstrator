@@ -14,9 +14,9 @@ Reward Vault Data Structure:
 ├─────────────────────────────────────────────────────────────┤
 │ LCC Token Distribution:                                     │
 │ ┌─ Participant Address                                      │
-│   ├─ Balance Amount (in smallest units)                     │
-│   ├─ Coin Object ID                                         │
-│   └─ Reward Eligibility Status                              │
+│ ├─ Balance Amount (in smallest units)                       │
+│ ├─ Coin Object ID                                           │
+│ └─ Reward Eligibility Status                                │
 └─────────────────────────────────────────────────────────────┘
 
 Reward Hierarchy:

@@ -1,4 +1,4 @@
-import { ObjectRef, Transaction } from "@iota/iota-sdk/transactions";
+import { type ObjectRef, type Transaction } from "@iota/iota-sdk/transactions";
 import { createDppTx } from "./transaction";
 import { AUDIT_TRAIL_PKG_ID, DPP_ID, FEDERATION_ID, VAULT_ID, WHITELIST_ID } from '@/utils/constants';
 

@@ -23,12 +23,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
 }) => {
   const { rewardDetails, isSuccess } = useRewardVaultDetails(VAULT_ID as string);
 
-  React.useEffect(() => {
-    if (isSuccess) {
-      // console.log('rewards: ', rewardDetails);
-    }
-  }, [rewardDetails, isSuccess])
-
   const getSectionExpanded = () => {
     const open = true;
     const close = false;

@@ -24,34 +24,14 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   tutorialState = 'no',
 }) => {
   // NOTE: I'm using this hook to get the `manufacturer` value, and I aim to use it
-  // in the `useCheckLinkage` hook. But, should I present it here in the Role Details?
-  // The manufactor address bellow do belongs to the manufacture DiD? I don't get it.
-  const { productDetails, isSuccess: isSuccessProductDetails } = useProductDetails(DPP_ID as string);
+  //  in the `useCheckLinkage` hook. But, should I present it here in the Role Details?
+  //  The manufactor address bellow do belongs to the manufacture DiD? I don't get it.
+  const { isSuccess: isSuccessProductDetails } = useProductDetails(DPP_ID as string);
   const { federationDetails, isSuccess: isSuccessFederatilDetails } = useFederationDetails(FEDERATION_ID as string);
   const currentAccount = useCurrentAccount();
 
   const getCurrentAccountBadge = React.useCallback((otherAddress: string): string => {
     return otherAddress === currentAccount?.address ? 'You' : '-----';
-  }, [currentAccount]);
-
-  React.useEffect(() => {
-    if (isSuccessFederatilDetails) {
-      // console.log('--- RoleDetailsCard has some TO-DOs ---');
-      // console.log('federation ID:', federationDetails?.federationId);
-      // console.log('federation details: ', federationDetails);
-    }
-  }, [isSuccessFederatilDetails, federationDetails]);
-
-  React.useEffect(() => {
-    if (isSuccessProductDetails) {
-      console.log('product details: ', productDetails);
-    }
-  }, [isSuccessProductDetails, productDetails]);
-
-  React.useEffect(() => {
-    if (currentAccount) {
-      // console.log('current wallet: ', currentAccount);
-    }
   }, [currentAccount]);
 
   const getSectionExpanded = () => {

@@ -18,9 +18,7 @@ const IntroSlide4: React.FC = () => {
       >
         <SlideTitle size="large">{"Products Move, Data Doesn't"}</SlideTitle>
         <SlideDescription>
-          <p>
-            Lifecycle data often gets <strong>trapped in silos</strong>, lost along the product journey, or duplicated. Without incentives to share data, stakeholders <strong>hold onto information</strong>, creating gaps in trust, compliance, and sustainability.
-          </p>
+          Lifecycle data often gets <strong>trapped in silos</strong>, lost along the product journey, or duplicated. Without incentives to share data, stakeholders <strong>hold onto information</strong>, creating gaps in trust, compliance, and sustainability.
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

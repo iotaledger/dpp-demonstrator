@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 import type { NextConfig } from "next";
 import fs, { access } from "node:fs/promises";
 import path from "node:path";

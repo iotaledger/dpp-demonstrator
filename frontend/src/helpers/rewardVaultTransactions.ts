@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 /*
 Reward Vault Transactions Data Structure:
 ┌─────────────────────────────────────────────────────────────┐

@@ -10,7 +10,7 @@ const IntroSlide8: React.FC = () => {
   return (
     <ImageTextLayout>
       <SlideImage
-        src="/assets/intro/passport.webp"
+        src="/assets/intro/help.webp"
         alt="A Trusted Digital Backbone"
       />
 

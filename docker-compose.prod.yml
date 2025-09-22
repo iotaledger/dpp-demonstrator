@@ -18,6 +18,8 @@ services:
       - redis
     ports:
       - "9184:9184" # Metrics port
+    expose:
+      - 9527
     environment:
       - CONFIG_PATH=/app/config.yaml
       - RUST_BACKTRACE=1
@@ -33,8 +35,8 @@ services:
       - "traefik.http.routers.gas.middlewares=strip-gas-prefix"
       - "traefik.http.middlewares.strip-gas-prefix.stripprefix.prefixes=/gas"
       # Rate Limit middleware (10 requests per hour)
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.average=10"
-      - "traefik.http.middlewares.gas-rate-limit.rateLimit.burst=10"
+      - "traefik.http.middlewares.gas-rate-limit.rateLimit.average=2"
+      - "traefik.http.middlewares.gas-rate-limit.rateLimit.burst=2"
       - "traefik.http.middlewares.gas-rate-limit.rateLimit.period=1h"
       - "traefik.http.middlewares.gas-rate-limit.rateLimit.sourceCriterion.ipStrategy.depth=0"
     networks:

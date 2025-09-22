@@ -67,10 +67,10 @@ services:
       - "traefik.http.services.frontend.loadbalancer.server.port=3000"
       - "traefik.http.routers.frontend.middlewares=frontend-rl,frontend-inflight,security-headers,compress"
       # Frontend rate limiting
-      - "traefik.http.middlewares.frontend-rl.rateLimit.average=120"
-      - "traefik.http.middlewares.frontend-rl.rateLimit.burst=200"
+      - "traefik.http.middlewares.frontend-rl.rateLimit.average=30"
+      - "traefik.http.middlewares.frontend-rl.rateLimit.burst=60"
       - "traefik.http.middlewares.frontend-rl.rateLimit.period=1m"
-      - "traefik.http.middlewares.frontend-inflight.inFlightReq.amount=60"
+      - "traefik.http.middlewares.frontend-inflight.inFlightReq.amount=20"
       # Security headers
       - "traefik.http.middlewares.security-headers.headers.frameDeny=true"
       - "traefik.http.middlewares.security-headers.headers.contentTypeNosniff=true"

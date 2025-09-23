@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { type Notification } from '@/components/Toast';
 
 interface AppState {
+  isWalletConnected: boolean;
   isHierarchySent: boolean;
   isNotarizationSent: boolean;
   hierarchySent: { key: string }[];
@@ -17,6 +18,7 @@ interface AppReducerAction {
 interface AppContextValue {
   state: AppState;
   dispatch: React.ActionDispatch<[AppReducerAction]>;
+  handleWalletConnected: () => void,
   handleHierarchySentSuccess: (requestId: string) => void,
   handleNotarizationSentSuccess: (requestId: string) => void,
   handleNotificationSent: (notification: Notification) => void;
@@ -24,6 +26,7 @@ interface AppContextValue {
 }
 
 const actionTypes = {
+  walletConnected: 'walletConnected',
   hierarchySentSuccess: 'hierarchySentSuccess',
   notarizationSentSuccess: 'notarizationSentSuccess',
   notificationSent: 'notificationSent',
@@ -31,6 +34,18 @@ const actionTypes = {
 }
 
 const actions = {
+  walletConnected: {
+    type: actionTypes.walletConnected,
+    action: function(): AppReducerAction {
+      return { type: actionTypes.walletConnected };
+    },
+    reduce: function(prevState: AppState): AppState {
+      return {
+        ...prevState,
+        isWalletConnected: true,
+      };
+    },
+  },
   hierarchySentSuccess: {
     type: actionTypes.hierarchySentSuccess,
     action: function(requestId: string): AppReducerAction {
@@ -63,6 +78,13 @@ const actions = {
       return { type: actionTypes.notificationSent, payload: notification };
     },
     reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+      // notification ID set as facility
+      const notificationIdSet = new Set(prevState.notifications.map(each => each.id));
+      // if notification is already registered, do nothing
+      if (notificationIdSet.has((action.payload as Notification).id)) {
+        return prevState;
+      }
+      // otherwise, add notification
       return {
         ...prevState,
         notifications: [...prevState.notifications, action.payload as Notification],
@@ -84,6 +106,7 @@ const actions = {
 };
 
 const initialState: AppState = {
+  isWalletConnected: false,
   isHierarchySent: false,
   isNotarizationSent: false,
   hierarchySent: [],
@@ -93,6 +116,9 @@ const initialState: AppState = {
 
 function reducer(state: AppState, action: AppReducerAction): AppState {
   switch (action.type) {
+    case actions.walletConnected.type: {
+      return actions.walletConnected.reduce(state);
+    }
     case actions.hierarchySentSuccess.type: {
       return actions.hierarchySentSuccess.reduce(state);
     }
@@ -111,10 +137,15 @@ function reducer(state: AppState, action: AppReducerAction): AppState {
   }
 }
 
+// TODO: Find a better alternative to `null` because the initiaal context state is never null
 const AppContext: React.Context<AppContextValue | null> = React.createContext<AppContextValue | null>(null);
 
 export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const handleWalletConnected = () => {
+    dispatch(actions.walletConnected.action());
+  }
 
   const handleHierarchySentSuccess = (requestId: string) => {
     dispatch(actions.hierarchySentSuccess.action(requestId));
@@ -136,6 +167,7 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
     <AppContext value={{
       state,
       dispatch,
+      handleWalletConnected,
       handleHierarchySentSuccess,
       handleNotarizationSentSuccess,
       handleNotificationSent,
@@ -157,6 +189,22 @@ export const useAppProvider = () => {
   }
 
   return value;
+};
+
+export const useWalletConnected = () => {
+  const value: AppContextValue | null = React.useContext(AppContext);
+
+  if (value == null) {
+    return {
+      isWalletConnected: false,
+    };
+  }
+
+  const { state: { isWalletConnected }, handleWalletConnected } = value;
+  return {
+    isWalletConnected,
+    handleWalletConnected,
+  }
 };
 
 export const useHierarchySent = () => {

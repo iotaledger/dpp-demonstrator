@@ -1,4 +1,5 @@
 import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
+import { NOTIFICATION_DECAY_TIME_MS } from '@/utils/constants';
 import { clsx } from 'clsx';
 import React from 'react';
 
@@ -52,7 +53,7 @@ export const Toast: React.FC<ToastProps> = ({
   message,
   onClose,
 }) => {
-  const { isTriggered } = useTransitionTrigger(4000);
+  const { isTriggered } = useTransitionTrigger(NOTIFICATION_DECAY_TIME_MS);
 
   const handleOnClose = () => {
     onClose && onClose(id);

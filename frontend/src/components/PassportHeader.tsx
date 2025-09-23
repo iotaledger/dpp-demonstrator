@@ -1,5 +1,10 @@
 import React, { RefObject, useRef } from 'react';
-import { ConnectButton } from '@iota/dapp-kit';
+import { ConnectButton, useConnectWallet, useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
+import { useAppProvider, useNotification } from '@/providers/appProvider';
+import { generateRequestId } from '@/utils/common';
+import { useFederationDetails } from '@/hooks/useFederationDetails';
+import { FEDERATION_ID } from '@/utils/constants';
+import { getRolesByEntity } from '@/helpers/federation';
 
 interface PassportHeaderProps {
   opacity?: number;
@@ -13,12 +18,50 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   tutorialState = 'no',
 }) => {
   const connectRef: RefObject<HTMLButtonElement | null> = useRef(null);
+  const { isConnected } = useCurrentWallet();
+  const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID || '');
+  const currentAccount = useCurrentAccount();
+
+  /**
+   * To notify the user
+   */
+  const { handleNotificationSent } = useNotification();
+
+  /**
+   *
+   */
+  const { handleHierarchySentSuccess } = useAppProvider();
 
   React.useEffect(() => {
     if (tutorialState === 'selected' && connectRef.current) {
       (connectRef.current as HTMLElement).focus();
     }
   }, [tutorialState]);
+
+  React.useEffect(() => {
+    if (isConnected) {
+      handleNotificationSent!({
+        id: generateRequestId(),
+        type: 'success',
+        message: 'Wallet connected successfully! You can now request service access.'
+      })
+    }
+  }, [isConnected]);
+
+  React.useEffect(() => {
+    if (isConnected && isSuccessFederationDetails && federationDetails && currentAccount) {
+      const roles = getRolesByEntity(federationDetails, currentAccount.address);
+      if (roles.some((each) => each === 'repairer')) {
+        // mark accreditation as sent, enabling the diagnostic
+        handleHierarchySentSuccess(generateRequestId());
+        handleNotificationSent!({
+          id: generateRequestId(),
+          type: 'success',
+          message: 'Role request approved! You can now access diagnostic tools.'
+        })
+      }
+    }
+  }, [isConnected, isSuccessFederationDetails, currentAccount])
 
   const getConnectionDisabled = () => {
     const disabled = true;

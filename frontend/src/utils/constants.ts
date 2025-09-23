@@ -1,5 +1,6 @@
 export const HAS_NFT_REWARD: boolean = false;
 export const REQUEST_SIZE_LIMIT = 20
+export const NOTIFICATION_DECAY_TIME_MS = 8000;
 
 // Support to frontend components
 export const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL;

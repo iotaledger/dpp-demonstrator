@@ -20,7 +20,31 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
   delay = 0.4,
   tutorialState = 'no',
 }) => {
+  const [viewMore, setViewMore] = React.useState(false);
   const { rewardTransactions, isSuccess } = useRewardTransactions(VAULT_ID || '');
+
+  const [transactions, transactionsSize] = React.useMemo(() => {
+    if (rewardTransactions) {
+      const _transactions = rewardTransactions?.transactions;
+      return [_transactions, _transactions.length]
+    }
+    return [null, 0];
+  }, [rewardTransactions]);
+
+  const getTransactionsToShow = () => {
+    if (transactionsSize > 0 && !viewMore) {
+      // show first entry only
+      return transactions?.slice(0, 1);
+    }
+
+    if (transactionsSize > 0 && viewMore) {
+      // show all
+      return transactions;
+    }
+
+    // there is nothing to show
+    return null;
+  };
 
   const getSectionExpanded = () => {
     const open = true;
@@ -68,7 +92,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
       opacity={opacity}
       delay={delay}
     >
-      {isSuccess && rewardTransactions?.transactions.map((rewardEntry) => (
+      {getTransactionsToShow()?.map((rewardEntry) => (
         <PanelContent
           key={rewardEntry.digest}
           title='Health Snapshot'
@@ -129,6 +153,16 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
           </DataGrid>
         </PanelContent>
       ))}
+      {!viewMore && transactionsSize > 0 && (
+        <div className="w-full grid justify-center mt-6">
+          <button
+            className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2   svelte-1u9y1q3"
+            onClick={() => setViewMore(true)}
+          >
+            {`View more (${transactionsSize - 1})`}
+          </button>
+        </div>
+      )}
     </CollapsibleSection>
   );
 };

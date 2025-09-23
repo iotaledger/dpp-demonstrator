@@ -101,6 +101,14 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     return 'muted';
   }
 
+  const isShowMoreDisabled = () => {
+    if (tutorialState === 'muted' || tutorialState === 'open-muted') {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
@@ -256,6 +264,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <button
               className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2   svelte-1u9y1q3"
               onClick={() => setViewMore(false)}
+              disabled={isShowMoreDisabled()}
             >
               {`View more (${serviceEntriesSize - 1})`}
             </button>

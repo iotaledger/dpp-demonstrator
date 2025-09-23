@@ -5,6 +5,7 @@ interface CollapsibleInnerSectionProps {
   children: React.ReactNode;
   defaultExpanded?: boolean;
   showButton?: boolean;
+  onExpandToggle?: () => void;
 }
 
 const CollapsibleInnerSection: React.FC<CollapsibleInnerSectionProps> = ({
@@ -12,11 +13,24 @@ const CollapsibleInnerSection: React.FC<CollapsibleInnerSectionProps> = ({
   children,
   defaultExpanded = true,
   showButton = true,
+  onExpandToggle: setExternalExpand,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const [isExpanded, setInternalExpand] = useState(defaultExpanded);
 
   const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
+    if (typeof setExternalExpand === 'function') {
+      setExternalExpand()
+    } else {
+      setInternalExpand(!isExpanded);
+    }
+  };
+
+  const getIsExpanded = () => {
+    if (typeof setExternalExpand === 'function') {
+      return defaultExpanded;
+    }
+
+    return isExpanded;
   };
 
   return (
@@ -28,7 +42,7 @@ const CollapsibleInnerSection: React.FC<CollapsibleInnerSectionProps> = ({
           <button
             className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 px-3"
             onClick={toggleExpanded}
-            aria-expanded={isExpanded}
+            aria-expanded={getIsExpanded()}
           >
             <svg
               className="h-4 w-4"
@@ -40,14 +54,14 @@ const CollapsibleInnerSection: React.FC<CollapsibleInnerSectionProps> = ({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d={isExpanded ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"}
+                d={getIsExpanded() ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"}
               />
             </svg>
           </button>
         )}
 
       </div>
-      {isExpanded && (
+      {getIsExpanded() && (
         <>
           {children}
         </>

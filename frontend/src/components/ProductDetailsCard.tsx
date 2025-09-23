@@ -24,6 +24,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   tutorialState = 'no',
 }) => {
   const { productDetails } = useProductDetails(DPP_ID as string);
+  const [innerDetailsExpanded, setInnerDetailsExpanded] = React.useState(false);
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
@@ -58,6 +59,10 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
     }
 
     return 'muted';
+  }
+
+  const handleExpandToggle = () => {
+    setInnerDetailsExpanded((prevIsExpanded) => !prevIsExpanded);
   }
 
   return (
@@ -106,7 +111,8 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
         leftColumn={(
           <CollapsibleInnerSection
             title="Battery Details"
-            defaultExpanded={false}
+            defaultExpanded={innerDetailsExpanded}
+            onExpandToggle={handleExpandToggle}
           >
             <DataGrid>
               <ItemValueRow
@@ -151,7 +157,8 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
         rightColumn={(
           <CollapsibleInnerSection
             title="Bill of Materials"
-            defaultExpanded={false}
+            defaultExpanded={innerDetailsExpanded}
+            onExpandToggle={handleExpandToggle}
           >
             <DataGrid>
               <ItemValueRow

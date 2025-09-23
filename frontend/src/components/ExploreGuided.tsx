@@ -130,6 +130,7 @@ const ExploreGuided: React.FC = () => {
     totalSteps,
     canGoNext,
     canGoPrevious,
+    isGoingPrevious,
     progress,
     goNext,
     goPrevious,
@@ -140,13 +141,13 @@ const ExploreGuided: React.FC = () => {
   const { isNotarizationSent } = useNotarizationSent()
 
   React.useEffect(() => {
-    if (currentStep === 9 && isConnected) {
+    if (!isGoingPrevious && currentStep === 9 && isConnected) {
       // Next when connected
       goNext();
-    } else if (currentStep === 10 && isConnected && isHierarchySent) {
+    } else if (!isGoingPrevious && currentStep === 10 && isConnected && isHierarchySent) {
       // Next when accreditation request is success
       goNext();
-    } else if (currentStep === 11 && isConnected && isNotarizationSent) {
+    } else if (!isGoingPrevious && currentStep === 11 && isConnected && isNotarizationSent) {
       // Next when diagnostic request is success
       goNext();
     }

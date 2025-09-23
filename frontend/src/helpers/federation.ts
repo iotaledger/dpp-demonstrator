@@ -257,7 +257,13 @@ function getAccreditationsByEntity(data: FederationData, entityId: string): Accr
 
 // TODO: write a documentation following the pattern in the file
 function getAllAccreditationsFlat(data: FederationData): Accreditation[] {
-  return data.accreditations.values().flatMap((each) => each).toArray();
+  const acccreditations = data.accreditations.values().flatMap((each) => each).toArray();
+  return deduplicateAccreditationByAddress(acccreditations);
+}
+
+function deduplicateAccreditationByAddress(accredidations: Accreditation[]): Accreditation[] {
+  const visited = new Set();
+  return accredidations.filter((each) => !visited.has(each.entityId) && visited.add(each.entityId));
 }
 
 /**
@@ -266,7 +272,7 @@ function getAllAccreditationsFlat(data: FederationData): Accreditation[] {
  * Search Pattern:
  * ┌─ Input: "manufacturer" ─┐
  * │                         │
- * ├─ Scan all entities ────┤
+ * ├─ Scan all entities ─────┤
  * │ Entity 1: [repairer]    │
  * │ Entity 2: [manufacturer]│ ✓ Match
  * │ Entity 3: [repairer]    │

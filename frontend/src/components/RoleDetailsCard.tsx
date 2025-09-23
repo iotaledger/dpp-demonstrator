@@ -27,7 +27,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   //  in the `useCheckLinkage` hook. But, should I present it here in the Role Details?
   //  The manufactor address bellow do belongs to the manufacture DiD? I don't get it.
   const { isSuccess: isSuccessProductDetails } = useProductDetails(DPP_ID as string);
-  const { federationDetails, isSuccess: isSuccessFederatilDetails } = useFederationDetails(FEDERATION_ID as string);
+  const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID as string);
   const currentAccount = useCurrentAccount();
 
   const getCurrentAccountBadge = React.useCallback((otherAddress: string): string => {
@@ -89,7 +89,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 - Another way to invoke the federation itself, backed by the Trust Framework
             */}
 
-          {isSuccessFederatilDetails && (
+          {isSuccessFederationDetails && (
             federationDetails!.rootAuthorities.map((eachHierarchy) => (
               <ItemValueRow
                 rowState={getRowState('network')}
@@ -113,7 +113,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
               />
             ))
           )}
-          {isSuccessFederatilDetails && isSuccessProductDetails && (
+          {isSuccessFederationDetails && isSuccessProductDetails && (
             getAllAccreditationsFlat(federationDetails!).map((accreditation) => (
               <ItemValueRow
                 rowState={getRowState(getCurrentAccountBadge(accreditation.entityId))}
@@ -121,10 +121,6 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 label={firstLetterUpperCase(accreditation.role)}
                 value={
                   <BadgeWithLink
-                    // NOTE: Do I need to get this information from identity?
-                    // badgeText={firstLetterUpperCase(accreditation.role)}
-                    // TODO: Implement address verification from the connected wallet and place
-                    //   "You" in `badgeText` if match your current address
                     badgeText={getCurrentAccountBadge(accreditation.entityId)}
                     linkText={truncateAddress(accreditation.entityId)}
                     linkHref={`https://explorer.iota.org/address/${accreditation.entityId}?network=testnet`}

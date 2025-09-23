@@ -212,7 +212,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
           />
 
           {/* HR Separator */}
-          <hr className="my-1" />
+          <hr className="my-1 border-[var(--border)]" />
 
           {/* Event */}
           <ItemValueRow
@@ -227,7 +227,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
           />
 
           {/* HR Separator */}
-          <hr className="my-1" />
+          <hr className="my-1 border-[var(--border)]" />
 
           {/* Health Score */}
           <ItemValueRow

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 import { type PaginatedObjectsResponse } from "@iota/iota-sdk/client";
+import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
 
 /*
 Service History Data Structure:
@@ -229,7 +230,7 @@ function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceH
   // Sort entries chronologically (newest first)
   const chronologicalEntries = [...entries].sort((a, b) => {
     return parseInt(b.timestamp) - parseInt(a.timestamp);
-  });
+  }).slice(0, RESPONSE_LIMIT_DEFAULT);
 
   return {
     entries,

@@ -16,6 +16,8 @@ import DiagnosticCard from './DiagnosticCard';
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { Notifications } from './Notifications';
 import RewardTransactionsCard from './RewardTransactionsCard';
+import { useCurrentWallet, useWallets } from '@iota/dapp-kit';
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -132,6 +134,23 @@ const ExploreGuided: React.FC = () => {
     goNext,
     goPrevious,
   } = useTutorialNavigation(INITIAL_STEP, TUTORIAL_STEPS.size);
+
+  const { isConnected } = useCurrentWallet();
+  const { isHierarchySent } = useHierarchySent();
+  const { isNotarizationSent } = useNotarizationSent()
+
+  React.useEffect(() => {
+    if (currentStep === 9 && isConnected) {
+      // Next when connected
+      goNext();
+    } else if (currentStep === 10 && isConnected && isHierarchySent) {
+      // Next when accreditation request is success
+      goNext();
+    } else if (currentStep === 11 && isConnected && isNotarizationSent) {
+      // Next when diagnostic request is success
+      goNext();
+    }
+  }, [currentStep, isConnected, isHierarchySent, isNotarizationSent]);
 
   const mainContent = (
     <TutorialCard>

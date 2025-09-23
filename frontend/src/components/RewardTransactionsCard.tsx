@@ -55,6 +55,10 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
     return status === 'failure';
   };
 
+  const getBadgeText = (status: string) => {
+    return !hasTxFailed(status) ? "Reward payout" : "Failed"
+  };
+
   return (
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
@@ -69,20 +73,10 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
           key={rewardEntry.digest}
           title='Health Snapshot'
           badge={
-            (
-              [
-                !hasTxFailed(rewardEntry.status) &&
-                <BadgeWithLink
-                  badgeText="Reward payout"
-                  spacing="gap-0"
-                />,
-                hasTxFailed(rewardEntry.status) &&
-                <BadgeWithLink
-                  badgeText="Failed"
-                  spacing="gap-0"
-                />
-              ]
-            )
+            <BadgeWithLink
+              badgeText={getBadgeText(rewardEntry.status)}
+              spacing="gap-0"
+            />
           }
         >
           <DataGrid gap="gap-y-2 gap-x-6">

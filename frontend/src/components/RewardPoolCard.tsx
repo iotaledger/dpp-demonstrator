@@ -86,7 +86,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label="Total Lifecycle Fund"
-                value={"1,000,000,000 LLC"}
+                value={"1,000,000,000 LCC"}
                 columnMaxWidth={250}
                 showBorder={true}
               />
@@ -94,7 +94,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label="End-of-life Rewards"
-                value={"30 LLC"}
+                value={"30 LCC"}
                 columnMaxWidth={250}
                 showBorder={true}
               />
@@ -125,7 +125,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('annualMaintenanceReward')}
                 label="Annual Maintenance Reward"
-                value={"1 LLC"}
+                value={"1 LCC"}
                 columnMaxWidth={250}
                 showBorder={true}
               />
@@ -133,7 +133,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
                 label="Recycling Reward"
-                value={"10 LLC"}
+                value={"10 LCC"}
                 columnMaxWidth={250}
                 showBorder={true}
               />
@@ -141,7 +141,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
                 label="Final owner"
-                value={"10 LLC"}
+                value={"10 LCC"}
                 columnMaxWidth={250}
                 showBorder={true}
               />
@@ -149,7 +149,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
                 label="Manufacturer return"
-                value={"10 LLC"}
+                value={"10 LCC"}
                 columnMaxWidth={250}
                 showBorder={true}
               />

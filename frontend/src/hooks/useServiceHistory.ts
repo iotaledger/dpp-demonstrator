@@ -13,6 +13,8 @@ export function useServiceHistory(dppId: string) {
     limit: REQUEST_SIZE_LIMIT,
     options: {
       showContent: true,
+      showPreviousTransaction: true,
+      showDisplay: true,
     },
   });
 

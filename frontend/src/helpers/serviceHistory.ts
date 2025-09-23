@@ -324,9 +324,9 @@ function getLatestServiceEntry(data: ServiceHistoryData): ServiceEntry | undefin
  * Filters service entries within a time range
  * 
  * Time Filtering Pattern:
- * ┌─ Start Time ─┐    ┌─ Filter ─┐    ┌─ End Time ─┐
+ * ┌─ Start Time ─┐    ┌─ Filter ─┐    ┌─ End Time ──┐
  * │ 1756128000000│ ←  │ Entries  │ →  │1756130000000│
- * └───────────────┘    └──────────┘    └─────────────┘
+ * └──────────────┘    └──────────┘    └─────────────┘
  *                           ↓
  *                   [Matching Entries]
  * 
@@ -455,7 +455,7 @@ function formatServiceDate(timestamp: string): string {
  * Role Filtering Pattern:
  * ┌─ Input: "Repairer" ─┐
  * │                     │
- * ├─ Filter entries ───┤
+ * ├─ Filter entries ────┤
  * │ Entry1: Repairer    │ ✓ Match
  * │ Entry2: Manufacturer│
  * │ Entry3: Repairer    │ ✓ Match

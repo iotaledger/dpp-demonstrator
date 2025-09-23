@@ -45,7 +45,7 @@ export default function RootLayout({
       <body>
         <QueryClientProvider client={queryClient}>
           <IotaClientProvider networks={networkConfig} defaultNetwork='testnet'>
-            <WalletProvider>
+            <WalletProvider autoConnect={true}>
               <AppProvider>
                 <Layout>
                   {children}

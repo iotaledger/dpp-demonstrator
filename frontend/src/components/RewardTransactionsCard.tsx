@@ -5,7 +5,7 @@ import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { firstLetterUpperCase, formatTokenBalance, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { VAULT_ID } from '@/utils/constants';
+import { REQUEST_SIZE_LIMIT, VAULT_ID } from '@/utils/constants';
 import { useRewardTransactions } from '@/hooks/useRewardTransactions';
 
 interface RewardTransactionsCardProps {
@@ -164,12 +164,27 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
             </button>
           )}
           {!viewMore && (
-            <div className="text-center text-sm text-gray-500 py-2">All transactions shown</div>
+            <ItemsLoadedFeedbackMessage size={transactionsSize} />
           )}
         </div>
       )}
     </CollapsibleSection>
   );
 };
+
+function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
+  const feedbackMessage = () => {
+    if (size < REQUEST_SIZE_LIMIT) {
+      return `All ${size} transactins shown`;
+    } else {
+      return `All ${size} latest transactions shown`;
+    }
+  };
+  return (
+    <div className="text-center text-sm text-gray-500 py-2">
+      {feedbackMessage()}
+    </div>
+  );
+}
 
 export default RewardTransactionsCard;

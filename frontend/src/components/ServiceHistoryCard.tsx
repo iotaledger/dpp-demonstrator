@@ -8,7 +8,7 @@ import { firstLetterUpperCase, fromPosixMsToUtcDateFormat, truncateAddress } fro
 import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { type FederationData, getAllEntitiesByRole, getRolesByEntity, Role } from '@/helpers/federation';
 import PanelContent from './PanelContent';
-import { DPP_ID, FEDERATION_ID } from '@/utils/constants';
+import { DPP_ID, FEDERATION_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
 
 function getRoleByIssuer(federationDetails: FederationData, serviceIssuerAddress: string): string {
   const assignedRoles = getRolesByEntity(federationDetails, serviceIssuerAddress);
@@ -261,12 +261,27 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             </button>
           )}
           {!viewMore && (
-            <div className="text-center text-sm text-gray-500 py-2">All entries shown</div>
+            <ItemsLoadedFeedbackMessage size={serviceEntriesSize} />
           )}
         </div>
       )}
     </CollapsibleSection>
   );
 };
+
+function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
+  const feedbackMessage = () => {
+    if (size < REQUEST_SIZE_LIMIT) {
+      return `All ${size} entries shown`;
+    } else {
+      return `All ${size} latest entries shown`;
+    }
+  };
+  return (
+    <div className="text-center text-sm text-gray-500 py-2">
+      {feedbackMessage()}
+    </div>
+  );
+}
 
 export default ServiceHistoryCard;

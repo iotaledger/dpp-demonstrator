@@ -226,9 +226,9 @@ function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceH
     entriesByServiceType.get(serviceType)!.push(serviceEntry);
   });
 
-  // Sort entries chronologically (oldest first)
+  // Sort entries chronologically (newest first)
   const chronologicalEntries = [...entries].sort((a, b) => {
-    return parseInt(a.timestamp) - parseInt(b.timestamp);
+    return parseInt(b.timestamp) - parseInt(a.timestamp);
   });
 
   return {

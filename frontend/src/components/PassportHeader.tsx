@@ -1,6 +1,6 @@
 import React, { RefObject, useRef } from 'react';
-import { ConnectButton, useConnectWallet, useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
-import { useAppProvider, useNotification } from '@/providers/appProvider';
+import { ConnectButton, useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
+import { useAppProvider, useHierarchySent, useNotification, useWalletConnected } from '@/providers/appProvider';
 import { generateRequestId } from '@/utils/common';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { FEDERATION_ID } from '@/utils/constants';
@@ -21,6 +21,8 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   const { isConnected } = useCurrentWallet();
   const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID || '');
   const currentAccount = useCurrentAccount();
+  const { isWalletConnected, handleWalletConnected } = useWalletConnected();
+  const { isHierarchySent } = useHierarchySent();
 
   /**
    * To notify the user
@@ -28,7 +30,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   const { handleNotificationSent } = useNotification();
 
   /**
-   *
+   * Mark accreditation as sent
    */
   const { handleHierarchySentSuccess } = useAppProvider();
 
@@ -39,29 +41,30 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   }, [tutorialState]);
 
   React.useEffect(() => {
-    if (isConnected) {
+    if (!isWalletConnected && isConnected && handleWalletConnected) {
+      handleWalletConnected();
       handleNotificationSent!({
-        id: generateRequestId(),
+        id: 'wallet-connect',
         type: 'success',
         message: 'Wallet connected successfully! You can now request service access.'
-      })
+      });
     }
-  }, [isConnected]);
+  }, [isWalletConnected, isConnected, handleWalletConnected]);
 
   React.useEffect(() => {
-    if (isConnected && isSuccessFederationDetails && federationDetails && currentAccount) {
+    if (!isHierarchySent && isConnected && isSuccessFederationDetails && federationDetails && currentAccount) {
       const roles = getRolesByEntity(federationDetails, currentAccount.address);
       if (roles.some((each) => each === 'repairer')) {
-        // mark accreditation as sent, enabling the diagnostic
+        // mark accreditation as sent, enabling diagnostic
         handleHierarchySentSuccess(generateRequestId());
         handleNotificationSent!({
-          id: generateRequestId(),
+          id: 'accreditation-recognition',
           type: 'success',
           message: 'Role request approved! You can now access diagnostic tools.'
         })
       }
     }
-  }, [isConnected, isSuccessFederationDetails, currentAccount])
+  }, [isConnected, isSuccessFederationDetails, currentAccount, isHierarchySent])
 
   const getConnectionDisabled = () => {
     const disabled = true;
@@ -102,7 +105,6 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
                 <path d="M129.392 10.4233L120.442 30.4266H117.512L127.321 8.4965C127.673 7.68621 128.495 7.18585 129.354 7.18585C130.252 7.18585 131.035 7.68621 131.388 8.4965L141.197 30.4266H138.267L129.392 10.4233Z" fill="currentColor" />
               </svg>
             </div>
-            {/* TODO: Set style to connection button */}
 
             {/* NOTE: There is a style method mismatch between this project and dapp-kit UI
               *  because the other uses radix and a custom style and this uses tailwind.

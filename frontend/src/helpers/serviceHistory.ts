@@ -4,26 +4,26 @@ import { type PaginatedObjectsResponse } from "@iota/iota-sdk/client";
 /*
 Service History Data Structure:
 ┌─────────────────────────────────────────────────────────────┐
-│                  Service History Collection                  │
-│ Paginated ProductEntry Objects for DPP Audit Trail        │
+│                  Service History Collection                 │
+│ Paginated ProductEntry Objects for DPP Audit Trail          │
 ├─────────────────────────────────────────────────────────────┤
-│ Service Entries Array:                                     │
-│ ┌─ Entry 1 (0x8f07f169...)                                 │
-│   ├─ Service: "Inspection" → "Test Service"                │
-│   ├─ Issuer: 0x5ddf340c... (Repairer)                     │
-│   ├─ Timestamp: 1756128614445                              │
-│   └─ Package: 0x1d0b1bdb... (DPP App)                     │
-│ ├─ Entry 2 (0xeee8d514...)                                │
-│   ├─ Service: "Inspection" → "Second Test"                │
-│   ├─ Issuer: 0x1f9699f7... (Repairer)                     │
-│   └─ Timestamp: 1756129169058                              │
-│ └─ Entry N...                                              │
+│ Service Entries Array:                                      │
+│ ┌─ Entry 1 (0x8f07f169...)                                  │
+│   ├─ Service: "Inspection" → "Test Service"                 │
+│   ├─ Issuer: 0x5ddf340c... (Repairer)                       │
+│   ├─ Timestamp: 1756128614445                               │
+│   └─ Package: 0x1d0b1bdb... (DPP App)                       │
+│ ├─ Entry 2 (0xeee8d514...)                                  │
+│   ├─ Service: "Inspection" → "Second Test"                  │
+│   ├─ Issuer: 0x1f9699f7... (Repairer)                       │
+│   └─ Timestamp: 1756129169058                               │
+│ └─ Entry N...                                               │
 ├─────────────────────────────────────────────────────────────┤
 │ Indexing Maps:                                              │
-│ ├─ By Entry ID → ServiceEntry                              │
-│ ├─ By Issuer → [ServiceEntry, ...]                        │
-│ ├─ By Service Type → [ServiceEntry, ...]                  │
-│ └─ Chronological → [ServiceEntry, ...] (sorted)           │
+│ ├─ By Entry ID → ServiceEntry                               │
+│ ├─ By Issuer → [ServiceEntry, ...]                          │
+│ ├─ By Service Type → [ServiceEntry, ...]                    │
+│ └─ Chronological → [ServiceEntry, ...] (sorted)             │
 ├─────────────────────────────────────────────────────────────┤
 │ Pagination Context:                                         │
 │ ├─ Has Next Page: boolean                                   │
@@ -47,10 +47,16 @@ interface ServiceEntry {
   version: string;
   /** The cryptographic digest/hash of this entry */
   digest: string;
+  /** The cryptographic hash of block transaction that triggered this event */
+  txBlock: string;
   /** The type of service performed (e.g., "Inspection", "Repair", "Maintenance") */
   serviceType: string;
   /** The description or details of the service performed */
   serviceDescription: string;
+  /** The health score set by the technician */
+  healthScore: string | null,
+  /** The feedback message from the technician */
+  findings: string | null,
   /** The blockchain address of who performed the service */
   issuerAddress: string;
   /** The role of the service provider (e.g., "Repairer", "Manufacturer") */
@@ -163,13 +169,26 @@ function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceH
 
     // Extract entry data (key-value pairs)
     const entryDataContents = fields.entry_data.fields.contents || [];
+
     let serviceType = "";
     let serviceDescription = "";
-
     if (entryDataContents.length > 0) {
       const firstEntry = entryDataContents[0].fields;
       serviceType = firstEntry.key;
       serviceDescription = firstEntry.value;
+    }
+
+    let healthScore = null;
+    let findings = null;
+    if (entryDataContents.length > 0) {
+      const healthScoreContent = entryDataContents?.find((each: any) => each.fields?.key === "HealthScore");
+      if (healthScoreContent) {
+        healthScore = healthScoreContent.fields.value;
+      }
+      const findingsContent = entryDataContents?.find((each: any) => each.fields?.key === "Findings");
+      if (findingsContent) {
+        findings = findingsContent.fields.value;
+      }
     }
 
     // Extract issuer role
@@ -179,8 +198,11 @@ function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceH
       entryId: data.objectId,
       version: data.version,
       digest: data.digest,
+      txBlock: data.previousTransaction,
       serviceType,
       serviceDescription,
+      healthScore,
+      findings,
       issuerAddress: fields.issuer_addr,
       issuerRole,
       timestamp: fields.timestamp,

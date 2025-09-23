@@ -86,7 +86,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label="Total Lifecycle Fund"
-                value={"1,000,000 LLC"}
+                value={"1,000,000,000 LLC"}
                 columnMaxWidth={250}
                 showBorder={true}
               />

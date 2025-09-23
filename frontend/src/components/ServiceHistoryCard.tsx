@@ -9,6 +9,7 @@ import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { type FederationData, getAllEntitiesByRole, getRolesByEntity, Role } from '@/helpers/federation';
 import PanelContent from './PanelContent';
 import { DPP_ID, FEDERATION_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
+import { useCurrentAccount } from '@iota/dapp-kit';
 
 function getRoleByIssuer(federationDetails: FederationData, serviceIssuerAddress: string): string {
   const assignedRoles = getRolesByEntity(federationDetails, serviceIssuerAddress);
@@ -33,6 +34,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
   const [viewMore, setViewMore] = React.useState(true);
   const { serviceHistory } = useServiceHistory(dppId);
   const { federationDetails, isSuccess: isFederationDetailsSuccess } = useFederationDetails(FEDERATION_ID as string);
+  const currentAccount = useCurrentAccount();
 
   const manufacturerEntities = React.useMemo(() => {
     if (isFederationDetailsSuccess && federationDetails) {
@@ -48,6 +50,18 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     }
     return [null, 0];
   }, [serviceHistory, federationDetails]);
+
+  const getCurrentAccountBadge = React.useCallback((otherAddress: string) => {
+    if (otherAddress === currentAccount?.address) {
+      return (
+        <BadgeWithLink
+          badgeText={'You'}
+          spacing="gap-0"
+        />
+      );
+    }
+    return null;
+  }, [currentAccount]);
 
   const getServiceEntriesToShow = () => {
     if (serviceEntriesSize > 0 && viewMore) {
@@ -126,13 +140,10 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
           <DataGrid gap="gap-y-2 gap-x-6">
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label="DPP ID"
-              value={truncateAddress(serviceEntry?.entryId)}
+              label="Event ID"
+              value={truncateAddress(serviceEntry?.digest)}
               columnMaxWidth={250}
               fontMono={true}
-              valueColor="text-blue-600"
-              isLink={true}
-              linkHref={`https://explorer.iota.org/object/${dppId}?network=testnet`}
               showBorder={true}
             />
             <ItemValueRow
@@ -150,75 +161,53 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               showBorder={true}
             />
 
-            <hr className="my-1 border-gray-200" />
+            <hr className="my-1 border-[var(--border)]" />
 
-            {/* NOTE: Hardcoded */}
-            {/* TODO: How do I calculate it? */}
-            <ItemValueRow
-              rowState={getRowState('detailsSelected')}
-              label="Health Score"
-              value={"99.98%"}
-              columnMaxWidth={250}
-              valueColor="text-gray-900 font-semibold"
-              showBorder={true}
-            />
+            {serviceEntry?.healthScore && (
+              <ItemValueRow
+                rowState={getRowState('detailsSelected')}
+                label="Health Score"
+                value={serviceEntry.healthScore}
+                columnMaxWidth={250}
+                valueColor="text-gray-900 font-semibold"
+                showBorder={true}
+              />
+            )}
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Findings"
-              value={serviceEntry?.serviceDescription}
+              value={serviceEntry?.findings || serviceEntry?.serviceDescription}
               columnMaxWidth={250}
               showBorder={true}
             />
-            {/* NOTE: Hardcoded, It shows the info: "Notarized at (Epoch 512) block 0x9ef...429e" */}
-            {/* TODO: How do I get this? */}
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Verification"
-              value={"Notarized at (Epoch 512) block 0x9ef...429e"}
+              value={
+                <div className="flex items-center gap-2">
+                  <p>{'Notarized at block'}</p>
+                  <a
+                    target='_blank'
+                    href={`https://explorer.iota.org/txblock/${serviceEntry.txBlock}?network=testnet`}
+                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    {truncateAddress(serviceEntry.txBlock)}
+                  </a>
+                </div>
+              }
               columnMaxWidth={250}
               showBorder={true}
             />
 
-            <hr className="my-1 border-gray-200" />
+            <hr className="my-1 border-[var(--border)]" />
 
-            {manufacturerEntities && manufacturerEntities.map((entityAddress) => (
-              <ItemValueRow
-                rowState={getRowState('detailsSelected')}
-                key={entityAddress}
-                label="Manufacturer"
-                value={
-                  <div className="flex items-center gap-2">
-                    {/* NOTE: Hardcoded */}
-                    {/* TODO: Get manufacturer name from product details */}
-                    <BadgeWithLink
-                      badgeText={"EcoBike"}
-                      spacing="gap-0"
-                    />
-                    <a
-                      target='_blank'
-                      href={`https://explorer.iota.org/address/${entityAddress}?network=testnet`}
-                      className="text-blue-600 hover:text-blue-700 transition-colors"
-                    >
-                      {truncateAddress(entityAddress)}
-                    </a>
-                  </div>
-                }
-                columnMaxWidth={250}
-                showBorder={true}
-              />
-            ))}
             {getRoleByIssuer(federationDetails!, serviceEntry.issuerAddress) && (
               <ItemValueRow
                 rowState={getRowState('detailsSelected')}
-                label={firstLetterUpperCase(getRoleByIssuer(federationDetails!, serviceEntry.issuerAddress))}
+                label={'Technician'}
                 value={
                   <div className="flex items-center gap-2">
-                    {/* NOTE: Hardcoded */}
-                    {/* TODO: How do I get the technician name? */}
-                    <BadgeWithLink
-                      badgeText={"Prev. Technician"}
-                      spacing="gap-0"
-                    />
+                    {getCurrentAccountBadge(serviceEntry?.issuerAddress)}
                     <a
                       target='_blank'
                       href={`https://explorer.iota.org/address/${serviceEntry?.issuerAddress}?network=testnet`}
@@ -233,7 +222,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               />
             )}
 
-            <hr className="my-1 border-gray-200" />
+            <hr className="my-1 border-[var(--border)]" />
 
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
@@ -251,7 +240,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
               label="Reward Distributed"
-              value={"1 RWR"}
+              value={"1 LCC"}
               columnMaxWidth={250}
               showBorder={true}
             />

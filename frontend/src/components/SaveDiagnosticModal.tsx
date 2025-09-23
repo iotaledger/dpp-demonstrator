@@ -122,12 +122,19 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
           handleNotarizationSentSuccess(requestId);
           console.log('🟢 Diagnostic snapshot saved successfully');
           onSave();
-          handleNotificationSent!({ id: generateRequestId(), type: 'success', message: 'Diagnostic snapshot saved successfully!' })
+          handleNotificationSent!({
+            id: generateRequestId(),
+            type: 'success',
+            message: 'Health snapshot saved to service history.'
+          })
         });
       } catch (error: unknown) {
         console.log('❌ Error while calling sendTransaction.', (error as Error).message);
-        const message = error instanceof Error ? error.message : 'unknownError';
-        handleNotificationSent!({ id: generateRequestId(), type: 'error', message: 'Error while calling sendTransaction.' })
+        handleNotificationSent!({
+          id: generateRequestId(),
+          type: 'error',
+          message: 'Error while calling sendTransaction.'
+        })
       } finally {
         startTransition(() => {
           handleClose();

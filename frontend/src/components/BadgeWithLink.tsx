@@ -2,7 +2,7 @@ import { useCheckLinkage } from '@/hooks/useCheckLinkage';
 import React from 'react';
 
 interface BadgeWithLinkProps {
-  badgeText: string;
+  badgeText?: string;
   linkText?: string;
   linkHref?: string;
   linkTarget?: '_blank' | '_self';
@@ -34,10 +34,12 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
         transition: `opacity ${delay}s ease-out`
       }}
     >
-      <div
-        className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/80">
-        <span className="value-content">{badgeText}</span>
-      </div>
+      {badgeText && (
+        <div
+          className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/80">
+          <span className="value-content">{badgeText}</span>
+        </div>
+      )}
 
       {showVerification &&
         <VerificationIcon

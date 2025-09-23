@@ -112,7 +112,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         // TODO: validate `account.address and `federationAddr`, if fails trigger an error notification
         // like: 'Missing required data to perform the action'
 
-        const { isError, result } = await createAccreditation(federationAddress, account!.address, selectedRole.value);
+        const { isError } = await createAccreditation(federationAddress, account!.address, selectedRole.value);
 
         if (isError) {
           throw new Error(isError);
@@ -122,11 +122,18 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         handleHierarchySentSuccess(requestId);
         onSuccess && onSuccess();
         console.log('🟢 Accredidation created with succes!');
-        handleNotificationSent!({ id: generateRequestId(), type: 'success', message: 'Accredidation created with succes!' })
+        handleNotificationSent!({
+          id: generateRequestId(),
+          type: 'success',
+          message: 'Role request approved! You can now access diagnostic tools.'
+        })
       } catch (error) {
         console.log('❌ Error while calling createAccreditation.');
-        const message = error instanceof Error ? error.message : 'unknownError'
-        handleNotificationSent!({ id: generateRequestId(), type: 'error', message: 'Error while calling createAccreditation.' })
+        handleNotificationSent!({
+          id: generateRequestId(),
+          type: 'error',
+          message: 'Error while requesting accreditation.'
+        })
       } finally {
         startTransition(() => {
           onClose();

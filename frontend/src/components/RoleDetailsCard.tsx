@@ -31,8 +31,8 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID as string);
   const currentAccount = useCurrentAccount();
 
-  const getCurrentAccountBadge = React.useCallback((otherAddress: string): string => {
-    return otherAddress === currentAccount?.address ? 'You' : '-----';
+  const getCurrentAccountBadge = React.useCallback((otherAddress: string): string | null => {
+    return otherAddress === currentAccount?.address ? 'You' : null;
   }, [currentAccount]);
 
   const allRepairers = React.useMemo(() => {

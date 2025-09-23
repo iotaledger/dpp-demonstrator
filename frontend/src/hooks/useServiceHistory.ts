@@ -14,7 +14,7 @@ export function useServiceHistory(dppId: string) {
     options: {
       showContent: true,
       showPreviousTransaction: true,
-      showDisplay: true,
+      showOwner: true,
     },
   });
 

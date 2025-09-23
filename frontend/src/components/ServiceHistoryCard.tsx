@@ -4,18 +4,11 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { useServiceHistory } from '@/hooks/useServiceHistory';
-import { firstLetterUpperCase, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
-import { type FederationData, getAllEntitiesByRole, getRolesByEntity, Role } from '@/helpers/federation';
 import PanelContent from './PanelContent';
 import { DPP_ID, FEDERATION_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
 import { useCurrentAccount } from '@iota/dapp-kit';
-
-function getRoleByIssuer(federationDetails: FederationData, serviceIssuerAddress: string): string {
-  const assignedRoles = getRolesByEntity(federationDetails, serviceIssuerAddress);
-  const firstRole = assignedRoles?.at(0);
-  return firstRole || '';
-}
 
 interface ServiceHistoryCardProps {
   dppId?: string;
@@ -33,18 +26,11 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 }) => {
   const [viewMore, setViewMore] = React.useState(true);
   const { serviceHistory } = useServiceHistory(dppId);
-  const { federationDetails, isSuccess: isFederationDetailsSuccess } = useFederationDetails(FEDERATION_ID as string);
+  const { federationDetails } = useFederationDetails(FEDERATION_ID as string);
   const currentAccount = useCurrentAccount();
 
-  const manufacturerEntities = React.useMemo(() => {
-    if (isFederationDetailsSuccess && federationDetails) {
-      return getAllEntitiesByRole(federationDetails, Role.manufacturer);
-    }
-    return null;
-  }, [federationDetails, isFederationDetailsSuccess]);
-
   const [serviceEntries, serviceEntriesSize] = React.useMemo(() => {
-    if (serviceHistory && federationDetails) {
+    if (serviceHistory) {
       const entries = serviceHistory.chronologicalEntries
       return [entries, entries.length];
     }
@@ -149,7 +135,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Entry Type"
-              value={serviceEntry?.serviceType}
+              value={"Annual Maintenance"}
               columnMaxWidth={250}
               showBorder={true}
             />
@@ -201,26 +187,24 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 
             <hr className="my-1 border-[var(--border)]" />
 
-            {getRoleByIssuer(federationDetails!, serviceEntry.issuerAddress) && (
-              <ItemValueRow
-                rowState={getRowState('detailsSelected')}
-                label={'Technician'}
-                value={
-                  <div className="flex items-center gap-2">
-                    {getCurrentAccountBadge(serviceEntry?.issuerAddress)}
-                    <a
-                      target='_blank'
-                      href={`https://explorer.iota.org/address/${serviceEntry?.issuerAddress}?network=testnet`}
-                      className="text-blue-600 hover:text-blue-700 transition-colors"
-                    >
-                      {truncateAddress(serviceEntry?.issuerAddress)}
-                    </a>
-                  </div>
-                }
-                columnMaxWidth={250}
-                showBorder={true}
-              />
-            )}
+            <ItemValueRow
+              rowState={getRowState('detailsSelected')}
+              label={'Technician'}
+              value={
+                <div className="flex items-center gap-2">
+                  {getCurrentAccountBadge(serviceEntry?.issuerAddress)}
+                  <a
+                    target='_blank'
+                    href={`https://explorer.iota.org/address/${serviceEntry?.issuerAddress}?network=testnet`}
+                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    {truncateAddress(serviceEntry?.issuerAddress)}
+                  </a>
+                </div>
+              }
+              columnMaxWidth={250}
+              showBorder={true}
+            />
 
             <hr className="my-1 border-[var(--border)]" />
 

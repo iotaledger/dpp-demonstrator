@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 import { type IotaObjectData, type IotaObjectResponse } from "@iota/iota-sdk/client";
+import { getEntriesByRole } from "./serviceHistory";
 
 /*
 Federation Data Structure:
@@ -256,14 +257,14 @@ function getAccreditationsByEntity(data: FederationData, entityId: string): Accr
 }
 
 // TODO: write a documentation following the pattern in the file
-function getAllAccreditationsFlat(data: FederationData): Accreditation[] {
-  const acccreditations = data.accreditations.values().flatMap((each) => each).toArray();
-  return deduplicateAccreditationByAddress(acccreditations);
+function getAllAccreditationsFlat(data: FederationData): string[] {
+  const allRepairers = getAllEntitiesByRole(data, 'repairer');
+  return deduplicateAccreditationByAddress(allRepairers);
 }
 
-function deduplicateAccreditationByAddress(accredidations: Accreditation[]): Accreditation[] {
+function deduplicateAccreditationByAddress(entities: string[]): string[] {
   const visited = new Set();
-  return accredidations.filter((each) => !visited.has(each.entityId) && visited.add(each.entityId));
+  return entities.filter((each) => !visited.has(each) && visited.add(each));
 }
 
 /**

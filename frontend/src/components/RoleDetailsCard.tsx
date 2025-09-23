@@ -10,6 +10,7 @@ import { firstLetterUpperCase, truncateAddress } from '@/utils/common';
 import { useCurrentAccount } from '@iota/dapp-kit';
 import PanelContent from './PanelContent';
 import { DPP_ID, FEDERATION_ID } from '@/utils/constants';
+import { getAllEntitiesByRole } from '@/helpers/federation';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -33,6 +34,20 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   const getCurrentAccountBadge = React.useCallback((otherAddress: string): string => {
     return otherAddress === currentAccount?.address ? 'You' : '-----';
   }, [currentAccount]);
+
+  const allRepairers = React.useMemo(() => {
+    if (federationDetails) {
+      return getAllAccreditationsFlat(federationDetails!)
+    }
+    return null;
+  }, [federationDetails]);
+
+  const onlyManufacturer = React.useMemo(() => {
+    if (federationDetails) {
+      return getAllEntitiesByRole(federationDetails, 'manufacturer').at(0);
+    }
+    return null;
+  }, [federationDetails]);
 
   const getSectionExpanded = () => {
     const open = true;
@@ -84,11 +99,24 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
     >
       <PanelContent panelState={getPanelState()}>
         <DataGrid gap="gap-y-3 gap-x-6">
+          {onlyManufacturer && (
+            <ItemValueRow
+              rowState={getRowState('manufacturer')}
+              key={onlyManufacturer}
+              label="Manufacturer"
+              value={
+                <BadgeWithLink
+                  badgeText={"EcoBike"}
+                  linkText={truncateAddress(onlyManufacturer)}
+                  linkHref={`https://explorer.iota.org/address/${onlyManufacturer}?network=testnet`}
+                  // TODO: Implement the accreditation validation
+                  showVerification={true}
+                />
+              }
+              showBorder={true}
+            />
+          )}
           {/* First, renders root authorities as "Service Network" */}
-          {/* NOTE: What exactly a "Service Network" means?
-                - Another way to invoke the federation itself, backed by the Trust Framework
-            */}
-
           {isSuccessFederationDetails && (
             federationDetails!.rootAuthorities.map((eachHierarchy) => (
               <ItemValueRow
@@ -98,13 +126,6 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 value={
                   <BadgeWithLink
                     badgeText={"Hierarchy"}
-                    // NOTE: which one should be used, the `accountId` or the `id`?
-                    // - What is the difference between them?
-                    //   - A: the `accountid` is just a reference to the address owner of the federation
-                    //
-                    //   - Is the `accountId` the address to the accredited entity? It seems so
-                    //   - Is the `id` the unique identifier for this accreditation? Isn't it an object?
-                    //     I couldn't access it as object in the explorer
                     linkText={truncateAddress(federationDetails?.federationId)}
                     linkHref={`https://explorer.iota.org/object/${federationDetails?.federationId}?network=testnet`}
                   />
@@ -113,25 +134,21 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
               />
             ))
           )}
-          {isSuccessFederationDetails && isSuccessProductDetails && (
-            getAllAccreditationsFlat(federationDetails!).map((accreditation) => (
-              <ItemValueRow
-                rowState={getRowState(getCurrentAccountBadge(accreditation.entityId))}
-                key={`${accreditation.id}`}
-                label={firstLetterUpperCase(accreditation.role)}
-                value={
-                  <BadgeWithLink
-                    badgeText={getCurrentAccountBadge(accreditation.entityId)}
-                    linkText={truncateAddress(accreditation.entityId)}
-                    linkHref={`https://explorer.iota.org/address/${accreditation.entityId}?network=testnet`}
-                    // TODO: Implement the accreditation validation
-                    showVerification={true}
-                  />
-                }
-                showBorder={true}
-              />
-            ))
-          )}
+          {allRepairers?.map((entityId) => (
+            <ItemValueRow
+              rowState={getRowState(getCurrentAccountBadge(entityId))}
+              key={entityId}
+              label={'Technician'}
+              value={
+                <BadgeWithLink
+                  badgeText={getCurrentAccountBadge(entityId)}
+                  linkText={truncateAddress(entityId)}
+                  linkHref={`https://explorer.iota.org/address/${entityId}?network=testnet`}
+                />
+              }
+              showBorder={true}
+            />
+          ))}
         </DataGrid>
       </PanelContent>
     </CollapsibleSection>

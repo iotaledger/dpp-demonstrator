@@ -2,7 +2,7 @@ import { useCheckLinkage } from '@/hooks/useCheckLinkage';
 import React from 'react';
 
 interface BadgeWithLinkProps {
-  badgeText?: string;
+  badgeText?: string | null;
   linkText?: string;
   linkHref?: string;
   linkTarget?: '_blank' | '_self';

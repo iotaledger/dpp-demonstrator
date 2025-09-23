@@ -136,7 +136,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
           )}
           {allRepairers?.map((entityId) => (
             <ItemValueRow
-              rowState={getRowState(getCurrentAccountBadge(entityId))}
+              rowState={getRowState(getCurrentAccountBadge(entityId) || '')}
               key={entityId}
               label={'Technician'}
               value={

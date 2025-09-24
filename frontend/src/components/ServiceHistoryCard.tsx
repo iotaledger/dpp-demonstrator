@@ -127,7 +127,17 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Event ID"
-              value={truncateAddress(serviceEntry?.digest)}
+              value={
+                <div className="flex items-center gap-2">
+                  <a
+                    target='_blank'
+                    href={`https://explorer.iota.org/object/${serviceEntry?.entryId}?network=testnet`}
+                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    {truncateAddress(serviceEntry?.entryId)}
+                  </a>
+                </div>
+              }
               columnMaxWidth={250}
               fontMono={true}
               showBorder={true}

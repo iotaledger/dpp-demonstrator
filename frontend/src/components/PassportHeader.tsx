@@ -18,10 +18,10 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   tutorialState = 'no',
 }) => {
   const connectRef: RefObject<HTMLButtonElement | null> = useRef(null);
-  const { isConnected } = useCurrentWallet();
+  const { isConnected, isDisconnected } = useCurrentWallet();
   const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID || '');
   const currentAccount = useCurrentAccount();
-  const { isWalletConnected, handleWalletConnected } = useWalletConnected();
+  const { isWalletConnected, handleWalletConnected, handleWalletDisconnected } = useWalletConnected();
   const { isHierarchySent } = useHierarchySent();
 
   /**
@@ -41,6 +41,12 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   }, [tutorialState]);
 
   React.useEffect(() => {
+    if (isDisconnected && handleWalletDisconnected) {
+      handleWalletDisconnected();
+    }
+  }, [isDisconnected]);
+
+  React.useEffect(() => {
     if (!isWalletConnected && isConnected && handleWalletConnected) {
       handleWalletConnected();
       handleNotificationSent!({
@@ -49,7 +55,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
         message: 'Wallet connected successfully! You can now request service access.'
       });
     }
-  }, [isWalletConnected, isConnected, handleWalletConnected]);
+  }, [isWalletConnected, isConnected]);
 
   React.useEffect(() => {
     if (!isHierarchySent && isConnected && isSuccessFederationDetails && federationDetails && currentAccount) {

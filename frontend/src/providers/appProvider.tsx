@@ -19,6 +19,7 @@ interface AppContextValue {
   state: AppState;
   dispatch: React.ActionDispatch<[AppReducerAction]>;
   handleWalletConnected: () => void,
+  handleWalletDisconnected: () => void,
   handleHierarchySentSuccess: (requestId: string) => void,
   handleNotarizationSentSuccess: (requestId: string) => void,
   handleNotificationSent: (notification: Notification) => void;
@@ -27,6 +28,7 @@ interface AppContextValue {
 
 const actionTypes = {
   walletConnected: 'walletConnected',
+  walletDisconnected: 'walletDisconnected',
   hierarchySentSuccess: 'hierarchySentSuccess',
   notarizationSentSuccess: 'notarizationSentSuccess',
   notificationSent: 'notificationSent',
@@ -43,6 +45,18 @@ const actions = {
       return {
         ...prevState,
         isWalletConnected: true,
+      };
+    },
+  },
+  walletDisconnected: {
+    type: actionTypes.walletDisconnected,
+    action: function(): AppReducerAction {
+      return { type: actionTypes.walletDisconnected };
+    },
+    reduce: function(prevState: AppState): AppState {
+      return {
+        ...prevState,
+        isWalletConnected: false,
       };
     },
   },
@@ -119,6 +133,9 @@ function reducer(state: AppState, action: AppReducerAction): AppState {
     case actions.walletConnected.type: {
       return actions.walletConnected.reduce(state);
     }
+    case actions.walletDisconnected.type: {
+      return actions.walletDisconnected.reduce(state);
+    }
     case actions.hierarchySentSuccess.type: {
       return actions.hierarchySentSuccess.reduce(state);
     }
@@ -147,6 +164,10 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
     dispatch(actions.walletConnected.action());
   }
 
+  const handleWalletDisconnected = () => {
+    dispatch(actions.walletDisconnected.action());
+  }
+
   const handleHierarchySentSuccess = (requestId: string) => {
     dispatch(actions.hierarchySentSuccess.action(requestId));
   };
@@ -168,6 +189,7 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
       state,
       dispatch,
       handleWalletConnected,
+      handleWalletDisconnected,
       handleHierarchySentSuccess,
       handleNotarizationSentSuccess,
       handleNotificationSent,
@@ -200,10 +222,11 @@ export const useWalletConnected = () => {
     };
   }
 
-  const { state: { isWalletConnected }, handleWalletConnected } = value;
+  const { state: { isWalletConnected }, handleWalletConnected, handleWalletDisconnected } = value;
   return {
     isWalletConnected,
     handleWalletConnected,
+    handleWalletDisconnected,
   }
 };
 

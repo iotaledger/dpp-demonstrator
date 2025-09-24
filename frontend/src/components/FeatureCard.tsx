@@ -9,8 +9,9 @@ interface FeatureCardVariantProps {
   colSpan?: string;
   variant?: 'default' | 'product' | 'notice' | 'service' | 'resource' | 'explore';
   background?: string;
-  titleWeight?: 'normal' | 'semibold' | 'medium';
   layout?: 'default' | 'horizontal' | 'compact';
+  titleSize?: 'large' | 'base';
+  contentPosition?: 'left' | 'center';
 }
 
 interface FeatureCardProps extends FeatureCardVariantProps {
@@ -31,17 +32,33 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   alt,
   url,
   variant,
-  titleWeight,
+  titleSize = 'base',
+  contentPosition = 'left',
 }) => {
   const getTitleClasses = () => {
-    const baseClasses = variant === 'resource' ? 'text-base md:text-xl text-gray-900 mb-2 md:mb-3' : 'text-sm md:text-lg text-gray-900 mb-1';
-    switch (titleWeight) {
-      case 'semibold':
-        return `${baseClasses} font-semibold`;
-      case 'medium':
-        return `${baseClasses} font-medium`;
+    const baseClasses = "text-gray-900 mb-2 md:mb-3 font-semibold";
+    const textBase = "text-base md:text-xl";
+    const textLarge = "text-lg md:text-2xl";
+
+    switch (titleSize) {
+      case 'large':
+        return `${baseClasses} ${textLarge}`;
+      case 'base':
       default:
-        return baseClasses;
+        return `${baseClasses} ${textBase}`;
+    }
+  };
+
+  const getContentPosition = () => {
+    const contentLeft = "md:text-left";
+    const contentCenter = "md:text-center";
+
+    switch (contentPosition) {
+      case 'center':
+        return contentCenter;
+      case 'left':
+      default:
+        return contentLeft;
     }
   };
 
@@ -62,7 +79,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       {renderExploreIcon()}
       <div className={`flex flex-col md:flex-row md:items-center h-full gap-4 md:gap-6`}>
         <>
-          <div className={`flex-1 text-center md:text-left`}>
+          <div className={`flex-1 text-center ${getContentPosition()}`}>
             <h4 className={getTitleClasses()}>
               {title}
             </h4>

@@ -5,9 +5,8 @@ import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { useServiceHistory } from '@/hooks/useServiceHistory';
 import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
-import { useFederationDetails } from '@/hooks/useFederationDetails';
 import PanelContent from './PanelContent';
-import { DPP_ID, FEDERATION_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
+import { DPP_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
 import { useCurrentAccount } from '@iota/dapp-kit';
 
 interface ServiceHistoryCardProps {
@@ -26,7 +25,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 }) => {
   const [viewMore, setViewMore] = React.useState(true);
   const { serviceHistory } = useServiceHistory(dppId);
-  const { federationDetails } = useFederationDetails(FEDERATION_ID as string);
   const currentAccount = useCurrentAccount();
 
   const [serviceEntries, serviceEntriesSize] = React.useMemo(() => {
@@ -35,7 +33,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       return [entries, entries.length];
     }
     return [null, 0];
-  }, [serviceHistory, federationDetails]);
+  }, [serviceHistory]);
 
   const getCurrentAccountBadge = React.useCallback((otherAddress: string) => {
     if (otherAddress === currentAccount?.address) {

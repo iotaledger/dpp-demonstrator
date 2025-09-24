@@ -127,7 +127,7 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
                     "backgroundImage": "url(/assets/recap/product_infra.webp)",
                     "backgroundSize": "cover",
                     "backgroundRepeat": "no-repeat",
-                    "backgroundPosition": "center -180%",
+                    "backgroundPosition": "center -260%",
                   }}>
                   <div className="h-full flex flex-col justify-start relative z-10">
                     <div className="text-left max-w-[80%]">

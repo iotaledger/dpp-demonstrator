@@ -18,7 +18,7 @@ const IntroSlide5: React.FC = () => {
       >
         <SlideTitle size="large">Introducing the Digital Product Passport (DPP)</SlideTitle>
         <SlideDescription>
-          A DPP is a <strong>digital record</strong>that tracks a product throughout its entire life cycle – from design to recycling. It is linked to a <strong>unique product ID</strong>, stores specifications, repairs, material data, compliance info, and more, and is soon to be <strong>required by EU regulation</strong>for many products.  It transforms scattered data into <strong>trusted; permanent record.</strong>
+          A DPP is a <strong>digital record</strong>that tracks a product throughout its entire lifecycle – from design to recycling. It is linked to a <strong>unique product ID</strong>, stores specifications, repairs, material data, compliance info, and more, and is soon to be <strong>required by EU regulation</strong>for many products.  It transforms scattered data into <strong>trusted; permanent record.</strong>
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

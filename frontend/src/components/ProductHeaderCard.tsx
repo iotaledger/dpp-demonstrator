@@ -46,7 +46,7 @@ const ProductHeaderCard: React.FC<ProductHeaderCardProps> = ({
             <h1 className="text-2xl font-semibold text-gray-900">{productDetails?.name}</h1>
           </div>
           <div className="space-y-0.5">
-            <div className="text-sm text-gray-500 font-medium">Manufacture Name:</div>
+            <div className="text-sm text-gray-500 font-medium">Manufacturer Name:</div>
             <div className="text-xl font-medium text-gray-900">EcoBike</div>
           </div>
         </div>

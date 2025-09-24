@@ -29,8 +29,10 @@ const RecapSlide2: React.FC<RecapSlide2Props> = ({
       className="max-w-6xl mx-auto p-6 md:p-12"
       style={containerStyle}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 items-center">
-        <div className="flex justify-center">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 lg:gap-12 items-center">
+        <div
+          className="flex justify-center max-w-md h-full max-h-[320px] aspect-[4/3] rounded-3xl bg-gradient-to-br from-blue-50/70 to-blue-100/70 backdrop-blur-sm">
           <img
             className="max-w-full max-h-[250px] lg:max-h-[350px]"
             src={imageSrc}

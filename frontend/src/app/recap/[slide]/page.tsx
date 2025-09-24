@@ -1,12 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import NavigationButtons from "@/components/NavigationButtons";
 import RecapSlideManager, { RECAP_SLIDES_MAP } from "@/components/RecapSlideManager";
 import ProgressBar from "@/components/ProgressBar";
 import SlideCounter from "@/components/SlideCounter";
 import { useSlideNavigation } from "@/hooks/useSlideNavigation";
 import { useParams } from "next/navigation";
+import Main from '@/components/Main';
+import GridContainer from '@/components/GridContainer';
+import MainContent from '@/components/MainContent';
+import TutorialCard from '@/components/TutorialCard';
+import CardHeader from '@/components/CardHeader';
+import TutorialScrollContainer from '@/components/TutorialScrollContainer';
+import IntroSlide from '@/components/IntroSlide';
 
 export default function PostExperiencePage() {
   const { slide: slideParam } = useParams();
@@ -58,9 +65,28 @@ export default function PostExperiencePage() {
       {/* Fullscreen slide container */}
       <div className="fixed inset-0 w-full min-h-dvh overflow-y-scroll overflow-x-hidden bg-slate-100">
         <div className="h-full flex items-center justify-center">
-          <RecapSlideManager currentSlide={currentSlide} />
         </div>
       </div>
+      <Main>
+        <GridContainer>
+          <MainContent>
+            <TutorialCard>
+              <CardHeader
+                title="Welcome"
+                linkText='↺ Reset to Intro'
+                linkUrl='/introduction/1'
+                backText='← Back to DPP'
+                backUrl='/explore-freely'
+                canGoBack={true} />
+              <TutorialScrollContainer isRecap={true}>
+                <IntroSlide>
+                  <RecapSlideManager currentSlide={currentSlide} />
+                </IntroSlide>
+              </TutorialScrollContainer>
+            </TutorialCard>
+          </MainContent>
+        </GridContainer>
+      </Main>
 
       {/* Navigation Overlays */}
       <ProgressBar progress={progress} />

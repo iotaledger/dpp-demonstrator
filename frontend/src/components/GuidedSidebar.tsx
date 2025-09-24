@@ -26,7 +26,7 @@ const TUTORIAL_STEPS = new Map([
     imageSrc="/assets/steps/step_3.webp"
     imageAlt="Manufacturer Identity"
     stepTitle="Manufacturer Identity"
-    stepDescription={"<p>EcoBike is the legal entity that produced this battery and is responsible for its Digital Product Passport. EcoBike represents itself via an <strong>IOTA Identity</strong> called a Decentralized Identifier (DID) on the IOTA network. To prove that this identity truly belongs to EcoBike, the company cryptographically links it to their own official web domain (ecobike.com). This domain link shows other actors in the supply chain that the data really comes from EcoBike, not an imposter.</p>"}
+    stepDescription={"<p>EcoBike is the legal entity that produced this battery and is responsible for its Digital Product Passport. EcoBike represents itself via an <strong>IOTA Identity</strong> called a Decentralized Identifier (DID) on the IOTA network.</p>"}
   />],
   [4, <StepContent
     key={4}

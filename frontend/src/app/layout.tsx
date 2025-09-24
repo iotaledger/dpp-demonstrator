@@ -2,9 +2,6 @@
 
 import React from 'react';
 import "./globals.css";
-import { GlobalStyle } from "@/styles/globalStyles";
-import { ThemeProvider } from "styled-components";
-import theme from "@/styles/theme";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createNetworkConfig, IotaClientProvider, WalletProvider } from '@iota/dapp-kit';
 import { getFullnodeUrl, Network } from '@iota/iota-sdk/client';

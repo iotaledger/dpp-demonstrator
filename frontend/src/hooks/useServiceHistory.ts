@@ -13,6 +13,7 @@ export function useServiceHistory() {
       ChangedObject: VAULT_ID,
     },
     limit: REQUEST_SIZE_LIMIT,
+    order: 'descending',
     options: {
       showInput: true,
       showEffects: true,
@@ -20,8 +21,6 @@ export function useServiceHistory() {
       showBalanceChanges: true,
     },
   });
-
-  console.log('service transactions: ', data?.data);
 
   return {
     serviceHistory: data && extractServiceTransactionData(data.data),

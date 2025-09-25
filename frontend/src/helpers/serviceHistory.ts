@@ -274,7 +274,7 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
 
     const _productEntryLoggedEvent = tx.events?.find((item) => item.type.endsWith('ProductEntryLogged')) as unknown as IotaEvent;
     // @ts-expect-error -- Inference do not catch all possible types
-    const entryId = _productEntryLoggedEvent.parsedJson.entry_addr;
+    const entryId = _productEntryLoggedEvent.parsedJson?.entry_addr;
 
     const _objectCreated = tx.effects?.created?.find((item) => item.reference.objectId === entryId) as unknown as OwnedObjectRef;
     const version = _objectCreated.reference.version;
@@ -289,7 +289,7 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
     const findings = _callInputs.at(4).value.at(1);
     const issuerAddress = _productEntryLoggedEvent.sender;
     // @ts-expect-error -- Inference do not catch all possible types
-    const issuerRole = _productEntryLoggedEvent.parsedJson.issuer_role.variant.toLowerCase();
+    const issuerRole = _productEntryLoggedEvent.parsedJson?.issuer_role.variant.toLowerCase();
     const timestamp = tx.timestampMs;
     const packageId = _productEntryLoggedEvent.packageId;
     const status = tx.effects?.status.status;

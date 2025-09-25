@@ -1,10 +1,6 @@
 import React, { RefObject, useRef } from 'react';
-import { ConnectButton, useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
-import { useAppProvider, useHierarchySent, useNotification, useWalletConnected } from '@/providers/appProvider';
-import { generateRequestId } from '@/utils/common';
-import { useFederationDetails } from '@/hooks/useFederationDetails';
-import { FEDERATION_ID } from '@/utils/constants';
-import { getRolesByEntity } from '@/helpers/federation';
+import { ConnectButton } from '@iota/dapp-kit';
+import { useWalletUpdateEffects } from '@/hooks/useWalletUpdateEffects';
 
 interface PassportHeaderProps {
   opacity?: number;
@@ -17,60 +13,8 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
   delay = 0,
   tutorialState = 'no',
 }) => {
+  useWalletUpdateEffects();
   const connectRef: RefObject<HTMLButtonElement | null> = useRef(null);
-  const { isConnected, isDisconnected } = useCurrentWallet();
-  const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID || '');
-  const currentAccount = useCurrentAccount();
-  const { isWalletConnected, handleWalletConnected, handleWalletDisconnected } = useWalletConnected();
-  const { isHierarchySent } = useHierarchySent();
-
-  /**
-   * To notify the user
-   */
-  const { handleNotificationSent } = useNotification();
-
-  /**
-   * Mark accreditation as sent
-   */
-  const { handleHierarchySentSuccess } = useAppProvider();
-
-  React.useEffect(() => {
-    if (tutorialState === 'selected' && connectRef.current) {
-      (connectRef.current as HTMLElement).focus();
-    }
-  }, [tutorialState]);
-
-  React.useEffect(() => {
-    if (isDisconnected && handleWalletDisconnected) {
-      handleWalletDisconnected();
-    }
-  }, [isDisconnected]);
-
-  React.useEffect(() => {
-    if (!isWalletConnected && isConnected && handleWalletConnected) {
-      handleWalletConnected();
-      handleNotificationSent!({
-        id: 'wallet-connect',
-        type: 'success',
-        message: 'Wallet connected successfully! You can now request service access.'
-      });
-    }
-  }, [isWalletConnected, isConnected]);
-
-  React.useEffect(() => {
-    if (!isHierarchySent && isConnected && isSuccessFederationDetails && federationDetails && currentAccount) {
-      const roles = getRolesByEntity(federationDetails, currentAccount.address);
-      if (roles.some((each) => each === 'repairer')) {
-        // mark accreditation as sent, enabling diagnostic
-        handleHierarchySentSuccess(generateRequestId());
-        handleNotificationSent!({
-          id: 'accreditation-recognition',
-          type: 'success',
-          message: 'Role request approved! You can now access diagnostic tools.'
-        })
-      }
-    }
-  }, [isConnected, isSuccessFederationDetails, currentAccount, isHierarchySent])
 
   const getConnectionDisabled = () => {
     const disabled = true;

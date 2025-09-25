@@ -3,6 +3,7 @@ import { type Notification } from '@/components/Toast';
 
 interface AppState {
   isWalletConnected: boolean;
+  currentAccountAddress: string | null;
   isHierarchySent: boolean;
   isNotarizationSent: boolean;
   hierarchySent: { key: string }[];
@@ -20,6 +21,7 @@ interface AppContextValue {
   dispatch: React.ActionDispatch<[AppReducerAction]>;
   handleWalletConnected: () => void,
   handleWalletDisconnected: () => void,
+  handleCurrentAccountAddressChanged: (currentAccountAddress: string | null) => void;
   handleHierarchySentSuccess: (requestId: string) => void,
   handleNotarizationSentSuccess: (requestId: string) => void,
   handleNotificationSent: (notification: Notification) => void;
@@ -29,6 +31,7 @@ interface AppContextValue {
 const actionTypes = {
   walletConnected: 'walletConnected',
   walletDisconnected: 'walletDisconnected',
+  currentAccountAddressChanged: 'currentAccountAddressChanged',
   hierarchySentSuccess: 'hierarchySentSuccess',
   notarizationSentSuccess: 'notarizationSentSuccess',
   notificationSent: 'notificationSent',
@@ -57,6 +60,22 @@ const actions = {
       return {
         ...prevState,
         isWalletConnected: false,
+        isHierarchySent: false,
+        isNotarizationSent: false,
+      };
+    },
+  },
+  currentAccountAddressChanged: {
+    type: actionTypes.currentAccountAddressChanged,
+    action: function(currentAccountAddress: string | null): AppReducerAction {
+      return { type: actionTypes.currentAccountAddressChanged, payload: currentAccountAddress };
+    },
+    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+      return {
+        ...prevState,
+        currentAccountAddress: action.payload as string | null,
+        isHierarchySent: false,
+        isNotarizationSent: false,
       };
     },
   },
@@ -121,6 +140,7 @@ const actions = {
 
 const initialState: AppState = {
   isWalletConnected: false,
+  currentAccountAddress: null,
   isHierarchySent: false,
   isNotarizationSent: false,
   hierarchySent: [],
@@ -135,6 +155,9 @@ function reducer(state: AppState, action: AppReducerAction): AppState {
     }
     case actions.walletDisconnected.type: {
       return actions.walletDisconnected.reduce(state);
+    }
+    case actions.currentAccountAddressChanged.type: {
+      return actions.currentAccountAddressChanged.reduce(state, action);
     }
     case actions.hierarchySentSuccess.type: {
       return actions.hierarchySentSuccess.reduce(state);
@@ -184,12 +207,17 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
     dispatch(actions.notificationRemoved.action(id));
   }
 
+  const handleCurrentAccountAddressChanged = (currentAccountAddress: string | null) => {
+    dispatch(actions.currentAccountAddressChanged.action(currentAccountAddress));
+  }
+
   return (
     <AppContext value={{
       state,
       dispatch,
       handleWalletConnected,
       handleWalletDisconnected,
+      handleCurrentAccountAddressChanged,
       handleHierarchySentSuccess,
       handleNotarizationSentSuccess,
       handleNotificationSent,

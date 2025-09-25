@@ -254,6 +254,7 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
     // @ts-expect-error -- Inference do not catch all possible types
     const _lastTransactionCall = _transactionsCall?.at(-1) as unknown as IotaTransaction;
     const _productEntryLoggedEvent = tx.events?.find((item) => item.type.endsWith('ProductEntryLogged')) as unknown as IotaEvent;
+    const status = tx.effects?.status.status;
     let isCallingLogEntry = false;
 
     // Determines if is calling `log_entry_data` function at `app` module
@@ -266,7 +267,7 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
       );
     }
 
-    if (_productEntryLoggedEvent == null || _lastTransactionCall == null || !isCallingLogEntry) {
+    if (status !== 'success' || _productEntryLoggedEvent == null || _lastTransactionCall == null || !isCallingLogEntry) {
       // This element will be filtered out
       return {
         isCallingLogEntry,
@@ -292,7 +293,6 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
     const issuerRole = _productEntryLoggedEvent.parsedJson?.issuer_role.variant.toLowerCase();
     const timestamp = tx.timestampMs;
     const packageId = _productEntryLoggedEvent.packageId;
-    const status = tx.effects?.status.status;
 
     return {
       entryId,

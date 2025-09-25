@@ -1,25 +1,28 @@
-import { extractServiceHistoryData } from "@/helpers/serviceHistory";
-import { REQUEST_SIZE_LIMIT } from "@/utils/constants";
+import { extractServiceTransactionData } from "@/helpers/serviceHistory";
+import { useNotarizationSent } from "@/providers/appProvider";
+import { REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 
 // TODO: document the purpose of this hook
-export function useServiceHistory(dppId: string) {
-  const { data, isSuccess, isLoading, isError } = useIotaClientQuery('getOwnedObjects', {
-    owner: dppId,
+export function useServiceHistory() {
+  const { isNotarizationSent } = useNotarizationSent();
+  const { data, isSuccess, isLoading, isError } = useIotaClientQuery('queryTransactionBlocks', {
+    // @ts-expect-error NOTE: the client omits this property on the return type
+    queryKey: [isNotarizationSent],
     filter: {
-      MatchNone: [{ StructType: '0x2::coin::Coin' }],
+      ChangedObject: VAULT_ID,
     },
-    cursor: undefined,
     limit: REQUEST_SIZE_LIMIT,
     options: {
-      showContent: true,
-      showPreviousTransaction: true,
-      showOwner: true,
+      showInput: true,
+      showEffects: true,
+      showEvents: true,
+      showBalanceChanges: true,
     },
   });
 
   return {
-    serviceHistory: data?.data && extractServiceHistoryData(data),
+    serviceHistory: data && extractServiceTransactionData(data.data),
     isSuccess,
     isLoading,
     isError,

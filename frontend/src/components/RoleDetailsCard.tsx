@@ -3,14 +3,15 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
-import { useProductDetails } from '@/hooks/useProductDetails';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { getAllAccreditationsFlat } from '@/helpers/federation';
-import { firstLetterUpperCase, truncateAddress } from '@/utils/common';
+import { truncateAddress } from '@/utils/common';
 import { useCurrentAccount } from '@iota/dapp-kit';
 import PanelContent from './PanelContent';
-import { DPP_ID, FEDERATION_ID } from '@/utils/constants';
+import { FEDERATION_ID } from '@/utils/constants';
 import { getAllEntitiesByRole } from '@/helpers/federation';
+import { useFederationTransactions } from '@/hooks/useFederationTransactions';
+import { useAppProvider } from '@/providers/appProvider';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -24,11 +25,8 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   delay = 0.4,
   tutorialState = 'no',
 }) => {
-  // NOTE: I'm using this hook to get the `manufacturer` value, and I aim to use it
-  //  in the `useCheckLinkage` hook. But, should I present it here in the Role Details?
-  //  The manufactor address bellow do belongs to the manufacture DiD? I don't get it.
-  const { isSuccess: isSuccessProductDetails } = useProductDetails(DPP_ID as string);
-  const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID as string);
+  const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID);
+  const { accreditations } = useFederationTransactions();
   const currentAccount = useCurrentAccount();
 
   const getCurrentAccountBadge = React.useCallback((otherAddress: string): string | null => {
@@ -101,8 +99,8 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
         <DataGrid gap="gap-y-3 gap-x-6">
           {onlyManufacturer && (
             <ItemValueRow
-              rowState={getRowState('manufacturer')}
               key={onlyManufacturer}
+              rowState={getRowState('manufacturer')}
               label="Manufacturer"
               value={
                 <BadgeWithLink
@@ -120,8 +118,8 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
           {isSuccessFederationDetails && (
             federationDetails!.rootAuthorities.map((eachHierarchy) => (
               <ItemValueRow
-                rowState={getRowState('network')}
                 key={eachHierarchy.id}
+                rowState={getRowState('network')}
                 label="Service Network"
                 value={
                   <BadgeWithLink
@@ -134,16 +132,16 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
               />
             ))
           )}
-          {allRepairers?.map((entityId) => (
+          {accreditations?.map((accreditation) => (
             <ItemValueRow
-              rowState={getRowState(getCurrentAccountBadge(entityId) || '')}
-              key={entityId}
+              key={accreditation.receiver}
+              rowState={getRowState(getCurrentAccountBadge(accreditation.receiver) || '')}
               label={'Technician'}
               value={
                 <BadgeWithLink
-                  badgeText={getCurrentAccountBadge(entityId)}
-                  linkText={truncateAddress(entityId)}
-                  linkHref={`https://explorer.iota.org/address/${entityId}?network=testnet`}
+                  badgeText={getCurrentAccountBadge(accreditation.receiver)}
+                  linkText={truncateAddress(accreditation.receiver)}
+                  linkHref={`https://explorer.iota.org/address/${accreditation.receiver}?network=testnet`}
                 />
               }
               showBorder={true}

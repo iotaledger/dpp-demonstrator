@@ -1,12 +1,16 @@
 import { extractRewardTransactionData } from "@/helpers/rewardVaultTransactions";
-import { REQUEST_SIZE_LIMIT } from "@/utils/constants";
+import { useNotarizationSent } from "@/providers/appProvider";
+import { REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 
 // TODO: Document
-export function useRewardTransactions(valutId: string) {
+export function useRewardTransactions() {
+  const { isNotarizationSent } = useNotarizationSent();
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery('queryTransactionBlocks', {
+    // @ts-expect-error NOTE: the client omits this property on the return type
+    queryKey: [isNotarizationSent],
     filter: {
-      InputObject: valutId,
+      InputObject: VAULT_ID,
     },
     limit: REQUEST_SIZE_LIMIT,
     order: 'descending',

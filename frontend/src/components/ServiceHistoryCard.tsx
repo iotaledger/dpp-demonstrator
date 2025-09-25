@@ -4,10 +4,11 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { useServiceHistory } from '@/hooks/useServiceHistory';
-import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { DPP_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
+import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
 import { useCurrentAccount } from '@iota/dapp-kit';
+import { ServiceEntry } from '@/helpers/serviceHistory';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
@@ -18,19 +19,17 @@ interface ServiceHistoryCardProps {
 
 // TODO: Implement loading state
 const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
-  dppId = DPP_ID as string,
   opacity = 100,
   delay = 0.4,
   tutorialState = 'no',
 }) => {
   const [viewMore, setViewMore] = React.useState(true);
-  const { serviceHistory } = useServiceHistory(dppId);
+  const { serviceHistory } = useServiceHistory();
   const currentAccount = useCurrentAccount();
 
   const [serviceEntries, serviceEntriesSize] = React.useMemo(() => {
     if (serviceHistory) {
-      const entries = serviceHistory.chronologicalEntries
-      return [entries, entries.length];
+      return [serviceHistory, serviceHistory.length];
     }
     return [null, 0];
   }, [serviceHistory]);

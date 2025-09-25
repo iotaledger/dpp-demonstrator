@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
-import { type PaginatedObjectsResponse } from "@iota/iota-sdk/client";
+import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef, type PaginatedObjectsResponse } from "@iota/iota-sdk/client";
 import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
 
 /*
@@ -66,6 +66,8 @@ interface ServiceEntry {
   timestamp: string;
   /** The app package ID where this service entry is defined */
   packageId: string | null;
+  /** The status of transaction that determines effectiveness */
+  status?: string;
 }
 
 /**
@@ -227,7 +229,7 @@ function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceH
     entriesByServiceType.get(serviceType)!.push(serviceEntry);
   });
 
-  // Sort entries chronologically (newest first)
+  // Sort entries chrnologically (newest first)
   const chronologicalEntries = [...entries].sort((a, b) => {
     return parseInt(b.timestamp) - parseInt(a.timestamp);
   }).slice(0, RESPONSE_LIMIT_DEFAULT);
@@ -243,6 +245,76 @@ function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceH
     hasNextPage,
     nextCursor
   };
+}
+
+export function extractServiceTransactionData(jsonData: IotaTransactionBlockResponse[]): ServiceEntry[] {
+  const transactionEntries = jsonData.map((tx) => {
+    // @ts-expect-error -- Inference do not catch all possible types
+    const _transactionsCall = tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
+    // @ts-expect-error -- Inference do not catch all possible types
+    const _lastTransactionCall = _transactionsCall?.at(-1) as unknown as IotaTransaction;
+    let isCallingLogEntry = false;
+
+    // Determines if is calling `log_entry_data` function at `app` module
+    if (_lastTransactionCall) {
+      // @ts-expect-error -- Inference do not catch all possible types
+      const moveCall = _lastTransactionCall.MoveCall as unknown as MoveCallIotaTransaction;
+      isCallingLogEntry = (
+        moveCall?.module === 'app'
+        && moveCall?.function === 'log_entry_data'
+      );
+    }
+
+    if (_lastTransactionCall == null || !isCallingLogEntry) {
+      // This element will be filtered out
+      return {
+        isCallingLogEntry,
+      }
+    }
+
+    const _productEntryLoggedEvent = tx.events?.find((item) => item.type.endsWith('ProductEntryLogged')) as unknown as IotaEvent;
+    // @ts-expect-error -- Inference do not catch all possible types
+    const entryId = _productEntryLoggedEvent.parsedJson.entry_addr;
+
+    const _objectCreated = tx.effects?.created?.find((item) => item.reference.objectId === entryId) as unknown as OwnedObjectRef;
+    const version = _objectCreated.reference.version;
+    const digest = _objectCreated.reference.digest;
+
+    const txBlock = tx.digest;
+    // @ts-expect-error -- Inference do not catch all possible types
+    const _callInputs = tx.transaction?.data.transaction.inputs as unknown as IotaCallArg[];
+    const serviceType = _callInputs.at(3).value.at(0);
+    const serviceDescription = _callInputs.at(4).value.at(0);
+    const healthScore = _callInputs.at(4).value.at(0);
+    const findings = _callInputs.at(4).value.at(1);
+    const issuerAddress = _productEntryLoggedEvent.sender;
+    // @ts-expect-error -- Inference do not catch all possible types
+    const issuerRole = _productEntryLoggedEvent.parsedJson.issuer_role.variant.toLowerCase();
+    const timestamp = tx.timestampMs;
+    const packageId = _productEntryLoggedEvent.packageId;
+    const status = tx.effects?.status.status;
+
+    return {
+      entryId,
+      version,
+      digest,
+      txBlock,
+      serviceType,
+      serviceDescription,
+      healthScore,
+      findings,
+      issuerAddress,
+      issuerRole,
+      timestamp,
+      packageId,
+      status,
+      isCallingLogEntry,
+    } as ServiceEntry & { isCallingLogEntry: boolean };
+  });
+
+  // filter out transactions not calling `log_entry_data` and with no `success` effects
+  // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<> 
+  return transactionEntries.filter((entry) => entry.isCallingLogEntry && entry.status === 'success');
 }
 
 /**

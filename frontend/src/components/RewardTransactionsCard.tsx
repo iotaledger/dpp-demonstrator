@@ -3,9 +3,9 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
-import { firstLetterUpperCase, formatTokenBalance, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { formatTokenBalance, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { REQUEST_SIZE_LIMIT, VAULT_ID } from '@/utils/constants';
+import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
 import { useRewardTransactions } from '@/hooks/useRewardTransactions';
 
 interface RewardTransactionsCardProps {
@@ -21,7 +21,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
   tutorialState = 'no',
 }) => {
   const [viewMore, setViewMore] = React.useState(true);
-  const { rewardTransactions, isSuccess } = useRewardTransactions(VAULT_ID || '');
+  const { rewardTransactions } = useRewardTransactions();
 
   const [transactions, transactionsSize] = React.useMemo(() => {
     if (rewardTransactions) {

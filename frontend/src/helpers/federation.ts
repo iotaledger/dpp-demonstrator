@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
-import { type IotaObjectData, type IotaObjectResponse } from "@iota/iota-sdk/client";
-import { getEntriesByRole } from "./serviceHistory";
+import { IotaCallArg, IotaTransaction, IotaTransactionBlockResponse, MoveCallIotaTransaction, type IotaObjectData, type IotaObjectResponse } from "@iota/iota-sdk/client";
+import { StaticPrerenderStore } from "next/dist/server/app-render/work-unit-async-storage.external";
 
 /*
 Federation Data Structure:
@@ -217,6 +217,65 @@ function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
     rolesByEntity,
     allowedRoles
   };
+}
+
+interface AccreditationTx {
+  digest: string;
+  sender: string;
+  haveCallToAccreditationToAttest: boolean;
+  receiver: string;
+  role: string;
+}
+
+export function extractAccreditationTransactions(data: IotaTransactionBlockResponse[]): AccreditationTx[] {
+  function deduplicate(entities: AccreditationTx[]): AccreditationTx[] {
+    const visited = new Set();
+    return entities.filter((each) => !visited.has(each.receiver) && visited.add(each.receiver));
+  }
+
+  return deduplicate(data.map((tx): AccreditationTx => {
+    const digest = tx.digest;
+    const sender = tx.transaction!.data.sender;
+    // @ts-expect-error -- Inference do not catch all possible types
+    const txInputs = tx.transaction!.data.transaction.inputs as unknown as IotaCallArg[];
+    // @ts-expect-error -- Inference do not catch all possible types
+    const txTransactions = tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
+    const lastTransaction = txTransactions?.at(-1) as unknown as IotaTransaction;
+    let haveCallToAccreditationToAttest = false;
+
+    if (lastTransaction) {
+      // @ts-expect-error -- Inference do not catch all possible types
+      const moveCall = lastTransaction.MoveCall as unknown as MoveCallIotaTransaction;
+      haveCallToAccreditationToAttest = (
+        moveCall?.module === 'main'
+        && moveCall?.function === 'create_accreditation_to_attest'
+      );
+    }
+
+    if (lastTransaction == null || !haveCallToAccreditationToAttest) {
+      // This element will be filtered out
+      // @ts-expect-error -- It requires all properties, however this is just a flag
+      return {
+        haveCallToAccreditationToAttest,
+      }
+    }
+
+    // @ts-expect-error -- Inference do not catch all possible types
+    const receiver = txInputs!.at(3)!.value as unknown as string;
+    // @ts-expect-error -- Inference do not catch all possible types
+    const role = txInputs!.at(6)!.value as unknown as string;
+
+    return {
+      digest,
+      sender,
+      haveCallToAccreditationToAttest,
+      receiver,
+      role,
+    }
+  })
+    .filter((acc) => acc.haveCallToAccreditationToAttest)
+    .filter((acc) => acc.role === 'repairer')
+  );
 }
 
 /**

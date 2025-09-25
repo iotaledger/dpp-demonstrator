@@ -15,7 +15,7 @@ const IntroSlide11: React.FC = () => {
         </SlideDescription>
       </div>
 
-      <FeaturesGrid columns="grid-cols-2" width="max-w-6xl" gap="gap-10">
+      <FeaturesGrid columns="sm:grid-cols-2" width="max-w-6xl" gap="gap-10">
         <ClientCard
           image="/assets/intro/desktop.webp"
           alt="Desktop"
@@ -38,7 +38,7 @@ const IntroSlide11: React.FC = () => {
 
         <NoticeCard
           background="bg-[#ADCEFF]"
-          colSpan="col-span-1 sm:col-span-3"
+          colSpan="col-span-1 sm:col-span-2"
           delay={0.55}
           opacity={100}
           translateY={0}

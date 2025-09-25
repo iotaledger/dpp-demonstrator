@@ -1,10 +1,10 @@
 'use client';
 
-import { useAccounts, useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import React, { useTransition, useCallback, useState } from 'react';
 import SaveDiagnosticModal from './SaveDiagnosticModal';
 import { useProgress } from '@/hooks/useProgress';
 import { LoadingBar } from './LoadingBar';
+import { useCurrentNetwork, useHierarchySent, useNotarizationSent, useWalletConnected } from '@/providers/appProvider';
 
 const DIAGNOSTIC_MUTED_STYLE = 'border border-gray-200 !opacity-40';
 const DIAGNOSTIC_HIGHLIGHTED_STYLE = 'border border-blue-500 !bg-blue-50';
@@ -32,11 +32,14 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
   delay = 0.4,
   cardState = 'normal',
 }) => {
+  const [isSnapshotModalOpen, setIsSnapshotModalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const { progress, startProgress, resetProgress } = useProgress();
 
-  const { isConnected } = useCurrentWallet();
-  const [isSnapshotModalOpen, setIsSnapshotModalOpen] = useState(false);
+  const { isWalletConnected } = useWalletConnected();
+  const { isHierarchySent } = useHierarchySent();
+  const { isNotarizationSent } = useNotarizationSent();
+  const { notTestnet } = useCurrentNetwork();
 
   // Handle form submission
   const handleSubmit = useCallback((event: React.FormEvent) => {
@@ -55,6 +58,10 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
     });
   }, []);
 
+  if (!isWalletConnected || notTestnet || !isHierarchySent || isNotarizationSent) {
+    return null;
+  }
+
   // Card state styling (following ServiceRequestCard pattern)
   const getCardStateClasses = () => {
     switch (cardState) {
@@ -67,10 +74,6 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
         return DIAGNOSTIC_NORMAL_STYLE;
     }
   };
-
-  if (!isConnected) {
-    return null;
-  }
 
   return (
     <>

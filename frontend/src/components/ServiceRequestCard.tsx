@@ -1,6 +1,6 @@
-import { useCurrentWallet } from '@iota/dapp-kit';
 import React, { useState } from 'react';
 import ServiceRequestModal from './ServiceRequestModal';
+import { useCurrentNetwork, useHierarchySent, useWalletConnected } from '@/providers/appProvider';
 
 const serviceInfo = {
   title: "Request Service Network Access",
@@ -24,17 +24,18 @@ const ServiceRequestCard: React.FC<ServiceRequestCardProps> = ({
   delay = 0.4,
   cardState = 'normal'
 }) => {
-  const { isConnected } = useCurrentWallet();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isWalletConnected } = useWalletConnected();
+  const { isHierarchySent } = useHierarchySent();
+  const { notTestnet } = useCurrentNetwork();
+
+  if (!isWalletConnected || notTestnet || isHierarchySent) {
+    return null;
+  }
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
   };
-
-  if (!isConnected) {
-    return null;
-  }
 
   // Card state styling for tutorial integration
   const getCardStateClasses = () => {

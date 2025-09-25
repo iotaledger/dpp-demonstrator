@@ -26,6 +26,7 @@ export function useWalletUpdateEffects() {
     handleWalletConnected,
     handleWalletDisconnected,
     handleCurrentAccountAddressChanged,
+    handleCurrentAccountNetworkChanged,
     handleHierarchySentSuccess,
     handleNotificationSent,
   } = useAppProvider();
@@ -57,6 +58,7 @@ export function useWalletUpdateEffects() {
   // Updates the app store when current account address changes.
   React.useEffect(() => {
     handleCurrentAccountAddressChanged(currentAccount?.address || null);
+    handleCurrentAccountNetworkChanged(currentAccount?.chains.at(0) || null);
   }, [currentAccount]);
 
   /**

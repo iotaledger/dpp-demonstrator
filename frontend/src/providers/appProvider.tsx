@@ -4,6 +4,7 @@ import { type Notification } from '@/components/Toast';
 interface AppState {
   isWalletConnected: boolean;
   currentAccountAddress: string | null;
+  currentAccountNetwork: string | null;
   isHierarchySent: boolean;
   isNotarizationSent: boolean;
   hierarchySent: { key: string }[];
@@ -22,6 +23,7 @@ interface AppContextValue {
   handleWalletConnected: () => void,
   handleWalletDisconnected: () => void,
   handleCurrentAccountAddressChanged: (currentAccountAddress: string | null) => void;
+  handleCurrentAccountNetworkChanged: (currentAccountNetwork: string | null) => void;
   handleHierarchySentSuccess: (requestId: string) => void,
   handleNotarizationSentSuccess: (requestId: string) => void,
   handleNotificationSent: (notification: Notification) => void;
@@ -32,6 +34,7 @@ const actionTypes = {
   walletConnected: 'walletConnected',
   walletDisconnected: 'walletDisconnected',
   currentAccountAddressChanged: 'currentAccountAddressChanged',
+  currentAccountNetworkChanged: 'currentAccountNetworkChanged',
   hierarchySentSuccess: 'hierarchySentSuccess',
   notarizationSentSuccess: 'notarizationSentSuccess',
   notificationSent: 'notificationSent',
@@ -76,6 +79,18 @@ const actions = {
         currentAccountAddress: action.payload as string | null,
         isHierarchySent: false,
         isNotarizationSent: false,
+      };
+    },
+  },
+  currentAccountNetworkChanged: {
+    type: actionTypes.currentAccountNetworkChanged,
+    action: function(currentAccountNetwork: string | null): AppReducerAction {
+      return { type: actionTypes.currentAccountNetworkChanged, payload: currentAccountNetwork };
+    },
+    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+      return {
+        ...prevState,
+        currentAccountNetwork: action.payload as string | null,
       };
     },
   },
@@ -141,6 +156,7 @@ const actions = {
 const initialState: AppState = {
   isWalletConnected: false,
   currentAccountAddress: null,
+  currentAccountNetwork: null,
   isHierarchySent: false,
   isNotarizationSent: false,
   hierarchySent: [],
@@ -158,6 +174,9 @@ function reducer(state: AppState, action: AppReducerAction): AppState {
     }
     case actions.currentAccountAddressChanged.type: {
       return actions.currentAccountAddressChanged.reduce(state, action);
+    }
+    case actions.currentAccountNetworkChanged.type: {
+      return actions.currentAccountNetworkChanged.reduce(state, action);
     }
     case actions.hierarchySentSuccess.type: {
       return actions.hierarchySentSuccess.reduce(state);
@@ -211,6 +230,10 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
     dispatch(actions.currentAccountAddressChanged.action(currentAccountAddress));
   }
 
+  const handleCurrentAccountNetworkChanged = (currentAccountNetwork: string | null) => {
+    dispatch(actions.currentAccountNetworkChanged.action(currentAccountNetwork));
+  }
+
   return (
     <AppContext value={{
       state,
@@ -218,6 +241,7 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
       handleWalletConnected,
       handleWalletDisconnected,
       handleCurrentAccountAddressChanged,
+      handleCurrentAccountNetworkChanged,
       handleHierarchySentSuccess,
       handleNotarizationSentSuccess,
       handleNotificationSent,
@@ -309,4 +333,22 @@ export const useNotification = () => {
     handleNotificationSent,
     handleNotificationRemoved,
   }
+}
+
+export const useCurrentNetwork = () => {
+  const value: AppContextValue | null = React.useContext(AppContext);
+
+  if (value == null) {
+    return {
+      notTestnet: false,
+      isTestnet: true,
+    };
+  }
+
+  const { state: { isWalletConnected, currentAccountNetwork } } = value;
+
+  return {
+    notTestnet: isWalletConnected && currentAccountNetwork !== 'iota:testnet',
+    isTestnet: isWalletConnected && currentAccountNetwork === 'iota:testnet',
+  };
 }

@@ -16,8 +16,9 @@ import DiagnosticCard from './DiagnosticCard';
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { Notifications } from './Notifications';
 import RewardTransactionsCard from './RewardTransactionsCard';
-import { useCurrentWallet, useWallets } from '@iota/dapp-kit';
-import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { useCurrentWallet } from '@iota/dapp-kit';
+import { useCurrentNetwork, useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import NotTestnetWarningCard from './NotTestnetWarningCard';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -87,6 +88,7 @@ const TUTORIAL_STEPS = new Map([
   [10, [
     <PassportHeader key={'passportHeader'} tutorialState='no' />,
     <ServiceRequestCard key={'ServiceRequestCard'} cardState='highlighted' />,
+    <NotTestnetWarningCard key={'NotTestnetWarningCard'} />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
@@ -97,6 +99,7 @@ const TUTORIAL_STEPS = new Map([
   [11, [
     <PassportHeader key={'passportHeader'} tutorialState='no' />,
     <DiagnosticCard key={'DiagnosticCard'} cardState='highlighted' />,
+    <NotTestnetWarningCard key={'NotTestnetWarningCard'} />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
@@ -139,6 +142,7 @@ const ExploreGuided: React.FC = () => {
   const { isConnected } = useCurrentWallet();
   const { isHierarchySent } = useHierarchySent();
   const { isNotarizationSent } = useNotarizationSent()
+  const { notTestnet, isTestnet } = useCurrentNetwork();
 
   React.useEffect(() => {
     if (!isGoingPrevious && currentStep === 9 && isConnected) {

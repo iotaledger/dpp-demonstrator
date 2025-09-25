@@ -21,6 +21,8 @@ export function useServiceHistory() {
     },
   });
 
+  console.log('service transactions: ', data?.data);
+
   return {
     serviceHistory: data && extractServiceTransactionData(data.data),
     isSuccess,

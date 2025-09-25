@@ -1,0 +1,43 @@
+'use client'
+
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createNetworkConfig, IotaClientProvider, WalletProvider } from '@iota/dapp-kit';
+import { getFullnodeUrl, Network } from '@iota/iota-sdk/client';
+import Layout from '@/components/Layout';
+import { AppProvider } from '@/providers/appProvider';
+
+// Required to give sytle to UI components imported from dapp-kit such as ConnectButton
+import '@iota/dapp-kit/dist/index.css'
+
+export function AppLayout({ children }: { children: React.ReactNode }) {
+  const queryClient = new QueryClient();
+
+  const { networkConfig } = createNetworkConfig({
+    // getFullnodeUrl do not support network auto-completion
+    //   I've had to read getFullnodeUrl file definition to find Network enum.
+    //   Therefore, I believe this can be improved to allow auto-completion and
+    //   increase developer experience.
+    // It may also worth a contribution to change the README.md file of dapp-kit
+    //   to enforce the usage of Network enum in the sample in place of hardcoded
+    //   value 'mainnet'.
+    testnet: { url: getFullnodeUrl(Network.Testnet) },
+    mainnet: { url: getFullnodeUrl(Network.Mainnet) }
+  });
+
+  return (
+    <QueryClientProvider client={queryClient} >
+      <IotaClientProvider networks={networkConfig} defaultNetwork='testnet'>
+        <WalletProvider autoConnect={true}>
+          <AppProvider>
+            <Layout>
+              {children}
+            </Layout>
+            {/* Portal target for modals */}
+            <div id="modal-root" />
+          </AppProvider>
+        </WalletProvider>
+      </IotaClientProvider>
+    </QueryClientProvider >
+  );
+}

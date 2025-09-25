@@ -10,7 +10,7 @@ const IntroSlide10: React.FC = () => {
       <div className="mb-8 max-w-5xl pt-6 md:pt-0">
         <SlideTitle size="large" margin='mb-4'>Your Mission in this Demo</SlideTitle>
         <SlideDescription margin='mb-2' width='max-w-5xl'>
-          Step into the role of a <strong>Service Provider</strong> in the ecosystem. Your job is to document repair and maintenance events. In this demo, you’ll:
+          Step into the role of a <strong>Service Provider</strong> in the ecosystem. Your job is to perform and document a maintenance event. In this demo, you’ll:
         </SlideDescription>
       </div>
 

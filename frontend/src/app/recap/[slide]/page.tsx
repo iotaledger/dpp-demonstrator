@@ -13,7 +13,7 @@ import MainContent from '@/components/MainContent';
 import TutorialCard from '@/components/TutorialCard';
 import CardHeader from '@/components/CardHeader';
 import TutorialScrollContainer from '@/components/TutorialScrollContainer';
-import IntroSlide from '@/components/IntroSlide';
+import IntroSlideContainer from '@/components/IntroSlideContainer';
 
 export default function PostExperiencePage() {
   const { slide: slideParam } = useParams();
@@ -79,9 +79,9 @@ export default function PostExperiencePage() {
                 backUrl='/explore-freely'
                 canGoBack={true} />
               <TutorialScrollContainer isRecap={true}>
-                <IntroSlide>
+                <IntroSlideContainer>
                   <RecapSlideManager currentSlide={currentSlide} />
-                </IntroSlide>
+                </IntroSlideContainer>
               </TutorialScrollContainer>
             </TutorialCard>
           </MainContent>

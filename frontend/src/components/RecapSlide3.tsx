@@ -78,7 +78,7 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
 
   return (
     <div
-      className="max-w-7xl mx-auto p-6 md:p-12 h-full"
+      className="max-w-7xl mx-auto p-6 md:p-12 max-h-full overflow-y-auto"
       style={containerStyle}
     >
       <div className="flex flex-col gap-4">

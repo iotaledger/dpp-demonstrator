@@ -1,7 +1,7 @@
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import React from 'react';
 import { useFederationDetails } from './useFederationDetails';
-import { useAppProvider } from '@/providers/appProvider';
+import { useAppProvider, useCurrentNetwork } from '@/providers/appProvider';
 import { FEDERATION_ID } from '@/utils/constants';
 import { getRolesByEntity } from '@/helpers/federation';
 import { generateRequestId } from '@/utils/common';
@@ -79,6 +79,7 @@ export function useWalletUpdateEffects() {
   }, [isWalletConnected]);
 
   const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID);
+  const { isTestnet } = useCurrentNetwork();
 
   // Effect event to detach federationDetails retrieval from the effect trigger
   const checkCurrentAccountAddressAccredited = React.useCallback((currentAccountAddress: string) => {
@@ -96,13 +97,13 @@ export function useWalletUpdateEffects() {
 
   // Triggers when wallet is connected, current address is changed and federation details is retrieved
   React.useEffect(() => {
-    if (isWalletConnected && currentAccountAddress && isSuccessFederationDetails) {
+    if (isWalletConnected && isTestnet && currentAccountAddress && isSuccessFederationDetails) {
       if (checkCurrentAccountAddressAccredited(currentAccountAddress)) {
         // mark accreditation as sent, enabling diagnostic
         handleHierarchySentSuccess(generateRequestId());
       }
     }
-  }, [isWalletConnected, currentAccountAddress, isSuccessFederationDetails]);
+  }, [isWalletConnected, isTestnet, currentAccountAddress, isSuccessFederationDetails]);
 
   // Triggers when hierarchy is marked as sent, enabling diagnostic
   React.useEffect(() => {

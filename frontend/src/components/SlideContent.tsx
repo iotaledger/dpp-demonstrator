@@ -39,7 +39,7 @@ const SlideContent: React.FC<SlideContentProps> = ({
   }
 
   return (
-    <div className={`${getTextAlignClass()} order-1 md:order-2 pt-6 md:pt-0 sm:pr-6`}>
+    <div className={`${getTextAlignClass()} order-1 md:order-2 pt-0 sm:pr-6`}>
       <div
         style={{
           transition: `opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s`

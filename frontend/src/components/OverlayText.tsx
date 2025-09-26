@@ -17,7 +17,7 @@ const OverlayText: React.FC<OverlayTextProps> = ({
 }) => {
   return (
     <div
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-2xl mx-auto text-center px-6 md:px-12 py-6 md:py-8"
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-auto text-center px-6 md:px-12 py-6 md:py-8"
       style={{ zIndex: 100 }}
     >
       <div

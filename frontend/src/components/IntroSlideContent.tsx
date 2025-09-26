@@ -1,5 +1,3 @@
-import { useTransitionTrigger } from "@/hooks/useTransitionTrigger";
-
 interface IntroSlideContentProps {
   children: React.ReactNode;
 }
@@ -9,7 +7,7 @@ const IntroSlideContent: React.FC<IntroSlideContentProps> = ({
 }) => {
   return (
     <div
-      className="max-w-8xl grid w-full max-h-[95vh] mx-auto backdrop-blur-sm rounded-[2.5rem] p-4 md:p-8 lg:p-12 bg-transparent text-gray-800 overflow-y-auto"
+      className="max-w-8xl grid w-full max-h-full md:mt-[-15%] mx-auto backdrop-blur-sm rounded-[2.5rem] px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12 pb-8 bg-transparent text-gray-800"
       style={{
         transition: 'background-color 0.6s ease-out, color 0.6s ease-out'
       }}

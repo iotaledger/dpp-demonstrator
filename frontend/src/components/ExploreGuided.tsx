@@ -193,7 +193,7 @@ const ExploreGuided: React.FC = () => {
       mainContent={mainContent}
       sidebarContent={sidebarContent}
       sidebarWidth="400px"
-      gap="gap-1"
+      gap="gap-4"
     />
   );
 };

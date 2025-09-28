@@ -6,12 +6,12 @@ interface MainProps {
 
 const Main: React.FC<MainProps> = ({ children }) => {
   return (
-    <main 
+    <div
       className="p-3 overflow-hidden"
       style={{ height: '100dvh' }}
     >
       {children}
-    </main>
+    </div>
   );
 };
 

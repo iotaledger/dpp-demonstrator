@@ -92,7 +92,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
   };
 
   return (
-    <div className={`grid-cols-1 sm:grid-cols-[minmax(max-content,${columnMaxWidth}px)_auto] gap-1 grid-flow-col  grid items-center ${getRowStateStyle()}`}
+    <div className={`max-sm:flex max-sm:flex-col gap-1 sm:grid sm:grid-cols-[minmax(max-content,${columnMaxWidth}px)_auto] sm:grid-flow-col ${getRowStateStyle()}`}
       style={{
         opacity: opacity / 100,
         transition: 'filter 0.3s ease,opacity 0.3s ease',

@@ -192,7 +192,6 @@ const ExploreGuided: React.FC = () => {
     <TwoColumnLayout
       mainContent={mainContent}
       sidebarContent={sidebarContent}
-      sidebarWidth="400px"
       gap="gap-4"
     />
   );

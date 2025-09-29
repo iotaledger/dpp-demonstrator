@@ -13,7 +13,7 @@ interface TwoColumnLayoutProps {
 const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
   mainContent,
   sidebarContent,
-  sidebarWidth = "400",
+  sidebarWidth = "400px",
   gap = "gap-1",
   opacity = 100,
   delay = 0
@@ -51,13 +51,19 @@ const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
   );
 };
 
-function OneColumnOtherwise({
+interface OneColumnOtherwiseProps {
+  children: React.ReactNode;
+  gap?: string;
+  opacity?: number;
+  delay?: number;
+}
+
+const OneColumnOtherwise: React.FC<OneColumnOtherwiseProps> = ({
   children,
   gap = "gap-1",
   opacity = 100,
   delay = 0
-}) {
-
+}) => {
   return (
     <div
       className={clsx([
@@ -73,13 +79,22 @@ function OneColumnOtherwise({
     </div>
   );
 }
-function TwoColumnsForLargeScreen({
+
+interface TwoColumnsForLargeScreenProps {
+  children: React.ReactNode;
+  sidebarWidth?: string;
+  gap?: string;
+  opacity?: number;
+  delay?: number;
+}
+
+const TwoColumnsForLargeScreen: React.FC<TwoColumnsForLargeScreenProps> = ({
   children,
-  sidebarWidth = "400",
+  sidebarWidth = "400px",
   gap = "gap-1",
   opacity = 100,
   delay = 0
-}) {
+}) => {
 
   return (
     <div

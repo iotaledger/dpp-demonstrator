@@ -8,7 +8,7 @@ import ExploreGuided from "@/components/ExploreGuided";
 export default function ExploreGuidedPage() {
   return (
     <Main>
-      <GridContainer>
+      <GridContainer hasDrawer={true}>
         <MainContent>
           <ExploreGuided />
         </MainContent>

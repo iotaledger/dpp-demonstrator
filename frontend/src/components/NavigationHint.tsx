@@ -13,7 +13,7 @@ const NavigationHint: React.FC<NavigationHintProps> = ({
 }) => {
   return (
     <div
-      className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 z-40 opacity-${opacity}`}
+      className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 z-40 opacity-${opacity} max-lg:hidden`}
       style={{
         transition: `opacity 0.6s ease-out ${delay}s`
       }}

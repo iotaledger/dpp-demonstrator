@@ -35,7 +35,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
 
   return (
     <div className="flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500">
-      <div className="flex items-center justify-between w-full leading-1">
+      <div className="flex items-center justify-between gap-2 w-full leading-1">
         {!canGoBack && (
           <h4>{title}</h4>
         )}
@@ -43,7 +43,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
           <Link
             href={backUrl}
             prefetch={true}
-            className={`inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ${BUTTON_OUTLINE_STYLE}`}
+            className={`inline-flex shrink-0 items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ${BUTTON_OUTLINE_STYLE}`}
           >
             {backText}
           </Link>
@@ -52,7 +52,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
           <Link
             href={linkUrl}
             prefetch={true}
-            className={`inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 text-[10px] ${getButtonStyle()}`}
+            className={`inline-flex text-center items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 text-[10px] ${getButtonStyle()}`}
           >
             {linkText}
           </Link>

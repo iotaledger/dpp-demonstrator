@@ -17,7 +17,7 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
   delay = 0.4,
 }) => {
   const { isWalletConnected } = useWalletConnected();
-  const { isTestnet } = useCurrentNetwork();
+  const { isTestnet, currentNetwork } = useCurrentNetwork();
 
   if (!isWalletConnected || isTestnet) {
     return null;
@@ -43,7 +43,7 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
               {/* Content Area */}
               <div className="p-0 px-0.5">
                 <div className="space-y-4 pt-2">
-                  <p className="text-gray-600">{"The app is aimed to operate in a testnet environment. Please, configure your wallet to use the testnet network."}</p>
+                  <p className="text-gray-600">{`The app is aimed to operate in a testnet environment. Please, configure your wallet to use the testnet network. You are connected to ${currentNetwork}.`}</p>
                 </div>
               </div>
             </div>

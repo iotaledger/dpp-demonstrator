@@ -350,5 +350,6 @@ export const useCurrentNetwork = () => {
   return {
     notTestnet: isWalletConnected && currentAccountNetwork !== 'iota:testnet',
     isTestnet: isWalletConnected && currentAccountNetwork === 'iota:testnet',
+    currentNetwork: currentAccountNetwork,
   };
 }

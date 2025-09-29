@@ -13,16 +13,12 @@ interface TwoColumnLayoutProps {
 const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
   mainContent,
   sidebarContent,
-  sidebarWidth = "400px",
-  gap = "gap-1",
   opacity = 100,
   delay = 0
 }) => {
   return (
     <>
       <TwoColumnsForLargeScreen
-        sidebarWidth={sidebarWidth}
-        gap={gap}
         opacity={opacity}
         delay={delay}>
         <main className="overflow-hidden transition-all duration-700 ease-out">
@@ -35,7 +31,6 @@ const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
         </aside>
       </TwoColumnsForLargeScreen>
       <OneColumnOtherwise
-        gap={gap}
         opacity={opacity}
         delay={delay}>
         <main className="overflow-hidden transition-all duration-700 ease-out">
@@ -53,23 +48,18 @@ const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
 
 interface OneColumnOtherwiseProps {
   children: React.ReactNode;
-  gap?: string;
   opacity?: number;
   delay?: number;
 }
 
 const OneColumnOtherwise: React.FC<OneColumnOtherwiseProps> = ({
   children,
-  gap = "gap-1",
   opacity = 100,
   delay = 0
 }) => {
   return (
     <div
-      className={clsx([
-        'grid grid-cols-1 h-full overflow-hidden transition-all duration-700 ease-out',
-        gap && gap,
-      ])}
+      className='grid grid-cols-1 h-full overflow-hidden transition-all duration-700 ease-out gap-4'
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`
@@ -82,7 +72,6 @@ const OneColumnOtherwise: React.FC<OneColumnOtherwiseProps> = ({
 
 interface TwoColumnsForLargeScreenProps {
   children: React.ReactNode;
-  sidebarWidth?: string;
   gap?: string;
   opacity?: number;
   delay?: number;
@@ -90,8 +79,6 @@ interface TwoColumnsForLargeScreenProps {
 
 const TwoColumnsForLargeScreen: React.FC<TwoColumnsForLargeScreenProps> = ({
   children,
-  sidebarWidth = "400px",
-  gap = "gap-1",
   opacity = 100,
   delay = 0
 }) => {
@@ -100,9 +87,8 @@ const TwoColumnsForLargeScreen: React.FC<TwoColumnsForLargeScreenProps> = ({
     <div
       className={clsx([
         'max-lg:hidden',
-        `grid grid-cols-[1fr_${sidebarWidth}]`,
-        'h-full overflow-hidden transition-all duration-700 ease-out',
-        gap && gap,
+        `grid grid-cols-[1fr_400px]`,
+        'h-full overflow-hidden transition-all duration-700 ease-out gap-4',
       ])}
       style={{
         opacity: opacity / 100,

@@ -96,7 +96,7 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
             <div className="col-span-2 sm:col-span-1 sm:row-span-2 row-start-1 col-start-1 opacity-0 translate-y-4 transition-all duration-700 ease-out opacity-100 translate-y-0 delay-300">
               <div className="h-full bg-white/70 backdrop-blur-sm rounded-3xl p-6 md:p-8 border border-gray-200 hover:shadow-md transition-shadow cursor-pointer overflow-hidden relative select-none"
                 style={{
-                  "backgroundImage": "url(/assets/recap/bip.webp)",
+                  "backgroundImage": "if(media(width > 64rem): url(/assets/recap/bip.webp);)",
                   "backgroundSize": "contain",
                   "backgroundRepeat": "no-repeat",
                   "backgroundPosition": "center 130%",
@@ -124,7 +124,7 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
               <div className="h-full bg-gradient-to-br from-blue-50/70 to-blue-100/70 backdrop-blur-sm rounded-3xl  border border-gray-200 hover:shadow-md transition-shadow cursor-pointer overflow-hidden relative select-none">
                 <a target="_blank" className="block h-full w-full p-6 md:p-8" href="https://www.iota.org/products/tooling"
                   style={{
-                    "backgroundImage": "url(/assets/recap/product_infra.webp)",
+                    "backgroundImage": "if(media(width > 72rem): url(/assets/recap/product_infra.webp);)",
                     "backgroundSize": "cover",
                     "backgroundRepeat": "no-repeat",
                     "backgroundPosition": "center -260%",

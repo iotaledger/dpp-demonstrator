@@ -28,7 +28,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   return (
-    <div className="pt-6 flex flex-col md:flex-row gap-6 items-center">
+    <div className="py-6 flex flex-col md:flex-row gap-6 items-center">
       {secondaryButton && (
         <button
           className={getButtonClasses(secondaryButton.variant)}

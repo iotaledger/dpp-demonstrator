@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback } from 'react';
 import StepContent from './StepContent';
 import StepProgress from './StepProgress';

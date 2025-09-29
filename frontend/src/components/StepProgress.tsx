@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface StepProgressProps {
@@ -26,7 +28,7 @@ const StepProgress: React.FC<StepProgressProps> = ({
       <span className="text-sm font-medium text-gray-900">
         {currentStep} of {totalSteps}
       </span>
-      
+
       <div className="w-16 h-1 bg-gray-200 rounded-full overflow-hidden">
         <div
           className="h-full bg-blue-500 transition-all duration-300 ease-out"

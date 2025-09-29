@@ -1,3 +1,4 @@
+'use client';
 
 import { useIotaClientQuery } from "@iota/dapp-kit";
 import { extractAccreditationTransactions } from "@/helpers/federation";

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Toast, type Notification } from './Toast';
 import { useNotification } from '@/providers/appProvider';

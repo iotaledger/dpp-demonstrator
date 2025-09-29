@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import RecapSlide1 from './RecapSlide1';
 import RecapSlide2 from './RecapSlide2';

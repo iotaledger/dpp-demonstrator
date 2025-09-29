@@ -1,3 +1,5 @@
+'use client';
+
 import { useProductDetails } from '@/hooks/useProductDetails';
 import React from 'react';
 import CollapsibleSection from './CollapsibleSection';

@@ -10,11 +10,11 @@ interface UseCopyToClipboardOptions {
 }
 
 export const useCopyToClipboard = (options: UseCopyToClipboardOptions = {}) => {
-  const { 
-    successMessage, 
-    duration = 2000, 
-    onSuccess, 
-    onError 
+  const {
+    successMessage,
+    duration = 2000,
+    onSuccess,
+    onError
   } = options;
 
   const [copied, setCopied] = useState(false);
@@ -24,9 +24,9 @@ export const useCopyToClipboard = (options: UseCopyToClipboardOptions = {}) => {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), duration);
-      
+
       onSuccess?.(text);
-      
+
       return true;
     } catch (error) {
       const copyError = error instanceof Error ? error : new Error('Failed to copy text');
@@ -36,8 +36,8 @@ export const useCopyToClipboard = (options: UseCopyToClipboardOptions = {}) => {
     }
   }, [duration, onSuccess, onError]);
 
-  return { 
-    copied, 
-    copyToClipboard 
+  return {
+    copied,
+    copyToClipboard
   };
 };

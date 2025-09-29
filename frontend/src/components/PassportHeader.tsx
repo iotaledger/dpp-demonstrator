@@ -1,3 +1,5 @@
+'use client';
+
 import React, { RefObject, useRef } from 'react';
 import { ConnectButton } from '@iota/dapp-kit';
 import { useWalletUpdateEffects } from '@/hooks/useWalletUpdateEffects';

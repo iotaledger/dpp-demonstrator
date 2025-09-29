@@ -1,3 +1,5 @@
+'use client';
+
 import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 import { NOTIFICATION_DECAY_TIME_MS } from '@/utils/constants';
 import { clsx } from 'clsx';

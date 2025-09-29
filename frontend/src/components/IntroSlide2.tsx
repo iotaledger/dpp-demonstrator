@@ -1,5 +1,6 @@
-import React from 'react';
+'use client';
 
+import React from 'react';
 import VideoSection from './VideoSection';
 import BackgroundVideo from './BackgroundVideo';
 import OverlayText from './OverlayText';

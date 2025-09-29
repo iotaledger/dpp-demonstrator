@@ -1,5 +1,6 @@
-import React from 'react';
+'use client';
 
+import React from 'react';
 import TutorialCard from './TutorialCard';
 import CardHeader from './CardHeader';
 import TutorialScrollContainer from './TutorialScrollContainer';

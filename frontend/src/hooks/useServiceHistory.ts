@@ -1,3 +1,5 @@
+'use client';
+
 import { extractServiceTransactionData } from "@/helpers/serviceHistory";
 import { useNotarizationSent } from "@/providers/appProvider";
 import { REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";

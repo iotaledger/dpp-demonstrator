@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';

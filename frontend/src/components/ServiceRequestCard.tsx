@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import ServiceRequestModal from './ServiceRequestModal';
 import { useCurrentNetwork, useHierarchySent, useWalletConnected } from '@/providers/appProvider';

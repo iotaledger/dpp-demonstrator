@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface PrevButtonProps {
@@ -5,9 +7,9 @@ interface PrevButtonProps {
   disabled?: boolean;
 }
 
-const PrevButton: React.FC<PrevButtonProps> = ({ 
-  onClick, 
-  disabled = true 
+const PrevButton: React.FC<PrevButtonProps> = ({
+  onClick,
+  disabled = true
 }) => {
   return (
     <button

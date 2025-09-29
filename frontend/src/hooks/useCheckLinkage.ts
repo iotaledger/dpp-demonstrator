@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from "@tanstack/react-query";
 
 // TODO: what is the purpose of this hook?

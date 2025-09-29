@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import IntroSlide1 from "./IntroSlide1";
 import IntroSlide2 from "./IntroSlide2";

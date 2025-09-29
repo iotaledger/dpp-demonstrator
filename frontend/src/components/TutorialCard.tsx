@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface TutorialCardProps {
@@ -6,11 +8,11 @@ interface TutorialCardProps {
 
 const TutorialCard: React.FC<TutorialCardProps> = ({ children }) => {
   return (
-    <div 
+    <div
       className="bg-slate-50 rounded-2xl border border-gray-300 flex flex-col relative"
-      style={{ 
-        height: '100%', 
-        overflow: 'hidden' 
+      style={{
+        height: '100%',
+        overflow: 'hidden'
       }}
     >
       {children}

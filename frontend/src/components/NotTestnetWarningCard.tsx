@@ -1,3 +1,5 @@
+'use client';
+
 import { useCurrentNetwork, useWalletConnected } from '@/providers/appProvider';
 import { clsx } from 'clsx';
 

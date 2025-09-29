@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface NextButtonProps {
@@ -5,9 +7,9 @@ interface NextButtonProps {
   disabled?: boolean;
 }
 
-const NextButton: React.FC<NextButtonProps> = ({ 
-  onClick, 
-  disabled = false 
+const NextButton: React.FC<NextButtonProps> = ({
+  onClick,
+  disabled = false
 }) => {
   return (
     <button

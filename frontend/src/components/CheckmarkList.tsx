@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface CheckmarkListProps {
@@ -18,24 +20,24 @@ const CheckmarkList: React.FC<CheckmarkListProps> = ({
   };
 
   return (
-    <div 
+    <div
       className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4"
       style={containerStyle}
     >
       {items.map((item, index) => (
-        <div 
+        <div
           key={index}
           className="flex flex-row gap-3 items-center opacity-0 translate-y-4 transition-all duration-700 ease-out opacity-100 translate-y-0"
           style={{ transitionDelay: `${delay + 0.1 * index}s` }}
         >
           <div className="relative shrink-0 size-6">
-            <svg 
-              className="block size-full text-blue-600" 
-              fill="currentColor" 
+            <svg
+              className="block size-full text-blue-600"
+              fill="currentColor"
               viewBox="0 0 24 24"
             >
-              <path 
-                fillRule="evenodd" 
+              <path
+                fillRule="evenodd"
                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
               />
             </svg>

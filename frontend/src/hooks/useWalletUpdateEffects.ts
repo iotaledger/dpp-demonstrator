@@ -1,3 +1,5 @@
+'use client';
+
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import React from 'react';
 import { useFederationDetails } from './useFederationDetails';

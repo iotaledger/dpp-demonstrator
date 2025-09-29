@@ -1,3 +1,5 @@
+'use client';
+
 interface IntroSlideContentProps {
   children: React.ReactNode;
 }

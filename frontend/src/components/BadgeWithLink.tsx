@@ -1,3 +1,5 @@
+'use client';
+
 import { useCheckLinkage } from '@/hooks/useCheckLinkage';
 import React from 'react';
 

@@ -1,5 +1,6 @@
-import React from 'react';
+'use client';
 
+import React from 'react';
 import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
 import ImageTextLayout from './ImageTextLayout';

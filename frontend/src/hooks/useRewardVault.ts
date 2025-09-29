@@ -1,3 +1,5 @@
+'use client';
+
 import { extractRewardVaultData } from "@/helpers/rewardVault";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 

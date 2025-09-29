@@ -1,3 +1,5 @@
+'use client';
+
 import { useTransitionTrigger } from "@/hooks/useTransitionTrigger";
 import clsx from "clsx";
 

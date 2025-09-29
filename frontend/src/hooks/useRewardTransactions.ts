@@ -1,3 +1,5 @@
+'use client';
+
 import { extractRewardTransactionData } from "@/helpers/rewardVaultTransactions";
 import { useNotarizationSent } from "@/providers/appProvider";
 import { REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";

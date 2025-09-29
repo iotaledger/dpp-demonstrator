@@ -1,3 +1,5 @@
+'use client';
+
 import { type Dpp, getDppData } from "@/helpers/product";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 

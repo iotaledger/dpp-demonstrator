@@ -1,3 +1,5 @@
+'use client';
+
 import { extractFederationData } from "@/helpers/federation";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 

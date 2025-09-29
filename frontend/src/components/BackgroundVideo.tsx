@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface BackgroundVideoProps {
@@ -5,9 +7,9 @@ interface BackgroundVideoProps {
   poster?: string;
 }
 
-const BackgroundVideo: React.FC<BackgroundVideoProps> = ({ 
-  src, 
-  poster = "/src/lib/assets/intro/placeholder-poster.jpg" 
+const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
+  src,
+  poster = "/src/lib/assets/intro/placeholder-poster.jpg"
 }) => {
   return (
     <div className="absolute inset-0 w-full h-full" style={{ zIndex: 10 }}>

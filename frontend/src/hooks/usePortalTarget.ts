@@ -9,14 +9,14 @@ export const usePortalTarget = (targetId: string): HTMLElement | null => {
     // Wait for DOM to be ready
     const findOrCreateTarget = () => {
       let element = document.getElementById(targetId);
-      
+
       if (!element) {
         // If element doesn't exist, create it
         element = document.createElement('div');
         element.id = targetId;
         document.body.appendChild(element);
       }
-      
+
       setTarget(element);
     };
 

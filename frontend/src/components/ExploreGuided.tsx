@@ -1,5 +1,6 @@
-import React from 'react';
+'use client';
 
+import React from 'react';
 import TutorialCard from './TutorialCard';
 import CardHeader from './CardHeader';
 import TutorialScrollContainer from './TutorialScrollContainer';
@@ -192,7 +193,6 @@ const ExploreGuided: React.FC = () => {
     <TwoColumnLayout
       mainContent={mainContent}
       sidebarContent={sidebarContent}
-      gap="gap-4"
     />
   );
 };

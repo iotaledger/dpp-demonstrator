@@ -4,14 +4,11 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { useFederationDetails } from '@/hooks/useFederationDetails';
-import { getAllAccreditationsFlat } from '@/helpers/federation';
 import { truncateAddress } from '@/utils/common';
 import { useCurrentAccount } from '@iota/dapp-kit';
 import PanelContent from './PanelContent';
-import { FEDERATION_ID } from '@/utils/constants';
-import { getAllEntitiesByRole } from '@/helpers/federation';
+import { FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME } from '@/utils/constants';
 import { useFederationTransactions } from '@/hooks/useFederationTransactions';
-import { useAppProvider } from '@/providers/appProvider';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -32,20 +29,6 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   const getCurrentAccountBadge = React.useCallback((otherAddress: string): string | null => {
     return otherAddress === currentAccount?.address ? 'You' : null;
   }, [currentAccount]);
-
-  const allRepairers = React.useMemo(() => {
-    if (federationDetails) {
-      return getAllAccreditationsFlat(federationDetails!)
-    }
-    return null;
-  }, [federationDetails]);
-
-  const onlyManufacturer = React.useMemo(() => {
-    if (federationDetails) {
-      return getAllEntitiesByRole(federationDetails, 'manufacturer').at(0);
-    }
-    return null;
-  }, [federationDetails]);
 
   const getSectionExpanded = () => {
     const open = true;
@@ -97,23 +80,21 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
     >
       <PanelContent panelState={getPanelState()}>
         <DataGrid gap="gap-y-3 gap-x-6">
-          {onlyManufacturer && (
-            <ItemValueRow
-              key={onlyManufacturer}
-              rowState={getRowState('manufacturer')}
-              label="Manufacturer"
-              value={
-                <BadgeWithLink
-                  badgeText={"EcoBike"}
-                  linkText={truncateAddress(onlyManufacturer)}
-                  linkHref={`https://explorer.iota.org/address/${onlyManufacturer}?network=testnet`}
-                  // TODO: Implement the accreditation validation
-                  showVerification={true}
-                />
-              }
-              showBorder={true}
-            />
-          )}
+          <ItemValueRow
+            key={MANUFACTURER_DID}
+            rowState={getRowState('manufacturer')}
+            label="Manufacturer"
+            value={
+              <BadgeWithLink
+                badgeText={MANUFACTURER_NAME}
+                linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
+                // TODO: Implement the accreditation validation
+                showVerification={false}
+              />
+            }
+            showBorder={true}
+          />
           {/* First, renders root authorities as "Service Network" */}
           {isSuccessFederationDetails && (
             federationDetails!.rootAuthorities.map((eachHierarchy) => (

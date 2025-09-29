@@ -13,7 +13,8 @@ export const WHITELIST_ID = process.env.NEXT_PUBLIC_REWARD_WHITELIST_ID;
 export const VAULT_ID = process.env.NEXT_PUBLIC_REWARD_VAULT_ID || '';
 export const NETWORK = process.env.NEXT_PUBLIC_NETWORK;
 export const CURRENT_CHAIN: string = `iota:${NETWORK}`;
-export const MANUFACTURER_NAME = "EcoBike";
+export const MANUFACTURER_NAME = process.env.NEXT_PUBLIC_MANUFACTURER_NAME || '';
+export const MANUFACTURER_DID = process.env.NEXT_PUBLIC_MANUFACTURER_DID || '';
 
 // Support to backend APIs
 export const BACKEND_ENDPOINT = process.env.BACKEND_ENDPOINT;

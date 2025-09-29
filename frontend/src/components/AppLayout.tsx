@@ -28,7 +28,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient} >
       <IotaClientProvider networks={networkConfig} defaultNetwork='testnet'>
-        <WalletProvider autoConnect={true}>
+        <WalletProvider autoConnect={false}>
           <AppProvider>
             <Layout>
               {children}

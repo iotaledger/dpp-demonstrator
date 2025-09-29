@@ -62,12 +62,7 @@ export default function PostExperiencePage() {
 
   return (
     <>
-      {/* Fullscreen slide container */}
-      <div className="fixed inset-0 w-full min-h-dvh overflow-y-scroll overflow-x-hidden bg-slate-100">
-        <div className="h-full flex items-center justify-center">
-        </div>
-      </div>
-      <Main>
+      <Main background="bg-slate-100">
         <GridContainer>
           <MainContent>
             <TutorialCard>

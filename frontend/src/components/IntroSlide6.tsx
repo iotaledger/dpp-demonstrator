@@ -14,7 +14,7 @@ const IntroSlide6: React.FC = () => {
         <SlideImage
           width='w-full max-w-xl'
           height='h-full'
-          src="/assets/intro/key-players.webp"
+          src="/assets/intro/key-players.png"
           alt="Key Players in the DPP ecosystem"
         />
         <SlideContent textAlign="left">

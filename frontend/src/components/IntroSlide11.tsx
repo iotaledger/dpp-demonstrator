@@ -17,7 +17,7 @@ const IntroSlide11: React.FC = () => {
 
       <FeaturesGrid columns="sm:grid-cols-2" width="max-w-6xl" gap="gap-10">
         <ClientCard
-          image="/assets/intro/desktop.webp"
+          image="/assets/intro/desktop.png"
           alt="Desktop"
           title="Desktop"
           description="Install IOTA Browser Wallet and connect when prompted"
@@ -27,7 +27,7 @@ const IntroSlide11: React.FC = () => {
         />
 
         <ClientCard
-          image="/assets/intro/mobile.webp"
+          image="/assets/intro/mobile.png"
           alt="Mobile"
           title="Mobile"
           description="Install Nightly Wallet (iOS/Android) and connect when prompted"

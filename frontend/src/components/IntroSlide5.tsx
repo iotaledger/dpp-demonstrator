@@ -9,7 +9,7 @@ const IntroSlide5: React.FC = () => {
   return (
     <ImageTextLayout>
       <SlideImage
-        src="/assets/intro/passport.webp"
+        src="/assets/intro/passport.png"
         alt="Introducing the Digital Product Passport (DPP)"
       />
 

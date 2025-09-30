@@ -78,7 +78,7 @@ const TUTORIAL_STEPS = new Map([
     <ServiceHistoryCard key={'ServiceHistoryCard'} tutorialState='no' scrollIntoView={true} />,
   ]],
   [9, [
-    <PassportHeader key={'passportHeader'} tutorialState='selected' />,
+    <PassportHeader key={'passportHeader'} tutorialState='selected' showPopover={true} />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' scrollIntoView={true} />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' scrollIntoView={true} />,

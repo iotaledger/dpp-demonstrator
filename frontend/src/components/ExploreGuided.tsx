@@ -88,8 +88,8 @@ const TUTORIAL_STEPS = new Map([
   ]],
   [10, [
     <PassportHeader key={'passportHeader'} tutorialState='no' />,
-    <ServiceRequestCard key={'ServiceRequestCard'} cardState='highlighted' />,
     <NotTestnetWarningCard key={'NotTestnetWarningCard'} />,
+    <ServiceRequestCard key={'ServiceRequestCard'} cardState='highlighted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,
@@ -99,8 +99,8 @@ const TUTORIAL_STEPS = new Map([
   ]],
   [11, [
     <PassportHeader key={'passportHeader'} tutorialState='no' />,
-    <DiagnosticCard key={'DiagnosticCard'} cardState='highlighted' />,
     <NotTestnetWarningCard key={'NotTestnetWarningCard'} />,
+    <DiagnosticCard key={'DiagnosticCard'} cardState='highlighted' />,
     <ProductHeaderCard key={'ProductHeaderCard'} tutorialState='muted' />,
     <ProductDetailsCard key={'ProductDetailsCard'} tutorialState='open-muted' />,
     <RoleDetailsCard key={'RoleDetailsCard'} tutorialState='open-muted' />,

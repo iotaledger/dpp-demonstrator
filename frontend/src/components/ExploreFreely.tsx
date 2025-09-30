@@ -30,9 +30,9 @@ const ExploreFreely: React.FC = () => {
       <TutorialScrollContainer>
         <div className="dpp-content-container">
           <PassportHeader />
+          <NotTestnetWarningCard />
           <ServiceRequestCard />
           <DiagnosticCard />
-          <NotTestnetWarningCard />
           <ProductHeaderCard />
           <ProductDetailsCard />
           <RoleDetailsCard />

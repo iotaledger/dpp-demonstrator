@@ -78,7 +78,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       return 'muted';
     }
 
-    if (tutorialState === 'selected') {
+    if (tutorialState === 'selected' || tutorialState === 'detailsSelected' || tutorialState === 'rewardSelected') {
       return 'selected';
     }
 

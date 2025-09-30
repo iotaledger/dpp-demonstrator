@@ -35,7 +35,6 @@ const SlideImage: React.FC<SlideImageProps> = ({
             style={{
               transition: `opacity 0.6s ease-out 0.15s, transform 0.6s ease-out 0.15s`
             }}
-            loading="lazy"
             src={src}
             alt={alt}
             className={clsx(`w-full h-full object-contain p-6 opacity-${opacity} scale-${scale}`, isTriggered && 'opacity-100 scale-100')}

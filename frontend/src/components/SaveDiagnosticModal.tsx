@@ -4,7 +4,7 @@ import React, { useCallback, useState, useTransition } from 'react';
 import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
-import { DPP_ID, FEDERATION_ID, MANUFACTURER_NAME, NETWORK } from '@/utils/constants';
+import { DPP_ID, FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME, NETWORK } from '@/utils/constants';
 import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
 import { createNotarizationEventTransaction, type CreateNotarizationEventTransactionArgs, getSponsorGas, sendTransaction } from '@/helpers/api';
@@ -187,6 +187,8 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
           <ItemValueRow
             label="DPP ID"
             value={truncateAddress(DPP_ID)}
+            isLink={true}
+            linkHref={`https://explorer.iota.org/object/${DPP_ID}?network=testnet`}
             fontMono={true}
             valueColor='text-blue-600'
           />
@@ -199,8 +201,11 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
               <div className="flex items-center gap-3">
                 <BadgeWithLink
                   badgeText={MANUFACTURER_NAME}
+                  linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                  linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
+                  // TODO: Implement the accreditation validation
+                  showVerification={false}
                 />
-                <span className="text-blue-600 font-mono text-sm">{truncateAddress(productDetails?.manufacturer)}</span>
               </div>
             }
           />
@@ -212,8 +217,10 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
               <div className="flex items-center gap-3">
                 <BadgeWithLink
                   badgeText={diagnosticInfo.technicianName}
+                  linkText={`${truncateAddress(account?.address)}`}
+                  linkHref={`https://explorer.iota.org/address/${account?.address}?network=testnet`}
+                  showVerification={false}
                 />
-                <span className="text-blue-600 font-mono text-sm">{truncateAddress(account?.address)}</span>
               </div>
             }
           />

@@ -8,7 +8,7 @@ interface ClientCardProps {
   image: string;
   alt: string;
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   opacity?: number;
   translateY?: number;
   delay?: number;

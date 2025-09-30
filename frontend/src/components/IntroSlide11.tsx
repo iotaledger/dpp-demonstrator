@@ -22,7 +22,16 @@ const IntroSlide11: React.FC = () => {
           image="/assets/intro/desktop.png"
           alt="Desktop"
           title="Desktop"
-          description="Install IOTA Browser Wallet and connect when prompted"
+          description={(
+            <>
+              <p>
+                Install IOTA Browser Wallet and connect when prompted.
+              </p>
+              <p>
+                Please make sure you are connected to the IOTA testnet.
+              </p>
+            </>
+          )}
           opacity={100}
           translateY={0}
           delay={0.25}
@@ -32,7 +41,16 @@ const IntroSlide11: React.FC = () => {
           image="/assets/intro/mobile.png"
           alt="Mobile"
           title="Mobile"
-          description="Install Nightly Wallet (iOS/Android) and connect when prompted"
+          description={(
+            <>
+              <p>
+                Install Nightly Wallet (iOS/Android) and connect when prompted.
+              </p>
+              <p>
+                Please make sure you are connected to the IOTA testnet.
+              </p>
+            </>
+          )}
           opacity={100}
           translateY={0}
           delay={0.35}

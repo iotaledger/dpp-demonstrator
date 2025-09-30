@@ -16,6 +16,7 @@ interface ProductDetailsCardProps {
   delay?: number;
   sectionState?: 'selected' | 'muted' | 'default';
   tutorialState?: 'selected' | 'muted' | 'open-muted' | 'no';
+  scrollIntoView?: boolean;
 }
 
 // TODO: Implement loading state
@@ -24,6 +25,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   delay = 0.4,
   sectionState = 'default',
   tutorialState = 'no',
+  scrollIntoView = false,
 }) => {
   const { productDetails } = useProductDetails(DPP_ID as string);
   const [innerDetailsExpanded, setInnerDetailsExpanded] = React.useState(false);
@@ -69,10 +71,12 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
 
   return (
     <CollapsibleSection
-      cardState={getSectionState()}
-      title="Product Details" opacity={opacity}
-      delay={delay}
       defaultExpanded={getSectionExpanded()}
+      cardState={getSectionState()}
+      scrollIntoView={scrollIntoView}
+      title="Product Details"
+      opacity={opacity}
+      delay={delay}
     >
       <PanelContent title={"Product Passport Details"} panelState={getPanelState()}>
         <DataGrid>

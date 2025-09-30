@@ -15,6 +15,7 @@ interface RoleDetailsCardProps {
   opacity?: number;
   delay?: number;
   tutorialState?: 'manufacturerSelected' | 'networkSelected' | 'muted' | 'open-muted' | 'no';
+  scrollIntoView?: boolean;
 }
 
 // TODO: Implement loading state
@@ -22,6 +23,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   opacity = 100,
   delay = 0.4,
   tutorialState = 'no',
+  scrollIntoView = false,
 }) => {
   const { accreditations } = useFederationTransactions();
   const currentAccount = useCurrentAccount();
@@ -74,6 +76,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
+      scrollIntoView={scrollIntoView}
       title="Role Details"
       opacity={opacity}
       delay={delay}

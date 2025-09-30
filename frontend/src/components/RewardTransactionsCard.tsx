@@ -14,6 +14,7 @@ interface RewardTransactionsCardProps {
   opacity?: number;
   delay?: number;
   tutorialState?: 'selected' | 'detailsSelected' | 'rewardSelected' | 'muted' | 'open-muted' | 'no';
+  scrollIntoView?: boolean;
 }
 
 // TODO: Implement loading state
@@ -21,6 +22,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
   opacity = 100,
   delay = 0.4,
   tutorialState = 'no',
+  scrollIntoView = false,
 }) => {
   const [viewMore, setViewMore] = React.useState(true);
   const { rewardTransactions } = useRewardTransactions();
@@ -97,6 +99,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
+      scrollIntoView={scrollIntoView}
       title="Rewards transactions"
       subtitle='List of all rewards transactions'
       opacity={opacity}

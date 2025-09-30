@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const CARD_DEFAULT_STYLE = 'border border-gray-200';
 const CARD_MUTED_STYLE = 'border border-gray-200 !opacity-40';
@@ -18,6 +18,7 @@ interface CollapsibleSectionProps {
   scale?: number;
   delay?: number;
   cardState?: 'default' | 'muted' | 'selected';
+  scrollIntoView?: boolean;
 }
 
 const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
@@ -30,9 +31,18 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   opacity = 100,
   scale = 100,
   delay = 0, // TODO: add in the transition implementation
-  cardState = 'default'
+  cardState = 'default',
+  scrollIntoView = false,
 }) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const sectionRef: React.Ref<HTMLElement | boolean> = useRef(scrollIntoView);
+
+  // If cardState is selected, focus the section
+  useEffect(() => {
+    if (cardState === 'selected' && typeof sectionRef.current !== 'boolean') {
+      sectionRef.current?.scrollIntoView(true);
+    }
+  }, [cardState]);
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
@@ -65,7 +75,12 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   }, [defaultExpanded]);
 
   return (
-    <section className="px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
+    <section ref={(ref) => {
+      if (sectionRef.current) {
+        ref?.scrollIntoView(true);
+      }
+      sectionRef.current = ref;
+    }} className="px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
       <div
         className={`bg-white rounded-lg shadow-xs transition-all duration-400 ease-out overflow-hidden p-3 sm:p-4 ${getCardStyle()}`}
         style={{

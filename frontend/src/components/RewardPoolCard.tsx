@@ -15,6 +15,7 @@ interface RewardPoolCardProps {
   opacity?: number;
   delay?: number;
   tutorialState?: 'selected' | 'muted' | 'open-muted' | 'no';
+  scrollIntoView?: boolean;
 }
 
 // TODO: Implement loading state
@@ -22,6 +23,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   opacity = 100,
   delay = 0.4,
   tutorialState = 'no',
+  scrollIntoView = false,
 }) => {
   const { rewardDetails, isSuccess } = useRewardVaultDetails(VAULT_ID as string);
 
@@ -64,6 +66,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
+      scrollIntoView={scrollIntoView}
       title="Reward Pool Status"
       opacity={opacity}
       delay={delay}

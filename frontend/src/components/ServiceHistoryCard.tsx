@@ -6,17 +6,17 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
 import { useServiceHistory } from '@/hooks/useServiceHistory';
-import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
+import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
 import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
 import { useCurrentAccount } from '@iota/dapp-kit';
-import { ServiceEntry } from '@/helpers/serviceHistory';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
   opacity?: number;
   delay?: number;
   tutorialState?: 'selected' | 'detailsSelected' | 'rewardSelected' | 'muted' | 'open-muted' | 'no';
+  scrollIntoView?: boolean;
 }
 
 // TODO: Implement loading state
@@ -24,6 +24,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
   opacity = 100,
   delay = 0.4,
   tutorialState = 'no',
+  scrollIntoView = false,
 }) => {
   const [viewMore, setViewMore] = React.useState(true);
   const { serviceHistory } = useServiceHistory();
@@ -112,6 +113,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
+      scrollIntoView={scrollIntoView}
       title="Service History"
       subtitle='Maintenance and Repairs'
       opacity={opacity}

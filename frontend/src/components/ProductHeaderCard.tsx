@@ -1,7 +1,7 @@
 'use client';
 
 import { useProductDetails } from '@/hooks/useProductDetails';
-import React from 'react';
+import React, { useCallback } from 'react';
 import CollapsibleSection from './CollapsibleSection';
 import { DPP_ID } from '@/utils/constants';
 
@@ -13,15 +13,15 @@ interface ProductHeaderCardProps {
 const ProductHeaderCard: React.FC<ProductHeaderCardProps> = ({
   tutorialState = 'no',
 }) => {
-  const { productDetails, isSuccess } = useProductDetails(DPP_ID);
+  const { productDetails } = useProductDetails(DPP_ID);
 
-  const getSectionState = () => {
+  const getSectionState = useCallback(() => {
     if (tutorialState === 'muted' || tutorialState === 'selected') {
       return tutorialState;
     }
 
     return 'default';
-  };
+  }, [tutorialState]);
 
   return (
     <CollapsibleSection

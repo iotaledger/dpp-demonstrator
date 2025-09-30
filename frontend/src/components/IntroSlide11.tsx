@@ -24,12 +24,9 @@ const IntroSlide11: React.FC = () => {
           title="Desktop"
           description={(
             <>
-              <p>
-                Install IOTA Browser Wallet and connect when prompted.
-              </p>
-              <p>
-                Please make sure you are connected to the IOTA testnet.
-              </p>
+              {"Install IOTA Browser Wallet and connect when prompted."}
+              <br />
+              {"Please make sure you are connected to the IOTA testnet."}
             </>
           )}
           opacity={100}
@@ -43,12 +40,9 @@ const IntroSlide11: React.FC = () => {
           title="Mobile"
           description={(
             <>
-              <p>
-                Install Nightly Wallet (iOS/Android) and connect when prompted.
-              </p>
-              <p>
-                Please make sure you are connected to the IOTA testnet.
-              </p>
+              {"Install Nightly Wallet (iOS/Android) and connect when prompted."}
+              <br />
+              {"Please make sure you are connected to the IOTA testnet."}
             </>
           )}
           opacity={100}

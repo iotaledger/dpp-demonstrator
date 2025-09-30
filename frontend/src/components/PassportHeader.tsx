@@ -86,7 +86,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
                     <div
                       className="absolute -top-2 right-4 w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-blue-600">
                     </div>
-                    <p className="text-sm font-medium whitespace-nowrap">Click "Connect" to continue</p>
+                    <p className="text-sm font-medium whitespace-nowrap">{'Click "Connect" to continue'}</p>
                   </div>
                 </div>
               )}

@@ -5,7 +5,6 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import BadgeWithLink from './BadgeWithLink';
-import { useFederationDetails } from '@/hooks/useFederationDetails';
 import { truncateAddress } from '@/utils/common';
 import { useCurrentAccount } from '@iota/dapp-kit';
 import PanelContent from './PanelContent';
@@ -24,7 +23,6 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   delay = 0.4,
   tutorialState = 'no',
 }) => {
-  const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID);
   const { accreditations } = useFederationTransactions();
   const currentAccount = useCurrentAccount();
 
@@ -97,24 +95,19 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             }
             showBorder={true}
           />
-          {/* First, renders root authorities as "Service Network" */}
-          {isSuccessFederationDetails && (
-            federationDetails!.rootAuthorities.map((eachHierarchy) => (
-              <ItemValueRow
-                key={eachHierarchy.id}
-                rowState={getRowState('network')}
-                label="Service Network"
-                value={
-                  <BadgeWithLink
-                    badgeText={"Hierarchy"}
-                    linkText={truncateAddress(federationDetails?.federationId)}
-                    linkHref={`https://explorer.iota.org/object/${federationDetails?.federationId}?network=testnet`}
-                  />
-                }
-                showBorder={true}
+          <ItemValueRow
+            key={FEDERATION_ID}
+            rowState={getRowState('network')}
+            label="Service Network"
+            value={
+              <BadgeWithLink
+                badgeText={"Hierarchy"}
+                linkText={truncateAddress(FEDERATION_ID)}
+                linkHref={`https://explorer.iota.org/object/${FEDERATION_ID}?network=testnet`}
               />
-            ))
-          )}
+            }
+            showBorder={true}
+          />
           {accreditations?.map((accreditation) => (
             <ItemValueRow
               key={accreditation.receiver}

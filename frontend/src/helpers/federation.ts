@@ -227,7 +227,7 @@ interface AccreditationTx {
   role: string;
 }
 
-export function extractAccreditationTransactions(data: IotaTransactionBlockResponse[]): AccreditationTx[] {
+export function extractAccreditationTransactions(data: IotaTransactionBlockResponse[], accountAddress: string | null): AccreditationTx[] {
   function deduplicate(entities: AccreditationTx[]): AccreditationTx[] {
     const visited = new Set();
     return entities.filter((each) => !visited.has(each.receiver) && visited.add(each.receiver));
@@ -275,6 +275,7 @@ export function extractAccreditationTransactions(data: IotaTransactionBlockRespo
   })
     .filter((acc) => acc.haveCallToAccreditationToAttest)
     .filter((acc) => acc.role === 'repairer')
+    .filter((acc) => acc.receiver === accountAddress)
   );
 }
 

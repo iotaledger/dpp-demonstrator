@@ -1,6 +1,6 @@
 'use client';
 
-import React, { RefObject, useRef } from 'react';
+import React, { useRef } from 'react';
 import { ConnectButton } from '@iota/dapp-kit';
 import { useWalletUpdateEffects } from '@/hooks/useWalletUpdateEffects';
 
@@ -8,15 +8,17 @@ interface PassportHeaderProps {
   opacity?: number;
   delay?: number;
   tutorialState?: 'selected' | 'muted' | 'no';
+  showPopover?: boolean;
 }
 
 const PassportHeader: React.FC<PassportHeaderProps> = ({
   opacity = 100,
   delay = 0,
   tutorialState = 'no',
+  showPopover = false,
 }) => {
   useWalletUpdateEffects();
-  const connectRef: RefObject<HTMLButtonElement | null> = useRef(null);
+  const connectRef: React.Ref<HTMLButtonElement> = useRef(null);
 
   const getConnectionDisabled = () => {
     const disabled = true;
@@ -26,6 +28,19 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
     }
     return enabled;
   };
+
+  const getShowPopover = () => {
+    if (tutorialState === 'selected' && showPopover) {
+      return true;
+    }
+    return false;
+  };
+
+  React.useEffect(() => {
+    if (tutorialState === 'selected') {
+      connectRef.current?.focus();
+    }
+  }, [tutorialState]);
 
   return (
     <section className="py-0">
@@ -62,24 +77,38 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
               *  because the other uses radix and a custom style and this uses tailwind.
               *  I believe it would be beneficial to decide on which one we should relly on as a whole.
               */}
-            <ConnectButton
-              ref={connectRef}
-              variant='primary'
-              size='md'
-              className='transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground h-10 px-4 py-2 p-6 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:text-primary'
-              style={{
-                "--dapp-kit-backgroundColors-primaryButton": 'var(--color-blue-700)',
-                '--dapp-kit-backgroundColors-primaryButtonHover': 'var(--color-blue-600)',
-                '--tw-ring-color': 'var(--color-blue-700)',
-                color: 'var(--color-primary-foreground)',
-              } as React.CSSProperties & {
-                '--dapp-kit-backgroundColors-primaryButton': string;
-                '--dapp-kit-backgroundColors-primaryButtonHover': string;
-                '--tw-ring-color': string;
-              }}
-              connectText={'Connect'}
-              disabled={getConnectionDisabled()}
-            />
+
+
+            <div className='relative'>
+              {getShowPopover() && (
+                <div className="absolute top-[calc(100%_+_2*4px)] right-[calc(50%_-_20px)] bottom-0 z-[60] pointer-events-none">
+                  <div className="bg-blue-600 text-white px-4 py-3 rounded-lg shadow-xl border border-blue-700 min-w-max max-w-sm relative">
+                    <div
+                      className="absolute -top-2 right-4 w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-blue-600">
+                    </div>
+                    <p className="text-sm font-medium whitespace-nowrap">Click "Connect" to continue</p>
+                  </div>
+                </div>
+              )}
+              <ConnectButton
+                ref={connectRef}
+                variant='primary'
+                size='md'
+                className='transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground h-10 px-4 py-2 p-6 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:text-primary'
+                style={{
+                  "--dapp-kit-backgroundColors-primaryButton": 'var(--color-blue-700)',
+                  '--dapp-kit-backgroundColors-primaryButtonHover': 'var(--color-blue-600)',
+                  '--tw-ring-color': 'var(--color-blue-700)',
+                  color: 'var(--color-primary-foreground)',
+                } as React.CSSProperties & {
+                  '--dapp-kit-backgroundColors-primaryButton': string;
+                  '--dapp-kit-backgroundColors-primaryButtonHover': string;
+                  '--tw-ring-color': string;
+                }}
+                connectText={'Connect'}
+                disabled={getConnectionDisabled()}
+              />
+            </div>
           </div>
         </div>
       </header>

@@ -89,7 +89,6 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
   const { notTestnet } = useCurrentNetwork();
 
   const isAllowedToShowOnLargeScreen = useMemo(() => {
-    console.log('isHierarchySent: ', isHierarchySent);
     if (!isWalletConnected || isHierarchySent || notTestnet) {
       return false;
     }

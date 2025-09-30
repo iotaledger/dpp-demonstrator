@@ -27,7 +27,7 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
 
   return (
     <>
-      <section className="px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
+      <section className="max-lg:hidden px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
         <div>
           <div
             className={clsx(['bg-white rounded-lg shadow-xs transition-all duration-400 ease-out overflow-hidden p-4 sm:p-6', 'bg-yellow-50 border border-yellow-200 text-yellow-800'])}

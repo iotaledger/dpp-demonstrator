@@ -77,7 +77,8 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
                 label="Reward contract"
-                value={truncateAddress(VAULT_ID as string)}
+                value={truncateAddress(VAULT_ID)}
+                linkHref={`https://explorer.iota.org/object/${VAULT_ID}?network=testnet`}
                 columnMaxWidth={250}
                 fontMono={true}
                 valueColor="text-blue-600"

@@ -9,8 +9,8 @@ import ProductCard from './ProductCard';
 
 const IntroSlide9: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 items-center self-center md:px-0 w-full mx-auto max-w-6xl py-6 sm:py-0">
-      <div className="mb-8 max-w-3xl pt-6 md:pt-0">
+    <div className="grid grid-cols-1 items-center self-center md:px-0 w-full mx-auto max-w-4xl py-6 sm:py-0">
+      <div className="mb-8 max-w-4xl pt-6 md:pt-0">
         <SlideTitle size="large" margin='mb-4'>Powered by IOTA</SlideTitle>
         <SlideDescription margin='mb-2' width='max-w-4xl'>
           {"This journey is powered by IOTA's open-source infrastructure and the IOTA Trust Framework."}
@@ -18,7 +18,7 @@ const IntroSlide9: React.FC = () => {
       </div>
 
       <TwoColumnSection
-        columns='grid-cols-1 lg:grid-cols-[1fr_1fr_1fr] gap-10 max-w-5xl  '
+        columns='grid-cols-1 lg:grid-cols-[1fr_1fr_1fr] gap-10 max-w-4xl  '
         gap="gap-10"
         leftColumn={
           <div>

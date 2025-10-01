@@ -30,7 +30,7 @@ const IntroSlide12: React.FC = () => {
         <SlideDescription>
           <span>{"Click to start the guided demo as a Service Technician!"}</span>
           <Link
-            className='lg:hidden inline italic text-blue-700'
+            className='not-pointer-coarse:hidden inline italic text-blue-700'
             href={"nightly://v1?network=iota&url=https://dpp-demostrator-prod.if4testing.rocks/explore-guided"}>
             {" "}
             {"If you are in a mobile device, try use the nightly wallet"}

@@ -14,8 +14,6 @@ const IntroSlide7: React.FC = () => {
     <>
       <ImageTextLayout maxWidth='max-w-5xl'>
         <SlideImage
-          width='w-full max-w-xl'
-          height='h-full'
           src="/assets/intro/pool-players.png"
           alt="Solving the Data-Sharing Problem"
         />

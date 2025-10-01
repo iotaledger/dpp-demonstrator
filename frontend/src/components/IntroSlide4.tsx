@@ -11,7 +11,7 @@ const IntroSlide4: React.FC = () => {
   return (
     <ImageTextLayout>
       <SlideImage
-        src="/assets/intro/map.png"
+        src="/assets/intro/map.webp"
         alt="Products Move, Data Doesn't"
       />
 

@@ -26,7 +26,9 @@ const ClientCard: React.FC<ClientCardProps> = ({
   const { isTriggered } = useTransitionTrigger(delay);
   return (
     <div
-      className={clsx(`h-full flex flex-col rounded-3xl overflow-hidden opacity-${opacity} translate-y-${translateY}`, isTriggered && 'opacity-100 translate-y-0')}
+      className={clsx(
+        `h-full flex flex-col rounded-3xl overflow-hidden opacity-${opacity} translate-y-${translateY}`,
+        isTriggered && 'opacity-100 translate-y-0')}
       style={{
         transition: 'transition: opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s'
       }}

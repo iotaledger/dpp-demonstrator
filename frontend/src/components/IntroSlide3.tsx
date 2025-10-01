@@ -10,7 +10,7 @@ import SlideDescription from './SlideDescription';
 const IntroSlide3: React.FC = () => {
   return (
     <ImageTextLayout>
-      <SlideImage src="/assets/intro/disclaimer.png" alt="Disclaimer" />
+      <SlideImage src="/assets/intro/disclaimer.webp" alt="Disclaimer" />
       <SlideContent textAlign="left" >
         <SlideTitle size="large">Disclaimer</SlideTitle>
         <SlideDescription>

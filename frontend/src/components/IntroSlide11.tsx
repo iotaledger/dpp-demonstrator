@@ -19,7 +19,7 @@ const IntroSlide11: React.FC = () => {
 
       <FeaturesGrid columns="sm:grid-cols-2" width="max-w-6xl" gap="gap-10">
         <ClientCard
-          image="/assets/intro/desktop.png"
+          image="/assets/intro/desktop.webp"
           alt="Desktop"
           title="Desktop"
           description={(
@@ -35,7 +35,7 @@ const IntroSlide11: React.FC = () => {
         />
 
         <ClientCard
-          image="/assets/intro/mobile.png"
+          image="/assets/intro/mobile.webp"
           alt="Mobile"
           title="Mobile"
           description={(

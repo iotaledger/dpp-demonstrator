@@ -124,16 +124,10 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
           <div className="grid grid-cols-2 sm:grid sm:grid-cols-4 gap-4 pb-8 sm:pb-0">
             <div className="col-span-1 opacity-0 translate-y-4 transition-all duration-700 ease-out opacity-100 translate-y-0 delay-1000">
               <div className="h-full bg-gradient-to-br from-blue-50/70 to-blue-100/70 backdrop-blur-sm rounded-3xl  border border-gray-200 hover:shadow-md transition-shadow cursor-pointer overflow-hidden relative select-none">
-                <a target="_blank" className="block h-full w-full p-6 md:p-8" href="https://www.iota.org/products/tooling"
-                  style={{
-                    "backgroundImage": "if(media(width > 72rem): url(/assets/recap/product_infra.webp);)",
-                    "backgroundSize": "cover",
-                    "backgroundRepeat": "no-repeat",
-                    "backgroundPosition": "center -260%",
-                  }}>
+                <a target="_blank" className="block h-full w-full p-6 md:p-8" href="https://www.iota.org/products/tooling">
                   <div className="h-full flex flex-col justify-start relative z-10">
                     <div className="text-left max-w-[80%]">
-                      <h4 className="text-xs md:text-sm  text-blue-700 mb-1 md:mb-2">IOTA public infrasturcture</h4>
+                      <h4 className="text-xs md:text-sm  text-blue-700 mb-1 md:mb-2">IOTA Public Infrastructure</h4>
                       <p className="text-sm md:text-base font-medium text-gray-800 leading-relaxed"></p>
                     </div>
                   </div>

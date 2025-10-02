@@ -64,7 +64,8 @@ services:
       GAS_STATION_AUTH: ${GAS_STATION_AUTH}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`dpp-demostrator-prod.if4testing.rocks`)"
+        #- "traefik.http.routers.frontend.rule=Host(`dpp-demostrator-prod.if4testing.rocks`)"
+      - "traefik.http.routers.frontend.rule=Host(`dpp.demo.iota.org`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=devops"
       - "traefik.http.services.frontend.loadbalancer.server.port=3000"

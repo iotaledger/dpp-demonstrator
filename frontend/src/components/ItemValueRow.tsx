@@ -5,15 +5,14 @@ import React from 'react';
 
 interface ItemValueRowProps {
   label: string;
+  labelWidth?: number;
   value: string | React.ReactNode;
   isLink?: boolean;
   linkHref?: string;
   linkTarget?: '_blank' | '_self';
   fontMono?: boolean;
   valueColor?: string;
-  showBorder?: boolean;
   opacity?: number;
-  delay?: number;
   rowState?: 'default' | 'selected' | 'muted';
   isValuePending?: boolean;
 }
@@ -28,15 +27,14 @@ const ROW_MUTED_STYLE = 'border-1 border-transparent blur-[2px] opacity-60';
 
 const ItemValueRow: React.FC<ItemValueRowProps> = ({
   label,
+  labelWidth = 250,
   value,
   isLink = false,
   linkHref = "#",
   linkTarget = "_blank",
   fontMono = false,
   valueColor = "text-gray-900",
-  showBorder = false,
   opacity = 100,
-  delay = 0,
   rowState = 'default',
   isValuePending = false,
 }) => {
@@ -95,7 +93,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
     <div className={clsx([
       'max-sm:flex max-sm:flex-col gap-1',
       'sm:grid sm:grid-flow-col',
-      `sm:grid-cols-[250px_auto]`,
+      `sm:grid-cols-[${labelWidth}px_auto]`,
       getRowStateStyle()
     ])}
       style={{

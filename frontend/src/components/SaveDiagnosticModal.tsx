@@ -162,109 +162,118 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
       onClose={handleClose}
       onEscape={handleEscape}
     >
-      {/* Match exact HTML structure from save-diagnostic.html */}
-      <div className="w-full max-w-xl mx-auto">
-        {/* Header with close button */}
-        <div className="flex items-center justify-between mb-8">
-          <h2 id="dialog-title" className="text-xl font-semibold text-gray-900">
-            Health Snapshot
-          </h2>
-          <button
-            onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
-            disabled={isPending}
-            aria-label="Close modal"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
+      <div className='overflow-hidden'>
+        {/* Match exact HTML structure from save-diagnostic.html */}
+        <div className="w-full max-w-xl mx-auto flex-wrap">
+          {/* Header with close button */}
+          <div className="flex items-center justify-between mb-8">
+            <h2 id="dialog-title" className="text-xl font-semibold text-gray-900">
+              Health Snapshot
+            </h2>
+            <button
+              onClick={handleClose}
+              className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+              disabled={isPending}
+              aria-label="Close modal"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
 
-        {/* Data display section matching HTML structure */}
-        <div className="space-y-2">
-          {/* DPP ID */}
-          <ItemValueRow
-            label="DPP ID"
-            value={truncateAddress(DPP_ID)}
-            isLink={true}
-            linkHref={`https://explorer.iota.org/object/${DPP_ID}?network=testnet`}
-            fontMono={true}
-            valueColor='text-blue-600'
-          />
+          {/* Data display section matching HTML structure */}
+          <div className="space-y-2">
+            {/* DPP ID */}
+            <ItemValueRow
+              label="DPP ID"
+              labelWidth={150}
+              value={truncateAddress(DPP_ID)}
+              isLink={true}
+              linkHref={`https://explorer.iota.org/object/${DPP_ID}?network=testnet`}
+              fontMono={true}
+              valueColor='text-blue-600'
+            />
 
-          {/* Manufacturer with badge and address */}
-          <ItemValueRow
-            label="Manufacturer"
-            isValuePending={isLoading}
-            value={
-              <div className="flex items-center gap-3">
-                <BadgeWithLink
-                  badgeText={MANUFACTURER_NAME}
-                  linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
-                  linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
-                  // TODO: Implement the accreditation validation
-                  showVerification={false}
-                />
-              </div>
-            }
-          />
+            {/* Manufacturer with badge and address */}
+            <ItemValueRow
+              label="Manufacturer"
+              labelWidth={150}
+              isValuePending={isLoading}
+              value={
+                <div className="flex items-center gap-3">
+                  <BadgeWithLink
+                    badgeText={MANUFACTURER_NAME}
+                    linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                    linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
+                    // TODO: Implement the accreditation validation
+                    showVerification={false}
+                  />
+                </div>
+              }
+            />
 
-          {/* Technician with badge and address */}
-          <ItemValueRow
-            label="Technician"
-            value={
-              <div className="flex items-center gap-3">
-                <BadgeWithLink
-                  badgeText={diagnosticInfo.technicianName}
-                  linkText={`${truncateAddress(account?.address)}`}
-                  linkHref={`https://explorer.iota.org/address/${account?.address}?network=testnet`}
-                  showVerification={false}
-                />
-              </div>
-            }
-          />
+            {/* Technician with badge and address */}
+            <ItemValueRow
+              label="Technician"
+              labelWidth={150}
+              value={
+                <div className="flex items-center gap-3">
+                  <BadgeWithLink
+                    badgeText={diagnosticInfo.technicianName}
+                    linkText={`${truncateAddress(account?.address)}`}
+                    linkHref={`https://explorer.iota.org/address/${account?.address}?network=testnet`}
+                    showVerification={false}
+                  />
+                </div>
+              }
+            />
 
-          {/* HR Separator */}
-          <hr className="my-1 border-[var(--border)]" />
+            {/* HR Separator */}
+            <hr className="my-1 border-[var(--border)]" />
 
-          {/* Event */}
-          <ItemValueRow
-            label="Event"
-            value={diagnosticInfo.eventName}
-          />
+            {/* Event */}
+            <ItemValueRow
+              label="Event"
+              labelWidth={150}
+              value={diagnosticInfo.eventName}
+            />
 
-          {/* Date */}
-          <ItemValueRow
-            label="Date"
-            value={diagnosticInfo.eventDate}
-          />
+            {/* Date */}
+            <ItemValueRow
+              label="Date"
+              labelWidth={150}
+              value={diagnosticInfo.eventDate}
+            />
 
-          {/* HR Separator */}
-          <hr className="my-1 border-[var(--border)]" />
+            {/* HR Separator */}
+            <hr className="my-1 border-[var(--border)]" />
 
-          {/* Health Score */}
-          <ItemValueRow
-            label="Health Score"
-            value={healthScore}
-          />
+            {/* Health Score */}
+            <ItemValueRow
+              label="Health Score"
+              labelWidth={150}
+              value={healthScore}
+            />
 
-          {/* Findings */}
-          <ItemValueRow
-            label="Findings"
-            value={findings}
-          />
-        </div>
+            {/* Findings */}
+            <ItemValueRow
+              label="Findings"
+              labelWidth={150}
+              value={findings}
+            />
+          </div>
 
-        {/* Save button matching HTML styling */}
-        <div className="mt-8">
-          <button
-            onClick={handleSave}
-            disabled={isPending || isLoading}
-            className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-full font-medium"
-          >
-            {getButtonText()}
-          </button>
+          {/* Save button matching HTML styling */}
+          <div className="mt-8">
+            <button
+              onClick={handleSave}
+              disabled={isPending || isLoading}
+              className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-full font-medium"
+            >
+              {getButtonText()}
+            </button>
+          </div>
         </div>
       </div>
     </Dialog>

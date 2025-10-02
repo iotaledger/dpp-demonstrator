@@ -30,7 +30,7 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
 }) => {
   return (
     <div
-      className={`text-blue-600 font-mono cursor-pointer flex items-center ${spacing}`}
+      className={`text-blue-600 font-mono cursor-pointer flex flex-wrap items-center ${spacing}`}
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`
@@ -50,7 +50,7 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
           verificationDid={verificationDid} />}
 
       {linkText && (
-        <span className="text-blue-600 font-mono cursor-pointer text-xs sm:text-sm value-content">
+        <span className="text-xs sm:text-sm font-mono text-blue-600 cursor-pointer value-content wrap-anywhere">
           <a target={linkTarget} href={linkHref} className="hover:text-blue-700 transition-colors">
             {linkText}
           </a>

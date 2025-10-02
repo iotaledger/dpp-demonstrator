@@ -82,7 +82,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 label="Reward contract"
                 value={truncateAddress(VAULT_ID)}
                 linkHref={`https://explorer.iota.org/object/${VAULT_ID}?network=testnet`}
-                columnMaxWidth={250}
                 fontMono={true}
                 valueColor="text-blue-600"
                 isLink={true}
@@ -93,7 +92,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('totalLifecycleFund')}
                 label="Total Lifecycle Fund"
                 value={"1,000,000,000 LCC"}
-                columnMaxWidth={250}
                 showBorder={true}
               />
               {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
@@ -101,7 +99,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('endOfLifeRewards')}
                 label="End-of-life Rewards"
                 value={"30 LCC"}
-                columnMaxWidth={250}
                 showBorder={true}
               />
               {/* TODO: Remove the fraction when it is zero */}
@@ -109,7 +106,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('maintenanceRewardsRemaining')}
                 label="Maintenance Rewards remaining"
                 value={isSuccess && rewardDetails && getVaultTotalValue(rewardDetails)}
-                columnMaxWidth={250}
                 showBorder={true}
               />
               {/* NOTE: Supply - Balance */}
@@ -118,7 +114,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('used')}
                 label="Used"
                 value={"<0.001%"}
-                columnMaxWidth={250}
                 showBorder={true}
               />
             </DataGrid>
@@ -132,7 +127,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('annualMaintenanceReward')}
                 label="Annual Maintenance Reward"
                 value={"1 LCC"}
-                columnMaxWidth={250}
                 showBorder={true}
               />
               {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
@@ -140,7 +134,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('recyclingReward')}
                 label="Recycling Reward"
                 value={"10 LCC"}
-                columnMaxWidth={250}
                 showBorder={true}
               />
               {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
@@ -148,7 +141,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('finalOwner')}
                 label="Final owner"
                 value={"10 LCC"}
-                columnMaxWidth={250}
                 showBorder={true}
               />
               {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
@@ -156,7 +148,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('manufacturerReturn')}
                 label="Manufacturer return"
                 value={"10 LCC"}
-                columnMaxWidth={250}
                 showBorder={true}
               />
             </DataGrid>

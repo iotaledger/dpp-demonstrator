@@ -122,7 +122,6 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
                 rowState={getRowState('serviceId')}
                 label="Service ID"
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.productAddr)}
-                columnMaxWidth={250}
                 fontMono={true}
                 showBorder={true}
               />}
@@ -130,7 +129,6 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
               rowState={getRowState('transactionId')}
               label="Transaction ID"
               value={truncateAddress(rewardEntry.digest)}
-              columnMaxWidth={250}
               fontMono={true}
               valueColor="text-blue-600"
               isLink={true}
@@ -141,7 +139,6 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
               rowState={getRowState('timestamp')}
               label="Timestamp"
               value={fromPosixMsToUtcDateFormat(rewardEntry.timestamp)}
-              columnMaxWidth={250}
               showBorder={true}
             />
             {!hasTxFailed(rewardEntry.status) &&
@@ -149,7 +146,6 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
                 rowState={getRowState('technician')}
                 label="Technician"
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.sender)}
-                columnMaxWidth={250}
                 fontMono={true}
                 valueColor="text-blue-600"
                 isLink={true}
@@ -160,7 +156,6 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
               rowState={getRowState('rewardDistributed')}
               label="Reward Distributed"
               value={`${formatTokenBalance(rewardEntry.rewardChanges.at(0)?.amount || '0')} LCC`}
-              columnMaxWidth={250}
               showBorder={true}
             />
           </DataGrid>

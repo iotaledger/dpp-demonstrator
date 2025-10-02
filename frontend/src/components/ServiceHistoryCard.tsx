@@ -139,7 +139,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   </a>
                 </div>
               }
-              columnMaxWidth={250}
               fontMono={true}
               showBorder={true}
             />
@@ -147,14 +146,12 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               rowState={getRowState('detailsSelected')}
               label="Entry Type"
               value={"Annual Maintenance"}
-              columnMaxWidth={250}
               showBorder={true}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Timestamp"
               value={fromPosixMsToUtcDateFormat(serviceEntry?.timestamp)}
-              columnMaxWidth={250}
               showBorder={true}
             />
 
@@ -165,7 +162,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                 rowState={getRowState('detailsSelected')}
                 label="Health Score"
                 value={serviceEntry.healthScore}
-                columnMaxWidth={250}
                 valueColor="text-gray-900 font-semibold"
                 showBorder={true}
               />
@@ -174,7 +170,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               rowState={getRowState('detailsSelected')}
               label="Findings"
               value={serviceEntry?.findings || serviceEntry?.serviceDescription}
-              columnMaxWidth={250}
               showBorder={true}
             />
             <ItemValueRow
@@ -192,7 +187,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   </a>
                 </div>
               }
-              columnMaxWidth={250}
               showBorder={true}
             />
 
@@ -213,7 +207,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   </a>
                 </div>
               }
-              columnMaxWidth={250}
               showBorder={true}
             />
 
@@ -223,7 +216,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               rowState={getRowState('rewardSelected')}
               label="Reward contract"
               value={truncateAddress(serviceEntry?.packageId)}
-              columnMaxWidth={250}
               fontMono={true}
               valueColor="text-blue-600"
               linkHref={`https://explorer.iota.org/object/${serviceEntry?.packageId}?network=testnet`}
@@ -236,7 +228,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               rowState={getRowState('rewardSelected')}
               label="Reward Distributed"
               value={"1 LCC"}
-              columnMaxWidth={250}
               showBorder={true}
             />
           </DataGrid>

@@ -9,7 +9,6 @@ interface ItemValueRowProps {
   isLink?: boolean;
   linkHref?: string;
   linkTarget?: '_blank' | '_self';
-  columnMaxWidth?: number;
   fontMono?: boolean;
   valueColor?: string;
   showBorder?: boolean;
@@ -33,7 +32,6 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
   isLink = false,
   linkHref = "#",
   linkTarget = "_blank",
-  columnMaxWidth = 150,
   fontMono = false,
   valueColor = "text-gray-900",
   showBorder = false,
@@ -94,7 +92,12 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
   };
 
   return (
-    <div className={`max-sm:flex max-sm:flex-col gap-1 sm:grid sm:grid-cols-[minmax(max-content,${columnMaxWidth}px)_auto] sm:grid-flow-col ${getRowStateStyle()}`}
+    <div className={clsx([
+      'max-sm:flex max-sm:flex-col gap-1',
+      'sm:grid sm:grid-flow-col',
+      `sm:grid-cols-[250px_auto]`,
+      getRowStateStyle()
+    ])}
       style={{
         opacity: opacity / 100,
         transition: 'filter 0.3s ease,opacity 0.3s ease',

@@ -122,11 +122,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         handleHierarchySentSuccess(requestId);
         onSuccess && onSuccess();
         console.log('🟢 Accredidation created with succes!');
-        handleNotificationSent!({
-          id: generateRequestId(),
-          type: 'success',
-          message: 'Role request approved! You can now access diagnostic tools.'
-        })
       } catch (error) {
         console.log('❌ Error while calling createAccreditation.');
         handleNotificationSent!({

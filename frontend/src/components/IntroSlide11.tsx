@@ -27,6 +27,7 @@ const IntroSlide11: React.FC = () => {
             <>
               <Link
                 className='inline italic text-blue-700'
+                target='_blank'
                 href={"https://chromewebstore.google.com/detail/iota-wallet/iidjkmdceolghepehaaddojmnjnkkija"}>
                 {"Install IOTA Browser Wallet"}
                 {" "}
@@ -52,6 +53,7 @@ const IntroSlide11: React.FC = () => {
               {"Install Nightly Wallet ("}
               <Link
                 className='inline italic text-blue-700'
+                target='_blank'
                 href={"https://apps.apple.com/es/app/nightly-multichain-wallet/id6444768157"}>
                 {"iOS"}
                 {" "}
@@ -60,6 +62,7 @@ const IntroSlide11: React.FC = () => {
               {" | "}
               <Link
                 className='inline italic text-blue-700'
+                target='_blank'
                 href={"https://play.google.com/store/apps/details?id=com.nightlymobile&pcampaignid=web_share"}>
                 {"Android"}
                 {" "}

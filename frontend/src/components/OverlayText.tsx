@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import React from 'react';
 
 interface OverlayTextProps {
@@ -29,17 +30,32 @@ const OverlayText: React.FC<OverlayTextProps> = ({
         }}
       >
         {welcomeText && (
-          <div className="text-sm md:text-base text-white/80 mb-0.5 tracking-wide font-light">
+          <div className={clsx([
+            "text-white/80 tracking-wide font-light",
+            "text-base pb-0.5",
+            "md:text-xl md:pb-1.5",
+            "lg:text-2xl lg:pb-2.5",
+          ])}>
             {welcomeText}
           </div>
         )}
         {title && (
-          <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold mb-2 leading-tight text-white">
+          <h1 className={clsx([
+            "font-semibold leading-tight text-white",
+            "text-2xl pb-2",
+            "md:text-3xl md:pb-3",
+            "lg:text-4xl lg:pb-4",
+          ])}>
             {title}
           </h1>
         )}
         {description && (
-          <p className="text-base md:text-lg text-white/90 mb-1 leading-relaxed max-w-3xl mx-auto">
+          <p className={clsx([
+            "text-white/90 leading-relaxed max-w-3xl mx-auto",
+            "text-base",
+            "md:text-xl",
+            "lg:text-2xl",
+          ])}>
             {description}
           </p>
         )}

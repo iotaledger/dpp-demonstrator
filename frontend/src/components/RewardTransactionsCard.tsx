@@ -123,7 +123,6 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
                 label="Service ID"
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.productAddr)}
                 fontMono={true}
-                showBorder={true}
               />}
             <ItemValueRow
               rowState={getRowState('transactionId')}
@@ -133,13 +132,11 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
               valueColor="text-blue-600"
               isLink={true}
               linkHref={`https://explorer.iota.org/txblock/${rewardEntry.digest}?network=testnet`}
-              showBorder={true}
             />
             <ItemValueRow
               rowState={getRowState('timestamp')}
               label="Timestamp"
               value={fromPosixMsToUtcDateFormat(rewardEntry.timestamp)}
-              showBorder={true}
             />
             {!hasTxFailed(rewardEntry.status) &&
               <ItemValueRow
@@ -150,13 +147,11 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
                 valueColor="text-blue-600"
                 isLink={true}
                 linkHref={`https://explorer.iota.org/address/${rewardEntry.productEntries.at(0)?.sender}?network=testnet`}
-                showBorder={true}
               />}
             <ItemValueRow
               rowState={getRowState('rewardDistributed')}
               label="Reward Distributed"
               value={`${formatTokenBalance(rewardEntry.rewardChanges.at(0)?.amount || '0')} LCC`}
-              showBorder={true}
             />
           </DataGrid>
         </PanelContent>

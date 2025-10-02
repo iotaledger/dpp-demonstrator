@@ -85,28 +85,24 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 fontMono={true}
                 valueColor="text-blue-600"
                 isLink={true}
-                showBorder={true}
               />
               {/* TODO: Get the supply information contained in the first transaction in the Vault object */}
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label="Total Lifecycle Fund"
                 value={"1,000,000,000 LCC"}
-                showBorder={true}
               />
               {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label="End-of-life Rewards"
                 value={"30 LCC"}
-                showBorder={true}
               />
               {/* TODO: Remove the fraction when it is zero */}
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
                 label="Maintenance Rewards remaining"
                 value={isSuccess && rewardDetails && getVaultTotalValue(rewardDetails)}
-                showBorder={true}
               />
               {/* NOTE: Supply - Balance */}
               {/* TODO: Get the balance information contained in `rewardDetails` */}
@@ -114,7 +110,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('used')}
                 label="Used"
                 value={"<0.001%"}
-                showBorder={true}
               />
             </DataGrid>
           </PanelContent>
@@ -127,28 +122,24 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('annualMaintenanceReward')}
                 label="Annual Maintenance Reward"
                 value={"1 LCC"}
-                showBorder={true}
               />
               {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
                 label="Recycling Reward"
                 value={"10 LCC"}
-                showBorder={true}
               />
               {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
                 label="Final owner"
                 value={"10 LCC"}
-                showBorder={true}
               />
               {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
                 label="Manufacturer return"
                 value={"10 LCC"}
-                showBorder={true}
               />
             </DataGrid>
           </PanelContent>

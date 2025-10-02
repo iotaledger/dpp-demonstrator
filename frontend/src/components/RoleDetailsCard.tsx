@@ -96,7 +96,6 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 showVerification={false}
               />
             }
-            showBorder={true}
           />
           <ItemValueRow
             key={FEDERATION_ID}
@@ -109,7 +108,6 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 linkHref={`https://explorer.iota.org/object/${FEDERATION_ID}?network=testnet`}
               />
             }
-            showBorder={true}
           />
           {accreditations?.map((accreditation) => (
             <ItemValueRow
@@ -123,7 +121,6 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                   linkHref={`https://explorer.iota.org/address/${accreditation.receiver}?network=testnet`}
                 />
               }
-              showBorder={true}
             />
           ))}
         </DataGrid>

@@ -93,14 +93,12 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
             linkHref={`https://explorer.iota.org/object/${DPP_ID as string}?network=testnet`}
             fontMono={true}
             valueColor="text-blue-600"
-            showBorder={true}
           />
           <ItemValueRow
             rowState={getRowState('serialNumber')}
             label="Serial Number"
             value={productDetails?.serialNumber}
             fontMono={true}
-            showBorder={true}
           />
           <ItemValueRow
             rowState={getRowState('dppCreationDate')}
@@ -108,7 +106,6 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
             // TODO: transform timestamp to a value template like: "2025-03-31 14:24:08"
             value={fromPosixMsToUtcDateFormat(productDetails?.timestamp)}
             fontMono={true}
-            showBorder={true}
           />
         </DataGrid>
       </PanelContent>
@@ -127,35 +124,30 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
                 value={productDetails?.billOfMaterial?.get("Model")}
                 isLink={false}
                 fontMono={true}
-                showBorder={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsManufacturingDate')}
                 label="Manufacturing Date"
                 value={productDetails?.billOfMaterial?.get("Manufacturing Date")}
                 fontMono={true}
-                showBorder={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsCapacity')}
                 label="Capacity"
                 value={productDetails?.billOfMaterial?.get("Capacity")}
                 fontMono={true}
-                showBorder={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsExpectedLifespan')}
                 label="Expected Lifespan"
                 value={productDetails?.billOfMaterial?.get("Expected Lifespan")}
                 fontMono={true}
-                showBorder={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsBatteryPack')}
                 label="Battery Pack"
                 value={productDetails?.billOfMaterial?.get("Battery Pack")}
                 fontMono={true}
-                showBorder={true}
               />
             </DataGrid>
           </CollapsibleInnerSection>
@@ -172,21 +164,18 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
                 label="Cells"
                 value={productDetails?.billOfMaterial?.get("Cells")}
                 fontMono={true}
-                showBorder={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsHousing')}
                 label="Housing"
                 value={productDetails?.billOfMaterial?.get("Housing")}
                 fontMono={true}
-                showBorder={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsVersion')}
                 label="Version"
                 value={productDetails?.billOfMaterial?.get("Version")}
                 fontMono={true}
-                showBorder={true}
               />
             </DataGrid>
           </CollapsibleInnerSection>

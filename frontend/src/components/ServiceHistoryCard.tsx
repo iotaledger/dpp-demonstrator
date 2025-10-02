@@ -140,19 +140,16 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                 </div>
               }
               fontMono={true}
-              showBorder={true}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Entry Type"
               value={"Annual Maintenance"}
-              showBorder={true}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Timestamp"
               value={fromPosixMsToUtcDateFormat(serviceEntry?.timestamp)}
-              showBorder={true}
             />
 
             <hr className="my-1 border-[var(--border)]" />
@@ -163,14 +160,12 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                 label="Health Score"
                 value={serviceEntry.healthScore}
                 valueColor="text-gray-900 font-semibold"
-                showBorder={true}
               />
             )}
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label="Findings"
               value={serviceEntry?.findings || serviceEntry?.serviceDescription}
-              showBorder={true}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
@@ -187,7 +182,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   </a>
                 </div>
               }
-              showBorder={true}
             />
 
             <hr className="my-1 border-[var(--border)]" />
@@ -207,7 +201,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   </a>
                 </div>
               }
-              showBorder={true}
             />
 
             <hr className="my-1 border-[var(--border)]" />
@@ -220,7 +213,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               valueColor="text-blue-600"
               linkHref={`https://explorer.iota.org/object/${serviceEntry?.packageId}?network=testnet`}
               isLink={true}
-              showBorder={true}
             />
             {/* NOTE: Hardcoded, Sum of all rewards given */}
             {/* TODO: Discover a way to get this information from the reward contract. Maybe analysing calls to  */}
@@ -228,7 +220,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               rowState={getRowState('rewardSelected')}
               label="Reward Distributed"
               value={"1 LCC"}
-              showBorder={true}
             />
           </DataGrid>
         </PanelContent>

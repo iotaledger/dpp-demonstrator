@@ -89,11 +89,19 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
     return clsx(['value-content', valueColor, isLink && VALUE_LINK_STYLE, fontMono && VALUE_MONO_STYLE, isValuePending && VALUE_MUTED_STYLE]);
   };
 
+  const getGridTemplate = () => {
+    if (labelWidth <= 150) {
+      return 'sm:grid-cols-[150px_auto]';
+    }
+    return 'sm:grid-cols-[250px_auto]';
+  }
+
   return (
     <div className={clsx([
       'max-sm:flex max-sm:flex-col gap-1',
       'sm:grid sm:grid-flow-col',
-      `sm:grid-cols-[${labelWidth}px_auto]`,
+      'sm:grid-cols-2',
+      getGridTemplate(),
       getRowStateStyle()
     ])}
       style={{

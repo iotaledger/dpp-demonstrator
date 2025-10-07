@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "DPP Demo",
     images: [
       {
-        url: "https://i.imgur.com/lLT83AG.png", 
+        url: "https://i.imgur.com/u4fnzhp.png", 
         height: 630,
         alt: "Digital Product Passport with IOTA Trust Framework",
       },

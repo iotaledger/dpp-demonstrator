@@ -21,8 +21,8 @@ echo "✅ Using FEDERATION_ID: $FEDERATION_ID"
 echo "✅ Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
 echo "✅ Using MANUFACTURER_DID: $MANUFACTURER_DID"
 
-SERIAL_NUMBER="EB-48V-2024-001337"
-PRODUCT_NAME="Pro 48V Battery"
+SERIAL_NUMBER="EB-43V-2024-001337"
+PRODUCT_NAME="Pro 43V Battery"
 MANUFACTURER="EcoBike"
 IMAGE_URL="https://i.imgur.com/AdTJC8Y.png"
 CLOCK=0x6
@@ -43,7 +43,7 @@ BILL_OF_MATERIALS_KEYS='[
 
 BILL_OF_MATERIALS_VALUES='[
   "EcoBike", 
-  "EcoBike Pro 48V Battery",
+  "EcoBike Pro 43V Battery",
   "March 15, 2022",
   "14Ah (672Wh)",
   "5 years with annual maintenance",

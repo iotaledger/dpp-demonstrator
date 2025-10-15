@@ -6,10 +6,10 @@ import TwoColumnSection from './TwoColumnSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
-import { getVaultTotalValue } from '@/helpers/rewardVault';
+import { getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
 import { truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { VAULT_ID } from '@/utils/constants';
+import { DPP_ID, VAULT_ID } from '@/utils/constants';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -102,7 +102,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
                 label="Maintenance Rewards remaining"
-                value={isSuccess && rewardDetails && getVaultTotalValue(rewardDetails)}
+                value={isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)}
               />
               {/* NOTE: Supply - Balance */}
               {/* TODO: Get the balance information contained in `rewardDetails` */}

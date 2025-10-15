@@ -2,7 +2,7 @@
 
 import { extractRewardTransactionData } from "@/helpers/rewardVaultTransactions";
 import { useNotarizationSent } from "@/providers/appProvider";
-import { REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";
+import { DPP_ID, REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 
 // TODO: Document
@@ -24,7 +24,7 @@ export function useRewardTransactions() {
   });
 
   return {
-    rewardTransactions: data && extractRewardTransactionData(data.data),
+    rewardTransactions: data && extractRewardTransactionData(data.data, DPP_ID),
     isSuccess,
     isLoading,
     isError,

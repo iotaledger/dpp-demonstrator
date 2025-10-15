@@ -166,7 +166,7 @@ interface RewardVaultTransactionData {
  * console.log(`Loaded ${txData.transactionCount} reward transactions`);
  * ```
  */
-function extractRewardTransactionData(jsonData: any[]): RewardVaultTransactionData {
+function extractRewardTransactionData(jsonData: any[], productIdToFilter: string): RewardVaultTransactionData {
   const transactions: RewardTransaction[] = [];
   const transactionsByDigest = new Map<string, RewardTransaction>();
   const transactionsByRecipient = new Map<string, RewardTransaction[]>();
@@ -179,7 +179,7 @@ function extractRewardTransactionData(jsonData: any[]): RewardVaultTransactionDa
   // Process each transaction
   const txArray = jsonData || [];
 
-  txArray.forEach((txData: any) => {
+  for (const txData of txArray) {
     const digest = txData.digest;
     const status = txData.effects?.status?.status || "unknown";
     const executedEpoch = txData.effects?.executedEpoch || "0";
@@ -194,6 +194,7 @@ function extractRewardTransactionData(jsonData: any[]): RewardVaultTransactionDa
     const productEntries: ProductEntryEvent[] = [];
     const events = txData.events || [];
 
+    const productsSeen = new Set();
     events.forEach((event: any) => {
       if (event.type?.includes("::app::ProductEntryLogged")) {
         const productEntry: ProductEntryEvent = {
@@ -207,9 +208,15 @@ function extractRewardTransactionData(jsonData: any[]): RewardVaultTransactionDa
           timestamp,
           checkpoint
         };
+        productsSeen.add(productEntry.productAddr);
         productEntries.push(productEntry);
       }
     });
+
+    // Filters out transactions not related to product ID
+    if (!productsSeen.has(productIdToFilter)) {
+      continue;
+    }
 
     // Extract LCC reward balance changes
     const rewardChanges: RewardBalanceChange[] = [];
@@ -276,7 +283,7 @@ function extractRewardTransactionData(jsonData: any[]): RewardVaultTransactionDa
       }
       transactionsByRole.get(role)!.push(transaction);
     });
-  });
+  }
 
   // Sort transactions by timestamp (newest first)
   transactions.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));

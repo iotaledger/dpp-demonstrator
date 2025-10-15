@@ -111,7 +111,7 @@ interface RewardVaultData {
  * console.log(`Loaded vault: ${vaultData.vaultId}`);
  * ```
  */
-function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
+function extractRewardVaultData(jsonData: IotaObjectResponse, productIdToFilter: string): RewardVaultData {
   const data = jsonData.data as IotaObjectData;
   // @ts-expect-error - TODO: Better understand the Iota types and make use of it
   const vault = data.content?.fields;
@@ -409,8 +409,12 @@ function isVaultEmpty(data: RewardVaultData): boolean {
  * console.log(`Total Value Locked: ${tvl} LCC`);
  * ```
  */
-function getVaultTotalValue(data: RewardVaultData): string {
-  return formatLCCBalance(data.totalBalance.toString()) + ` ${data.lccTypeName}`;
+function getVaultTotalValuePerAddress(data: RewardVaultData, address: string): string {
+  let amount = "0";
+  if (data.balancesByAddress.has(address)) {
+    amount = formatLCCBalance(data.balancesByAddress.get(address)!.balance);
+  }
+  return amount + ` ${data.lccTypeName}`;
 }
 
 /**
@@ -505,7 +509,7 @@ export {
   formatLCCBalance,
   getAddressesAboveThreshold,
   isVaultEmpty,
-  getVaultTotalValue,
+  getVaultTotalValuePerAddress,
   extractCoinDefinition,
   parseCoinDefinition,
   getLCCPackageId

@@ -1,7 +1,15 @@
 'use client';
 
 import { useCurrentNetwork, useWalletConnected } from '@/providers/appProvider';
-import { clsx } from 'clsx';
+
+const noticeInfo = {
+  title: "Wrong network detected. ",
+  subtitle: "Please switch your wallet to the IOTA Testnet.",
+  imageUrl: "/assets/testnet-network.png",
+  imageAlt: "Wrong network detected.",
+  buttonTextStartDiagnostic: "Switch Network",
+  buttonTextRunningDiagnostic: "Switching Network...",
+};
 
 interface NotTestnetWarningCardProps {
   title?: string;
@@ -19,7 +27,7 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
   delay = 0.4,
 }) => {
   const { isWalletConnected } = useWalletConnected();
-  const { isTestnet, currentNetwork } = useCurrentNetwork();
+  const { isTestnet } = useCurrentNetwork();
 
   if (!isWalletConnected || isTestnet) {
     return null;
@@ -30,22 +38,36 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
       <section className="max-lg:hidden px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
         <div>
           <div
-            className={clsx(['bg-white rounded-lg shadow-xs transition-all duration-400 ease-out overflow-hidden p-4 sm:p-6', 'bg-yellow-50 border border-yellow-200 text-yellow-800'])}
+            className={`rounded-lg shadow-xs transition-all duration-400 ease-out overflow-hidden p-3 sm:p-4 border border-gray-200 bg-gray-100`}
+            data-section="diagnostic-tool"
             style={{
               opacity: opacity / 100,
               transition: `opacity ${delay}s ease-out`
             }}
           >
             <div className="transition-all duration-500 ease-out opacity-100 scale-100">
-              {/* Header Area */}
-              <div className="flex flex-col space-y-1.5 px-0.5">
-                <h3 className="font-semibold leading-none tracking-tight">{"Not connected to testnet"}</h3>
-              </div>
+              <div className="p-0">
+                {/* Two-column layout matching HTML structure exactly */}
+                <div className="flex flex-col sm:flex-row sm:gap-8">
+                  {/* Image Section (Left Column) */}
+                  <div className="flex justify-center sm:max-w-xs sm:justify-start">
+                    <div className="w-full max-h-[220px] bg-blue-50 relative overflow-hidden rounded-lg">
+                      <img
+                        className="w-full h-full object-cover"
+                        alt={noticeInfo.imageAlt}
+                        src={noticeInfo.imageUrl}
+                      />
+                    </div>
+                  </div>
 
-              {/* Content Area */}
-              <div className="p-0 px-0.5">
-                <div className="space-y-4 pt-2">
-                  <p className="text-gray-600">{`The app is aimed to operate in a testnet environment. Please, configure your wallet to use the testnet network. You are connected to ${currentNetwork}.`}</p>
+                  {/* Content Section (Right Column) */}
+                  <div className="flex-1 flex flex-col justify-start py-6">
+                    {/* Text Content */}
+                    <div className="space-y-0.5">
+                      <div className="text-sm text-gray-500 font-medium">{noticeInfo.title}</div>
+                      <div className="text-lg text-gray-900 font-medium">{noticeInfo.subtitle}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

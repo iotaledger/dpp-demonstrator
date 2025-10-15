@@ -42,6 +42,8 @@ Product Lifecycle → Service Performed → Provider Documents → History Recor
  * Represents a single service entry in a product's lifecycle history
  */
 interface ServiceEntry {
+  /** The unique product object ID which entry relates to */
+  productId: string;
   /** The unique blockchain object ID of this service entry */
   entryId: string;
   /** The version number of this service entry */
@@ -142,112 +144,7 @@ interface ServiceHistoryData {
  * console.log(`Loaded ${historyData.entries.length} service entries`);
  * ```
  */
-function extractServiceHistoryData(jsonData: PaginatedObjectsResponse): ServiceHistoryData {
-  const result = jsonData;
-  // TODO: Better understand the Iota types and make use of it
-  const dataArray = result.data || [];
-
-  // Extract pagination info
-  const hasNextPage = result.hasNextPage || false;
-  const nextCursor = result.nextCursor;
-
-  // Extract service entries
-  const entries: ServiceEntry[] = [];
-  const entriesById = new Map<string, ServiceEntry>();
-  const entriesByIssuer = new Map<string, ServiceEntry[]>();
-  const entriesByServiceType = new Map<string, ServiceEntry[]>();
-  const serviceTypesSet = new Set<string>();
-  let packageId = "";
-
-  dataArray.forEach((item: any) => {
-    const data = item.data;
-    const content = data.content;
-    const fields = content.fields;
-
-    // Extract package ID from first entry
-    if (!packageId) {
-      const typeMatch = content.type.match(/^(0x[a-f0-9]{64})::/i);
-      packageId = typeMatch ? typeMatch[1] : "";
-    }
-
-    // Extract entry data (key-value pairs)
-    const entryDataContents = fields.entry_data.fields.contents || [];
-
-    let serviceType = "";
-    let serviceDescription = "";
-    if (entryDataContents.length > 0) {
-      const firstEntry = entryDataContents[0].fields;
-      serviceType = firstEntry.key;
-      serviceDescription = firstEntry.value;
-    }
-
-    let healthScore = null;
-    let findings = null;
-    if (entryDataContents.length > 0) {
-      const healthScoreContent = entryDataContents?.find((each: any) => each.fields?.key === "HealthScore");
-      if (healthScoreContent) {
-        healthScore = healthScoreContent.fields.value;
-      }
-      const findingsContent = entryDataContents?.find((each: any) => each.fields?.key === "Findings");
-      if (findingsContent) {
-        findings = findingsContent.fields.value;
-      }
-    }
-
-    // Extract issuer role
-    const issuerRole = fields.issuer_role.variant || "Unknown";
-
-    const serviceEntry: ServiceEntry = {
-      entryId: data.objectId,
-      version: data.version,
-      digest: data.digest,
-      txBlock: data.previousTransaction,
-      serviceType,
-      serviceDescription,
-      healthScore,
-      findings,
-      issuerAddress: fields.issuer_addr,
-      issuerRole,
-      timestamp: fields.timestamp,
-      packageId
-    };
-
-    entries.push(serviceEntry);
-    entriesById.set(serviceEntry.entryId, serviceEntry);
-    serviceTypesSet.add(serviceType);
-
-    // Group by issuer
-    if (!entriesByIssuer.has(serviceEntry.issuerAddress)) {
-      entriesByIssuer.set(serviceEntry.issuerAddress, []);
-    }
-    entriesByIssuer.get(serviceEntry.issuerAddress)!.push(serviceEntry);
-
-    // Group by service type
-    if (!entriesByServiceType.has(serviceType)) {
-      entriesByServiceType.set(serviceType, []);
-    }
-    entriesByServiceType.get(serviceType)!.push(serviceEntry);
-  });
-
-  // Sort entries chrnologically (newest first)
-  const chronologicalEntries = [...entries].sort((a, b) => {
-    return parseInt(b.timestamp) - parseInt(a.timestamp);
-  }).slice(0, RESPONSE_LIMIT_DEFAULT);
-
-  return {
-    entries,
-    entriesById,
-    entriesByIssuer,
-    entriesByServiceType,
-    chronologicalEntries,
-    serviceTypes: Array.from(serviceTypesSet),
-    packageId,
-    hasNextPage,
-    nextCursor
-  };
-}
-
-export function extractServiceTransactionData(jsonData: IotaTransactionBlockResponse[]): ServiceEntry[] {
+function extractServiceTransactionData(jsonData: IotaTransactionBlockResponse[], productIdToFilter: string): ServiceEntry[] {
   const transactionEntries = jsonData.map((tx) => {
     // @ts-expect-error -- Inference do not catch all possible types
     const _transactionsCall = tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
@@ -276,6 +173,8 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
 
     // @ts-expect-error -- Inference do not catch all possible types
     const entryId = _productEntryLoggedEvent.parsedJson?.entry_addr;
+    // @ts-expect-error -- Inference do not catch all possible types
+    const productId = _productEntryLoggedEvent.parsedJson?.product_addr;
 
     const _objectCreated = tx.effects?.created?.find((item) => item.reference.objectId === entryId) as unknown as OwnedObjectRef;
     const version = _objectCreated.reference.version;
@@ -295,6 +194,7 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
     const packageId = _productEntryLoggedEvent.packageId;
 
     return {
+      productId,
       entryId,
       version,
       digest,
@@ -314,7 +214,10 @@ export function extractServiceTransactionData(jsonData: IotaTransactionBlockResp
 
   // filter out transactions not calling `log_entry_data` and with no `success` effects
   // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<> 
-  return transactionEntries.filter((entry) => entry.isCallingLogEntry && entry.status === 'success');
+  return transactionEntries.filter((entry) => (
+    // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<> 
+    entry.isCallingLogEntry && entry.status === 'success' && entry.productId === productIdToFilter
+  ));
 }
 
 /**
@@ -595,7 +498,7 @@ function getServiceHistoryPackageId(data: ServiceHistoryData): string {
 export {
   type ServiceEntry,
   type ServiceHistoryData,
-  extractServiceHistoryData,
+  extractServiceTransactionData,
   getEntriesByIssuer,
   getEntriesByServiceType,
   getChronologicalHistory,

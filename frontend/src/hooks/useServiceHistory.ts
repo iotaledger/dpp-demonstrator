@@ -2,7 +2,7 @@
 
 import { extractServiceTransactionData } from "@/helpers/serviceHistory";
 import { useNotarizationSent } from "@/providers/appProvider";
-import { REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";
+import { DPP_ID, REQUEST_SIZE_LIMIT, VAULT_ID } from "@/utils/constants";
 import { useIotaClientQuery } from "@iota/dapp-kit";
 
 // TODO: document the purpose of this hook
@@ -25,7 +25,7 @@ export function useServiceHistory() {
   });
 
   return {
-    serviceHistory: data && extractServiceTransactionData(data.data),
+    serviceHistory: data && extractServiceTransactionData(data.data, DPP_ID),
     isSuccess,
     isLoading,
     isError,

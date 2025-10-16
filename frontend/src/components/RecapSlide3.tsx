@@ -59,6 +59,12 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
   // Services & dApps (2 services + 1 explore)
   const servicesProducts = [
     {
+      title: "IOTA Public Infrastructure",
+      description: "",
+      icon: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2248%22%20height%3D%2249%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%233131FF%22%20strokeWidth%3D%222%22%20strokeLinecap%3D%22round%22%20strokeLinejoin%3D%22round%22%3E%3Cpath%20d%3D%22M15%203h6v6%22%20%2F%3E%3Cpath%20d%3D%22M10%2014%2021%203%22%20%2F%3E%3Cpath%20d%3D%22M18%2013v6a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2V8a2%202%200%200%201%202-2h6%22%20%2F%3E%3C%2Fsvg%3E",
+      link: "https://www.iota.org/products/tooling",
+    },
+    {
       title: "IOTA Wallets",
       description: "Securely connect to apps",
       icon: "data:image/svg+xml,%3csvg%20width='48'%20height='49'%20viewBox='0%200%2048%2049'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M34%2024.7667C35.6569%2024.7667%2037%2026.1098%2037%2027.7667C36.9998%2029.4234%2035.6567%2030.7667%2034%2030.7667C32.3433%2030.7667%2031.0002%2029.4234%2031%2027.7667C31%2026.1098%2032.3431%2024.7667%2034%2024.7667Z'%20fill='%233131FF'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M33.0225%208.80478C34.8461%208.51071%2035.9998%209.76608%2036%2011.7657V14.7667L36.3086%2014.7745C39.4789%2014.9351%2042%2017.5565%2042%2020.7667V34.7667C41.9998%2037.9767%2039.4788%2040.5983%2036.3086%2040.7589L36%2040.7667H12C8.78993%2040.7667%206.16863%2038.2454%206.00781%2035.0753L6%2034.7667V20.7667C6%2020.4302%206.02877%2020.0999%206.08203%2019.7784L6%2019.8761C6.00003%2016.9312%208.13759%2014.4212%2011.0449%2013.9522L33.0225%208.80478ZM12%2016.7667C9.79086%2016.7667%208%2018.5576%208%2020.7667V34.7667C8.00022%2036.9756%209.791%2038.7667%2012%2038.7667H36C38.209%2038.7667%2039.9998%2036.9756%2040%2034.7667V20.7667C40%2018.5576%2038.2091%2016.7667%2036%2016.7667H12Z'%20fill='%233131FF'/%3e%3c/svg%3e",
@@ -122,18 +128,6 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
         {/** Longa */}
         <div className="w-full">
           <div className="grid grid-cols-2 sm:grid sm:grid-cols-4 gap-4 pb-8 sm:pb-0">
-            <div className="col-span-1 opacity-0 translate-y-4 transition-all duration-700 ease-out opacity-100 translate-y-0 delay-1000">
-              <div className="h-full bg-gradient-to-br from-blue-50/70 to-blue-100/70 backdrop-blur-sm rounded-3xl  border border-gray-200 hover:shadow-md transition-shadow cursor-pointer overflow-hidden relative select-none">
-                <a target="_blank" className="block h-full w-full p-6 md:p-8" href="https://www.iota.org/products/tooling">
-                  <div className="h-full flex flex-col justify-start relative z-10">
-                    <div className="text-left max-w-[80%]">
-                      <h4 className="text-xs md:text-sm  text-blue-700 mb-1 md:mb-2">IOTA Public Infrastructure</h4>
-                      <p className="text-sm md:text-base font-medium text-gray-800 leading-relaxed"></p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
             {servicesProducts.map(({ title, description, icon, link }) => (
               <CardIcon key={title} title={title} description={description} icon={icon} link={link} variation='gradient' />
             ))}

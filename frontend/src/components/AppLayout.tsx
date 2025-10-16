@@ -12,6 +12,7 @@ import '@iota/dapp-kit/dist/index.css'
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
+  const [inNightlyWallet, setInNightlyWallet] = React.useState(false);
 
   const { networkConfig } = createNetworkConfig({
     // getFullnodeUrl do not support network auto-completion
@@ -25,11 +26,18 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     mainnet: { url: getFullnodeUrl(Network.Mainnet) }
   });
 
+  // This effect only works because this module is running on client side.
+  // Be aware there is no `window` on server side.
+  React.useEffect(() => {
+    const nightlyIota = window.nightly?.iota
+    setInNightlyWallet(nightlyIota != null);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient} >
       <IotaClientProvider networks={networkConfig} defaultNetwork={Network.Testnet}>
         <WalletProvider autoConnect={true}>
-          <AppProvider>
+          <AppProvider inNightlyWallet={inNightlyWallet}>
             <Layout>
               {children}
             </Layout>

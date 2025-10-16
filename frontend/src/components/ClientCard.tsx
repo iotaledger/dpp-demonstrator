@@ -38,8 +38,8 @@ const ClientCard: React.FC<ClientCardProps> = ({
       </div>
 
       <div className="p-3 md:p-4">
-        <h4 className="text-sm md:text-lg text-gray-900 font-semibold mb-1">{title}</h4>
-        <p className="text-xs md:text-sm text-gray-600">{description}</p>
+        <h4 className="text-base md:text-lg text-gray-900 font-semibold mb-1">{title}</h4>
+        <p className="text-base md:text-xl text-gray-600">{description}</p>
       </div>
     </div>
   );

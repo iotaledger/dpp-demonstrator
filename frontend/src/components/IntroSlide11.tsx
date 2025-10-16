@@ -86,7 +86,7 @@ const IntroSlide11: React.FC = () => {
           translateY={0}
         >
           <div className="text-black/80">
-            <h4 className="text-sm md:text-sm">Both wallets enable secure interaction with this demo without requiring any token balance.</h4>
+            <h4 className="text-base md:text-xl">Both wallets enable secure interaction with this demo without requiring any token balance.</h4>
           </div>
         </NoticeCard>
       </FeaturesGrid>

@@ -14,6 +14,7 @@ import TutorialCard from '@/components/TutorialCard';
 import CardHeader from '@/components/CardHeader';
 import TutorialScrollContainer from '@/components/TutorialScrollContainer';
 import IntroSlideContainer from '@/components/IntroSlideContainer';
+import { useDisconnectWallet } from '@iota/dapp-kit';
 
 export default function PostExperiencePage() {
   const { slide: slideParam } = useParams();
@@ -26,6 +27,7 @@ export default function PostExperiencePage() {
     goNext,
     goPrevious,
   } = useSlideNavigation(getSlide(slideParam), RECAP_SLIDES_MAP.size, getPathCallback);
+  const { mutateAsync } = useDisconnectWallet();
 
   function getSlide(slideParam: string | string[] | undefined) {
     if (slideParam != null && !Array.isArray(slideParam) && Number.isInteger(Number.parseInt(slideParam as string))) {
@@ -36,6 +38,10 @@ export default function PostExperiencePage() {
 
   function getPathCallback(targetSlide: number) {
     return `/recap/${targetSlide}`;
+  }
+
+  async function handleBackAction() {
+    await mutateAsync();
   }
 
   // Handle keyboard navigation
@@ -72,6 +78,7 @@ export default function PostExperiencePage() {
                 linkUrl='/introduction/1'
                 backText='← Back to DPP'
                 backUrl='/explore-freely'
+                onBack={handleBackAction}
                 canGoBack={true} />
               <TutorialScrollContainer isRecap={true}>
                 <IntroSlideContainer>

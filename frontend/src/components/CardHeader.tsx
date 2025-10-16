@@ -10,6 +10,10 @@ interface CardHeaderProps {
   linkUrl?: string;
   backText?: string;
   backUrl?: string;
+  /**
+   * Execute a side effect when `onBack` is triggered. This is a good opportunity to clean state.
+   */
+  onBack?: React.MouseEventHandler;
   canGoBack?: boolean;
   variation?: 'outline' | 'primary';
 }
@@ -26,6 +30,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   backUrl = '/introduction/1',
   canGoBack = false,
   variation = 'outline',
+  onBack,
 }) => {
 
   const getButtonStyle = () => {
@@ -44,6 +49,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
         {canGoBack && (
           <Link
             href={backUrl}
+            onClick={onBack}
             prefetch={true}
             className={`inline-flex shrink-0 items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ${BUTTON_OUTLINE_STYLE}`}
           >

@@ -28,6 +28,7 @@ interface AppContextValue {
   handleNotarizationSentSuccess: (requestId: string) => void,
   handleNotificationSent: (notification: Notification) => void;
   handleNotificationRemoved: (id: string) => void;
+  inNightlyWallet: boolean;
 }
 
 const actionTypes = {
@@ -199,7 +200,12 @@ function reducer(state: AppState, action: AppReducerAction): AppState {
 // TODO: Find a better alternative to `null` because the initiaal context state is never null
 const AppContext: React.Context<AppContextValue | null> = React.createContext<AppContextValue | null>(null);
 
-export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
+interface AppProviderProps {
+  children: React.ReactNode;
+  inNightlyWallet?: boolean;
+}
+
+export const AppProvider: React.FC<AppProviderProps> = ({ children, inNightlyWallet = false }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const handleWalletConnected = () => {
@@ -246,6 +252,7 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
       handleNotarizationSentSuccess,
       handleNotificationSent,
       handleNotificationRemoved,
+      inNightlyWallet,
     }}>
       {children}
     </AppContext>
@@ -351,5 +358,21 @@ export const useCurrentNetwork = () => {
     notTestnet: isWalletConnected && currentAccountNetwork !== 'iota:testnet',
     isTestnet: isWalletConnected && currentAccountNetwork === 'iota:testnet',
     currentNetwork: currentAccountNetwork,
+  };
+}
+
+export const useNightlyWallet = () => {
+  const value: AppContextValue | null = React.useContext(AppContext);
+
+  if (value == null) {
+    return {
+      inNightlyWallet: false,
+    };
+  }
+
+  const { inNightlyWallet } = value;
+
+  return {
+    inNightlyWallet,
   };
 }

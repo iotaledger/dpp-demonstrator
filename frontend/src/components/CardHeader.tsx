@@ -1,5 +1,7 @@
 'use client';
 
+import { useNightlyWallet } from '@/providers/appProvider';
+import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';
 
@@ -27,6 +29,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   canGoBack = false,
   variation = 'outline',
 }) => {
+  const { inNightlyWallet } = useNightlyWallet();
 
   const getButtonStyle = () => {
     if (variation === 'primary') {
@@ -36,7 +39,10 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   };
 
   return (
-    <div className="flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500">
+    <div className={clsx([
+      "flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500",
+      inNightlyWallet && 'hidden'
+    ])}>
       <div className="flex items-center justify-between gap-2 w-full leading-1">
         {!canGoBack && (
           <h4>{title}</h4>

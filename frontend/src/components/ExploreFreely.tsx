@@ -16,14 +16,22 @@ import EndOfPassportMessage from './EndOfPassportMessage';
 import { Notifications } from './Notifications';
 import RewardTransactionsCard from './RewardTransactionsCard';
 import NotTestnetWarningCard from './NotTestnetWarningCard';
+import { useDisconnectWallet } from '@iota/dapp-kit';
 
 const ExploreFreely: React.FC = () => {
+  const { mutateAsync } = useDisconnectWallet();
+
+  async function handleBackAction() {
+    await mutateAsync();
+  }
+
   return (
     <TutorialCard>
       <CardHeader
         canGoBack={true}
         backText='↺ Reset to Intro'
         backUrl='/introduction/1'
+        onBack={handleBackAction}
         linkText='Switch to Guided Tour'
         linkUrl='/explore-guided'
       />

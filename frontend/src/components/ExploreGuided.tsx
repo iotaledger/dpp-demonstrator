@@ -17,7 +17,7 @@ import DiagnosticCard from './DiagnosticCard';
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { Notifications } from './Notifications';
 import RewardTransactionsCard from './RewardTransactionsCard';
-import { useCurrentWallet } from '@iota/dapp-kit';
+import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
 import { useCurrentNetwork, useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 import NotTestnetWarningCard from './NotTestnetWarningCard';
 
@@ -144,6 +144,7 @@ const ExploreGuided: React.FC = () => {
   const { isHierarchySent } = useHierarchySent();
   const { isNotarizationSent } = useNotarizationSent()
   const { notTestnet, isTestnet } = useCurrentNetwork();
+  const { mutateAsync } = useDisconnectWallet();
 
   React.useEffect(() => {
     if (!isGoingPrevious && currentStep === 9 && isConnected) {
@@ -158,12 +159,17 @@ const ExploreGuided: React.FC = () => {
     }
   }, [currentStep, isConnected, isHierarchySent, isNotarizationSent]);
 
+  async function handleBackAction() {
+    await mutateAsync();
+  }
+
   const mainContent = (
     <TutorialCard>
       <CardHeader
         canGoBack={true}
         backText='↺ Reset to Intro'
         backUrl='/introduction/1'
+        onBack={handleBackAction}
         linkText='Switch to free exploration'
         linkUrl='/explore-freely'
         variation='primary'

@@ -293,7 +293,7 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({
             </h2>
             <div className={clsx([
               "text-base text-gray-700 leading-relaxed space-y-4 select-none",
-              !isExpanded && "h-0"
+              !isExpanded && "h-7 summarize"
             ])}
               style={{
                 transition: "height 0.3s cubic-bezier(0.2, 0, 0, 1)",

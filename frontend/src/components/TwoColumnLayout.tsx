@@ -61,7 +61,7 @@ const OneColumnOtherwise: React.FC<OneColumnOtherwiseProps> = ({
 }) => {
   return (
     <div
-      className='lg:hidden grid grid-cols-1 h-full overflow-hidden transition-all duration-700 ease-out gap-4'
+      className='lg:hidden grid grid-cols-1 h-full overflow-hidden transition-all duration-700 ease-out gap-10'
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`

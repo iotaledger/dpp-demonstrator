@@ -18,8 +18,9 @@ import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { Notifications } from './Notifications';
 import RewardTransactionsCard from './RewardTransactionsCard';
 import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
-import { useCurrentNetwork, useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 import NotTestnetWarningCard from './NotTestnetWarningCard';
+import { useSearchParams } from 'next/navigation';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -129,6 +130,16 @@ const TUTORIAL_STEPS = new Map([
 ]);
 
 const ExploreGuided: React.FC = () => {
+  const searchParams = useSearchParams()
+
+  const targetStep = React.useMemo(() => {
+    const stepParam = searchParams.get('step')
+    if (stepParam != null && Number.isInteger(Number.parseInt(stepParam as string))) {
+      return Number.parseInt(stepParam as string);
+    }
+    return INITIAL_STEP;
+  }, [searchParams]);
+
   const {
     currentStep,
     totalSteps,
@@ -138,12 +149,15 @@ const ExploreGuided: React.FC = () => {
     progress,
     goNext,
     goPrevious,
-  } = useTutorialNavigation(INITIAL_STEP, TUTORIAL_STEPS.size);
+  } = useTutorialNavigation(targetStep, TUTORIAL_STEPS.size, getPathCallback);
+
+  function getPathCallback(targetSlide: number) {
+    return `/explore-guided?step=${targetSlide}`;
+  }
 
   const { isConnected } = useCurrentWallet();
   const { isHierarchySent } = useHierarchySent();
   const { isNotarizationSent } = useNotarizationSent()
-  const { notTestnet, isTestnet } = useCurrentNetwork();
   const { mutateAsync } = useDisconnectWallet();
 
   React.useEffect(() => {

@@ -1,12 +1,14 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const initialStep = 1;
 
-export function useTutorialNavigation(externalCurrentStep: number, totalSteps: number) {
-  const [currentStep, setInternalCurrentStep] = React.useState(externalCurrentStep ?? initialStep);
+export function useTutorialNavigation(externalCurrentStep: number, totalSteps: number, getPathCb: (target: number) => string) {
+  const [currentStep, setCurrentStep] = React.useState(externalCurrentStep ?? initialStep);
   const [isGoingPrevious, setIsGoingPrevious] = React.useState(false);
+  const router = useRouter();
 
   const canGoPrevious = currentStep > 1;
   const canGoNext = currentStep < totalSteps;
@@ -14,14 +16,18 @@ export function useTutorialNavigation(externalCurrentStep: number, totalSteps: n
 
   const handlePrevious = React.useCallback(() => {
     if (currentStep > 1) {
-      setInternalCurrentStep(currentStep - 1);
+      const nextStep = currentStep - 1;
+      router.push(getPathCb(nextStep))
+      setCurrentStep(nextStep);
       setIsGoingPrevious(true);
     }
   }, [currentStep]);
 
   const handleNext = React.useCallback(() => {
     if (currentStep < totalSteps) {
-      setInternalCurrentStep(currentStep + 1);
+      const nextStep = currentStep + 1;
+      router.push(getPathCb(nextStep))
+      setCurrentStep(nextStep);
       setIsGoingPrevious(false);
     }
   }, [currentStep, totalSteps]);

@@ -13,7 +13,7 @@ const SlideCounter: React.FC<SlideCounterProps> = ({
 }) => {
   return (
     <div
-      className="fixed bottom-6 left-6 bg-black/30 backdrop-blur-md text-white z-[80] rounded-full text-sm px-3 py-2 font-medium">
+      className="absolute bottom-5 left-6 bg-black/30 backdrop-blur-md text-white z-[80] rounded-full text-sm px-3 py-2 font-medium">
       {current} of {total}
     </div>
   );

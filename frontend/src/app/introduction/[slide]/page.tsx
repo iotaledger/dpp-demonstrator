@@ -57,6 +57,23 @@ export default function IntroductionPage() {
                   <IntroSlideManager currentSlide={currentSlide} />
                 </IntroSlide>
               </TutorialScrollContainer>
+              <div className="sticky bottom-0 left-0 w-full h-20 bg-transparent z-50">
+                <SlideCounter
+                  current={currentSlide}
+                  total={totalSlides}
+                />
+                <NavigationHint
+                  text="Use arrow keys or click to navigate"
+                  opacity={100}
+                  delay={0.5}
+                />
+                <NavigationButtons
+                  onPrevious={goPrevious}
+                  onNext={goNext}
+                  canGoPrevious={canGoPrevious}
+                  canGoNext={canGoNext}
+                />
+              </div>
             </TutorialCard>
           </MainContent>
         </GridContainer>
@@ -64,23 +81,6 @@ export default function IntroductionPage() {
       {/* Navigation Overlays */}
       <ProgressBar progress={progress} />
 
-      <SlideCounter
-        current={currentSlide}
-        total={totalSlides}
-      />
-
-      <NavigationButtons
-        onPrevious={goPrevious}
-        onNext={goNext}
-        canGoPrevious={canGoPrevious}
-        canGoNext={canGoNext}
-      />
-
-      <NavigationHint
-        text="Use arrow keys or click to navigate"
-        opacity={100}
-        delay={0.5}
-      />
     </>
   );
 }

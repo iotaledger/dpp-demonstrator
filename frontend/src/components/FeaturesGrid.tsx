@@ -11,6 +11,7 @@ interface FeaturesGridProps {
   opacity?: number,
   translateY?: number;
   gap?: string;
+  pb?: string;
   delay?: number;
 }
 
@@ -21,12 +22,13 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({
   opacity = 0,
   translateY = 4,
   gap = "gap-6",
+  pb = "pb-12",
   delay = 200,
 }) => {
   const { isTriggered } = useTransitionTrigger(delay);
   return (
     <div
-      className={clsx(`grid ${columns} ${gap} ${width} mx-auto pb-12 md:pb-14 lg:pb-16 opacity-${opacity} translate-y-${translateY}`, isTriggered && "opacity-100 translate-y-0")}
+      className={clsx(`grid ${columns} ${gap} ${width} mx-auto ${pb} md:pb-14 lg:pb-16 opacity-${opacity} translate-y-${translateY}`, isTriggered && "opacity-100 translate-y-0")}
       style={{
         transition: 'opacity 0.6s ease-out 0.35s, transform 0.6s ease-out 0.35s'
       }}

@@ -4,7 +4,7 @@ import React from 'react';
 
 export const EnumerationSection: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <div className='mx-auto max-w-5xl py-3 md:py-6'>
+    <div className='mx-auto max-w-5xl pt-3 pb-20 md:py-6'>
       <ol className='flex flex-col gap-y-1.5 md:gap-y-3 mx-auto list-decimal'>
         {children}
       </ol>

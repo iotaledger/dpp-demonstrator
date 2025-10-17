@@ -48,9 +48,63 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
       }
     };
 
+    const handleSwipeGestureFactory = () => {
+      let startPosX: number | undefined;
+      let endPosX: number | undefined;
+
+      return (event: TouchEvent) => {
+        switch (event.type) {
+          case 'touchstart':
+            // `targetTouches` means a list of active touches.
+            // `item(0)` means: get the first touch object, I only care about it,
+            //   be it a swipe with 1, 2 or 3 fingers doesn't matter.
+            startPosX = event.targetTouches.item(0)?.screenX;
+            break;
+          case 'touchend':
+            // `changedTouches` means a list of not-active touches.
+            endPosX = event.changedTouches.item(0)?.screenX;
+            break;
+        }
+
+        // Halt if positions doesn't form a pair. It happens in the first start touch.
+        if (startPosX == null || endPosX == null) {
+          return;
+        }
+
+        const deltaPosX = endPosX - startPosX;
+        console.log('delta', Math.abs(deltaPosX));
+        // Do not swipe if delta is too small. The user may scroll up and down.
+        const threshold = 110;
+        if (Math.abs(deltaPosX) < threshold) {
+          return;
+        }
+
+        const swipeDirection = deltaPosX <= 0;
+        // Less than or equal 0 means direction points to left.
+        const left = true;
+        // Greater than 0 means direction points to right.
+        const right = false;
+        switch (swipeDirection) {
+          case left:
+            if (canGoNext) handleNext();
+            break;
+          case right:
+            if (canGoPrevious) handlePrevious();
+            break;
+        }
+      };
+    }
+    const handleSwipeGesture = handleSwipeGestureFactory();
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [canGoPrevious, canGoNext, handlePrevious, handleNext]);
+    window.addEventListener('touchstart', handleSwipeGesture);
+    window.addEventListener('touchend', handleSwipeGesture);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('touchstart', handleSwipeGesture);
+      window.removeEventListener('touchend', handleSwipeGesture);
+    }
+  }, [canGoPrevious, canGoNext]);
 
 
   return {

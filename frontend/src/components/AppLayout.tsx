@@ -29,6 +29,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   // This effect only works because this module is running on client side.
   // Be aware there is no `window` on server side.
   React.useEffect(() => {
+    // @ts-expect-error - NOTE: `nightly` is not found at Window and globalThis
     const nightlyIota = window.nightly?.iota
     setInNightlyWallet(nightlyIota != null);
   }, []);

@@ -24,6 +24,7 @@ const IntroSlide12: React.FC = () => {
         </SlideDescription>
 
         <div className="py-6 flex flex-col md:flex-row gap-6 items-center">
+          {/** For everything else not mobile */}
           <Link
             className='pointer-coarse:hidden w-fit bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-medium transition-all cursor-pointer duration-300  hover:shadow-lg transform hover:scale-102'
             href={"/explore-guided"}
@@ -31,9 +32,9 @@ const IntroSlide12: React.FC = () => {
           >
             {"Start Tour"}
           </Link>
+          {/** For mobile */}
           <Link
             className='not-pointer-coarse:hidden nw-fit bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-medium transition-all cursor-pointer duration-300  hover:shadow-lg transform hover:scale-102'
-            target='_blank'
             href={"nightly://v1?network=iota&url=https://dpp.demo.iota.org/explore-guided"}
           >
             {"Start Tour"}

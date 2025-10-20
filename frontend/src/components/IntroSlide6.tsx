@@ -23,7 +23,7 @@ const IntroSlide6: React.FC = () => {
         </SlideContent>
       </ImageTextLayout>
 
-      <FeaturesGrid>
+      <FeaturesGrid pb='pb-24'>
         <LeanFeatureCard
           title='Manufacturers'
           description='Design and produce goods, adding material, sustainability, and compliance data to the DPP.'

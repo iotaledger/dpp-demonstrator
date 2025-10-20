@@ -9,7 +9,7 @@ import SlideDescription from './SlideDescription';
 
 const IntroSlide5: React.FC = () => {
   return (
-    <ImageTextLayout>
+    <ImageTextLayout pb='pb-20'>
       <SlideImage
         src="/assets/intro/passport.webp"
         alt="Introducing the Digital Product Passport (DPP)"

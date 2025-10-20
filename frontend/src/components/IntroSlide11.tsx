@@ -18,7 +18,7 @@ const IntroSlide11: React.FC = () => {
         </SlideDescription>
       </div>
 
-      <FeaturesGrid columns="sm:grid-cols-2" width="max-w-6xl" gap="gap-10">
+      <FeaturesGrid columns="sm:grid-cols-2" width="max-w-6xl" gap="gap-10" pb='pb-20'>
         <ClientCard
           image="/assets/intro/desktop.webp"
           alt="Desktop"

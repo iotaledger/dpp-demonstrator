@@ -11,7 +11,7 @@ interface ImageTextLayoutProps {
 
 const ImageTextLayout: React.FC<ImageTextLayoutProps> = ({
   children,
-  gap = "gap-4",
+  gap = "gap-4 sm:gap-8 lg:gap-12",
   pb = "pb-0",
   maxWidth = "max-w-6xl",
 }) => {

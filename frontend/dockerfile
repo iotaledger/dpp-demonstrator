@@ -1,6 +1,7 @@
 
 FROM node:18-bullseye
 
+ARG APP_ENV
 ARG NEXT_PUBLIC_EXPLORER_URL
 ARG NEXT_PUBLIC_DAPP_URL
 ARG NEXT_PUBLIC_NETWORK_URL
@@ -28,7 +29,7 @@ ENV NEXT_PUBLIC_MANUFACTURER_NAME=${NEXT_PUBLIC_MANUFACTURER_NAME}
 ENV NEXT_PUBLIC_MANUFACTURER_DID=${NEXT_PUBLIC_MANUFACTURER_DID}
 # END TMP
 
-
+ENV APP_ENV=${APP_ENV}
 ENV NEXT_PUBLIC_EXPLORER_URL=$NEXT_PUBLIC_EXPLORER_URL
 ENV NEXT_PUBLIC_DAPP_URL=$NEXT_PUBLIC_DAPP_URL
 ENV NEXT_PUBLIC_NETWORK_URL=$NEXT_PUBLIC_NETWORK_URL
@@ -54,6 +55,15 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+
+# Setup Domain Linkage per environment
+RUN if [ "$APP_ENV" = "prod" ]; then \
+      mv -f public/.well-known/did-configuration.prod.json public/.well-known/did-configuration.json; \
+      rm ./public/.well-known/did-configuration.dev.json; \
+    else \
+      mv -f public/.well-known/did-configuration.dev.json public/.well-known/did-configuration.json; \
+      rm ./public/.well-known/did-configuration.prod.json; \
+    fi
 
 RUN npm run build
 

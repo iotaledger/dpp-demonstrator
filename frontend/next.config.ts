@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
      * NOTE: Webpack doesn't recognize the necessity to source the WebAssembly asset, even if it recognizes
      * it is required to the codebase.
      * - I solved this problem by writing the Webpack plugin CopyFileWebpackPlugin, which copies a file from
-     *   to a target to a destination.
+     *   a target to a destination.
      * - If the problem turns to happen or it becomes insuficient refer to following issues:
      *   - https://github.com/vercel/next.js/issues/25852
      *   - https://github.com/vercel/next.js/discussions/35637
@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
       new CopyFileWebpackPlugin({
         from: path.resolve(__dirname, 'node_modules/@iota/identity-wasm/node/identity_wasm_bg.wasm'),
         to: path.resolve(__dirname, '.next/server/app/api/verify-domain-linkage/identity_wasm_bg.wasm'),
+      }, { isServer }),
+      new CopyFileWebpackPlugin({
+        from: path.resolve(__dirname, 'node_modules/@iota/identity-wasm/node/identity_wasm_bg.wasm'),
+        to: path.resolve(__dirname, '.next/server/vendor-chunks/identity_wasm_bg.wasm'),
       }, { isServer }),
     );
     return config;

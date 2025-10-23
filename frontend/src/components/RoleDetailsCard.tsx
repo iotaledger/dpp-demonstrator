@@ -92,8 +92,8 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 badgeText={MANUFACTURER_NAME}
                 linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
                 linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
-                // TODO: Implement the accreditation validation
-                showVerification={false}
+                showVerification={true}
+                verificationDid={`did:iota:testnet:${MANUFACTURER_DID}`}
               />
             }
           />

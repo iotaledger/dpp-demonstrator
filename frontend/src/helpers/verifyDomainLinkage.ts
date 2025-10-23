@@ -1,5 +1,4 @@
 import {
-  CoreDID,
   DomainLinkageConfiguration,
   EcDSAJwsVerifier,
   IotaDID,
@@ -9,75 +8,113 @@ import {
   JwtDomainLinkageValidator,
   LinkedDomainService,
   IdentityClientReadOnly,
+  Service,
 } from '@iota/identity-wasm/node'
 import { IotaClient } from '@iota/iota-sdk/client'
-import { DomainLinkageResource } from '@/types/identity'
+import { DomainLinkageResource, Result } from '@/types/identity'
 import { DAPP_URL, IOTA_IDENTITY_PKG_ID, NETWORK_URL } from '@/utils/constants';
 
-export async function startingFromDid(did: string) {
-  const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID!)
-
-  const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did))
-
-  const linkedDomainServices: LinkedDomainService[] = didDocument
-    .service()
-    .filter((service) => LinkedDomainService.isValid(service))
-    .map((service) => LinkedDomainService.fromService(service))
-
-  const domains: string[] = linkedDomainServices[0].domains()
-
-  const fetchedConfigurationResource = await fetchDidConfiguration(domains[0])
-
-  const configurationResource = new DomainLinkageConfiguration([
-    Jwt.fromJSON(fetchedConfigurationResource.linked_dids[0]),
-  ])
+export async function checkStartingFromDid(did: string) {
+  const valid = true;
+  const invalid = false;
 
   try {
+    const identityClient = await getIdentityClient();
+    const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did))
+    console.log('DiD Document:', didDocument.toJSON());
+
+    const firstValidService = didDocument.service()
+      .filter((service: Service) => LinkedDomainService.isValid(service))
+      .at(0);
+
+    if (!firstValidService) {
+      return invalid;
+    }
+    console.log('[Valid] DiD Service', firstValidService);
+
+    // For this application we garantee the serviceEndpoint is a single string
+    const serviceEndpoint = firstValidService!.serviceEndpoint() as unknown as string;
+    console.log('Service Endpoint:', serviceEndpoint);
+
+    const configurationResult = await fetchDidConfiguration(serviceEndpoint)
+    if (configurationResult.isError) {
+      return invalid;
+    }
+    console.log('Configuration data', configurationResult.data);
+
+    const rawDomainLinkageConfiguration = configurationResult.data!.linked_dids.at(0);
+    if (!rawDomainLinkageConfiguration) {
+      return invalid;
+    }
+    console.log('Raw domain linkage', rawDomainLinkageConfiguration);
+
+    const domainLinkageConfiguration = new DomainLinkageConfiguration([
+      Jwt.fromJSON(rawDomainLinkageConfiguration),
+    ])
+    console.log('Domain Linkage Configuration', domainLinkageConfiguration);
+
+    // Throws if invalid
     new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
       didDocument,
-      DomainLinkageConfiguration.fromJSON(configurationResource),
-      domains[0],
+      domainLinkageConfiguration,
+      serviceEndpoint,
       new JwtCredentialValidationOptions()
     )
 
-    return true
+    return valid;
   } catch {
-    return false
+    console.log('Invalid Domain Linkage');
+    return invalid;
   }
 }
 
-export async function startingFromDomain() {
-  const identityClient = await getIdentityClient(IOTA_IDENTITY_PKG_ID!)
-  const fetchedConfigurationResource = await fetchDidConfiguration(DAPP_URL!)
-  const configurationResource = new DomainLinkageConfiguration([
-    Jwt.fromJSON(fetchedConfigurationResource.linked_dids[0]),
-  ])
+export async function checkStartingFromDomain() {
+  const valid = true;
+  const invalid = false;
 
-  const issuers: Array<CoreDID> = configurationResource.issuers()
-  const issuerDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(issuers[0].toString()))
+  const identityClient = await getIdentityClient();
+  const result = await fetchDidConfiguration(DAPP_URL!)
+  if (result.isError) {
+    return invalid;
+  }
+  console.log('Configuration data', result.data);
 
   try {
+    const rawDomainLinkageConfiguration = result.data!.linked_dids.at(0);
+    const domainLinkageConfiguration = new DomainLinkageConfiguration([
+      Jwt.fromJSON(rawDomainLinkageConfiguration),
+    ])
+    console.log('Domain Linkage Configuration', domainLinkageConfiguration);
+
+    const issuer: string = domainLinkageConfiguration.issuers().at(0)?.toString() as unknown as string;
+    console.log('Issuer', issuer);
+    const issuerDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(issuer))
+    console.log('Issuer Document', issuerDocument);
+
+    // Throws if invalid
     new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
       issuerDocument,
-      configurationResource,
+      domainLinkageConfiguration,
       DAPP_URL!,
       new JwtCredentialValidationOptions()
     )
 
-    return true
+    return valid;
   } catch {
-    return false
+    console.log('Invalid Domain Linkage');
+    return invalid;
   }
 }
 
-export async function getIdentityClient(identityPackageId: string) {
+export async function getIdentityClient() {
   const iotaClient = new IotaClient({ url: NETWORK_URL! })
 
-  return await IdentityClientReadOnly.createWithPkgId(iotaClient, identityPackageId)
+  return await IdentityClientReadOnly.createWithPkgId(iotaClient, IOTA_IDENTITY_PKG_ID!)
 }
 
-export async function fetchDidConfiguration(dappUrl: string): Promise<DomainLinkageResource> {
-  const configurationUrl = `${dappUrl}/.well-known/did-configuration.json`
+export async function fetchDidConfiguration(dappUrl: string): Promise<Result<DomainLinkageResource>> {
+  const configurationUrl = new URL('/.well-known/did-configuration.json', dappUrl);
+  console.log('Fetching configuration URL', configurationUrl);
 
   const response = await fetch(configurationUrl, {
     method: 'GET',
@@ -87,8 +124,17 @@ export async function fetchDidConfiguration(dappUrl: string): Promise<DomainLink
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch DID configuration: ${response.status} ${response.statusText}`)
+    console.warn('Failed to get configuration URL', response.statusText);
+    return {
+      isSuccess: false,
+      isError: true,
+      errorMsg: 'Failed to fetch DID configuration.',
+    };
   }
 
-  return await response.json()
+  return {
+    isSuccess: true,
+    isError: false,
+    data: await response.json(),
+  };
 }

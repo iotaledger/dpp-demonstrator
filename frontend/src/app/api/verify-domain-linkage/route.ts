@@ -1,7 +1,7 @@
-import { VerifyDomainLinkageRequest } from '@/types/identity'
+import { DomainLinkageStatusCheck, VerifyDomainLinkageRequest } from '@/types/identity'
 import { NextRequest, NextResponse } from 'next/server';
 import { DAPP_URL, IOTA_IDENTITY_PKG_ID } from '@/utils/constants';
-import { startingFromDid, startingFromDomain } from '@/helpers/verifyDomainLinkage';
+import { checkStartingFromDid, checkStartingFromDomain } from '@/helpers/verifyDomainLinkage';
 
 export async function POST(req: NextRequest) {
   // Run the middleware
@@ -17,9 +17,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(validationPayload, { status: 400 });
   }
 
-  const payload = {
-    fromDidCheck: await startingFromDid(did),
-    fromDomainCheck: await startingFromDomain()
+  const payload: DomainLinkageStatusCheck = {
+    isDidValid: await checkStartingFromDid(did),
+    isDomainValid: await checkStartingFromDomain()
   };
   return NextResponse.json(payload);
 }

@@ -66,11 +66,23 @@ interface VerificationIconProps {
   verificationDid?: string | null;
 }
 
-// TODO: Getting an error while calling the check linkage API endpoint
 const VerificationIcon: React.FC<VerificationIconProps> = ({ showVerification, verificationIcon, verificationDid }) => {
   const { checkStatus, isSuccess } = useCheckLinkage(verificationDid as string);
 
-  if (!showVerification || verificationIcon === 'none' || !isSuccess) return null;
+  // Author not interested to show the verication
+  if (!showVerification || verificationIcon === 'none') {
+    return null;
+  };
+
+  // Network invalidation
+  if (!isSuccess && !checkStatus) {
+    return null;
+  }
+
+  // DID not fully valid
+  if (!checkStatus!.isDidValid && !checkStatus!.isDomainValid) {
+    return null;
+  }
 
   return (
     <div className="flex items-center justify-center w-5 h-5 bg-green-100 rounded-full">

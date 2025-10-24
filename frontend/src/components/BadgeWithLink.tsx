@@ -21,8 +21,7 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
   linkText,
   linkHref = "#",
   linkTarget = "_blank",
-  showVerification = true,
-  verificationIcon = 'check',
+  showVerification = false,
   verificationDid = null,
   spacing = "gap-2",
   opacity = 100,
@@ -46,7 +45,6 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
       {showVerification &&
         <VerificationIcon
           showVerification={showVerification}
-          verificationIcon={verificationIcon}
           verificationDid={verificationDid} />}
 
       {linkText && (
@@ -62,25 +60,25 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
 
 interface VerificationIconProps {
   showVerification?: boolean;
-  verificationIcon?: 'check' | 'none';
   verificationDid?: string | null;
 }
 
-const VerificationIcon: React.FC<VerificationIconProps> = ({ showVerification, verificationIcon, verificationDid }) => {
-  const { checkStatus, isSuccess } = useCheckLinkage(verificationDid as string);
+const VerificationIcon: React.FC<VerificationIconProps> = ({ showVerification, verificationDid }) => {
+  const { checkStatus, isError } = useCheckLinkage(verificationDid as string);
 
   // Author not interested to show the verication
-  if (!showVerification || verificationIcon === 'none') {
+  if (!showVerification || verificationDid == null || checkStatus == null) {
     return null;
   };
 
   // Network invalidation
-  if (!isSuccess && !checkStatus) {
+  if (isError) {
     return null;
   }
 
   // DID not fully valid
-  if (!checkStatus!.isDidValid && !checkStatus!.isDomainValid) {
+  const validLinkageDomainFromDid = checkStatus!.isDidValid && checkStatus!.isDomainValid;
+  if (!validLinkageDomainFromDid) {
     return null;
   }
 

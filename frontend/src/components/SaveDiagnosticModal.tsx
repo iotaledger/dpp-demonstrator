@@ -206,8 +206,8 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
                     badgeText={MANUFACTURER_NAME}
                     linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
                     linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
-                    // TODO: Implement the accreditation validation
-                    showVerification={false}
+                    showVerification={true}
+                    verificationDid={`did:iota:testnet:${MANUFACTURER_DID}`}
                   />
                 </div>
               }
@@ -223,7 +223,6 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
                     badgeText={diagnosticInfo.technicianName}
                     linkText={`${truncateAddress(account?.address)}`}
                     linkHref={`https://explorer.iota.org/address/${account?.address}?network=testnet`}
-                    showVerification={false}
                   />
                 </div>
               }

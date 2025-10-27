@@ -12,7 +12,7 @@ export function useTransitionTrigger(delay: number) {
     } else {
       setTrigger(true);
     }
-  });
+  }, [delay]);
 
   return {
     isTriggered

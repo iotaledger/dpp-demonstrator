@@ -16,13 +16,16 @@ import EndOfPassportMessage from './EndOfPassportMessage';
 import { Notifications } from './Notifications';
 import RewardTransactionsCard from './RewardTransactionsCard';
 import NotTestnetWarningCard from './NotTestnetWarningCard';
-import { useDisconnectWallet } from '@iota/dapp-kit';
+import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
 
 const ExploreFreely: React.FC = () => {
+  const { isConnected } = useCurrentWallet();
   const { mutateAsync } = useDisconnectWallet();
 
   async function handleBackAction() {
-    await mutateAsync();
+    if (isConnected) {
+      await mutateAsync();
+    }
   }
 
   return (

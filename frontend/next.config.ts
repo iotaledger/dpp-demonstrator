@@ -57,7 +57,7 @@ class CopyFileWebpackPlugin {
   apply(compiler: any) {
     compiler.hooks.afterEmit.tapPromise(
       'CopyFileWebpackPlugin',
-      async (_: unknown) => {
+      async () => {
         if (this.options.isServer) {
           try {
             await access(this.to);

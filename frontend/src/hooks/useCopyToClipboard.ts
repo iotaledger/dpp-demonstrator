@@ -11,7 +11,6 @@ interface UseCopyToClipboardOptions {
 
 export const useCopyToClipboard = (options: UseCopyToClipboardOptions = {}) => {
   const {
-    successMessage,
     duration = 2000,
     onSuccess,
     onError

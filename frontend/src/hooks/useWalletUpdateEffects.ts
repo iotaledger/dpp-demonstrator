@@ -48,6 +48,9 @@ export function useWalletUpdateEffects() {
     if (isConnected && handleWalletConnected) {
       handleWalletConnected();
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The function handleWalletConnected is stable and doesn't require to be a dependency.
+     */
   }, [isConnected]);
 
   // Updates the app store when wallet disconnects.
@@ -55,12 +58,19 @@ export function useWalletUpdateEffects() {
     if (isDisconnected && handleWalletDisconnected) {
       handleWalletDisconnected();
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The function handleWalletDisconnected is stable and doesn't require to be a dependency.
+     */
   }, [isDisconnected]);
 
   // Updates the app store when current account address changes.
   React.useEffect(() => {
     handleCurrentAccountAddressChanged(currentAccount?.address || null);
     handleCurrentAccountNetworkChanged(currentAccount?.chains.at(0) || null);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The following functions handleCurrentAccountAddressChanged and handleCurrentAccountNetworkChanged
+     * are stable and doesn't require to be a dependencies.
+     */
   }, [currentAccount]);
 
   /**
@@ -78,6 +88,9 @@ export function useWalletUpdateEffects() {
         message: 'Wallet connected successfully! You can now request service access.'
       });
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The function handleNotificationSent is stable and doesn't require to be a dependency.
+     */
   }, [isWalletConnected]);
 
   const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID);
@@ -104,6 +117,10 @@ export function useWalletUpdateEffects() {
         handleHierarchySentSuccess(generateRequestId());
       }
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The functions handleHierarchySentSuccess and checkCurrentAccountAddressAccredited
+     * are stable and doesn't require to be a dependencies.
+     */
   }, [isWalletConnected, currentAccountAddress, isSuccessFederationDetails]);
 
   // Triggers when hierarchy is marked as sent, enabling diagnostic
@@ -115,5 +132,8 @@ export function useWalletUpdateEffects() {
         message: 'Role request approved! You can now access diagnostic tools.'
       })
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The function handleNotificationSent is stable and doesn't require to be a dependency.
+     */
   }, [isHierarchySent]);
 }

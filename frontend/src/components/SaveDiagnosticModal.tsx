@@ -55,7 +55,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
    * Pre-requisit information to send a transaction
    */
   const account = useCurrentAccount()
-  const { productDetails, isLoading } = useProductDetails(DPP_ID);
+  const { isLoading } = useProductDetails(DPP_ID);
 
   /**
    * To be called in transaction submission
@@ -111,7 +111,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
         };
         const tx = createNotarizationEventTransaction(txInputs);
         const { bytes, signature } = await handleSignature(tx);
-        const { result, isError } = await sendTransaction(bytes, signature, sponsoredGas.result!.reservation_id!);
+        const { isError } = await sendTransaction(bytes, signature, sponsoredGas.result!.reservation_id!);
 
         if (isError) {
           throw new Error(isError);
@@ -141,8 +141,11 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({
         });
       }
     });
-
-  }, [handleSignature, handleClose]);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The following functions are stable and doesn't require to be dependencies.
+     * handleNotarizationSentSuccess, handleNotificationSent, onSave
+     */
+  }, [account, federationAddress, findings, healthScore, handleSignature, handleClose]);
 
   const getButtonText = () => {
     if (isPending) {

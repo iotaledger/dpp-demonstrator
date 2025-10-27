@@ -120,10 +120,13 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
 
         const requestId = generateRequestId();
         handleHierarchySentSuccess(requestId);
-        onSuccess && onSuccess();
+
+        if (onSuccess) {
+          onSuccess();
+        }
         console.log('🟢 Accredidation created with succes!');
       } catch (error) {
-        console.log('❌ Error while calling createAccreditation.');
+        console.error('❌ Error while calling createAccreditation.', error);
         handleNotificationSent!({
           id: generateRequestId(),
           type: 'error',
@@ -135,6 +138,10 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         });
       }
     });
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The following functions handleHierarchySentSuccess, handleNotificationSent
+     * doesn't require to be dependencies.
+     */
   }, [federationAddress, selectedRole, account, onClose, onSuccess]);
 
   if (!isConnected) {

@@ -25,6 +25,12 @@ const eslintConfig = [
       "src/stories/**",
     ],
   },
+  {
+    rules: {
+      // We don't want to be fully attached to Next.js API
+      "@next/next/no-img-element": "off",
+    },
+  },
   ...storybook.configs["flat/recommended"],
 ];
 

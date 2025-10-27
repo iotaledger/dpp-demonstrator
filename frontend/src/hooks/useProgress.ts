@@ -28,7 +28,9 @@ export const useProgress = () => {
 
   const runProgress = (resolve?: (value: boolean) => void) => {
     if (intervalId == null) {
-      resolve && resolve(false);
+      if (resolve) {
+        resolve(false);
+      }
       return;
     }
 
@@ -41,9 +43,13 @@ export const useProgress = () => {
       internalProgressRef.current = maxLimit;
       setProgress(maxLimit);
       setIsComplete(true);
-      intervalId && window.clearInterval(intervalId);
+      if (intervalId && window) {
+        window.clearInterval(intervalId);
+      }
       intervalId = null;
-      resolve && resolve(true);
+      if (resolve) {
+        resolve(true);
+      }
     }
   };
 
@@ -53,12 +59,14 @@ export const useProgress = () => {
       return Promise.resolve(false);
     }
 
-    return new Promise((resolve, _) => {
+    return new Promise((resolve) => {
       intervalId = window.setInterval(() => runProgress(resolve), frequencyMs);
 
       window.setTimeout(() => {
         console.log('progress timeout');
-        intervalId && window.clearInterval(intervalId);
+        if (intervalId && window) {
+          window.clearInterval(intervalId);
+        }
         intervalId = null;
         setIsTimedout(true);
         resolve(false);

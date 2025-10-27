@@ -40,23 +40,28 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
   // Handle form submission
   const handleSubmit = useCallback((event: React.FormEvent) => {
     event.preventDefault();
-
-    if (progress === 100) {
-      resetProgress();
-    }
+    resetProgress();
 
     startTransition(async () => {
+      if (!onButtonClick) {
+        return;
+      }
+
       console.log('🔴 Diagnostic loading...:');
       const hasCompleted = await startProgress();
       if (hasCompleted) {
         console.log('🟢 Diagnostic loaded');
         startTransition(() => {
-          onButtonClick && onButtonClick();
+          onButtonClick();
         });
       } else {
         console.log('❌ Error while loading diagnostic.');
       }
     });
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * startProgress and resetProgress are stable functions that don't requires
+     * to be dependencies.
+     */
   }, [onButtonClick]);
 
   // Card state styling (following ServiceRequestCard pattern)

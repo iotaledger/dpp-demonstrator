@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(payload);
   } catch (error) {
     const errPayload = { error: 'Internal Server Error' };
+    console.error('Error while retrieving roles from federation', error);
     return NextResponse.json(errPayload, { status: 500 });
   }
 }

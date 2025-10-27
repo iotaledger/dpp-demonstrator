@@ -18,7 +18,7 @@ import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { Notifications } from './Notifications';
 import RewardTransactionsCard from './RewardTransactionsCard';
 import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
-import { useCurrentNetwork, useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 import NotTestnetWarningCard from './NotTestnetWarningCard';
 
 const INITIAL_STEP = 1;
@@ -143,7 +143,6 @@ const ExploreGuided: React.FC = () => {
   const { isConnected } = useCurrentWallet();
   const { isHierarchySent } = useHierarchySent();
   const { isNotarizationSent } = useNotarizationSent()
-  const { notTestnet, isTestnet } = useCurrentNetwork();
   const { mutateAsync } = useDisconnectWallet();
 
   React.useEffect(() => {
@@ -157,10 +156,15 @@ const ExploreGuided: React.FC = () => {
       // Next when diagnostic request is success
       goNext();
     }
-  }, [currentStep, isConnected, isHierarchySent, isNotarizationSent]);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * goNext is a stable function that doesn't require to be a dependency.
+     */
+  }, [currentStep, isConnected, isHierarchySent, isNotarizationSent, isGoingPrevious]);
 
   async function handleBackAction() {
-    await mutateAsync();
+    if (isConnected) {
+      await mutateAsync();
+    }
   }
 
   const mainContent = (

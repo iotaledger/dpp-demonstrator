@@ -16,8 +16,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   email = "partnerships@iota.org",
   emailLabel = "Email Address",
   onCopy,
-  opacity = 100,
-  delay = 0
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -30,12 +28,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     } catch (err) {
       console.error('Failed to copy email:', err);
     }
-  };
-
-  const containerStyle = {
-    opacity: opacity / 100,
-    transitionDelay: `${delay}s`,
-    transition: `opacity 0.7s ease-out`
   };
 
   return (

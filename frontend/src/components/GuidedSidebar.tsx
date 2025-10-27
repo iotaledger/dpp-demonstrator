@@ -133,7 +133,7 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
 
   const getCanGoNext = useCallback(() => {
     const dontGoNext = false;
-    const canGoNext = true;
+    const goNext = true;
 
     if (currentStep === 9 && !isConnected) {
       return dontGoNext;
@@ -148,7 +148,7 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
     }
 
     if (currentStep === 13) {
-      return canGoNext;
+      return goNext;
     }
 
     return canGoNext;

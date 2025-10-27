@@ -6,18 +6,29 @@ services:
     container_name: traefik
     restart: unless-stopped
     command:
+      # Log level and access log are enabled
       - "--log.level=info"
-      - "--accesslog=true"
+      - "--accesslog=true" # Enable Docker provider; disable auto-exposure for extra security
       - "--entrypoints.web.address=:80"
       - "--providers.docker=true"
-      - "--providers.docker.exposedByDefault=false"
-      - "--api.dashboard=true"
-      - "--api.insecure=true"
+      - "--providers.docker.exposedByDefault=false" # Define only the TLS (secure) entrypoint on port 443
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.http.tls.certResolver=devops"
+      - "--entrypoints.websecure.http2.maxConcurrentStreams=1000"
+      - "--entrypoints.websecure.http.tls.domains[0].main=dpp-demostrator.if4testing.rocks" # ACME DNS challenge with Cloudflare
+      - "--certificatesresolvers.devops.acme.dnschallenge=true"
+      - "--certificatesresolvers.devops.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.devops.acme.email=devops@iota.org"
+      - "--certificatesresolvers.devops.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.devops.acme.dnschallenge.delaybeforecheck=0"
     ports:
-      - "80:80"
-      - "8080:8080" # Dashboard traefik accessibile su http://localhost:8080
+      - "443:443"
+    environment:
+      CLOUDFLARE_EMAIL: "it@iota.org"
+      CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
     networks:
       - traefik_net
 
@@ -31,18 +42,12 @@ services:
 
   iota-gas-station:
     image: "${DOCKER_IMAGE:-iotaledger/gas-station:latest}"
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-      args:
-        - BUILD_DATE=${BUILD_DATE:-latest}
-        - GIT_REVISION=${GIT_REVISION:-latest}
     container_name: iota-gas-station
     command: [ "--config-path", "/app/config.yaml" ]
     depends_on:
       - redis
     ports:
-      - "9184:9184"
+      - "9184:9184" # Metrics port
     environment:
       - CONFIG_PATH=/app/config.yaml
       - RUST_BACKTRACE=1
@@ -51,11 +56,12 @@ services:
       - ${LOCAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gas.rule=Host(`localhost`) && PathPrefix(`/gas`)"
-      - "traefik.http.routers.gas.entrypoints=web"
+      - "traefik.http.routers.gas.rule=Host(`dpp-demostrator.if4testing.rocks`) && PathPrefix(`/gas`)"
+      - "traefik.http.routers.gas.entrypoints=websecure"
+      - "traefik.http.routers.gas.tls.certresolver=devops"
+      - "traefik.http.services.gas.loadbalancer.server.port=9527"
       - "traefik.http.routers.gas.middlewares=strip-gas-prefix"
       - "traefik.http.middlewares.strip-gas-prefix.stripprefix.prefixes=/gas"
-      - "traefik.http.services.gas.loadbalancer.server.port=9527"
     networks:
       - traefik_net
 
@@ -64,19 +70,28 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
+        APP_ENV: "dev"
         NEXT_PUBLIC_EXPLORER_URL: ${NEXT_PUBLIC_EXPLORER_URL}
         NEXT_PUBLIC_DAPP_URL: ${NEXT_PUBLIC_DAPP_URL}
+        NEXT_PUBLIC_NETWORK_URL: ${NEXT_PUBLIC_NETWORK_URL}
         NEXT_PUBLIC_AUDIT_TRAIL_PKG: ${NEXT_PUBLIC_AUDIT_TRAIL_PKG}
         NEXT_PUBLIC_REWARD_WHITELIST_ID: ${NEXT_PUBLIC_REWARD_WHITELIST_ID}
+        NEXT_PUBLIC_REWARD_VAULT_ID: ${NEXT_PUBLIC_REWARD_VAULT_ID}
         NEXT_PUBLIC_ADMIN_CAP_ID: ${NEXT_PUBLIC_ADMIN_CAP_ID}
         NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
-        NEXT_PUBLIC_HAS_REWARD: ${NEXT_PUBLIC_HAS_REWARD}
+        NEXT_PUBLIC_HAS_NFT_REWARD: ${NEXT_PUBLIC_HAS_NFT_REWARD}
         NEXT_PUBLIC_NETWORK: ${NEXT_PUBLIC_NETWORK}
         NEXT_PUBLIC_PRODUCT_ID: ${NEXT_PUBLIC_PRODUCT_ID}
+        NEXT_PUBLIC_FEDERATION_ID: ${NEXT_PUBLIC_FEDERATION_ID}
+        NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID: ${NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID}
+        IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
         BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
         BACKEND_API_KEY: ${BACKEND_API_KEY}
         GAS_STATION_URL: ${GAS_STATION_URL}
         GAS_STATION_AUTH: ${GAS_STATION_AUTH}
+        #TMP
+        NEXT_PUBLIC_MANUFACTURER_DID: ${NEXT_PUBLIC_MANUFACTURER_DID}
+        NEXT_PUBLIC_MANUFACTURER_NAME: ${NEXT_PUBLIC_MANUFACTURER_NAME}
     depends_on:
       - backend
       - iota-gas-station
@@ -87,8 +102,9 @@ services:
       GAS_STATION_AUTH: ${GAS_STATION_AUTH}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
-      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.rule=Host(`dpp-demostrator.if4testing.rocks`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=devops"
       - "traefik.http.services.frontend.loadbalancer.server.port=3000"
     networks:
       - traefik_net
@@ -102,17 +118,19 @@ services:
         limits:
           memory: 12G
     environment:
-      ITH_PKG_ID: ${ITH_PKG_ID}
+      HIERARCHIES_PKG_ID: ${HIERARCHIES_PKG_ID}
       API_KEY: ${API_KEY}
       TCP_LISTNER: ${TCP_LISTNER}
       ROOT_AUTH_SECRET_KEY: ${ROOT_AUTH_SECRET_KEY}
       MANUFACTURER_SECRET_KEY: ${MANUFACTURER_SECRET_KEY}
       IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
+      NEXT_PUBLIC_DAPP_URL: ${NEXT_PUBLIC_DAPP_URL}
     networks:
       - traefik_net
 
 volumes:
   redis_data:
+  traefik_letsencrypt:
 
 
 networks:

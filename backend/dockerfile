@@ -1,5 +1,5 @@
 # PHASE 1 - Build
-FROM rust:1.85 AS builder
+FROM rust:1.86 AS builder
 
 RUN apt-get update && apt-get install -y \
     pkg-config \
@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     git \
+    libudev-dev \
+    libusb-1.0-0-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV LIBCLANG_PATH=/usr/lib/llvm-14/lib
@@ -19,7 +21,6 @@ WORKDIR /usr/src/app
 COPY Cargo.toml Cargo.lock ./
 
 COPY src ./src
-COPY ith ./ith
 
 RUN cargo build --release
 
@@ -39,19 +40,21 @@ WORKDIR /app
 COPY --from=builder /usr/src/app/target/release/main ./main
 COPY --from=builder /usr/src/app/target/release/import_accounts ./import_accounts
 
-ARG ITH_PKG_ID
+ARG HIERARCHIES_PKG_ID
 ARG API_KEY
 ARG TCP_LISTNER
 ARG ROOT_AUTH_SECRET_KEY
 ARG MANUFACTURER_SECRET_KEY
 ARG IOTA_IDENTITY_PKG_ID
+ARG NEXT_PUBLIC_DAPP_URL
 
-ENV ITH_PKG_ID=$ITH_PKG_ID
+ENV HIERARCHIES_PKG_ID=$HIERARCHIES_PKG_ID
 ENV API_KEY=$API_KEY
 ENV TCP_LISTNER=$TCP_LISTNER
 ENV ROOT_AUTH_SECRET_KEY=$ROOT_AUTH_SECRET_KEY
 ENV MANUFACTURER_SECRET_KEY=$MANUFACTURER_SECRET_KEY
 ENV IOTA_IDENTITY_PKG_ID=$IOTA_IDENTITY_PKG_ID
+ENV NEXT_PUBLIC_DAPP_URL=$NEXT_PUBLIC_DAPP_URL
 
 CMD sh -c './import_accounts && exec ./main'
 

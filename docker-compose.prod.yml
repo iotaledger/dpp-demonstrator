@@ -1,0 +1,113 @@
+version: "3.8"
+
+services:
+
+  redis:
+    image: redis:latest
+    container_name: gas-station-redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - traefik_net
+
+  iota-gas-station:
+    image: "${DOCKER_IMAGE:-iotaledger/gas-station:latest}"
+    container_name: iota-gas-station
+    command: [ "--config-path", "/app/config.yaml" ]
+    depends_on:
+      - redis
+    ports:
+      - "9184:9184"  # Metrics port
+      - "9527:9527"  # Gas Station API port
+    environment:
+      - CONFIG_PATH=/app/config.yaml
+      - RUST_BACKTRACE=1
+      - GAS_STATION_AUTH=${GAS_STATION_AUTH}
+    volumes:
+      - ${LOCAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml
+    networks:
+      - traefik_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        APP_ENV: "prod"
+        NEXT_PUBLIC_EXPLORER_URL: ${NEXT_PUBLIC_EXPLORER_URL}
+        NEXT_PUBLIC_DAPP_URL: ${NEXT_PUBLIC_DAPP_URL}
+        NEXT_PUBLIC_NETWORK_URL: ${NEXT_PUBLIC_NETWORK_URL}
+        NEXT_PUBLIC_AUDIT_TRAIL_PKG: ${NEXT_PUBLIC_AUDIT_TRAIL_PKG}
+        NEXT_PUBLIC_REWARD_WHITELIST_ID: ${NEXT_PUBLIC_REWARD_WHITELIST_ID}
+        NEXT_PUBLIC_REWARD_VAULT_ID: ${NEXT_PUBLIC_REWARD_VAULT_ID}
+        NEXT_PUBLIC_ADMIN_CAP_ID: ${NEXT_PUBLIC_ADMIN_CAP_ID}
+        NEXT_PUBLIC_REFRESH_INTERVAL_MS: ${NEXT_PUBLIC_REFRESH_INTERVAL_MS}
+        NEXT_PUBLIC_HAS_NFT_REWARD: ${NEXT_PUBLIC_HAS_NFT_REWARD}
+        NEXT_PUBLIC_NETWORK: ${NEXT_PUBLIC_NETWORK}
+        NEXT_PUBLIC_PRODUCT_ID: ${NEXT_PUBLIC_PRODUCT_ID}
+        IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
+        NEXT_PUBLIC_FEDERATION_ID: ${NEXT_PUBLIC_FEDERATION_ID}
+        NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID: ${NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID}
+        BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
+        BACKEND_API_KEY: ${BACKEND_API_KEY}
+        GAS_STATION_URL: ${GAS_STATION_URL}
+        GAS_STATION_AUTH: ${GAS_STATION_AUTH}
+        #TMP
+        NEXT_PUBLIC_MANUFACTURER_DID: ${NEXT_PUBLIC_MANUFACTURER_DID}
+        NEXT_PUBLIC_MANUFACTURER_NAME: ${NEXT_PUBLIC_MANUFACTURER_NAME}
+    depends_on:
+      - backend
+      - iota-gas-station
+    environment:
+      BACKEND_ENDPOINT: ${BACKEND_ENDPOINT}
+      BACKEND_API_KEY: ${BACKEND_API_KEY}
+      GAS_STATION_URL: ${GAS_STATION_URL}
+      GAS_STATION_AUTH: ${GAS_STATION_AUTH}
+    labels:
+      - "traefik.enable=true"
+        #- "traefik.http.routers.frontend.rule=Host(`dpp-demostrator-prod.if4testing.rocks`)"
+      - "traefik.http.routers.frontend.rule=Host(`dpp.demo.iota.org`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=devops"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.frontend.middlewares=frontend-rl,frontend-inflight,security-headers,compress"
+      # Frontend rate limiting
+      - "traefik.http.middlewares.frontend-rl.rateLimit.average=30"
+      - "traefik.http.middlewares.frontend-rl.rateLimit.burst=60"
+      - "traefik.http.middlewares.frontend-rl.rateLimit.period=1m"
+      - "traefik.http.middlewares.frontend-inflight.inFlightReq.amount=20"
+      # Security headers
+      - "traefik.http.middlewares.security-headers.headers.frameDeny=true"
+      - "traefik.http.middlewares.security-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.security-headers.headers.browserXssFilter=true"
+      # Compression
+      - "traefik.http.middlewares.compress.compress=true"
+    networks:
+      - traefik_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        limits:
+          memory: 6G
+    environment:
+      HIERARCHIES_PKG_ID: ${HIERARCHIES_PKG_ID}
+      API_KEY: ${API_KEY}
+      TCP_LISTNER: ${TCP_LISTNER}
+      ROOT_AUTH_SECRET_KEY: ${ROOT_AUTH_SECRET_KEY}
+      MANUFACTURER_SECRET_KEY: ${MANUFACTURER_SECRET_KEY}
+      IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID}
+    networks:
+      - traefik_net
+
+volumes:
+  redis_data:
+  traefik_letsencrypt:
+
+
+networks:
+  traefik_net:
+    external: true

@@ -1,0 +1,58 @@
+'use client';
+
+import React from 'react';
+import TutorialCard from './TutorialCard';
+import CardHeader from './CardHeader';
+import TutorialScrollContainer from './TutorialScrollContainer';
+import PassportHeader from './PassportHeader';
+import ServiceRequestCard from './ServiceRequestCard';
+import DiagnosticCard from './DiagnosticCard';
+import ProductHeaderCard from './ProductHeaderCard';
+import ProductDetailsCard from './ProductDetailsCard';
+import RoleDetailsCard from './RoleDetailsCard';
+import RewardPoolCard from './RewardPoolCard';
+import ServiceHistoryCard from './ServiceHistoryCard';
+import EndOfPassportMessage from './EndOfPassportMessage';
+import { Notifications } from './Notifications';
+import RewardTransactionsCard from './RewardTransactionsCard';
+import NotTestnetWarningCard from './NotTestnetWarningCard';
+import { useDisconnectWallet } from '@iota/dapp-kit';
+
+const ExploreFreely: React.FC = () => {
+  const { mutateAsync } = useDisconnectWallet();
+
+  async function handleBackAction() {
+    await mutateAsync();
+  }
+
+  return (
+    <TutorialCard>
+      <CardHeader
+        canGoBack={true}
+        backText='↺ Reset to Intro'
+        backUrl='/introduction/1'
+        onBack={handleBackAction}
+        linkText='Switch to Guided Tour'
+        linkUrl='/explore-guided'
+      />
+      <TutorialScrollContainer>
+        <div className="dpp-content-container">
+          <PassportHeader />
+          <NotTestnetWarningCard />
+          <ServiceRequestCard />
+          <DiagnosticCard />
+          <ProductHeaderCard />
+          <ProductDetailsCard />
+          <RoleDetailsCard />
+          <RewardPoolCard />
+          <RewardTransactionsCard />
+          <ServiceHistoryCard />
+          <EndOfPassportMessage />
+          <Notifications />
+        </div>
+      </TutorialScrollContainer>
+    </TutorialCard>
+  );
+};
+
+export default ExploreFreely;

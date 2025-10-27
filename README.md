@@ -1,4 +1,4 @@
-# 🚀 IOTA DPP Demonstrator
+# 🚀 IOTA DPP Showcase
 
 This repository demonstrates how multiple products from the IOTA portfolio can be orchestrated to build a Decentralized Permissioned Process (DPP).
 
@@ -28,8 +28,8 @@ This demonstrator integrates several IOTA technologies:
 
 Before starting, ensure you have the following tools installed:
 
-1. **Docker** 
-2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v0.12.0-rc --features tracing iota`
+1. **Docker**
+2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v1.6.1 --features tracing iota`
 
 ---
 
@@ -49,42 +49,58 @@ This will create the Root of Authority, Manufacturer, and Gas Station accounts.
 make faucet
 ```
 
-### 3. Publish the ITH package:
+### 3. Bootstrap the ITH federation:
 
 ```bash
-make publish-ith
+make init-hierarchies
 ```
-Copy the generated ITH_PKG_ID for later use
-
-### 4. Bootstrap the ITH federation:
-
-```bash
-make init-ith
-```
+[Here](https://github.com/iotaledger/hierarchies/blob/main/hierarchies-move/Move.lock) you can find HIERARCHIES_PKG_ID
 Copy the generated FEDERATION_ID.
 
-### 5. Deploy the Audit Trails contract:
+### 4. Deploy the Audit Trails contract:
 
 ```bash
 make publish-audit-trails-contract
 ```
 
-Save the following outputs:
+From the Transaction Save the following outputs:
 * AUDIT_TRAIL_PKG
 * WHITELIST_ID
 * ADMIN_CAP_ID
+* VAULT_ID
+* LCCTreasuryCap
+
+### 5. Create DIDs
+```bash
+make init-dids
+```
+[Here](https://github.com/iotaledger/identity/blob/main/identity_iota_core/packages/iota_identity/Move.lock) you can find IDENTITY_PKG_ID.
+
+Save the output for the did and the domain linkage configuration.
+Save the JWT credential into `frontend/public/.well-known/did-configuration.json`
 
 ### 6. Create a new product:
 
 ```bash
 export AUDIT_TRAIL_PKG=<AUDIT_TRAIL_PKG>
 export FEDERATION_ID=<FEDERATION_ID>
+export MANUFACTURER_DID=<MANUFACTURER_DID>
 ```
 
 ```bash
 make create-new-product
 ```
 Save the generated PRODUCT_ID.
+
+### 7. Mint LCC Tokens
+```bash
+make mint-llc 
+```
+
+### 8. Top up the reward vault
+```bash
+make top-up-reward-pool
+```
 
 ---
 
@@ -105,7 +121,7 @@ NEXT_PUBLIC_DAPP_URL=https://dpp-demostrator.if4testing.rocks
 BACKEND_ENDPOINT=http://backend:3001
 BACKEND_API_KEY=12345
 GAS_STATION_URL=http://iota-gas-station:9527
-ITH_PKG_ID=0xfef5a9c6df130e8f60677689f3f414bbaa2b5a31f463a12fd174a925efa604bb
+HIERARCHIES_PKG_ID=0xfef5a9c6df130e8f60677689f3f414bbaa2b5a31f463a12fd174a925efa604bb
 API_KEY=12345
 TCP_LISTNER=0.0.0.0:3001
 ROOT_AUTH_SECRET_KEY=iotaprivkey1qpl6hj5h9ax9fsmulh35us7rvnqalyckhzh58qvrpwmze9u6zulzxlca83x
@@ -128,7 +144,43 @@ docker-compose up -d
 
 ---
 
+---
+
+## 🔧 Backend Architecture
+
+The project backend is developed in Rust and provides:
+
+### REST APIs
+- **Endpoint**: `/roles` for ITH role management
+- **Authentication**: API key via `x-api-key` header
+- **Documentation**: [Backend API docs](backend/docs/API.md)
+
+### Setup Scripts
+The backend includes automated configuration scripts:
+- `init_accounts`: Main account creation
+- `faucet`: Testnet account funding
+- `init_hierarchies`: Hierarchies federation setup
+- `init_dids`: Decentralized identity generation
+- **Documentation**: [Backend Scripts docs](backend/docs/SCRIPTS.md)
+
+### Module Structure
+```
+backend/src/
+├── lib/               # Modular libraries
+│   ├── keystore.rs    # Keystore/wallet management
+│   ├── identity.rs    # DID/credential operations
+│   └── transaction.rs # Signing/execution
+├── routes/            # API routing
+├── handlers/          # Business logic
+├── services/          # Blockchain services
+└── scripts/           # Setup automation
+```
+
+---
+
 ## 📌 Notes
-* The IOTA Identity integration is planned but not yet implemented.
+* The IOTA Identity integration is implemented with domain linkage support.
 
 * The Audit Trails smart-contract is intentionally simplified for demonstration purposes.
+
+* Backend documentation available in `backend/docs/`.

@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
-import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef, type PaginatedObjectsResponse } from "@iota/iota-sdk/client";
-import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
+import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef } from "@iota/iota-sdk/client";
 
 /*
 Service History Data Structure:

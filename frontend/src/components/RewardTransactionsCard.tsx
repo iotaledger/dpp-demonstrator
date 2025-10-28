@@ -71,7 +71,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
     return 'default';
   }
 
-  const getRowState = (_target: string) => {
+  const getRowState = () => {
     if (tutorialState === 'selected' || tutorialState === 'no') {
       return 'default';
     }
@@ -119,13 +119,13 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
           <DataGrid gap="gap-y-2 gap-x-6">
             {!hasTxFailed(rewardEntry.status) &&
               <ItemValueRow
-                rowState={getRowState('serviceId')}
+                rowState={getRowState()}
                 label="Service ID"
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.productAddr)}
                 fontMono={true}
               />}
             <ItemValueRow
-              rowState={getRowState('transactionId')}
+              rowState={getRowState()}
               label="Transaction ID"
               value={truncateAddress(rewardEntry.digest)}
               fontMono={true}
@@ -134,13 +134,13 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
               linkHref={`https://explorer.iota.org/txblock/${rewardEntry.digest}?network=testnet`}
             />
             <ItemValueRow
-              rowState={getRowState('timestamp')}
+              rowState={getRowState()}
               label="Timestamp"
               value={fromPosixMsToUtcDateFormat(rewardEntry.timestamp)}
             />
             {!hasTxFailed(rewardEntry.status) &&
               <ItemValueRow
-                rowState={getRowState('technician')}
+                rowState={getRowState()}
                 label="Technician"
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.sender)}
                 fontMono={true}
@@ -149,7 +149,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
                 linkHref={`https://explorer.iota.org/address/${rewardEntry.productEntries.at(0)?.sender}?network=testnet`}
               />}
             <ItemValueRow
-              rowState={getRowState('rewardDistributed')}
+              rowState={getRowState()}
               label="Reward Distributed"
               value={`${formatTokenBalance(rewardEntry.rewardChanges.at(0)?.amount || '0')} LCC`}
             />

@@ -626,31 +626,6 @@ function hasRecentRewardActivity(data: RewardVaultTransactionData, hours: number
   return data.transactions.some(tx => parseInt(tx.timestamp) >= cutoffTime);
 }
 
-// Helper functions
-
-/**
- * Extracts vault ID from query metadata
- */
-function extractVaultIdFromQuery(jsonData: any): string {
-  // Try to extract from RPC call payload comment
-  const payload = JSON.stringify(jsonData).match(/"InputObject":"(0x[a-fA-F0-9]+)"/);
-  return payload?.[1] || "";
-}
-
-/**
- * Calculates total gas cost from gas usage object
- */
-function calculateTotalGasCost(gasUsed: any): string {
-  if (!gasUsed) return "0";
-
-  const computation = BigInt(gasUsed.computationCost || "0");
-  const storage = BigInt(gasUsed.storageCost || "0");
-  const rebate = BigInt(gasUsed.storageRebate || "0");
-
-  const total = computation + storage - rebate;
-  return total.toString();
-}
-
 // Export all interfaces and functions
 export {
   type ProductEntryEvent,

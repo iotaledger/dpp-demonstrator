@@ -111,7 +111,7 @@ interface RewardVaultData {
  * console.log(`Loaded vault: ${vaultData.vaultId}`);
  * ```
  */
-function extractRewardVaultData(jsonData: IotaObjectResponse, productIdToFilter: string): RewardVaultData {
+function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   const data = jsonData.data as IotaObjectData;
   // @ts-expect-error - TODO: Better understand the Iota types and make use of it
   const vault = data.content?.fields;

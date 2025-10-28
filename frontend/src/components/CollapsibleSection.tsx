@@ -30,7 +30,6 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   showButton = true,
   opacity = 100,
   scale = 100,
-  delay = 0, // TODO: add in the transition implementation
   cardState = 'default',
   scrollIntoView = false,
 }) => {

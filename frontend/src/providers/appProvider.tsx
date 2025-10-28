@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import { type Notification } from '@/components/Toast';
 
 interface AppState {

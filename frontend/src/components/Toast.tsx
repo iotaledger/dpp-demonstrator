@@ -58,16 +58,23 @@ export const Toast: React.FC<ToastProps> = ({
   const { isTriggered } = useTransitionTrigger(NOTIFICATION_DECAY_TIME_MS);
 
   const handleOnClose = () => {
-    onClose && onClose(id);
+    if (onClose) {
+      onClose(id);
+    }
   };
 
   React.useEffect(() => {
     if (isTriggered) {
       window.setTimeout(() => {
-        onClose && onClose(id);
+        if (onClose) {
+          onClose(id);
+        }
       }, 300);
     }
-  }, [isTriggered]);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * onClose is a stable function and doesn't require to be a dependency.
+     */
+  }, [id, isTriggered]);
 
   return (
     <div

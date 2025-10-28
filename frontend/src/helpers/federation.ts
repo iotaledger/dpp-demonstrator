@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 import { IotaCallArg, IotaTransaction, IotaTransactionBlockResponse, MoveCallIotaTransaction, type IotaObjectData, type IotaObjectResponse } from "@iota/iota-sdk/client";
-import { StaticPrerenderStore } from "next/dist/server/app-render/work-unit-async-storage.external";
 
 /*
 Federation Data Structure:

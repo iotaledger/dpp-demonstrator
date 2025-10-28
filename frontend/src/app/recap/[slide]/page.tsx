@@ -64,6 +64,9 @@ export default function PostExperiencePage() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * goPrevious and goNext and functions that didn't change
+     */
   }, [currentSlide, canGoPrevious, canGoNext]);
 
   return (

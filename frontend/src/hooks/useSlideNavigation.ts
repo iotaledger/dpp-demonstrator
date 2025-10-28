@@ -116,6 +116,10 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
       window.removeEventListener('touchmove', handleSwipeGesture);
       window.removeEventListener('touchend', handleSwipeGesture);
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps --
+     * The following functions handleNext, handlePrevious are stable and doesn't
+     * require to be dependencies.
+     */
   }, [canGoPrevious, canGoNext]);
 
 

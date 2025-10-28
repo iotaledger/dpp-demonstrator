@@ -43,9 +43,6 @@ const RecapSlide4: React.FC<RecapSlide4Props> = ({
     url: "https://www.iota.org/build/business-innovation-program"
   };
 
-  // TODO: implement email content copy to clipboard, maybe it coulbe be a hook
-  const handleEmailCopy = () => { };
-
   return (
     <div
       className="max-w-6xl mx-auto p-6 md:p-12 max-h-full overflow-y-auto"

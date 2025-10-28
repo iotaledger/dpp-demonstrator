@@ -30,6 +30,10 @@ Before starting, ensure you have the following tools installed:
 
 1. **Docker**
 2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v1.6.1 --features tracing iota`
+3. **Lefthook**: it manages git hooks
+    - Install on MacOS: `brew install lefthook`
+        - For more supported installations see: https://lefthook.dev/installation/index.html
+    - After installing: update your terminal session and install hooks: `lefthook install`
 
 ---
 

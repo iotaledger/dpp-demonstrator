@@ -1,0 +1,56 @@
+$schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
+version: '0.1'
+ignorePaths:
+  - .git
+  - .gitignore
+  - .todo
+  - .next
+  - node_modules
+  - next-env.d.ts
+  - package-lock.json
+  - '*.svg'
+  - .vscode/extensions.json
+  - migrations
+  - cloudflare-env.d.ts
+  - clipboard
+  - dist
+  - .storybook
+  - '*.config.ts'
+  - '*.config.mjs'
+  - 'tsconfig.*'
+  - src/stories
+language: en-US,en-GB
+words:
+  # Package and tools
+  - dotenvx
+  - arktype
+  - commitlint
+  - elsakaan
+  - esbenp
+  - esbuild
+  - ianvs
+  - ixahmedxi
+  - lefthook
+  - nextjs
+  - oklch
+  - opennextjs
+  - Shadcn
+  - turbopack
+  - unrs
+  - unverceled
+  - valibot
+  - vitest
+  - workerd
+  - noimageindex
+  # Font names
+  - Segoe
+  - Cantarell
+  - Neue
+  # CSS
+  - infopanel
+  # IOTA context
+  - EPRO
+  - EPROs
+  - dids
+  - Fullnode
+  - iotalabs

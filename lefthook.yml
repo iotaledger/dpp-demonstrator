@@ -1,0 +1,39 @@
+# See documentation reference at:
+# https://lefthook.dev/intro.html
+
+no-tty: true
+pre-commit:
+  # run it: lefthook run pre-commit
+  jobs:
+    - name: type-check
+      # run it: lefthook run pre-commit --job type-check
+      tags:
+        - frontend
+        - types
+      root: frontend/
+      run: tsc --noEmit
+    - name: lint-check
+      # run it: lefthook run pre-commit --job lint-check
+      tags:
+        - frontend
+        - linters
+      root: frontend/
+      run: npx eslint {staged_files} --fix --no-warn-ignored
+      stage_fixed: true
+    - name: spell-check
+      # run it: lefthook run pre-commit --job spell-check
+      skip: true
+      tags:
+        - frontend
+        - spells
+      root: frontend/
+      run: npx cspell {staged_files} --no-must-find-files
+    - name: style-check
+      # run it: lefthook run pre-commit --job style-check
+      skip: true
+      tags:
+        - frontend
+        - styles
+      root: frontend/
+      run: npx prettier {staged_files} --ignore-unknown --write
+      stage_fixed: true

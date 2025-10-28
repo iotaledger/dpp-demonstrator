@@ -1,0 +1,9 @@
+node_modules
+package-lock.json
+.gitignore
+migrations
+clipboard
+cloudflare-env.d.ts
+.wrangler
+.open-next
+.next

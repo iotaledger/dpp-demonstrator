@@ -10,7 +10,7 @@ const config = {
   tabWidth: 2,
   plugins: [
     '@ianvs/prettier-plugin-sort-imports',
-    'prettier-plugin-tailwindcss',
+    'prettier-plugin-tailwindcss', // MUST come last as provider instruction
   ],
   importOrder: [
     '',

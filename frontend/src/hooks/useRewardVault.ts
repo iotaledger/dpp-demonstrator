@@ -1,7 +1,7 @@
 'use client';
 
-import { extractRewardVaultData } from "@/helpers/rewardVault";
-import { useIotaClientQuery } from "@iota/dapp-kit";
+import { extractRewardVaultData } from '@/helpers/rewardVault';
+import { useIotaClientQuery } from '@iota/dapp-kit';
 
 // TODO: document the purpose of this hook
 export function useRewardVaultDetails(vaultId: string) {

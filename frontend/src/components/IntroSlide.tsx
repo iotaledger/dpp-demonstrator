@@ -8,14 +8,10 @@ interface IntroSlideProps {
   children: React.ReactNode;
 }
 
-const IntroSlide: React.FC<IntroSlideProps> = ({
-  children,
-}) => {
+const IntroSlide: React.FC<IntroSlideProps> = ({ children }) => {
   return (
     <IntroSlideContainer>
-      <IntroSlideContent>
-        {children}
-      </IntroSlideContent>
+      <IntroSlideContent>{children}</IntroSlideContent>
     </IntroSlideContainer>
   );
 };

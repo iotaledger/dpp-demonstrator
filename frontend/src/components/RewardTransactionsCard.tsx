@@ -30,7 +30,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
   const [transactions, transactionsSize] = React.useMemo(() => {
     if (rewardTransactions) {
       const _transactions = rewardTransactions?.transactions;
-      return [_transactions, _transactions.length]
+      return [_transactions, _transactions.length];
     }
     return [null, 0];
   }, [rewardTransactions]);
@@ -57,7 +57,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
       return close;
     }
     return open;
-  }
+  };
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
@@ -69,7 +69,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
     }
 
     return 'default';
-  }
+  };
 
   const getRowState = () => {
     if (tutorialState === 'selected' || tutorialState === 'no') {
@@ -77,14 +77,14 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
     }
 
     return 'muted';
-  }
+  };
 
   const hasTxFailed = (status: string) => {
     return status === 'failure';
   };
 
   const getBadgeText = (status: string) => {
-    return !hasTxFailed(status) ? "Reward payout" : "Failed"
+    return !hasTxFailed(status) ? 'Reward payout' : 'Failed';
   };
 
   const isShowMoreDisabled = () => {
@@ -100,7 +100,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title="Rewards transactions"
+      title='Rewards transactions'
       subtitle='List of all rewards transactions'
       opacity={opacity}
       delay={delay}
@@ -109,67 +109,62 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
         <PanelContent
           key={rewardEntry.digest}
           title='Health Snapshot'
-          badge={
-            <BadgeWithLink
-              badgeText={getBadgeText(rewardEntry.status)}
-              spacing="gap-0"
-            />
-          }
+          badge={<BadgeWithLink badgeText={getBadgeText(rewardEntry.status)} spacing='gap-0' />}
         >
-          <DataGrid gap="gap-y-2 gap-x-6">
-            {!hasTxFailed(rewardEntry.status) &&
+          <DataGrid gap='gap-y-2 gap-x-6'>
+            {!hasTxFailed(rewardEntry.status) && (
               <ItemValueRow
                 rowState={getRowState()}
-                label="Service ID"
+                label='Service ID'
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.productAddr)}
                 fontMono={true}
-              />}
+              />
+            )}
             <ItemValueRow
               rowState={getRowState()}
-              label="Transaction ID"
+              label='Transaction ID'
               value={truncateAddress(rewardEntry.digest)}
               fontMono={true}
-              valueColor="text-blue-600"
+              valueColor='text-blue-600'
               isLink={true}
               linkHref={`https://explorer.iota.org/txblock/${rewardEntry.digest}?network=testnet`}
             />
             <ItemValueRow
               rowState={getRowState()}
-              label="Timestamp"
+              label='Timestamp'
               value={fromPosixMsToUtcDateFormat(rewardEntry.timestamp)}
             />
-            {!hasTxFailed(rewardEntry.status) &&
+            {!hasTxFailed(rewardEntry.status) && (
               <ItemValueRow
                 rowState={getRowState()}
-                label="Technician"
+                label='Technician'
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.sender)}
                 fontMono={true}
-                valueColor="text-blue-600"
+                valueColor='text-blue-600'
                 isLink={true}
                 linkHref={`https://explorer.iota.org/address/${rewardEntry.productEntries.at(0)?.sender}?network=testnet`}
-              />}
+              />
+            )}
             <ItemValueRow
               rowState={getRowState()}
-              label="Reward Distributed"
+              label='Reward Distributed'
               value={`${formatTokenBalance(rewardEntry.rewardChanges.at(0)?.amount || '0')} LCC`}
             />
           </DataGrid>
         </PanelContent>
       ))}
       {transactionsSize > 0 && (
-        <div className="w-full grid justify-center mt-6">
+        <div className='w-full grid justify-center mt-6'>
           {viewMore && (
             <button
-              className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2   svelte-1u9y1q3"
+              className='inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2   svelte-1u9y1q3'
               onClick={() => setViewMore(false)}
               disabled={isShowMoreDisabled()}
             >
               {`View more (${transactionsSize - 1})`}
             </button>
           )}
-          {!viewMore && (
-            <ItemsLoadedFeedbackMessage size={transactionsSize} />
-          )}
+          {!viewMore && <ItemsLoadedFeedbackMessage size={transactionsSize} />}
         </div>
       )}
     </CollapsibleSection>
@@ -184,11 +179,7 @@ function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
       return `All ${size} latest transactions shown`;
     }
   };
-  return (
-    <div className="text-center text-sm text-gray-500 py-2">
-      {feedbackMessage()}
-    </div>
-  );
+  return <div className='text-center text-sm text-gray-500 py-2'>{feedbackMessage()}</div>;
 }
 
 export default RewardTransactionsCard;

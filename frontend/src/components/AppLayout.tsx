@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -8,7 +8,7 @@ import Layout from '@/components/Layout';
 import { AppProvider } from '@/providers/appProvider';
 
 // Required to give sytle to UI components imported from dapp-kit such as ConnectButton
-import '@iota/dapp-kit/dist/index.css'
+import '@iota/dapp-kit/dist/index.css';
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
@@ -23,30 +23,28 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     //   to enforce the usage of Network enum in the sample in place of hardcoded
     //   value 'mainnet'.
     testnet: { url: getFullnodeUrl(Network.Testnet) },
-    mainnet: { url: getFullnodeUrl(Network.Mainnet) }
+    mainnet: { url: getFullnodeUrl(Network.Mainnet) },
   });
 
   // This effect only works because this module is running on client side.
   // Be aware there is no `window` on server side.
   React.useEffect(() => {
     // @ts-expect-error - NOTE: `nightly` is not found at Window and globalThis
-    const nightlyIota = window.nightly?.iota
+    const nightlyIota = window.nightly?.iota;
     setInNightlyWallet(nightlyIota != null);
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient} >
+    <QueryClientProvider client={queryClient}>
       <IotaClientProvider networks={networkConfig} defaultNetwork={Network.Testnet}>
         <WalletProvider autoConnect={true}>
           <AppProvider inNightlyWallet={inNightlyWallet}>
-            <Layout>
-              {children}
-            </Layout>
+            <Layout>{children}</Layout>
             {/* Portal target for modals */}
-            <div id="modal-root" />
+            <div id='modal-root' />
           </AppProvider>
         </WalletProvider>
       </IotaClientProvider>
-    </QueryClientProvider >
+    </QueryClientProvider>
   );
 }

@@ -20,11 +20,7 @@ import { generateRequestId } from '@/utils/common';
 export function useWalletUpdateEffects() {
   // From app store
   const {
-    state: {
-      isWalletConnected,
-      isHierarchySent,
-      currentAccountAddress,
-    },
+    state: { isWalletConnected, isHierarchySent, currentAccountAddress },
     handleWalletConnected,
     handleWalletDisconnected,
     handleCurrentAccountAddressChanged,
@@ -37,10 +33,7 @@ export function useWalletUpdateEffects() {
    * INFO: Effects from primary sources (external ones);
    */
 
-  const {
-    isConnected,
-    isDisconnected,
-  } = useCurrentWallet();
+  const { isConnected, isDisconnected } = useCurrentWallet();
   const currentAccount = useCurrentAccount();
 
   // Updates the app store when wallet connects.
@@ -85,7 +78,7 @@ export function useWalletUpdateEffects() {
       handleNotificationSent!({
         id: 'wallet-connect', // a static id avoids duplication during rerenderings
         type: 'success',
-        message: 'Wallet connected successfully! You can now request service access.'
+        message: 'Wallet connected successfully! You can now request service access.',
       });
     }
     /* eslint-disable-next-line react-hooks/exhaustive-deps --
@@ -93,21 +86,25 @@ export function useWalletUpdateEffects() {
      */
   }, [isWalletConnected]);
 
-  const { federationDetails, isSuccess: isSuccessFederationDetails } = useFederationDetails(FEDERATION_ID);
+  const { federationDetails, isSuccess: isSuccessFederationDetails } =
+    useFederationDetails(FEDERATION_ID);
 
   // Effect event to detach federationDetails retrieval from the effect trigger
-  const checkCurrentAccountAddressAccredited = React.useCallback((currentAccountAddress: string) => {
-    if (!federationDetails) {
+  const checkCurrentAccountAddressAccredited = React.useCallback(
+    (currentAccountAddress: string) => {
+      if (!federationDetails) {
+        return false;
+      }
+
+      const roles = getRolesByEntity(federationDetails, currentAccountAddress);
+      if (roles.some((each) => each === 'repairer')) {
+        return true;
+      }
+
       return false;
-    }
-
-    const roles = getRolesByEntity(federationDetails, currentAccountAddress);
-    if (roles.some((each) => each === 'repairer')) {
-      return true;
-    }
-
-    return false;
-  }, [federationDetails]);
+    },
+    [federationDetails],
+  );
 
   // Triggers when wallet is connected, current address is changed and federation details is retrieved
   React.useEffect(() => {
@@ -129,8 +126,8 @@ export function useWalletUpdateEffects() {
       handleNotificationSent!({
         id: 'accreditation-recognition',
         type: 'success',
-        message: 'Role request approved! You can now access diagnostic tools.'
-      })
+        message: 'Role request approved! You can now access diagnostic tools.',
+      });
     }
     /* eslint-disable-next-line react-hooks/exhaustive-deps --
      * The function handleNotificationSent is stable and doesn't require to be a dependency.

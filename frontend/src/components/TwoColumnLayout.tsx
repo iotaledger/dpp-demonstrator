@@ -16,33 +16,21 @@ const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
   mainContent,
   sidebarContent,
   opacity = 100,
-  delay = 0
+  delay = 0,
 }) => {
   return (
     <>
-      <TwoColumnsForLargeScreen
-        opacity={opacity}
-        delay={delay}>
-        <main className="overflow-hidden transition-all duration-700 ease-out">
-          <div className="h-full transition-all duration-700 ease-out">
-            {mainContent}
-          </div>
+      <TwoColumnsForLargeScreen opacity={opacity} delay={delay}>
+        <main className='overflow-hidden transition-all duration-700 ease-out'>
+          <div className='h-full transition-all duration-700 ease-out'>{mainContent}</div>
         </main>
-        <aside className="overflow-hidden">
-          {sidebarContent}
-        </aside>
+        <aside className='overflow-hidden'>{sidebarContent}</aside>
       </TwoColumnsForLargeScreen>
-      <OneColumnOtherwise
-        opacity={opacity}
-        delay={delay}>
-        <main className="overflow-hidden transition-all duration-700 ease-out">
-          <div className="h-full transition-all duration-700 ease-out">
-            {mainContent}
-          </div>
+      <OneColumnOtherwise opacity={opacity} delay={delay}>
+        <main className='overflow-hidden transition-all duration-700 ease-out'>
+          <div className='h-full transition-all duration-700 ease-out'>{mainContent}</div>
         </main>
-        <aside className="overflow-hidden">
-          {sidebarContent}
-        </aside>
+        <aside className='overflow-hidden'>{sidebarContent}</aside>
       </OneColumnOtherwise>
     </>
   );
@@ -57,20 +45,20 @@ interface OneColumnOtherwiseProps {
 const OneColumnOtherwise: React.FC<OneColumnOtherwiseProps> = ({
   children,
   opacity = 100,
-  delay = 0
+  delay = 0,
 }) => {
   return (
     <div
       className='lg:hidden grid grid-cols-1 h-full overflow-hidden transition-all duration-700 ease-out gap-10'
       style={{
         opacity: opacity / 100,
-        transition: `opacity ${delay}s ease-out`
+        transition: `opacity ${delay}s ease-out`,
       }}
     >
       {children}
     </div>
   );
-}
+};
 
 interface TwoColumnsForLargeScreenProps {
   children: React.ReactNode;
@@ -82,9 +70,8 @@ interface TwoColumnsForLargeScreenProps {
 const TwoColumnsForLargeScreen: React.FC<TwoColumnsForLargeScreenProps> = ({
   children,
   opacity = 100,
-  delay = 0
+  delay = 0,
 }) => {
-
   return (
     <div
       className={clsx([
@@ -94,12 +81,12 @@ const TwoColumnsForLargeScreen: React.FC<TwoColumnsForLargeScreenProps> = ({
       ])}
       style={{
         opacity: opacity / 100,
-        transition: `opacity ${delay}s ease-out`
+        transition: `opacity ${delay}s ease-out`,
       }}
     >
       {children}
     </div>
   );
-}
+};
 
 export default TwoColumnLayout;

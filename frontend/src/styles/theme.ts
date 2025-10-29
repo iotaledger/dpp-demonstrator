@@ -11,7 +11,7 @@ const theme: DefaultTheme = {
     border: '#2A2A2A',
     error: '#FF4D4D',
     success: '#00C853',
-    warning: '#FFB300'
+    warning: '#FFB300',
   },
   spacing: {
     xs: '0.5rem',
@@ -19,12 +19,12 @@ const theme: DefaultTheme = {
     md: '1.5rem',
     lg: '2rem',
     xl: '3rem',
-    xxl: '4rem'
+    xxl: '4rem',
   },
   typography: {
     fontFamily: {
       sans: '"Inter", system-ui, -apple-system, sans-serif',
-      mono: '"Roboto Mono", monospace'
+      mono: '"Roboto Mono", monospace',
     },
     fontSize: {
       xs: '0.75rem',
@@ -34,14 +34,14 @@ const theme: DefaultTheme = {
       xl: '1.25rem',
       '2xl': '1.5rem',
       '3xl': '1.875rem',
-      '4xl': '2.25rem'
+      '4xl': '2.25rem',
     },
     fontWeight: {
       light: 300,
       normal: 400,
       medium: 500,
       semibold: 600,
-      bold: 700
+      bold: 700,
     },
     lineHeight: {
       none: 1,
@@ -49,20 +49,20 @@ const theme: DefaultTheme = {
       snug: 1.375,
       normal: 1.5,
       relaxed: 1.625,
-      loose: 2
-    }
+      loose: 2,
+    },
   },
   breakpoints: {
     sm: '640px',
     md: '768px',
     lg: '1024px',
     xl: '1280px',
-    '2xl': '1536px'
+    '2xl': '1536px',
   },
   transitions: {
     default: '0.3s ease-in-out',
     fast: '0.15s ease-in-out',
-    slow: '0.5s ease-in-out'
+    slow: '0.5s ease-in-out',
   },
   zIndex: {
     hide: -1,
@@ -72,8 +72,8 @@ const theme: DefaultTheme = {
     fixed: 1030,
     modal: 1040,
     popover: 1050,
-    tooltip: 1060
-  }
+    tooltip: 1060,
+  },
 };
 
 export default theme;

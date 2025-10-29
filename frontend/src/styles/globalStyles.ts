@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { createGlobalStyle } from 'styled-components';
 

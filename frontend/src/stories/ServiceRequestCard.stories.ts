@@ -8,16 +8,17 @@ const meta: Meta<typeof ServiceRequestCard> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A service request action card component that prompts users to request access to service networks. Features tutorial state management, customizable content, and integrated action button with ID for tutorial interaction.'
-      }
-    }
+        component:
+          'A service request action card component that prompts users to request access to service networks. Features tutorial state management, customizable content, and integrated action button with ID for tutorial interaction.',
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     cardState: {
       control: 'select',
       options: ['normal', 'muted', 'highlighted'],
-      description: 'Card state for tutorial integration'
+      description: 'Card state for tutorial integration',
     },
   },
 };

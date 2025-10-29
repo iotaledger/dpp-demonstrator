@@ -37,17 +37,15 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     return [null, 0];
   }, [serviceHistory]);
 
-  const getCurrentAccountBadge = React.useCallback((otherAddress: string) => {
-    if (otherAddress === currentAccount?.address) {
-      return (
-        <BadgeWithLink
-          badgeText={'You'}
-          spacing="gap-0"
-        />
-      );
-    }
-    return null;
-  }, [currentAccount]);
+  const getCurrentAccountBadge = React.useCallback(
+    (otherAddress: string) => {
+      if (otherAddress === currentAccount?.address) {
+        return <BadgeWithLink badgeText={'You'} spacing='gap-0' />;
+      }
+      return null;
+    },
+    [currentAccount],
+  );
 
   const getServiceEntriesToShow = () => {
     if (serviceEntriesSize > 0 && viewMore) {
@@ -71,19 +69,23 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       return close;
     }
     return open;
-  }
+  };
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
       return 'muted';
     }
 
-    if (tutorialState === 'selected' || tutorialState === 'detailsSelected' || tutorialState === 'rewardSelected') {
+    if (
+      tutorialState === 'selected' ||
+      tutorialState === 'detailsSelected' ||
+      tutorialState === 'rewardSelected'
+    ) {
       return 'selected';
     }
 
     return 'default';
-  }
+  };
 
   const getRowState = (target: 'detailsSelected' | 'rewardSelected') => {
     if (tutorialState === 'selected' || tutorialState === 'no') {
@@ -99,7 +101,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     }
 
     return 'muted';
-  }
+  };
 
   const isShowMoreDisabled = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
@@ -114,26 +116,23 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title="Service History"
+      title='Service History'
       subtitle='Maintenance and Repairs'
       opacity={opacity}
       delay={delay}
     >
       {getServiceEntriesToShow()?.map((serviceEntry) => (
-        <PanelContent
-          key={serviceEntry.digest}
-          title='Health Snapshot'
-        >
-          <DataGrid gap="gap-y-2 gap-x-6">
+        <PanelContent key={serviceEntry.digest} title='Health Snapshot'>
+          <DataGrid gap='gap-y-2 gap-x-6'>
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label="Event ID"
+              label='Event ID'
               value={
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                   <a
                     target='_blank'
                     href={`https://explorer.iota.org/object/${serviceEntry?.entryId}?network=testnet`}
-                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                    className='text-blue-600 hover:text-blue-700 transition-colors'
                   >
                     {truncateAddress(serviceEntry?.entryId)}
                   </a>
@@ -143,40 +142,40 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label="Entry Type"
-              value={"Annual Maintenance"}
+              label='Entry Type'
+              value={'Annual Maintenance'}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label="Timestamp"
+              label='Timestamp'
               value={fromPosixMsToUtcDateFormat(serviceEntry?.timestamp)}
             />
 
-            <hr className="my-1 border-[var(--border)]" />
+            <hr className='my-1 border-[var(--border)]' />
 
             {serviceEntry?.healthScore && (
               <ItemValueRow
                 rowState={getRowState('detailsSelected')}
-                label="Health Score"
+                label='Health Score'
                 value={serviceEntry.healthScore}
-                valueColor="text-gray-900 font-semibold"
+                valueColor='text-gray-900 font-semibold'
               />
             )}
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label="Findings"
+              label='Findings'
               value={serviceEntry?.findings || serviceEntry?.serviceDescription}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label="Verification"
+              label='Verification'
               value={
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                   <p>{'Notarized at block'}</p>
                   <a
                     target='_blank'
                     href={`https://explorer.iota.org/txblock/${serviceEntry.txBlock}?network=testnet`}
-                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                    className='text-blue-600 hover:text-blue-700 transition-colors'
                   >
                     {truncateAddress(serviceEntry.txBlock)}
                   </a>
@@ -184,18 +183,18 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               }
             />
 
-            <hr className="my-1 border-[var(--border)]" />
+            <hr className='my-1 border-[var(--border)]' />
 
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
               label={'Technician'}
               value={
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                   {getCurrentAccountBadge(serviceEntry?.issuerAddress)}
                   <a
                     target='_blank'
                     href={`https://explorer.iota.org/address/${serviceEntry?.issuerAddress}?network=testnet`}
-                    className="text-blue-600 hover:text-blue-700 transition-colors"
+                    className='text-blue-600 hover:text-blue-700 transition-colors'
                   >
                     {truncateAddress(serviceEntry?.issuerAddress)}
                   </a>
@@ -203,14 +202,14 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               }
             />
 
-            <hr className="my-1 border-[var(--border)]" />
+            <hr className='my-1 border-[var(--border)]' />
 
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
-              label="Reward contract"
+              label='Reward contract'
               value={truncateAddress(serviceEntry?.packageId)}
               fontMono={true}
-              valueColor="text-blue-600"
+              valueColor='text-blue-600'
               linkHref={`https://explorer.iota.org/object/${serviceEntry?.packageId}?network=testnet`}
               isLink={true}
             />
@@ -218,26 +217,24 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             {/* TODO: Discover a way to get this information from the reward contract. Maybe analysing calls to  */}
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
-              label="Reward Distributed"
-              value={"1 LCC"}
+              label='Reward Distributed'
+              value={'1 LCC'}
             />
           </DataGrid>
         </PanelContent>
       ))}
       {serviceEntriesSize > 0 && (
-        <div className="w-full grid justify-center mt-6">
+        <div className='w-full grid justify-center mt-6'>
           {viewMore && (
             <button
-              className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2   svelte-1u9y1q3"
+              className='inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2   svelte-1u9y1q3'
               onClick={() => setViewMore(false)}
               disabled={isShowMoreDisabled()}
             >
               {`View more (${serviceEntriesSize - 1})`}
             </button>
           )}
-          {!viewMore && (
-            <ItemsLoadedFeedbackMessage size={serviceEntriesSize} />
-          )}
+          {!viewMore && <ItemsLoadedFeedbackMessage size={serviceEntriesSize} />}
         </div>
       )}
     </CollapsibleSection>
@@ -252,11 +249,7 @@ function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
       return `All ${size} latest entries shown`;
     }
   };
-  return (
-    <div className="text-center text-sm text-gray-500 py-2">
-      {feedbackMessage()}
-    </div>
-  );
+  return <div className='text-center text-sm text-gray-500 py-2'>{feedbackMessage()}</div>;
 }
 
 export default ServiceHistoryCard;

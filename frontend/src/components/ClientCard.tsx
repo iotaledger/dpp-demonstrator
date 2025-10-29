@@ -28,18 +28,19 @@ const ClientCard: React.FC<ClientCardProps> = ({
     <div
       className={clsx(
         `h-full flex flex-col rounded-3xl overflow-hidden opacity-${opacity} translate-y-${translateY}`,
-        isTriggered && 'opacity-100 translate-y-0')}
+        isTriggered && 'opacity-100 translate-y-0',
+      )}
       style={{
-        transition: 'transition: opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s'
+        transition: 'transition: opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s',
       }}
     >
-      <div className="flex-1 overflow-hidden rounded-3xl">
-        <img className="w-full h-full object-cover" src={image} alt={alt} />
+      <div className='flex-1 overflow-hidden rounded-3xl'>
+        <img className='w-full h-full object-cover' src={image} alt={alt} />
       </div>
 
-      <div className="p-3 md:p-4">
-        <h4 className="text-base md:text-lg text-gray-900 font-semibold mb-1">{title}</h4>
-        <p className="text-base md:text-xl text-gray-600">{description}</p>
+      <div className='p-3 md:p-4'>
+        <h4 className='text-base md:text-lg text-gray-900 font-semibold mb-1'>{title}</h4>
+        <p className='text-base md:text-xl text-gray-600'>{description}</p>
       </div>
     </div>
   );

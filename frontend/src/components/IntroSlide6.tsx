@@ -13,13 +13,13 @@ const IntroSlide6: React.FC = () => {
   return (
     <>
       <ImageTextLayout maxWidth='max-w-5xl'>
-        <SlideImage
-          src="/assets/intro/key-players.webp"
-          alt="Key Players in the DPP ecosystem"
-        />
-        <SlideContent textAlign="left">
-          <SlideTitle size="large">Key Players in the DPP ecosystem</SlideTitle>
-          <SlideDescription>These are the key players in a minimal product lifecycle, each interacting with the Digital Product Passport at different stages.</SlideDescription>
+        <SlideImage src='/assets/intro/key-players.webp' alt='Key Players in the DPP ecosystem' />
+        <SlideContent textAlign='left'>
+          <SlideTitle size='large'>Key Players in the DPP ecosystem</SlideTitle>
+          <SlideDescription>
+            These are the key players in a minimal product lifecycle, each interacting with the
+            Digital Product Passport at different stages.
+          </SlideDescription>
         </SlideContent>
       </ImageTextLayout>
 

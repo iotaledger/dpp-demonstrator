@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
-import { type IotaObjectData, type IotaObjectResponse } from "@iota/iota-sdk/client";
+import { type IotaObjectData, type IotaObjectResponse } from '@iota/iota-sdk/client';
 
 /*
 Reward Vault Data Structure:
@@ -46,15 +46,15 @@ interface LCCBalance {
 
 /**
  * Complete reward vault data structure containing all token distribution information
- * 
+ *
  * Usage Example:
  * ```typescript
  * const vault = extractRewardVaultData(jsonResponse);
- * 
+ *
  * // Check vault capacity
  * console.log(`Vault ID: ${vault.vaultId}`);
  * console.log(`Total addresses: ${vault.addressCount}`);
- * 
+ *
  * // Get specific balance
  * const balance = getBalanceByAddress(vault, '0x04c545450fa0b988...');
  * console.log(`Balance: ${formatLCCBalance(balance)} LCC`);
@@ -81,20 +81,20 @@ interface RewardVaultData {
 
 /**
  * Extracts and transforms reward vault data from IOTA Rebase JSON-RPC response
- * 
+ *
  * This function processes the vault's balance distribution system and creates
  * a frontend-friendly data structure with Maps for efficient balance lookups.
- * 
+ *
  * Process Flow:
  * ┌─ JSON Input ─┐    ┌─ Extract ─┐    ┌─ Transform ─┐    ┌─ Output ─┐
  * │ Vault Move   │ →  │ Metadata  │ →  │ Create Maps │ →  │ Clean    │
  * │ Object       │    │ Balances  │    │ Calc Totals │    │ Structure│
  * │              │    │ Addresses │    │             │    │          │
  * └──────────────┘    └───────────┘    └─────────────┘    └──────────┘
- * 
+ *
  * @param jsonData - The JSON-RPC response from iota_getObject call
  * @returns RewardVaultData object with extracted and organized information
- * 
+ *
  * @example
  * ```typescript
  * const response = await fetch('https://api.testnet.iota.cafe/', {
@@ -115,8 +115,8 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   const data = jsonData.data as IotaObjectData;
   // @ts-expect-error - TODO: Better understand the Iota types and make use of it
   const vault = data.content?.fields;
-  let lccPackageId = "";
-  let lccTypeName = "";
+  let lccPackageId = '';
+  let lccTypeName = '';
 
   // Extract Vault metadata
   const vaultId = data.objectId;
@@ -151,7 +151,7 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
       balanceId,
       packageId,
       module,
-      typeName
+      typeName,
     };
 
     balancesByAddress.set(address, lccBalance);
@@ -166,20 +166,20 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
     lccTypeName,
     balancesByAddress,
     addressCount: balancesByAddress.size,
-    totalBalance
+    totalBalance,
   };
 }
 
 /**
  * Retrieves LCC balance for a specific address
- * 
+ *
  * Lookup Pattern:
  * Address → Map → LCC Balance Object
- * 
+ *
  * @param data - The reward vault data structure
  * @param address - The blockchain address to look up
  * @returns LCCBalance object for the address, or undefined if not found
- * 
+ *
  * @example
  * ```typescript
  * const balance = getBalanceByAddress(vaultData, '0x04c545450fa0b988...');
@@ -194,10 +194,10 @@ function getBalanceByAddress(data: RewardVaultData, address: string): LCCBalance
 
 /**
  * Gets all addresses that have balances in the vault
- * 
+ *
  * @param data - The reward vault data structure
  * @returns Array of addresses with non-zero balances
- * 
+ *
  * @example
  * ```typescript
  * const addresses = getAllRewardAddresses(vaultData);
@@ -210,17 +210,17 @@ function getAllRewardAddresses(data: RewardVaultData): string[] {
 
 /**
  * Gets all LCC balances sorted by amount (highest first)
- * 
+ *
  * Sorting Pattern:
  * ┌─ All Balances ─┐    ┌─ Sort by Amount ─┐    ┌─ Ranked List ─┐
  * │ Addr1: 100 LCC │ →  │ Addr3: 500 LCC   │ →  │ Top Holders   │
  * │ Addr2: 300 LCC │    │ Addr2: 300 LCC   │    │ Distribution  │
  * │ Addr3: 500 LCC │    │ Addr1: 100 LCC   │    │               │
  * └────────────────┘    └──────────────────┘    └───────────────┘
- * 
+ *
  * @param data - The reward vault data structure
  * @returns Array of LCCBalance objects sorted by balance (descending)
- * 
+ *
  * @example
  * ```typescript
  * const topHolders = getBalancesSortedByAmount(vaultData);
@@ -231,21 +231,20 @@ function getAllRewardAddresses(data: RewardVaultData): string[] {
  * ```
  */
 function getBalancesSortedByAmount(data: RewardVaultData): LCCBalance[] {
-  return Array.from(data.balancesByAddress.values())
-    .sort((a, b) => {
-      const balanceA = BigInt(a.balance);
-      const balanceB = BigInt(b.balance);
-      return balanceA > balanceB ? -1 : balanceA < balanceB ? 1 : 0;
-    });
+  return Array.from(data.balancesByAddress.values()).sort((a, b) => {
+    const balanceA = BigInt(a.balance);
+    const balanceB = BigInt(b.balance);
+    return balanceA > balanceB ? -1 : balanceA < balanceB ? 1 : 0;
+  });
 }
 
 /**
  * Checks if an address has any rewards in the vault
- * 
+ *
  * @param data - The reward vault data structure
  * @param address - The address to check
  * @returns true if address has rewards, false otherwise
- * 
+ *
  * @example
  * ```typescript
  * const hasRewards = addressHasRewards(vaultData, userAddress);
@@ -262,13 +261,13 @@ function addressHasRewards(data: RewardVaultData, address: string): boolean {
 
 /**
  * Calculates reward distribution statistics
- * 
+ *
  * Statistics Flow:
  * All Balances → Calculate Stats → Distribution Insights
- * 
+ *
  * @param data - The reward vault data structure
  * @returns Statistics object with distribution metrics
- * 
+ *
  * @example
  * ```typescript
  * const stats = getRewardDistributionStats(vaultData);
@@ -285,41 +284,38 @@ function getRewardDistributionStats(data: RewardVaultData): {
 } {
   const balances = Array.from(data.balancesByAddress.values());
   const sortedAmounts = balances
-    .map(b => BigInt(b.balance))
-    .sort((a, b) => a > b ? 1 : a < b ? -1 : 0);
+    .map((b) => BigInt(b.balance))
+    .sort((a, b) => (a > b ? 1 : a < b ? -1 : 0));
 
   const totalDistributed = data.totalBalance.toString();
-  const averageBalance = balances.length > 0
-    ? (data.totalBalance / BigInt(balances.length)).toString()
-    : "0";
+  const averageBalance =
+    balances.length > 0 ? (data.totalBalance / BigInt(balances.length)).toString() : '0';
 
   const medianIndex = Math.floor(sortedAmounts.length / 2);
-  const medianBalance = sortedAmounts.length > 0
-    ? sortedAmounts[medianIndex].toString()
-    : "0";
+  const medianBalance = sortedAmounts.length > 0 ? sortedAmounts[medianIndex].toString() : '0';
 
   return {
     totalDistributed,
     averageBalance,
     medianBalance,
-    addressCount: balances.length
+    addressCount: balances.length,
   };
 }
 
 /**
  * Formats LCC balance from smallest units to human-readable format
- * 
+ *
  * Formatting Pattern:
  * "9999998000000000" → "9,999,998.000000000" LCC
- * 
+ *
  * @param balance - LCC balance in smallest units (string or LCCBalance object)
  * @returns Formatted balance string with proper decimals
- * 
+ *
  * @example
  * ```typescript
  * const formatted = formatLCCBalance("9999998000000000");
  * console.log(formatted); // "9,999,998.000000000"
- * 
+ *
  * const balance = getBalanceByAddress(vaultData, address);
  * console.log(`You have ${formatLCCBalance(balance)} LCC tokens`);
  * ```
@@ -344,7 +340,7 @@ function formatLCCBalance(balance: string | LCCBalance): string {
 
 /**
  * Finds addresses with balances above a threshold
- * 
+ *
  * Filtering Pattern:
  * ┌─ Input: min amount ─┐
  * │                     │
@@ -354,11 +350,11 @@ function formatLCCBalance(balance: string | LCCBalance): string {
  * │ Addr3: 50 LCC       │
  * │                     │
  * └─ Output: [Addr2] ───┘
- * 
+ *
  * @param data - The reward vault data structure
  * @param minBalance - Minimum balance threshold (in smallest units)
  * @returns Array of addresses with balances above threshold
- * 
+ *
  * @example
  * ```typescript
  * // Find addresses with more than 1 million LCC
@@ -382,10 +378,10 @@ function getAddressesAboveThreshold(data: RewardVaultData, minBalance: string): 
 
 /**
  * Checks if the vault is empty (no balances)
- * 
+ *
  * @param data - The reward vault data structure
  * @returns true if vault has no balances, false otherwise
- * 
+ *
  * @example
  * ```typescript
  * if (isVaultEmpty(vaultData)) {
@@ -399,10 +395,10 @@ function isVaultEmpty(data: RewardVaultData): boolean {
 
 /**
  * Gets the total value locked in the vault
- * 
+ *
  * @param data - The reward vault data structure
  * @returns Total LCC balance as formatted string
- * 
+ *
  * @example
  * ```typescript
  * const tvl = getVaultTotalValue(vaultData);
@@ -410,7 +406,7 @@ function isVaultEmpty(data: RewardVaultData): boolean {
  * ```
  */
 function getVaultTotalValuePerAddress(data: RewardVaultData, address: string): string {
-  let amount = "0";
+  let amount = '0';
   if (data.balancesByAddress.has(address)) {
     amount = formatLCCBalance(data.balancesByAddress.get(address)!.balance);
   }
@@ -419,13 +415,13 @@ function getVaultTotalValuePerAddress(data: RewardVaultData, address: string): s
 
 /**
  * Extracts coin definition from Move coin type
- * 
+ *
  * Phase 1: Extract coin_definition from Coin<T>
  * "0x2::coin::Coin<PACKAGE::MODULE::TYPE>" → "PACKAGE::MODULE::TYPE"
- * 
+ *
  * @param coinType - The full Move coin type string
  * @returns The coin definition string (everything inside the angle brackets)
- * 
+ *
  * @example
  * ```typescript
  * const coinType = "0x2::coin::Coin<0x1d0b...::LCC::LCC>";
@@ -435,15 +431,15 @@ function getVaultTotalValuePerAddress(data: RewardVaultData, address: string): s
  */
 function extractCoinDefinition(coinType: string): string {
   const match = coinType.match(/0x2::coin::Coin<(.+)>$/);
-  return match?.[1] || "";
+  return match?.[1] || '';
 }
 
 /**
  * Parses coin definition into components
- * 
+ *
  * Phase 2: Parse "PACKAGE::MODULE::TYPE"
  * "0x1d0b...::LCC::LCC" → { packageId, module, typeName }
- * 
+ *
  * Move Type Structure:
  * ┌─ Package ID ─┐  ┌─ Module ─┐  ┌─ Type ─┐
  * │ 0x1d0b1bdb... │  │   LCC    │  │  LCC  │
@@ -452,10 +448,10 @@ function extractCoinDefinition(coinType: string): string {
  *        │                │           └─ Struct/Type Name
  *        │                └─ Module Name within Package
  *        └─ Smart Contract Address
- * 
+ *
  * @param coinDefinition - The coin definition string (PACKAGE::MODULE::TYPE)
  * @returns Object with parsed components
- * 
+ *
  * @example
  * ```typescript
  * const definition = "0x1d0b1bdb1b5ff25102e2e9d3858f898cd6c9f016b87b496c2e041f0ac060c5e7::LCC::LCC";
@@ -473,18 +469,18 @@ function parseCoinDefinition(coinDefinition: string): {
   const parts = coinDefinition.split('::');
 
   return {
-    packageId: parts[0] || "",      // "0x1d0b1bdb..."
-    module: parts[1] || "",         // "LCC" 
-    typeName: parts[2] || ""        // "LCC"
+    packageId: parts[0] || '', // "0x1d0b1bdb..."
+    module: parts[1] || '', // "LCC"
+    typeName: parts[2] || '', // "LCC"
   };
 }
 
 /**
  * Gets the LCC token package ID from the vault
- * 
+ *
  * @param data - The reward vault data structure
  * @returns The LCC token package/contract address
- * 
+ *
  * @example
  * ```typescript
  * const packageId = getLCCPackageId(vaultData);
@@ -512,7 +508,7 @@ export {
   getVaultTotalValuePerAddress,
   extractCoinDefinition,
   parseCoinDefinition,
-  getLCCPackageId
+  getLCCPackageId,
 };
 
 // Usage example with complete workflow:

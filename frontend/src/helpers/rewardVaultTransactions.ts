@@ -95,15 +95,15 @@ interface RewardTransaction {
 
 /**
  * Complete reward vault transaction history data structure
- * 
+ *
  * Usage Example:
  * ```typescript
  * const txData = extractRewardTransactionData(jsonResponse);
- * 
+ *
  * // Show transaction overview
  * console.log(`Found ${txData.transactionCount} reward transactions`);
  * console.log(`Total LCC distributed: ${txData.totalLCCDistributed} tokens`);
- * 
+ *
  * // Get recent activity
  * const recent = getRecentRewardActivity(txData, 7); // last 7 days
  * console.log(`Recent rewards: ${recent.length} transactions`);
@@ -133,20 +133,20 @@ interface RewardVaultTransactionData {
 
 /**
  * Extracts and transforms reward vault transaction data from IOTA Rebase JSON-RPC response
- * 
+ *
  * This function processes transaction query results for a reward vault and creates
  * a frontend-friendly data structure with Maps for efficient lookups and analysis.
- * 
+ *
  * Process Flow:
  * ┌─ JSON Input ─┐    ┌─ Extract ─┐    ┌─ Transform ─┐    ┌─ Output ─┐
  * │ TX Query     │ →  │ Events    │ →  │ Create Maps │ →  │ Clean    │
  * │ Response     │    │ Changes   │    │ Calc Totals │    │ Structure│
  * │              │    │ Metadata  │    │             │    │          │
  * └──────────────┘    └───────────┘    └─────────────┘    └──────────┘
- * 
+ *
  * @param jsonData - The JSON-RPC response from iotax_queryTransactionBlocks
  * @returns RewardVaultTransactionData object with extracted and organized information
- * 
+ *
  * @example
  * ```typescript
  * const response = await fetch('https://api.testnet.iota.cafe/', {
@@ -166,7 +166,10 @@ interface RewardVaultTransactionData {
  * console.log(`Loaded ${txData.transactionCount} reward transactions`);
  * ```
  */
-function extractRewardTransactionData(jsonData: any[], productIdToFilter: string): RewardVaultTransactionData {
+function extractRewardTransactionData(
+  jsonData: any[],
+  productIdToFilter: string,
+): RewardVaultTransactionData {
   const transactions: RewardTransaction[] = [];
   const transactionsByDigest = new Map<string, RewardTransaction>();
   const transactionsByRecipient = new Map<string, RewardTransaction[]>();
@@ -181,8 +184,8 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
 
   for (const txData of txArray) {
     const digest = txData.digest;
-    const status = txData.effects?.status?.status || "unknown";
-    const executedEpoch = txData.effects?.executedEpoch || "0";
+    const status = txData.effects?.status?.status || 'unknown';
+    const executedEpoch = txData.effects?.executedEpoch || '0';
     const timestamp = txData.timestampMs;
     const checkpoint = txData.checkpoint;
 
@@ -196,7 +199,7 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
 
     const productsSeen = new Set();
     events.forEach((event: any) => {
-      if (event.type?.includes("::app::ProductEntryLogged")) {
+      if (event.type?.includes('::app::ProductEntryLogged')) {
         const productEntry: ProductEntryEvent = {
           txDigest: digest,
           eventSeq: event.id.eventSeq,
@@ -206,7 +209,7 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
           productAddr: event.parsedJson.product_addr,
           issuerRole: event.parsedJson.issuer_role,
           timestamp,
-          checkpoint
+          checkpoint,
         };
         productsSeen.add(productEntry.productAddr);
         productEntries.push(productEntry);
@@ -223,7 +226,7 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
     const balanceChanges = txData.balanceChanges || [];
 
     balanceChanges.forEach((change: any) => {
-      if (change.coinType?.includes("::LCC::LCC")) {
+      if (change.coinType?.includes('::LCC::LCC')) {
         const owner = change.owner?.AddressOwner;
         if (owner) {
           const rewardChange: RewardBalanceChange = {
@@ -232,7 +235,7 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
             amount: change.amount,
             txDigest: digest,
             timestamp,
-            checkpoint
+            checkpoint,
           };
           rewardChanges.push(rewardChange);
 
@@ -253,14 +256,14 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
       productEntries,
       rewardChanges,
       timestamp,
-      checkpoint
+      checkpoint,
     };
 
     transactions.push(transaction);
     transactionsByDigest.set(digest, transaction);
 
     // Index by recipient
-    rewardChanges.forEach(change => {
+    rewardChanges.forEach((change) => {
       if (!transactionsByRecipient.has(change.owner)) {
         transactionsByRecipient.set(change.owner, []);
       }
@@ -268,7 +271,7 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
     });
 
     // Index by product
-    productEntries.forEach(entry => {
+    productEntries.forEach((entry) => {
       if (!transactionsByProduct.has(entry.productAddr)) {
         transactionsByProduct.set(entry.productAddr, []);
       }
@@ -276,7 +279,7 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
     });
 
     // Index by issuer role
-    productEntries.forEach(entry => {
+    productEntries.forEach((entry) => {
       const role = entry.issuerRole.variant;
       if (!transactionsByRole.has(role)) {
         transactionsByRole.set(role, []);
@@ -298,21 +301,21 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
     totalLCCDistributed,
     dateRange: {
       earliest: earliestTimestamp,
-      latest: latestTimestamp
-    }
+      latest: latestTimestamp,
+    },
   };
 }
 
 /**
  * Gets reward transactions for a specific address
- * 
+ *
  * Lookup Pattern:
  * Address → Map → Transaction Array
- * 
+ *
  * @param data - The reward transaction data structure
  * @param address - The address to look up
  * @returns Array of transactions where this address received rewards
- * 
+ *
  * @example
  * ```typescript
  * const userTxs = getTransactionsByAddress(txData, '0x04c545450fa0b988...');
@@ -325,30 +328,36 @@ function extractRewardTransactionData(jsonData: any[], productIdToFilter: string
  * });
  * ```
  */
-function getTransactionsByAddress(data: RewardVaultTransactionData, address: string): RewardTransaction[] {
+function getTransactionsByAddress(
+  data: RewardVaultTransactionData,
+  address: string,
+): RewardTransaction[] {
   return data.transactionsByRecipient.get(address) || [];
 }
 
 /**
  * Gets reward transactions related to a specific product
- * 
+ *
  * @param data - The reward transaction data structure
  * @param productAddr - The product address to look up
  * @returns Array of transactions related to this product
- * 
+ *
  * @example
  * ```typescript
  * const productTxs = getTransactionsByProduct(txData, '0x04c545450fa0b988...');
  * console.log(`Product has ${productTxs.length} related transactions`);
  * ```
  */
-function getTransactionsByProduct(data: RewardVaultTransactionData, productAddr: string): RewardTransaction[] {
+function getTransactionsByProduct(
+  data: RewardVaultTransactionData,
+  productAddr: string,
+): RewardTransaction[] {
   return data.transactionsByProduct.get(productAddr) || [];
 }
 
 /**
  * Gets reward transactions by issuer role
- * 
+ *
  * Role Analysis Pattern:
  * ┌─ Input: "Repairer" ─┐
  * │                     │
@@ -358,16 +367,16 @@ function getTransactionsByProduct(data: RewardVaultTransactionData, productAddr:
  * │ TX3: Repairer       │ ✓ Match
  * │                     │
  * └─ Output: [TX2,TX3] ─┘
- * 
+ *
  * @param data - The reward transaction data structure
  * @param role - The issuer role to filter by
  * @returns Array of transactions from issuers with this role
- * 
+ *
  * @example
  * ```typescript
  * const repairerTxs = getTransactionsByRole(txData, 'Repairer');
  * console.log(`${repairerTxs.length} transactions by repairers`);
- * 
+ *
  * const allRoles = getAllIssuerRoles(txData);
  * allRoles.forEach(role => {
  *   const roleTxs = getTransactionsByRole(txData, role);
@@ -375,40 +384,46 @@ function getTransactionsByProduct(data: RewardVaultTransactionData, productAddr:
  * });
  * ```
  */
-function getTransactionsByRole(data: RewardVaultTransactionData, role: string): RewardTransaction[] {
+function getTransactionsByRole(
+  data: RewardVaultTransactionData,
+  role: string,
+): RewardTransaction[] {
   return data.transactionsByRole.get(role) || [];
 }
 
 /**
  * Gets recent reward activity within a specified number of days
- * 
+ *
  * Temporal Filtering:
  * Now - N days → Filter Transactions → Recent Activity Array
- * 
+ *
  * @param data - The reward transaction data structure
  * @param days - Number of days to look back from now
  * @returns Array of transactions within the specified time period
- * 
+ *
  * @example
  * ```typescript
  * const lastWeek = getRecentRewardActivity(txData, 7);
  * console.log(`${lastWeek.length} transactions in last 7 days`);
- * 
+ *
  * const today = getRecentRewardActivity(txData, 1);
  * console.log(`${today.length} transactions today`);
  * ```
  */
-function getRecentRewardActivity(data: RewardVaultTransactionData, days: number): RewardTransaction[] {
-  const cutoffTime = Date.now() - (days * 24 * 60 * 60 * 1000);
-  return data.transactions.filter(tx => parseInt(tx.timestamp) >= cutoffTime);
+function getRecentRewardActivity(
+  data: RewardVaultTransactionData,
+  days: number,
+): RewardTransaction[] {
+  const cutoffTime = Date.now() - days * 24 * 60 * 60 * 1000;
+  return data.transactions.filter((tx) => parseInt(tx.timestamp) >= cutoffTime);
 }
 
 /**
  * Gets all unique recipient addresses from reward transactions
- * 
+ *
  * @param data - The reward transaction data structure
  * @returns Array of unique addresses that have received rewards
- * 
+ *
  * @example
  * ```typescript
  * const recipients = getAllRewardRecipients(txData);
@@ -421,10 +436,10 @@ function getAllRewardRecipients(data: RewardVaultTransactionData): string[] {
 
 /**
  * Gets all unique issuer roles from product entry events
- * 
+ *
  * @param data - The reward transaction data structure
  * @returns Array of unique issuer roles
- * 
+ *
  * @example
  * ```typescript
  * const roles = getAllIssuerRoles(txData);
@@ -437,10 +452,10 @@ function getAllIssuerRoles(data: RewardVaultTransactionData): string[] {
 
 /**
  * Gets all unique product addresses from transaction history
- * 
+ *
  * @param data - The reward transaction data structure
  * @returns Array of unique product addresses
- * 
+ *
  * @example
  * ```typescript
  * const products = getAllProductAddresses(txData);
@@ -453,13 +468,13 @@ function getAllProductAddresses(data: RewardVaultTransactionData): string[] {
 
 /**
  * Calculates reward statistics and distribution metrics
- * 
+ *
  * Statistics Flow:
  * All Transactions → Extract Rewards → Calculate Distribution → Metrics
- * 
+ *
  * @param data - The reward transaction data structure
  * @returns Statistics object with reward distribution insights
- * 
+ *
  * @example
  * ```typescript
  * const stats = getRewardDistributionStats(txData);
@@ -486,8 +501,8 @@ function getRewardDistributionStats(data: RewardVaultTransactionData): {
   const recipientTotals = new Map<string, bigint>();
   recipients.forEach((txs, address) => {
     let total = 0n;
-    txs.forEach(tx => {
-      tx.rewardChanges.forEach(change => {
+    txs.forEach((tx) => {
+      tx.rewardChanges.forEach((change) => {
         if (change.owner === address && BigInt(change.amount) > 0n) {
           total += BigInt(change.amount);
         }
@@ -497,7 +512,7 @@ function getRewardDistributionStats(data: RewardVaultTransactionData): {
   });
 
   // Find top recipient
-  let topRecipientAddr = "";
+  let topRecipientAddr = '';
   let topRecipientTotal = 0n;
   recipientTotals.forEach((total, address) => {
     if (total > topRecipientTotal) {
@@ -507,7 +522,7 @@ function getRewardDistributionStats(data: RewardVaultTransactionData): {
   });
 
   // Find most active product
-  let topProductAddr = "";
+  let topProductAddr = '';
   let topProductTxCount = 0;
   products.forEach((txs, address) => {
     if (txs.length > topProductTxCount) {
@@ -517,7 +532,7 @@ function getRewardDistributionStats(data: RewardVaultTransactionData): {
   });
 
   // Find most active role
-  let mostActiveRole = "";
+  let mostActiveRole = '';
   let mostActiveRoleCount = 0;
   roles.forEach((txs, role) => {
     if (txs.length > mostActiveRoleCount) {
@@ -527,12 +542,12 @@ function getRewardDistributionStats(data: RewardVaultTransactionData): {
   });
 
   const totalDistributed = data.totalLCCDistributed.toString();
-  const averagePerTransaction = data.transactionCount > 0
-    ? (data.totalLCCDistributed / BigInt(data.transactionCount)).toString()
-    : "0";
-  const averagePerRecipient = recipients.size > 0
-    ? (data.totalLCCDistributed / BigInt(recipients.size)).toString()
-    : "0";
+  const averagePerTransaction =
+    data.transactionCount > 0
+      ? (data.totalLCCDistributed / BigInt(data.transactionCount)).toString()
+      : '0';
+  const averagePerRecipient =
+    recipients.size > 0 ? (data.totalLCCDistributed / BigInt(recipients.size)).toString() : '0';
 
   return {
     totalDistributed,
@@ -543,33 +558,33 @@ function getRewardDistributionStats(data: RewardVaultTransactionData): {
     topRecipient: {
       address: topRecipientAddr,
       total: topRecipientTotal.toString(),
-      transactionCount: recipients.get(topRecipientAddr)?.length || 0
+      transactionCount: recipients.get(topRecipientAddr)?.length || 0,
     },
     topProduct: {
       address: topProductAddr,
-      transactionCount: topProductTxCount
+      transactionCount: topProductTxCount,
     },
     mostActiveRole: {
       role: mostActiveRole,
-      transactionCount: mostActiveRoleCount
-    }
+      transactionCount: mostActiveRoleCount,
+    },
   };
 }
 
 /**
  * Formats LCC amount from smallest units to human-readable format
- * 
+ *
  * Formatting Pattern:
  * "1000000000" → "1.000000000" LCC → "1" LCC (simplified)
- * 
+ *
  * @param amount - LCC amount in smallest units (string)
  * @returns Formatted amount string
- * 
+ *
  * @example
  * ```typescript
  * const formatted = formatLCCAmount("1000000000");
  * console.log(formatted); // "1"
- * 
+ *
  * const change = tx.rewardChanges[0];
  * console.log(`Received ${formatLCCAmount(change.amount)} LCC`);
  * ```
@@ -587,11 +602,11 @@ function formatLCCAmount(amount: string): string {
 
 /**
  * Gets transaction by digest
- * 
+ *
  * @param data - The reward transaction data structure
  * @param digest - The transaction digest to look up
  * @returns Transaction object or undefined if not found
- * 
+ *
  * @example
  * ```typescript
  * const tx = getTransactionByDigest(txData, '4GiwrpLk3BvhnWeJ6c7cV21y6czfADbAhQ6bw7gZidWE');
@@ -602,17 +617,20 @@ function formatLCCAmount(amount: string): string {
  * }
  * ```
  */
-function getTransactionByDigest(data: RewardVaultTransactionData, digest: string): RewardTransaction | undefined {
+function getTransactionByDigest(
+  data: RewardVaultTransactionData,
+  digest: string,
+): RewardTransaction | undefined {
   return data.transactionsByDigest.get(digest);
 }
 
 /**
  * Checks if there are any recent reward transactions
- * 
+ *
  * @param data - The reward transaction data structure
  * @param hours - Number of hours to check back from now
  * @returns true if there are transactions within the timeframe
- * 
+ *
  * @example
  * ```typescript
  * const hasRecentActivity = hasRecentRewardActivity(txData, 24);
@@ -622,8 +640,8 @@ function getTransactionByDigest(data: RewardVaultTransactionData, digest: string
  * ```
  */
 function hasRecentRewardActivity(data: RewardVaultTransactionData, hours: number): boolean {
-  const cutoffTime = Date.now() - (hours * 60 * 60 * 1000);
-  return data.transactions.some(tx => parseInt(tx.timestamp) >= cutoffTime);
+  const cutoffTime = Date.now() - hours * 60 * 60 * 1000;
+  return data.transactions.some((tx) => parseInt(tx.timestamp) >= cutoffTime);
 }
 
 // Export all interfaces and functions
@@ -643,5 +661,5 @@ export {
   getRewardDistributionStats,
   formatLCCAmount,
   getTransactionByDigest,
-  hasRecentRewardActivity
+  hasRecentRewardActivity,
 };

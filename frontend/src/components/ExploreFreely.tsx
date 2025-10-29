@@ -39,7 +39,7 @@ const ExploreFreely: React.FC = () => {
         linkUrl='/explore-guided'
       />
       <TutorialScrollContainer>
-        <div className="dpp-content-container">
+        <div className='dpp-content-container'>
           <PassportHeader />
           <NotTestnetWarningCard />
           <ServiceRequestCard />

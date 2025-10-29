@@ -19,28 +19,34 @@ export const Dialog: React.FC<DialogProps> = ({
   children,
   onEscape,
   className = '',
-  overlayClassName = ''
+  overlayClassName = '',
 }) => {
   const portalTarget = usePortalTarget('modal-root');
 
   // ESC key handling (extracted pattern from PostExperienceRecap.tsx)
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      if (onEscape) {
-        onEscape();
-      } else {
-        onClose();
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        if (onEscape) {
+          onEscape();
+        } else {
+          onClose();
+        }
       }
-    }
-  }, [onClose, onEscape]);
+    },
+    [onClose, onEscape],
+  );
 
   // Outside click handling
-  const handleOverlayClick = useCallback((event: React.MouseEvent) => {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
-  }, [onClose]);
+  const handleOverlayClick = useCallback(
+    (event: React.MouseEvent) => {
+      if (event.target === event.currentTarget) {
+        onClose();
+      }
+    },
+    [onClose],
+  );
 
   // Effect for ESC key listener
   useEffect(() => {
@@ -64,9 +70,9 @@ export const Dialog: React.FC<DialogProps> = ({
     <div
       className={`fixed inset-0 z-50 bg-blue-800/30 backdrop-blur-sm ${overlayClassName}`}
       onClick={handleOverlayClick}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="dialog-title"
+      role='dialog'
+      aria-modal='true'
+      aria-labelledby='dialog-title'
     >
       <div
         className={`fixed left-[50%] top-[50%] z-50 grid w-[95%] max-w-xl translate-x-[-50%] translate-y-[-50%] gap-4 border border-gray-200 bg-background p-6 shadow-lg rounded-lg ${className}`}
@@ -75,7 +81,7 @@ export const Dialog: React.FC<DialogProps> = ({
         {children}
       </div>
     </div>,
-    portalTarget
+    portalTarget,
   );
 };
 

@@ -20,13 +20,15 @@ interface CardHeaderProps {
   variation?: 'outline' | 'primary';
 }
 
-const BUTTON_PRIMARY_STYLE = "!leading-[12px] !h-auto !px-3 !py-1 !rounded-full border hover:bg-blue-50 transition-colors bg-blue-200 text-blue-800 border-blue-300 focus-visible:ring-ring";
-const BUTTON_OUTLINE_STYLE = "!leading-[12px] !h-auto !px-3 !py-1 !rounded-full border hover:bg-gray-200 transition-colors bg-gray-100 text-gray-600 border-gray-300";
+const BUTTON_PRIMARY_STYLE =
+  '!leading-[12px] !h-auto !px-3 !py-1 !rounded-full border hover:bg-blue-50 transition-colors bg-blue-200 text-blue-800 border-blue-300 focus-visible:ring-ring';
+const BUTTON_OUTLINE_STYLE =
+  '!leading-[12px] !h-auto !px-3 !py-1 !rounded-full border hover:bg-gray-200 transition-colors bg-gray-100 text-gray-600 border-gray-300';
 
 const CardHeader: React.FC<CardHeaderProps> = ({
-  title = "Welcome",
+  title = 'Welcome',
   showLink = true,
-  linkText = "Button",
+  linkText = 'Button',
   linkUrl = '/introduction/1',
   backText = 'Back to the Start',
   backUrl = '/introduction/1',
@@ -44,14 +46,14 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   };
 
   return (
-    <div className={clsx([
-      "flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500",
-      inNightlyWallet && 'hidden'
-    ])}>
-      <div className="flex items-center justify-between gap-2 w-full leading-1">
-        {!canGoBack && (
-          <h4>{title}</h4>
-        )}
+    <div
+      className={clsx([
+        'flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500',
+        inNightlyWallet && 'hidden',
+      ])}
+    >
+      <div className='flex items-center justify-between gap-2 w-full leading-1'>
+        {!canGoBack && <h4>{title}</h4>}
         {canGoBack && (
           <Link
             href={backUrl}

@@ -8,11 +8,7 @@ interface SlideTitleProps {
   margin?: string;
 }
 
-const SlideTitle: React.FC<SlideTitleProps> = ({
-  children,
-  size = 'large',
-  margin = 'mb-6',
-}) => {
+const SlideTitle: React.FC<SlideTitleProps> = ({ children, size = 'large', margin = 'mb-6' }) => {
   const getSizeClasses = () => {
     switch (size) {
       case 'medium':
@@ -23,11 +19,7 @@ const SlideTitle: React.FC<SlideTitleProps> = ({
     }
   };
 
-  return (
-    <h2 className={`${getSizeClasses()} ${margin} font-medium leading-tight`}>
-      {children}
-    </h2>
-  );
+  return <h2 className={`${getSizeClasses()} ${margin} font-medium leading-tight`}>{children}</h2>;
 };
 
 export default SlideTitle;

@@ -8,20 +8,21 @@ const meta: Meta<typeof CheckmarkList> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A list component that displays achievement items with animated blue checkmarks. Perfect for showcasing completed tasks or user accomplishments.'
-      }
-    }
+        component:
+          'A list component that displays achievement items with animated blue checkmarks. Perfect for showcasing completed tasks or user accomplishments.',
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     opacity: {
       control: { type: 'range', min: 0, max: 100, step: 5 },
-      description: 'List opacity (0-100)'
+      description: 'List opacity (0-100)',
     },
     delay: {
       control: { type: 'range', min: 0, max: 2, step: 0.1 },
-      description: 'Animation delay in seconds'
-    }
+      description: 'Animation delay in seconds',
+    },
   },
 };
 
@@ -32,25 +33,21 @@ export const Default: Story = {
   args: {
     items: [
       'Explored the concept of Digital Product Passports',
-      'Learned about IOTA\'s Trust Framework',
+      "Learned about IOTA's Trust Framework",
       'Understood the role of Service Technicians',
       'Discovered reward mechanisms for circularity',
-      'Saw how different stakeholders benefit from transparency'
+      'Saw how different stakeholders benefit from transparency',
     ],
     opacity: 100,
-    delay: 0
+    delay: 0,
   },
 };
 
 export const ShortList: Story = {
   args: {
-    items: [
-      'Completed the tutorial',
-      'Connected your wallet',
-      'Earned your first reward'
-    ],
+    items: ['Completed the tutorial', 'Connected your wallet', 'Earned your first reward'],
     opacity: 100,
-    delay: 0
+    delay: 0,
   },
 };
 
@@ -61,10 +58,10 @@ export const TechnicalAchievements: Story = {
       'Implemented reward distribution mechanism',
       'Connected to IOTA Mainnet',
       'Set up transaction monitoring',
-      'Configured service validation rules'
+      'Configured service validation rules',
     ],
     opacity: 100,
-    delay: 0.2
+    delay: 0.2,
   },
 };
 
@@ -73,9 +70,9 @@ export const WithAnimation: Story = {
     items: [
       'Item appears with delay',
       'Animation timing can be customized',
-      'Opacity transitions smoothly'
+      'Opacity transitions smoothly',
     ],
     opacity: 0,
-    delay: 1
+    delay: 1,
   },
 };

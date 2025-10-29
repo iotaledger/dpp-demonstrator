@@ -10,9 +10,11 @@ interface VideoSectionProps {
 const VideoSection: React.FC<VideoSectionProps> = ({ children, wide = true }) => {
   const getHeight = () => {
     return wide ? 'min-h-[76vh]' : 'h-56';
-  }
+  };
   return (
-    <div className={`relative flex items-center justify-center rounded-3xl overflow-hidden ${getHeight()}`}>
+    <div
+      className={`relative flex items-center justify-center rounded-3xl overflow-hidden ${getHeight()}`}
+    >
       {children}
     </div>
   );

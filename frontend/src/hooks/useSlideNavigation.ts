@@ -1,11 +1,15 @@
 'use client';
 
-import { useRouter } from "next/navigation";
-import React from "react";
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 const initialSlide = 1;
 
-export function useSlideNavigation(externalCurrentSlide: number, totalSlides: number, getPathCb: (target: number) => string) {
+export function useSlideNavigation(
+  externalCurrentSlide: number,
+  totalSlides: number,
+  getPathCb: (target: number) => string,
+) {
   const [currentSlide] = React.useState(externalCurrentSlide ?? initialSlide);
   const router = useRouter();
 
@@ -21,13 +25,13 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
    */
   const handlePrevious = () => {
     if (currentSlide > 1) {
-      router.push(getPathCb(currentSlide - 1))
+      router.push(getPathCb(currentSlide - 1));
     }
   };
 
   const handleNext = () => {
     if (currentSlide < totalSlides) {
-      router.push(getPathCb(currentSlide + 1))
+      router.push(getPathCb(currentSlide + 1));
     }
   };
 
@@ -103,7 +107,7 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
             break;
         }
       };
-    }
+    };
     const handleSwipeGesture = handleSwipeGestureFactory();
 
     window.addEventListener('keydown', handleKeyDown);
@@ -115,13 +119,12 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
       window.removeEventListener('touchstart', handleSwipeGesture);
       window.removeEventListener('touchmove', handleSwipeGesture);
       window.removeEventListener('touchend', handleSwipeGesture);
-    }
+    };
     /* eslint-disable-next-line react-hooks/exhaustive-deps --
      * The following functions handleNext, handlePrevious are stable and doesn't
      * require to be dependencies.
      */
   }, [canGoPrevious, canGoNext]);
-
 
   return {
     currentSlide,
@@ -131,5 +134,5 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
     goPrevious: handlePrevious,
     goNext: handleNext,
     progress,
-  }
+  };
 }

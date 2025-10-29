@@ -6,7 +6,7 @@ const config = {
   trailingComma: 'all',
   arrowParens: 'always',
   jsxSingleQuote: true,
-  printWidth: 120,
+  printWidth: 100,
   tabWidth: 2,
   plugins: [
     '@ianvs/prettier-plugin-sort-imports',

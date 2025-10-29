@@ -1,8 +1,9 @@
 /** @type {import('@ianvs/prettier-plugin-sort-imports').PrettierConfig} */
 const config = {
-  semi: false,
+  // We want to avoid potential issues with edge cases on ASI
+  semi: true,
   singleQuote: true,
-  trailingComma: 'es5',
+  trailingComma: 'all',
   arrowParens: 'always',
   jsxSingleQuote: true,
   printWidth: 120,

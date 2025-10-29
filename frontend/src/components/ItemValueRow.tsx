@@ -1,7 +1,8 @@
 'use client';
 
-import { clsx } from 'clsx';
 import React from 'react';
+
+import { clsx } from 'clsx';
 
 interface ItemValueRowProps {
   label: string;
@@ -22,7 +23,8 @@ const VALUE_LINK_STYLE = 'text-blue-600 cursor-pointer';
 const VALUE_MUTED_STYLE = 'border-1 border-transparent blur-[2px] opacity-60';
 
 const ROW_DEFAULT_STYLE = '';
-const ROW_SELECTED_STYLE = 'border-1 bg-blue-100 rounded-sm border px-2 border-blue-600 animate-[smallRipple_2s_both]';
+const ROW_SELECTED_STYLE =
+  'border-1 bg-blue-100 rounded-sm border px-2 border-blue-600 animate-[smallRipple_2s_both]';
 const ROW_MUTED_STYLE = 'border-1 border-transparent blur-[2px] opacity-60';
 
 const ItemValueRow: React.FC<ItemValueRowProps> = ({
@@ -30,29 +32,26 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
   labelWidth = 250,
   value,
   isLink = false,
-  linkHref = "#",
-  linkTarget = "_blank",
+  linkHref = '#',
+  linkTarget = '_blank',
   fontMono = false,
-  valueColor = "text-gray-900",
+  valueColor = 'text-gray-900',
   opacity = 100,
   rowState = 'default',
   isValuePending = false,
 }) => {
   const renderValue = () => {
     if (isValuePending) {
-      return (
-        <ValuePendingPlaceholder />
-      )
+      return <ValuePendingPlaceholder />;
 
       function ValuePendingPlaceholder() {
         return (
-          <div className="flex items-center gap-3">
-            <span className="text-blue-600 font-mono text-sm">0x04c...99fa</span>
+          <div className='flex items-center gap-3'>
+            <span className='font-mono text-sm text-blue-600'>0x04c...99fa</span>
           </div>
         );
       }
     }
-
 
     if (React.isValidElement(value)) {
       return value;
@@ -63,7 +62,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
         <a
           target={linkTarget}
           href={linkHref}
-          className="text-blue-600 hover:text-blue-700 transition-colors"
+          className='text-blue-600 transition-colors hover:text-blue-700'
         >
           {value}
         </a>
@@ -86,7 +85,13 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
   };
 
   const getValueStyle = () => {
-    return clsx(['value-content', valueColor, isLink && VALUE_LINK_STYLE, fontMono && VALUE_MONO_STYLE, isValuePending && VALUE_MUTED_STYLE]);
+    return clsx([
+      'value-content',
+      valueColor,
+      isLink && VALUE_LINK_STYLE,
+      fontMono && VALUE_MONO_STYLE,
+      isValuePending && VALUE_MUTED_STYLE,
+    ]);
   };
 
   const getGridTemplate = () => {
@@ -94,25 +99,24 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
       return 'sm:grid-cols-[150px_auto]';
     }
     return 'sm:grid-cols-[250px_auto]';
-  }
+  };
 
   return (
-    <div className={clsx([
-      'max-sm:flex max-sm:flex-col gap-1',
-      'sm:grid sm:grid-flow-col',
-      'sm:grid-cols-2',
-      getGridTemplate(),
-      getRowStateStyle()
-    ])}
+    <div
+      className={clsx([
+        'gap-1 max-sm:flex max-sm:flex-col',
+        'sm:grid sm:grid-flow-col',
+        'sm:grid-cols-2',
+        getGridTemplate(),
+        getRowStateStyle(),
+      ])}
       style={{
         opacity: opacity / 100,
         transition: 'filter 0.3s ease,opacity 0.3s ease',
       }}
     >
-      <span className="text-gray-500 font-medium">{label}</span>
-      <div className={getValueStyle()}>
-        {renderValue()}
-      </div>
+      <span className='font-medium text-gray-500'>{label}</span>
+      <div className={getValueStyle()}>{renderValue()}</div>
     </div>
   );
 };

@@ -1,22 +1,24 @@
 'use client';
 
 import React from 'react';
-import TutorialCard from './TutorialCard';
+
+import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
+
 import CardHeader from './CardHeader';
-import TutorialScrollContainer from './TutorialScrollContainer';
-import PassportHeader from './PassportHeader';
-import ServiceRequestCard from './ServiceRequestCard';
 import DiagnosticCard from './DiagnosticCard';
-import ProductHeaderCard from './ProductHeaderCard';
-import ProductDetailsCard from './ProductDetailsCard';
-import RoleDetailsCard from './RoleDetailsCard';
-import RewardPoolCard from './RewardPoolCard';
-import ServiceHistoryCard from './ServiceHistoryCard';
 import EndOfPassportMessage from './EndOfPassportMessage';
 import { Notifications } from './Notifications';
-import RewardTransactionsCard from './RewardTransactionsCard';
 import NotTestnetWarningCard from './NotTestnetWarningCard';
-import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
+import PassportHeader from './PassportHeader';
+import ProductDetailsCard from './ProductDetailsCard';
+import ProductHeaderCard from './ProductHeaderCard';
+import RewardPoolCard from './RewardPoolCard';
+import RewardTransactionsCard from './RewardTransactionsCard';
+import RoleDetailsCard from './RoleDetailsCard';
+import ServiceHistoryCard from './ServiceHistoryCard';
+import ServiceRequestCard from './ServiceRequestCard';
+import TutorialCard from './TutorialCard';
+import TutorialScrollContainer from './TutorialScrollContainer';
 
 const ExploreFreely: React.FC = () => {
   const { isConnected } = useCurrentWallet();
@@ -39,7 +41,7 @@ const ExploreFreely: React.FC = () => {
         linkUrl='/explore-guided'
       />
       <TutorialScrollContainer>
-        <div className="dpp-content-container">
+        <div className='dpp-content-container'>
           <PassportHeader />
           <NotTestnetWarningCard />
           <ServiceRequestCard />

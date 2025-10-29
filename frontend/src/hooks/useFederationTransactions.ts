@@ -1,9 +1,10 @@
 'use client';
 
-import { useCurrentAccount, useIotaClientQuery } from "@iota/dapp-kit";
-import { extractAccreditationTransactions } from "@/helpers/federation";
-import { FEDERATION_ID } from "@/utils/constants";
-import { useHierarchySent } from "@/providers/appProvider";
+import { useCurrentAccount, useIotaClientQuery } from '@iota/dapp-kit';
+
+import { extractAccreditationTransactions } from '@/helpers/federation';
+import { useHierarchySent } from '@/providers/appProvider';
+import { FEDERATION_ID } from '@/utils/constants';
 
 // TODO: Documentation
 export function useFederationTransactions() {
@@ -19,11 +20,12 @@ export function useFederationTransactions() {
     order: 'descending',
     options: {
       showInput: true,
-    }
+    },
   });
 
   return {
-    accreditations: data && extractAccreditationTransactions(data.data, currentAccount?.address || null),
+    accreditations:
+      data && extractAccreditationTransactions(data.data, currentAccount?.address || null),
     isSuccess,
     isLoading,
     isError,

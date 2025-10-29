@@ -15,22 +15,19 @@ interface ActionButtonsProps {
   };
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({
-  primaryButton,
-  secondaryButton
-}) => {
+const ActionButtons: React.FC<ActionButtonsProps> = ({ primaryButton, secondaryButton }) => {
   const getButtonClasses = (variant: string = 'primary') => {
     switch (variant) {
       case 'secondary':
         return 'w-full bg-white/20 text-current hover:bg-white/30 border border-current/30 px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl';
       case 'primary':
       default:
-        return 'w-fit bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-medium transition-all cursor-pointer duration-300  hover:shadow-lg transform hover:scale-102'
+        return 'w-fit bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-medium transition-all cursor-pointer duration-300  hover:shadow-lg transform hover:scale-102';
     }
   };
 
   return (
-    <div className="py-6 flex flex-col md:flex-row gap-6 items-center">
+    <div className='flex flex-col items-center gap-6 py-6 md:flex-row'>
       {secondaryButton && (
         <button
           className={getButtonClasses(secondaryButton.variant)}
@@ -40,10 +37,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         </button>
       )}
 
-      <button
-        className={getButtonClasses(primaryButton.variant)}
-        onClick={primaryButton.onClick}
-      >
+      <button className={getButtonClasses(primaryButton.variant)} onClick={primaryButton.onClick}>
         {primaryButton.text}
       </button>
     </div>

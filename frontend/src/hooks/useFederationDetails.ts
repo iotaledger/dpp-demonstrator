@@ -1,7 +1,8 @@
 'use client';
 
-import { extractFederationData } from "@/helpers/federation";
-import { useIotaClientQuery } from "@iota/dapp-kit";
+import { useIotaClientQuery } from '@iota/dapp-kit';
+
+import { extractFederationData } from '@/helpers/federation';
 
 // TODO: what is the purpose of this hook?
 export function useFederationDetails(federationAddress: string) {

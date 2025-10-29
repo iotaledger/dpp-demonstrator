@@ -1,18 +1,19 @@
 'use client';
 
-import React from "react";
-import IntroSlide1 from "./IntroSlide1";
-import IntroSlide2 from "./IntroSlide2";
-import IntroSlide3 from "./IntroSlide3";
-import IntroSlide4 from "./IntroSlide4";
-import IntroSlide5 from "./IntroSlide5";
-import IntroSlide6 from "./IntroSlide6";
-import IntroSlide7 from "./IntroSlide7";
-import IntroSlide8 from "./IntroSlide8";
-import IntroSlide9 from "./IntroSlide9";
-import IntroSlide10 from "./IntroSlide10";
-import IntroSlide11 from "./IntroSlide11";
-import IntroSlide12 from "./IntroSlide12";
+import React from 'react';
+
+import IntroSlide1 from './IntroSlide1';
+import IntroSlide2 from './IntroSlide2';
+import IntroSlide3 from './IntroSlide3';
+import IntroSlide4 from './IntroSlide4';
+import IntroSlide5 from './IntroSlide5';
+import IntroSlide6 from './IntroSlide6';
+import IntroSlide7 from './IntroSlide7';
+import IntroSlide8 from './IntroSlide8';
+import IntroSlide9 from './IntroSlide9';
+import IntroSlide10 from './IntroSlide10';
+import IntroSlide11 from './IntroSlide11';
+import IntroSlide12 from './IntroSlide12';
 
 export const SLIDES_MAP = new Map([
   [1, <IntroSlide1 key={1} />],
@@ -34,19 +35,14 @@ interface IntroSlideManagerProps {
 }
 
 const IntroSlideManager: React.FC<IntroSlideManagerProps> = ({ currentSlide }) => {
-
   const renderComponent = (currentSlide: number) => {
     if (SLIDES_MAP.has(currentSlide)) {
       return SLIDES_MAP.get(currentSlide);
     }
     return <span>No slides</span>;
-  }
+  };
 
-  return (
-    <>
-      {renderComponent(currentSlide!)}
-    </>
-  );
+  return <>{renderComponent(currentSlide!)}</>;
 };
 
 export default IntroSlideManager;

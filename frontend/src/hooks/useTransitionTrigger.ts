@@ -15,6 +15,6 @@ export function useTransitionTrigger(delay: number) {
   }, [delay]);
 
   return {
-    isTriggered
-  }
+    isTriggered,
+  };
 }

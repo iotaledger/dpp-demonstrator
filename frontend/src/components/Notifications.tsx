@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Toast } from './Toast';
+
 import { useNotification } from '@/providers/appProvider';
+
+import { Toast } from './Toast';
 
 export const Notifications = () => {
   const { notifications, handleNotificationRemoved } = useNotification();
@@ -12,19 +14,16 @@ export const Notifications = () => {
   };
 
   return (
-    < div className="absolute top-4 right-4 z-[70] space-y-3 pointer-events-none" >
-      {
-        notifications.map((toast) => (
-          <Toast
-            key={toast.id}
-            id={toast.id}
-            type={toast.type}
-            message={toast.message}
-            onClose={handleRemove}
-          />
-        ))
-      }
-    </div >
+    <div className='pointer-events-none absolute top-4 right-4 z-[70] space-y-3'>
+      {notifications.map((toast) => (
+        <Toast
+          key={toast.id}
+          id={toast.id}
+          type={toast.type}
+          message={toast.message}
+          onClose={handleRemove}
+        />
+      ))}
+    </div>
   );
 };
-

@@ -1,15 +1,17 @@
 'use client';
 
 import React from 'react';
+
+import { useProductDetails } from '@/hooks/useProductDetails';
+import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { DPP_ID } from '@/utils/constants';
+
+import CollapsibleInnerSection from './CollapsableInnerSection';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import TwoColumnSection from './TwoColumnSection';
-import { useProductDetails } from '@/hooks/useProductDetails';
-import CollapsibleInnerSection from './CollapsableInnerSection';
-import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { DPP_ID } from '@/utils/constants';
+import TwoColumnSection from './TwoColumnSection';
 
 interface ProductDetailsCardProps {
   opacity?: number;
@@ -44,14 +46,14 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
       return close;
     }
     return open;
-  }
+  };
 
   const getPanelState = () => {
     if (tutorialState === 'selected') {
       return tutorialState;
     }
     return 'default';
-  }
+  };
 
   const getRowState = (rowTag: string) => {
     if (tutorialState === 'no') {
@@ -63,26 +65,26 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
     }
 
     return 'muted';
-  }
+  };
 
   const handleExpandToggle = () => {
     setInnerDetailsExpanded((prevIsExpanded) => !prevIsExpanded);
-  }
+  };
 
   return (
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title="Product Details"
+      title='Product Details'
       opacity={opacity}
       delay={delay}
     >
-      <PanelContent title={"Product Passport Details"} panelState={getPanelState()}>
+      <PanelContent title={'Product Passport Details'} panelState={getPanelState()}>
         <DataGrid>
           <ItemValueRow
             rowState={getRowState('dppId')}
-            label="DPP ID"
+            label='DPP ID'
             value={truncateAddress(DPP_ID as string)}
             isLink={true}
             // TODO: mount the link to the object ID, probably getting it from explorer in a template like: "https://explorer.iota.org/txblock/3BDwVQffoQ55ke72oevpLjjVCdFzYDVQeSRiAktgZxCp"
@@ -92,17 +94,17 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
             // - process.env.NEXT_PUBLIC_NETWORK
             linkHref={`https://explorer.iota.org/object/${DPP_ID as string}?network=testnet`}
             fontMono={true}
-            valueColor="text-blue-600"
+            valueColor='text-blue-600'
           />
           <ItemValueRow
             rowState={getRowState('serialNumber')}
-            label="Serial Number"
+            label='Serial Number'
             value={productDetails?.serialNumber}
             fontMono={true}
           />
           <ItemValueRow
             rowState={getRowState('dppCreationDate')}
-            label="DPP Creation Date"
+            label='DPP Creation Date'
             // TODO: transform timestamp to a value template like: "2025-03-31 14:24:08"
             value={fromPosixMsToUtcDateFormat(productDetails?.timestamp)}
             fontMono={true}
@@ -111,76 +113,76 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
       </PanelContent>
 
       <TwoColumnSection
-        leftColumn={(
+        leftColumn={
           <CollapsibleInnerSection
-            title="Battery Details"
+            title='Battery Details'
             defaultExpanded={innerDetailsExpanded}
             onExpandToggle={handleExpandToggle}
           >
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('batteryDetailsModel')}
-                label="Model"
-                value={productDetails?.billOfMaterial?.get("Model")}
+                label='Model'
+                value={productDetails?.billOfMaterial?.get('Model')}
                 isLink={false}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsManufacturingDate')}
-                label="Manufacturing Date"
-                value={productDetails?.billOfMaterial?.get("Manufacturing Date")}
+                label='Manufacturing Date'
+                value={productDetails?.billOfMaterial?.get('Manufacturing Date')}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsCapacity')}
-                label="Capacity"
-                value={productDetails?.billOfMaterial?.get("Capacity")}
+                label='Capacity'
+                value={productDetails?.billOfMaterial?.get('Capacity')}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsExpectedLifespan')}
-                label="Expected Lifespan"
-                value={productDetails?.billOfMaterial?.get("Expected Lifespan")}
+                label='Expected Lifespan'
+                value={productDetails?.billOfMaterial?.get('Expected Lifespan')}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsBatteryPack')}
-                label="Battery Pack"
-                value={productDetails?.billOfMaterial?.get("Battery Pack")}
+                label='Battery Pack'
+                value={productDetails?.billOfMaterial?.get('Battery Pack')}
                 fontMono={true}
               />
             </DataGrid>
           </CollapsibleInnerSection>
-        )}
-        rightColumn={(
+        }
+        rightColumn={
           <CollapsibleInnerSection
-            title="Bill of Materials"
+            title='Bill of Materials'
             defaultExpanded={innerDetailsExpanded}
             onExpandToggle={handleExpandToggle}
           >
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsCells')}
-                label="Cells"
-                value={productDetails?.billOfMaterial?.get("Cells")}
+                label='Cells'
+                value={productDetails?.billOfMaterial?.get('Cells')}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsHousing')}
-                label="Housing"
-                value={productDetails?.billOfMaterial?.get("Housing")}
+                label='Housing'
+                value={productDetails?.billOfMaterial?.get('Housing')}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsVersion')}
-                label="Version"
-                value={productDetails?.billOfMaterial?.get("Version")}
+                label='Version'
+                value={productDetails?.billOfMaterial?.get('Version')}
                 fontMono={true}
               />
             </DataGrid>
           </CollapsibleInnerSection>
-        )} >
-      </TwoColumnSection>
+        }
+      ></TwoColumnSection>
     </CollapsibleSection>
   );
 };

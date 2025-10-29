@@ -1,15 +1,18 @@
 'use client';
 
 import React from 'react';
+
+import { useCurrentAccount } from '@iota/dapp-kit';
+
+import { useFederationTransactions } from '@/hooks/useFederationTransactions';
+import { truncateAddress } from '@/utils/common';
+import { FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME } from '@/utils/constants';
+
+import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import BadgeWithLink from './BadgeWithLink';
-import { truncateAddress } from '@/utils/common';
-import { useCurrentAccount } from '@iota/dapp-kit';
 import PanelContent from './PanelContent';
-import { FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME } from '@/utils/constants';
-import { useFederationTransactions } from '@/hooks/useFederationTransactions';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -28,9 +31,12 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   const { accreditations } = useFederationTransactions();
   const currentAccount = useCurrentAccount();
 
-  const getCurrentAccountBadge = React.useCallback((otherAddress: string): string | null => {
-    return otherAddress === currentAccount?.address ? 'You' : null;
-  }, [currentAccount]);
+  const getCurrentAccountBadge = React.useCallback(
+    (otherAddress: string): string | null => {
+      return otherAddress === currentAccount?.address ? 'You' : null;
+    },
+    [currentAccount],
+  );
 
   const getSectionExpanded = () => {
     const open = true;
@@ -39,14 +45,14 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
       return close;
     }
     return open;
-  }
+  };
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
       return 'muted';
     }
     return 'default';
-  }
+  };
 
   const getPanelState = () => {
     if (tutorialState === 'manufacturerSelected' || tutorialState === 'networkSelected') {
@@ -62,31 +68,31 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
     }
 
     if (tutorialState === 'manufacturerSelected' && rowTag === 'manufacturer') {
-      return 'selected'
+      return 'selected';
     }
 
     if (tutorialState === 'networkSelected' && rowTag === 'network') {
-      return 'selected'
+      return 'selected';
     }
 
     return 'muted';
-  }
+  };
 
   return (
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title="Role Details"
+      title='Role Details'
       opacity={opacity}
       delay={delay}
     >
       <PanelContent panelState={getPanelState()}>
-        <DataGrid gap="gap-y-3 gap-x-6">
+        <DataGrid gap='gap-y-3 gap-x-6'>
           <ItemValueRow
             key={MANUFACTURER_DID}
             rowState={getRowState('manufacturer')}
-            label="Manufacturer"
+            label='Manufacturer'
             value={
               <BadgeWithLink
                 badgeText={MANUFACTURER_NAME}
@@ -100,10 +106,10 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
           <ItemValueRow
             key={FEDERATION_ID}
             rowState={getRowState('network')}
-            label="Service Network"
+            label='Service Network'
             value={
               <BadgeWithLink
-                badgeText={"Hierarchy"}
+                badgeText={'Hierarchy'}
                 linkText={truncateAddress(FEDERATION_ID)}
                 linkHref={`https://explorer.iota.org/object/${FEDERATION_ID}?network=testnet`}
               />

@@ -1,9 +1,11 @@
 'use client';
 
+import React from 'react';
+
+import { clsx } from 'clsx';
+
 import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 import { NOTIFICATION_DECAY_TIME_MS } from '@/utils/constants';
-import { clsx } from 'clsx';
-import React from 'react';
 
 type ToastType = 'success' | 'warning' | 'error' | 'info' | string;
 
@@ -49,12 +51,7 @@ function getFlyOutRightStyles() {
   return 'transition duration-200 ease-in translate-x-[110%]';
 }
 
-export const Toast: React.FC<ToastProps> = ({
-  id,
-  type,
-  message,
-  onClose,
-}) => {
+export const Toast: React.FC<ToastProps> = ({ id, type, message, onClose }) => {
   const { isTriggered } = useTransitionTrigger(NOTIFICATION_DECAY_TIME_MS);
 
   const handleOnClose = () => {
@@ -79,31 +76,32 @@ export const Toast: React.FC<ToastProps> = ({
   return (
     <div
       className={clsx([
-        `pointer-events-auto max-w-sm w-full border rounded-lg shadow-lg p-4`,
+        `pointer-events-auto w-full max-w-sm rounded-lg border p-4 shadow-lg`,
         getToastStyles(type),
         'animate-[slideInRight_0.4s_ease-out_forwards]',
-        isTriggered && getFlyOutRightStyles()
+        isTriggered && getFlyOutRightStyles(),
       ])}
     >
-      < div className="flex items-start gap-3" >
-        <div className="flex-shrink-0 text-lg">
-          {getToastIcon(type)}
-        </div>
+      <div className='flex items-start gap-3'>
+        <div className='flex-shrink-0 text-lg'>{getToastIcon(type)}</div>
 
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium">
-            {message}
-          </p>
+        <div className='min-w-0 flex-1'>
+          <p className='text-sm font-medium'>{message}</p>
         </div>
         <button
           onClick={handleOnClose}
-          className="inline-flex items-center justify-center transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 p-0 hover:bg-accent hover:text:brightness-50 rounded-md h-6 w-6"
+          className='focus-visible:ring-ring hover:bg-accent hover:text:brightness-50 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-md p-0 transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+          <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
+              d='M6 18L18 6M6 6l12 12'
+            ></path>
           </svg>
         </button>
       </div>
     </div>
   );
-}
+};

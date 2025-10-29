@@ -13,35 +13,33 @@ interface StepContentProps {
 }
 
 const StepContent: React.FC<StepContentProps> = ({
-  imageSrc = "/assets/steps/step_8.webp",
-  imageAlt = "Step Image",
-  stepTitle = "Step Title",
-  stepDescription = "Step description content goes here.",
+  imageSrc = '/assets/steps/step_8.webp',
+  imageAlt = 'Step Image',
+  stepTitle = 'Step Title',
+  stepDescription = 'Step description content goes here.',
   opacity = 100,
-  delay = 0
+  delay = 0,
 }) => {
   return (
     <div
-      className="flex-1 overflow-y-auto p-6"
+      className='flex-1 overflow-y-auto p-6'
       style={{
         opacity: opacity / 100,
-        transition: `opacity ${delay}s ease-out`
+        transition: `opacity ${delay}s ease-out`,
       }}
     >
       <div>
-        <div className="aspect-video bg-white border border-gray-200 rounded-lg overflow-clip mb-4 flex items-center justify-center">
+        <div className='mb-4 flex aspect-video items-center justify-center overflow-clip rounded-lg border border-gray-200 bg-white'>
           <img
-            className="max-w-full max-h-full object-contain transition-opacity duration-300"
+            className='max-h-full max-w-full object-contain transition-opacity duration-300'
             src={imageSrc}
             alt={imageAlt}
           />
         </div>
 
-        <h3 className="text-lg font-semibold text-gray-900 pb-3">
-          {stepTitle}
-        </h3>
+        <h3 className='pb-3 text-lg font-semibold text-gray-900'>{stepTitle}</h3>
 
-        <div className="prose prose-sm text-gray-600 leading-relaxed">
+        <div className='prose prose-sm leading-relaxed text-gray-600'>
           <div dangerouslySetInnerHTML={{ __html: stepDescription }} />
         </div>
       </div>

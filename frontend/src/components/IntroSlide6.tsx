@@ -1,25 +1,26 @@
 'use client';
 
 import React from 'react';
-import ImageTextLayout from './ImageTextLayout';
-import SlideImage from './SlideImage';
-import SlideContent from './SlideContent';
-import SlideTitle from './SlideTitle';
-import SlideDescription from './SlideDescription';
+
 import FeaturesGrid from './FeaturesGrid';
+import ImageTextLayout from './ImageTextLayout';
 import LeanFeatureCard from './LeanFeatureCard';
+import SlideContent from './SlideContent';
+import SlideDescription from './SlideDescription';
+import SlideImage from './SlideImage';
+import SlideTitle from './SlideTitle';
 
 const IntroSlide6: React.FC = () => {
   return (
     <>
       <ImageTextLayout maxWidth='max-w-5xl'>
-        <SlideImage
-          src="/assets/intro/key-players.webp"
-          alt="Key Players in the DPP ecosystem"
-        />
-        <SlideContent textAlign="left">
-          <SlideTitle size="large">Key Players in the DPP ecosystem</SlideTitle>
-          <SlideDescription>These are the key players in a minimal product lifecycle, each interacting with the Digital Product Passport at different stages.</SlideDescription>
+        <SlideImage src='/assets/intro/key-players.webp' alt='Key Players in the DPP ecosystem' />
+        <SlideContent textAlign='left'>
+          <SlideTitle size='large'>Key Players in the DPP ecosystem</SlideTitle>
+          <SlideDescription>
+            These are the key players in a minimal product lifecycle, each interacting with the
+            Digital Product Passport at different stages.
+          </SlideDescription>
         </SlideContent>
       </ImageTextLayout>
 

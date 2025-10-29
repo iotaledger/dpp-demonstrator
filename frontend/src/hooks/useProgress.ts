@@ -10,7 +10,7 @@ export const useProgress = () => {
   const maxLatencyMs = 1500;
   const timeoutBufferMs = 5 * frequencyMs;
   // Increase by 4% every 60ms (100% in 1500ms, matching server delay)
-  const increment = maxLimit * frequencyMs / maxLatencyMs;
+  const increment = (maxLimit * frequencyMs) / maxLatencyMs;
 
   const internalProgressRef = React.useRef(0);
   const [progress, setProgress] = React.useState(0);
@@ -81,4 +81,4 @@ export const useProgress = () => {
     startProgress,
     resetProgress,
   };
-}
+};

@@ -1,39 +1,37 @@
 'use client';
 
 import React from 'react';
-import Main from '@/components/Main';
-import GridContainer from '@/components/GridContainer';
-import MainContent from '@/components/MainContent';
-import ProgressBar from '@/components/ProgressBar';
-import SlideCounter from '@/components/SlideCounter';
-import NavigationButtons from '@/components/NavigationButtons';
-import NavigationHint from '@/components/NavigationHint';
-import TutorialCard from '@/components/TutorialCard';
+import { useParams } from 'next/navigation';
+
 import CardHeader from '@/components/CardHeader';
-import TutorialScrollContainer from '@/components/TutorialScrollContainer';
+import GridContainer from '@/components/GridContainer';
 import IntroSlide from '@/components/IntroSlide';
 import IntroSlideManager, { SLIDES_MAP } from '@/components/IntroSlideManager';
-import { useParams } from 'next/navigation';
+import Main from '@/components/Main';
+import MainContent from '@/components/MainContent';
+import NavigationButtons from '@/components/NavigationButtons';
+import NavigationHint from '@/components/NavigationHint';
+import ProgressBar from '@/components/ProgressBar';
+import SlideCounter from '@/components/SlideCounter';
+import TutorialCard from '@/components/TutorialCard';
+import TutorialScrollContainer from '@/components/TutorialScrollContainer';
 import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 
 export default function IntroductionPage() {
   const { slide: slideParam } = useParams();
-  const {
-    currentSlide,
-    totalSlides,
-    canGoNext,
-    canGoPrevious,
-    progress,
-    goNext,
-    goPrevious,
-  } = useSlideNavigation(getSlide(slideParam), SLIDES_MAP.size, getPathCallback);
+  const { currentSlide, totalSlides, canGoNext, canGoPrevious, progress, goNext, goPrevious } =
+    useSlideNavigation(getSlide(slideParam), SLIDES_MAP.size, getPathCallback);
 
   function getSlide(slideParam: string | string[] | undefined) {
-    if (slideParam != null && !Array.isArray(slideParam) && Number.isInteger(Number.parseInt(slideParam as string))) {
+    if (
+      slideParam != null &&
+      !Array.isArray(slideParam) &&
+      Number.isInteger(Number.parseInt(slideParam as string))
+    ) {
       return Number.parseInt(slideParam as string);
     }
     return 1;
-  };
+  }
 
   function getPathCallback(targetSlide: number) {
     return `/introduction/${targetSlide}`;
@@ -47,11 +45,12 @@ export default function IntroductionPage() {
           <MainContent>
             <TutorialCard>
               <CardHeader
-                title="Welcome"
+                title='Welcome'
                 linkText='Skip Intro'
                 linkUrl='/explore-guided'
                 backUrl='/introduction/1'
-                canGoBack={canGoPrevious} />
+                canGoBack={canGoPrevious}
+              />
               <TutorialScrollContainer>
                 <IntroSlide>
                   <IntroSlideManager currentSlide={currentSlide} />
@@ -64,10 +63,7 @@ export default function IntroductionPage() {
       {/* Navigation Overlays */}
       <ProgressBar progress={progress} />
 
-      <SlideCounter
-        current={currentSlide}
-        total={totalSlides}
-      />
+      <SlideCounter current={currentSlide} total={totalSlides} />
 
       <NavigationButtons
         onPrevious={goPrevious}
@@ -76,11 +72,7 @@ export default function IntroductionPage() {
         canGoNext={canGoNext}
       />
 
-      <NavigationHint
-        text="Use arrow keys or click to navigate"
-        opacity={100}
-        delay={0.5}
-      />
+      <NavigationHint text='Use arrow keys or click to navigate' opacity={100} delay={0.5} />
     </>
   );
 }

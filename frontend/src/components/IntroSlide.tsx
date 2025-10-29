@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import IntroSlideContainer from './IntroSlideContainer';
 import IntroSlideContent from './IntroSlideContent';
 

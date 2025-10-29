@@ -1,9 +1,10 @@
 'use client';
 
+import { useIotaClientQuery } from '@iota/dapp-kit';
+
 import { extractRewardTransactionData } from '@/helpers/rewardVaultTransactions';
 import { useNotarizationSent } from '@/providers/appProvider';
 import { DPP_ID, REQUEST_SIZE_LIMIT, VAULT_ID } from '@/utils/constants';
-import { useIotaClientQuery } from '@iota/dapp-kit';
 
 // TODO: Document
 export function useRewardTransactions() {

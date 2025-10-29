@@ -1,7 +1,8 @@
 'use client';
 
-import { useCheckLinkage } from '@/hooks/useCheckLinkage';
 import React from 'react';
+
+import { useCheckLinkage } from '@/hooks/useCheckLinkage';
 
 interface BadgeWithLinkProps {
   badgeText?: string | null;

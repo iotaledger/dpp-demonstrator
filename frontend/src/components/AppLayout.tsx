@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { createNetworkConfig, IotaClientProvider, WalletProvider } from '@iota/dapp-kit';
 import { getFullnodeUrl, Network } from '@iota/iota-sdk/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import Layout from '@/components/Layout';
 import { AppProvider } from '@/providers/appProvider';
 

@@ -1,5 +1,5 @@
 import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
-import { createDppTx } from './transaction';
+
 import {
   AUDIT_TRAIL_PKG_ID,
   DPP_ID,
@@ -7,6 +7,8 @@ import {
   VAULT_ID,
   WHITELIST_ID,
 } from '@/utils/constants';
+
+import { createDppTx } from './transaction';
 
 // TODO: Evaluate extraction to central place of types
 interface ReserveGasResult {

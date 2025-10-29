@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
+import type { IotaObjectData, IotaObjectResponse } from '@iota/iota-sdk/client';
+
 import {
   IotaCallArg,
   IotaTransaction,
   IotaTransactionBlockResponse,
   MoveCallIotaTransaction,
-  type IotaObjectData,
-  type IotaObjectResponse,
 } from '@iota/iota-sdk/client';
+
+/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 
 /*
 Federation Data Structure:
@@ -254,9 +255,8 @@ export function extractAccreditationTransactions(
         const sender = tx.transaction!.data.sender;
         // @ts-expect-error -- Inference do not catch all possible types
         const txInputs = tx.transaction!.data.transaction.inputs as unknown as IotaCallArg[];
-        const txTransactions = tx.transaction!.data.transaction
-          // @ts-expect-error -- Inference do not catch all possible types
-          .transactions as unknown as IotaTransaction[];
+        const txTransactions = // @ts-expect-error -- Inference do not catch all possible types
+        tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
         const lastTransaction = txTransactions?.at(-1) as unknown as IotaTransaction;
         let haveCallToAccreditationToAttest = false;
 

@@ -1,15 +1,18 @@
 'use client';
 
 import React from 'react';
+
+import { useCurrentAccount } from '@iota/dapp-kit';
+
+import { useServiceHistory } from '@/hooks/useServiceHistory';
+import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
+
+import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import BadgeWithLink from './BadgeWithLink';
-import { useServiceHistory } from '@/hooks/useServiceHistory';
-import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
-import { useCurrentAccount } from '@iota/dapp-kit';
 
 interface ServiceHistoryCardProps {
   dppId?: string;

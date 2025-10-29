@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
+
 import clsx from 'clsx';
+
+import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 
 interface LeanFeatureCardProps {
   title: string;

@@ -1,5 +1,6 @@
-import { BACKEND_API_KEY, BACKEND_ENDPOINT } from '@/utils/constants';
 import { NextRequest, NextResponse } from 'next/server';
+
+import { BACKEND_API_KEY, BACKEND_ENDPOINT } from '@/utils/constants';
 
 type UserRole = 'Repairer';
 

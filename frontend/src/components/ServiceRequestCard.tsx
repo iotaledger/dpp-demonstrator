@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import ServiceRequestModal from './ServiceRequestModal';
+
 import { useCurrentNetwork, useHierarchySent, useWalletConnected } from '@/providers/appProvider';
+
+import ServiceRequestModal from './ServiceRequestModal';
 
 const serviceInfo = {
   title: 'Request Service Network Access',

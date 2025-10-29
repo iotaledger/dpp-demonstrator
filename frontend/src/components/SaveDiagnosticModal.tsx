@@ -1,9 +1,16 @@
 'use client';
 
 import React, { useCallback, useState, useTransition } from 'react';
-import Dialog from './Dialog';
-import ItemValueRow from './ItemValueRow';
-import BadgeWithLink from './BadgeWithLink';
+
+import type { CreateNotarizationEventTransactionArgs } from '@/helpers/api';
+
+import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
+import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
+
+import { createNotarizationEventTransaction, getSponsorGas, sendTransaction } from '@/helpers/api';
+import { useProductDetails } from '@/hooks/useProductDetails';
+import { useAppProvider, useNotification } from '@/providers/appProvider';
+import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
 import {
   DPP_ID,
   FEDERATION_ID,
@@ -11,17 +18,10 @@ import {
   MANUFACTURER_NAME,
   NETWORK,
 } from '@/utils/constants';
-import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
-import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
-import {
-  createNotarizationEventTransaction,
-  type CreateNotarizationEventTransactionArgs,
-  getSponsorGas,
-  sendTransaction,
-} from '@/helpers/api';
-import { useProductDetails } from '@/hooks/useProductDetails';
-import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
-import { useAppProvider, useNotification } from '@/providers/appProvider';
+
+import BadgeWithLink from './BadgeWithLink';
+import Dialog from './Dialog';
+import ItemValueRow from './ItemValueRow';
 
 const diagnosticInfo = {
   technicianName: 'You',

@@ -1,9 +1,11 @@
 'use client';
 
-import { useNightlyWallet } from '@/providers/appProvider';
-import clsx from 'clsx';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
+
+import clsx from 'clsx';
+
+import { useNightlyWallet } from '@/providers/appProvider';
 
 interface CardHeaderProps {
   title?: string;

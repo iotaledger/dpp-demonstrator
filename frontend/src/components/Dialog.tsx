@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
+
 import { createPortal } from 'react-dom';
+
 import { usePortalTarget } from '@/hooks/usePortalTarget';
 
 interface DialogProps {

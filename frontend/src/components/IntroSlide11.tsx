@@ -2,11 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import SlideTitle from './SlideTitle';
-import SlideDescription from './SlideDescription';
-import FeaturesGrid from './FeaturesGrid';
+
 import ClientCard from './ClientCard';
+import FeaturesGrid from './FeaturesGrid';
 import NoticeCard from './NoticeCard';
+import SlideDescription from './SlideDescription';
+import SlideTitle from './SlideTitle';
 
 const IntroSlide11: React.FC = () => {
   return (

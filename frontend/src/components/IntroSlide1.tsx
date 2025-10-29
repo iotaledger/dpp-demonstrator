@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import VideoSection from './VideoSection';
+
 import BackgroundVideo from './BackgroundVideo';
 import OverlayText from './OverlayText';
+import VideoSection from './VideoSection';
 
 const IntroSlide1: React.FC = () => {
   return (

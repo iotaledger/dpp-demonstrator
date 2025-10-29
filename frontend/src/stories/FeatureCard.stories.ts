@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import FeatureCard from '../components/FeatureCard';
 
 const meta: Meta<typeof FeatureCard> = {

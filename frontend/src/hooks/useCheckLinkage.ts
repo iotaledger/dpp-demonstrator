@@ -1,7 +1,8 @@
 'use client';
 
-import { DomainLinkageStatusCheck } from '@/types/identity';
 import { useQuery } from '@tanstack/react-query';
+
+import { DomainLinkageStatusCheck } from '@/types/identity';
 
 export function useCheckLinkage(did: string) {
   const result = useQuery<DomainLinkageStatusCheck>({

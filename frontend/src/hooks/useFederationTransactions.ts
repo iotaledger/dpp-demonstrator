@@ -1,9 +1,10 @@
 'use client';
 
 import { useCurrentAccount, useIotaClientQuery } from '@iota/dapp-kit';
+
 import { extractAccreditationTransactions } from '@/helpers/federation';
-import { FEDERATION_ID } from '@/utils/constants';
 import { useHierarchySent } from '@/providers/appProvider';
+import { FEDERATION_ID } from '@/utils/constants';
 
 // TODO: Documentation
 export function useFederationTransactions() {

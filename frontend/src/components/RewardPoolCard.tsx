@@ -1,15 +1,17 @@
 'use client';
 
 import React from 'react';
+
+import { getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
+import { useRewardVaultDetails } from '@/hooks/useRewardVault';
+import { truncateAddress } from '@/utils/common';
+import { DPP_ID, VAULT_ID } from '@/utils/constants';
+
 import CollapsibleSection from './CollapsibleSection';
-import TwoColumnSection from './TwoColumnSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import { useRewardVaultDetails } from '@/hooks/useRewardVault';
-import { getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
-import { truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { DPP_ID, VAULT_ID } from '@/utils/constants';
+import TwoColumnSection from './TwoColumnSection';
 
 interface RewardPoolCardProps {
   opacity?: number;

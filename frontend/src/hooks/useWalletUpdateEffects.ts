@@ -1,12 +1,15 @@
 'use client';
 
-import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import React from 'react';
-import { useFederationDetails } from './useFederationDetails';
-import { useAppProvider } from '@/providers/appProvider';
-import { FEDERATION_ID } from '@/utils/constants';
+
+import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
+
 import { getRolesByEntity } from '@/helpers/federation';
+import { useAppProvider } from '@/providers/appProvider';
 import { generateRequestId } from '@/utils/common';
+import { FEDERATION_ID } from '@/utils/constants';
+
+import { useFederationDetails } from './useFederationDetails';
 
 /**
  * INFO:

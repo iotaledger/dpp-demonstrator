@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useRef } from 'react';
+
 import { ConnectButton } from '@iota/dapp-kit';
+
 import { useWalletUpdateEffects } from '@/hooks/useWalletUpdateEffects';
 
 interface PassportHeaderProps {

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import ProductHeaderCard from '../components/ProductHeaderCard';
 
 const meta: Meta<typeof ProductHeaderCard> = {

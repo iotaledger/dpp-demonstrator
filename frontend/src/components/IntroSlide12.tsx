@@ -2,11 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
+
 import ImageTextLayout from './ImageTextLayout';
-import SlideImage from './SlideImage';
 import SlideContent from './SlideContent';
-import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
+import SlideImage from './SlideImage';
+import SlideTitle from './SlideTitle';
 
 const IntroSlide12: React.FC = () => {
   return (

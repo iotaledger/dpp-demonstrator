@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
+
 import ImageTextLayout from './ImageTextLayout';
-import SlideImage from './SlideImage';
 import SlideContent from './SlideContent';
-import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
+import SlideImage from './SlideImage';
+import SlideTitle from './SlideTitle';
 
 const IntroSlide3: React.FC = () => {
   return (

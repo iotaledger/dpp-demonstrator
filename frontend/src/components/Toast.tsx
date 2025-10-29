@@ -1,9 +1,11 @@
 'use client';
 
+import React from 'react';
+
+import { clsx } from 'clsx';
+
 import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 import { NOTIFICATION_DECAY_TIME_MS } from '@/utils/constants';
-import { clsx } from 'clsx';
-import React from 'react';
 
 type ToastType = 'success' | 'warning' | 'error' | 'info' | string;
 

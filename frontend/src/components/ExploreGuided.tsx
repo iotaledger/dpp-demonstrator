@@ -1,25 +1,28 @@
 'use client';
 
 import React from 'react';
-import TutorialCard from './TutorialCard';
+
+import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
+
+import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+
 import CardHeader from './CardHeader';
+import DiagnosticCard from './DiagnosticCard';
+import GuidedSidebar from './GuidedSidebar';
+import { Notifications } from './Notifications';
+import NotTestnetWarningCard from './NotTestnetWarningCard';
+import PassportHeader from './PassportHeader';
+import ProductDetailsCard from './ProductDetailsCard';
+import ProductHeaderCard from './ProductHeaderCard';
+import RewardPoolCard from './RewardPoolCard';
+import RewardTransactionsCard from './RewardTransactionsCard';
+import RoleDetailsCard from './RoleDetailsCard';
+import ServiceHistoryCard from './ServiceHistoryCard';
+import ServiceRequestCard from './ServiceRequestCard';
+import TutorialCard from './TutorialCard';
 import TutorialScrollContainer from './TutorialScrollContainer';
 import TwoColumnLayout from './TwoColumnLayout';
-import PassportHeader from './PassportHeader';
-import ServiceRequestCard from './ServiceRequestCard';
-import ProductHeaderCard from './ProductHeaderCard';
-import ProductDetailsCard from './ProductDetailsCard';
-import RoleDetailsCard from './RoleDetailsCard';
-import RewardPoolCard from './RewardPoolCard';
-import ServiceHistoryCard from './ServiceHistoryCard';
-import GuidedSidebar from './GuidedSidebar';
-import DiagnosticCard from './DiagnosticCard';
-import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
-import { Notifications } from './Notifications';
-import RewardTransactionsCard from './RewardTransactionsCard';
-import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
-import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
-import NotTestnetWarningCard from './NotTestnetWarningCard';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([

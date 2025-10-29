@@ -1,16 +1,17 @@
 import {
   DomainLinkageConfiguration,
   EcDSAJwsVerifier,
+  IdentityClientReadOnly,
   IotaDID,
   IotaDocument,
   Jwt,
   JwtCredentialValidationOptions,
   JwtDomainLinkageValidator,
   LinkedDomainService,
-  IdentityClientReadOnly,
   Service,
 } from '@iota/identity-wasm/node';
 import { IotaClient } from '@iota/iota-sdk/client';
+
 import { DomainLinkageResource, Result } from '@/types/identity';
 import { DAPP_URL, IOTA_IDENTITY_PKG_ID, NETWORK_URL } from '@/utils/constants';
 

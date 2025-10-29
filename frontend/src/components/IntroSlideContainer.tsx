@@ -1,7 +1,8 @@
 'use client';
 
-import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 import clsx from 'clsx';
+
+import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 
 interface IntroSlideContainerProps {
   children: React.ReactNode;

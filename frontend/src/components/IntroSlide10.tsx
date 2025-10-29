@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import SlideTitle from './SlideTitle';
-import SlideDescription from './SlideDescription';
+
 import FeaturesGrid from './FeaturesGrid';
 import ProcessCard from './ProcessCard';
+import SlideDescription from './SlideDescription';
+import SlideTitle from './SlideTitle';
 
 const IntroSlide10: React.FC = () => {
   return (

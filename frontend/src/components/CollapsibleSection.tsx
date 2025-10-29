@@ -1,7 +1,8 @@
 'use client';
 
-import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
+
+import clsx from 'clsx';
 
 const CARD_DEFAULT_STYLE = 'border border-gray-200';
 const CARD_MUTED_STYLE = 'border border-gray-200 !opacity-40';

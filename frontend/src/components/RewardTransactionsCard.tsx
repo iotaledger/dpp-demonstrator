@@ -1,14 +1,16 @@
 'use client';
 
 import React from 'react';
+
+import { useRewardTransactions } from '@/hooks/useRewardTransactions';
+import { formatTokenBalance, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
+
+import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import BadgeWithLink from './BadgeWithLink';
-import { formatTokenBalance, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
-import { useRewardTransactions } from '@/hooks/useRewardTransactions';
 
 interface RewardTransactionsCardProps {
   opacity?: number;

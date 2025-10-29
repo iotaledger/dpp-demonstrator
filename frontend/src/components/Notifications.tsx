@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Toast } from './Toast';
+
 import { useNotification } from '@/providers/appProvider';
+
+import { Toast } from './Toast';
 
 export const Notifications = () => {
   const { notifications, handleNotificationRemoved } = useNotification();

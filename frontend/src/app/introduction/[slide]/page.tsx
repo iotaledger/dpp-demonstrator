@@ -1,19 +1,20 @@
 'use client';
 
 import React from 'react';
-import Main from '@/components/Main';
-import GridContainer from '@/components/GridContainer';
-import MainContent from '@/components/MainContent';
-import ProgressBar from '@/components/ProgressBar';
-import SlideCounter from '@/components/SlideCounter';
-import NavigationButtons from '@/components/NavigationButtons';
-import NavigationHint from '@/components/NavigationHint';
-import TutorialCard from '@/components/TutorialCard';
+import { useParams } from 'next/navigation';
+
 import CardHeader from '@/components/CardHeader';
-import TutorialScrollContainer from '@/components/TutorialScrollContainer';
+import GridContainer from '@/components/GridContainer';
 import IntroSlide from '@/components/IntroSlide';
 import IntroSlideManager, { SLIDES_MAP } from '@/components/IntroSlideManager';
-import { useParams } from 'next/navigation';
+import Main from '@/components/Main';
+import MainContent from '@/components/MainContent';
+import NavigationButtons from '@/components/NavigationButtons';
+import NavigationHint from '@/components/NavigationHint';
+import ProgressBar from '@/components/ProgressBar';
+import SlideCounter from '@/components/SlideCounter';
+import TutorialCard from '@/components/TutorialCard';
+import TutorialScrollContainer from '@/components/TutorialScrollContainer';
 import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 
 export default function IntroductionPage() {

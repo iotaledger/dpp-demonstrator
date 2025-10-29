@@ -1,4 +1,4 @@
-import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef } from "@iota/iota-sdk/client";
+import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef } from '@iota/iota-sdk/client';
 
 /*
 Service History Data Structure:
@@ -55,9 +55,9 @@ interface ServiceEntry {
   /** The description or details of the service performed */
   serviceDescription: string;
   /** The health score set by the technician */
-  healthScore: string | null,
+  healthScore: string | null;
   /** The feedback message from the technician */
-  findings: string | null,
+  findings: string | null;
   /** The blockchain address of who performed the service */
   issuerAddress: string;
   /** The role of the service provider (e.g., "Repairer", "Manufacturer") */
@@ -72,15 +72,15 @@ interface ServiceEntry {
 
 /**
  * Complete service history data structure containing all product service records
- * 
+ *
  * Usage Example:
  * ```typescript
  * const history = extractServiceHistoryData(jsonResponse);
- * 
+ *
  * // Check history overview
  * console.log(`Total services: ${history.entries.length}`);
  * console.log(`Service types: ${history.serviceTypes.join(', ')}`);
- * 
+ *
  * // Get services by provider
  * const repairerServices = getEntriesByIssuer(history, '0x5ddf340c...');
  * console.log(`Repairer performed ${repairerServices.length} services`);
@@ -109,20 +109,20 @@ interface ServiceHistoryData {
 
 /**
  * Extracts and transforms service history data from IOTA Rebase JSON-RPC response
- * 
+ *
  * This function processes paginated ProductEntry objects and creates
  * a frontend-friendly data structure with multiple indexing strategies.
- * 
+ *
  * Process Flow:
  * ┌─ JSON Input ─┐    ┌─ Extract ─┐    ┌─ Transform ─┐    ┌─ Output ─┐
  * │ Paginated    │ →  │ Entries   │ →  │ Create Maps │ →  │ Indexed  │
  * │ Objects      │    │ Metadata  │    │ Sort Data   │    │ History  │
  * │              │    │ Pagination│    │             │    │          │
  * └──────────────┘    └───────────┘    └─────────────┘    └──────────┘
- * 
+ *
  * @param jsonData - The JSON-RPC response from iotax_getOwnedObjects call
  * @returns ServiceHistoryData object with extracted and organized information
- * 
+ *
  * @example
  * ```typescript
  * const response = await fetch('https://api.testnet.iota.cafe/', {
@@ -142,13 +142,19 @@ interface ServiceHistoryData {
  * console.log(`Loaded ${historyData.entries.length} service entries`);
  * ```
  */
-function extractServiceTransactionData(jsonData: IotaTransactionBlockResponse[], productIdToFilter: string): ServiceEntry[] {
+function extractServiceTransactionData(
+  jsonData: IotaTransactionBlockResponse[],
+  productIdToFilter: string,
+): ServiceEntry[] {
   const transactionEntries = jsonData.map((tx) => {
-    // @ts-expect-error -- Inference do not catch all possible types
-    const _transactionsCall = tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
+    const _transactionsCall = tx.transaction!.data.transaction
+      // @ts-expect-error -- Inference do not catch all possible types
+      .transactions as unknown as IotaTransaction[];
     // @ts-expect-error -- Inference do not catch all possible types
     const _lastTransactionCall = _transactionsCall?.at(-1) as unknown as IotaTransaction;
-    const _productEntryLoggedEvent = tx.events?.find((item) => item.type.endsWith('ProductEntryLogged')) as unknown as IotaEvent;
+    const _productEntryLoggedEvent = tx.events?.find((item) =>
+      item.type.endsWith('ProductEntryLogged'),
+    ) as unknown as IotaEvent;
     const status = tx.effects?.status.status;
     let isCallingLogEntry = false;
 
@@ -156,17 +162,19 @@ function extractServiceTransactionData(jsonData: IotaTransactionBlockResponse[],
     if (_lastTransactionCall) {
       // @ts-expect-error -- Inference do not catch all possible types
       const moveCall = _lastTransactionCall.MoveCall as unknown as MoveCallIotaTransaction;
-      isCallingLogEntry = (
-        moveCall?.module === 'app'
-        && moveCall?.function === 'log_entry_data'
-      );
+      isCallingLogEntry = moveCall?.module === 'app' && moveCall?.function === 'log_entry_data';
     }
 
-    if (status !== 'success' || _productEntryLoggedEvent == null || _lastTransactionCall == null || !isCallingLogEntry) {
+    if (
+      status !== 'success' ||
+      _productEntryLoggedEvent == null ||
+      _lastTransactionCall == null ||
+      !isCallingLogEntry
+    ) {
       // This element will be filtered out
       return {
         isCallingLogEntry,
-      }
+      };
     }
 
     // @ts-expect-error -- Inference do not catch all possible types
@@ -174,7 +182,9 @@ function extractServiceTransactionData(jsonData: IotaTransactionBlockResponse[],
     // @ts-expect-error -- Inference do not catch all possible types
     const productId = _productEntryLoggedEvent.parsedJson?.product_addr;
 
-    const _objectCreated = tx.effects?.created?.find((item) => item.reference.objectId === entryId) as unknown as OwnedObjectRef;
+    const _objectCreated = tx.effects?.created?.find(
+      (item) => item.reference.objectId === entryId,
+    ) as unknown as OwnedObjectRef;
     const version = _objectCreated.reference.version;
     const digest = _objectCreated.reference.digest;
 
@@ -211,23 +221,27 @@ function extractServiceTransactionData(jsonData: IotaTransactionBlockResponse[],
   });
 
   // filter out transactions not calling `log_entry_data` and with no `success` effects
-  // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<> 
-  return transactionEntries.filter((entry) => (
-    // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<> 
-    entry.isCallingLogEntry && entry.status === 'success' && entry.productId === productIdToFilter
-  ));
+  // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<>
+  return transactionEntries.filter(
+    (entry) =>
+      entry.isCallingLogEntry &&
+      // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<>
+      entry.status === 'success' &&
+      // @ts-expect-error -- Inference is considering isCallingLogEntry, we can solve this by using Omit<>
+      entry.productId === productIdToFilter,
+  );
 }
 
 /**
  * Retrieves all service entries performed by a specific issuer
- * 
+ *
  * Lookup Pattern:
  * Issuer Address → Map → [ServiceEntry, ServiceEntry, ...]
- * 
+ *
  * @param data - The service history data structure
  * @param issuerAddress - The blockchain address of the service provider
  * @returns Array of service entries performed by the issuer
- * 
+ *
  * @example
  * ```typescript
  * const repairerServices = getEntriesByIssuer(historyData, '0x5ddf340c...');
@@ -243,7 +257,7 @@ function getEntriesByIssuer(data: ServiceHistoryData, issuerAddress: string): Se
 
 /**
  * Retrieves all service entries of a specific type
- * 
+ *
  * Service Type Lookup:
  * ┌─ Input: "Inspection" ─┐
  * │                       │
@@ -253,16 +267,16 @@ function getEntriesByIssuer(data: ServiceHistoryData, issuerAddress: string): Se
  * │ Entry 3: Inspection   │ ✓ Match
  * │                       │
  * └─ Output: [Entry1, 3] ─┘
- * 
+ *
  * @param data - The service history data structure
  * @param serviceType - The type of service to filter by
  * @returns Array of service entries of the specified type
- * 
+ *
  * @example
  * ```typescript
  * const inspections = getEntriesByServiceType(historyData, 'Inspection');
  * console.log(`Product has ${inspections.length} inspection records`);
- * 
+ *
  * const repairs = getEntriesByServiceType(historyData, 'Repair');
  * console.log(`Product has ${repairs.length} repair records`);
  * ```
@@ -273,10 +287,10 @@ function getEntriesByServiceType(data: ServiceHistoryData, serviceType: string):
 
 /**
  * Gets the chronological service timeline (oldest to newest)
- * 
+ *
  * @param data - The service history data structure
  * @returns Array of service entries sorted by timestamp
- * 
+ *
  * @example
  * ```typescript
  * const timeline = getChronologicalHistory(historyData);
@@ -293,13 +307,13 @@ function getChronologicalHistory(data: ServiceHistoryData): ServiceEntry[] {
 
 /**
  * Gets the most recent service entry
- * 
+ *
  * Timeline Pattern:
  * [Entry1] → [Entry2] → [Entry3] → [Latest Entry] ← Return this
- * 
+ *
  * @param data - The service history data structure
  * @returns The most recent service entry, or undefined if no entries
- * 
+ *
  * @example
  * ```typescript
  * const latest = getLatestServiceEntry(historyData);
@@ -318,19 +332,19 @@ function getLatestServiceEntry(data: ServiceHistoryData): ServiceEntry | undefin
 
 /**
  * Filters service entries within a time range
- * 
+ *
  * Time Filtering Pattern:
  * ┌─ Start Time ─┐    ┌─ Filter ─┐    ┌─ End Time ──┐
  * │ 1756128000000│ ←  │ Entries  │ →  │1756130000000│
  * └──────────────┘    └──────────┘    └─────────────┘
  *                           ↓
  *                   [Matching Entries]
- * 
+ *
  * @param data - The service history data structure
  * @param startTimestamp - Start time in milliseconds (inclusive)
  * @param endTimestamp - End time in milliseconds (inclusive)
  * @returns Array of service entries within the time range
- * 
+ *
  * @example
  * ```typescript
  * const startTime = "1756128000000"; // January 15, 2025
@@ -339,11 +353,15 @@ function getLatestServiceEntry(data: ServiceHistoryData): ServiceEntry | undefin
  * console.log(`${recentServices.length} services in the last day`);
  * ```
  */
-function getServicesByTimeRange(data: ServiceHistoryData, startTimestamp: string, endTimestamp: string): ServiceEntry[] {
+function getServicesByTimeRange(
+  data: ServiceHistoryData,
+  startTimestamp: string,
+  endTimestamp: string,
+): ServiceEntry[] {
   const start = parseInt(startTimestamp);
   const end = parseInt(endTimestamp);
 
-  return data.entries.filter(entry => {
+  return data.entries.filter((entry) => {
     const entryTime = parseInt(entry.timestamp);
     return entryTime >= start && entryTime <= end;
   });
@@ -351,16 +369,16 @@ function getServicesByTimeRange(data: ServiceHistoryData, startTimestamp: string
 
 /**
  * Checks if a specific service type has been performed
- * 
+ *
  * @param data - The service history data structure
  * @param serviceType - The service type to check for
  * @returns true if the service type exists in history, false otherwise
- * 
+ *
  * @example
  * ```typescript
  * const hasInspection = hasServiceType(historyData, 'Inspection');
  * const hasRepair = hasServiceType(historyData, 'Repair');
- * 
+ *
  * if (hasInspection && !hasRepair) {
  *   console.log('Product has been inspected but never repaired');
  * }
@@ -372,13 +390,13 @@ function hasServiceType(data: ServiceHistoryData, serviceType: string): boolean 
 
 /**
  * Gets service statistics for analytics
- * 
+ *
  * Statistics Flow:
  * All Entries → Group by Type/Issuer → Calculate Metrics → Insights
- * 
+ *
  * @param data - The service history data structure
  * @returns Statistics object with service metrics
- * 
+ *
  * @example
  * ```typescript
  * const stats = getServiceStatistics(historyData);
@@ -397,20 +415,20 @@ function getServiceStatistics(data: ServiceHistoryData): {
   const serviceTypeBreakdown: Record<string, number> = {};
 
   // Count services by type
-  data.serviceTypes.forEach(type => {
+  data.serviceTypes.forEach((type) => {
     serviceTypeBreakdown[type] = data.entriesByServiceType.get(type)?.length || 0;
   });
 
   // Find most common service type
-  const mostCommonServiceType = Object.entries(serviceTypeBreakdown)
-    .sort(([, a], [, b]) => b - a)[0]?.[0] || "";
+  const mostCommonServiceType =
+    Object.entries(serviceTypeBreakdown).sort(([, a], [, b]) => b - a)[0]?.[0] || '';
 
   // Calculate time span
   let timeSpan = null;
   if (data.chronologicalEntries.length > 0) {
     timeSpan = {
       earliest: data.chronologicalEntries[0].timestamp,
-      latest: data.chronologicalEntries[data.chronologicalEntries.length - 1].timestamp
+      latest: data.chronologicalEntries[data.chronologicalEntries.length - 1].timestamp,
     };
   }
 
@@ -419,16 +437,16 @@ function getServiceStatistics(data: ServiceHistoryData): {
     uniqueProviders: data.entriesByIssuer.size,
     serviceTypeBreakdown,
     mostCommonServiceType,
-    timeSpan
+    timeSpan,
   };
 }
 
 /**
  * Formats service timestamp to human-readable date
- * 
+ *
  * @param timestamp - Timestamp in milliseconds as string
  * @returns Formatted date string
- * 
+ *
  * @example
  * ```typescript
  * const entry = getLatestServiceEntry(historyData);
@@ -441,13 +459,13 @@ function formatServiceDate(timestamp: string): string {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   });
 }
 
 /**
  * Gets service entries by a specific role type
- * 
+ *
  * Role Filtering Pattern:
  * ┌─ Input: "Repairer" ─┐
  * │                     │
@@ -457,30 +475,30 @@ function formatServiceDate(timestamp: string): string {
  * │ Entry3: Repairer    │ ✓ Match
  * │                     │
  * └─ Output: [1, 3] ────┘
- * 
+ *
  * @param data - The service history data structure
  * @param role - The role to filter by (e.g., "Repairer", "Manufacturer")
  * @returns Array of service entries performed by the specified role
- * 
+ *
  * @example
  * ```typescript
  * const repairServices = getEntriesByRole(historyData, 'Repairer');
  * const manufacturingServices = getEntriesByRole(historyData, 'Manufacturer');
- * 
+ *
  * console.log(`Repair services: ${repairServices.length}`);
  * console.log(`Manufacturing services: ${manufacturingServices.length}`);
  * ```
  */
 function getEntriesByRole(data: ServiceHistoryData, role: string): ServiceEntry[] {
-  return data.entries.filter(entry => entry.issuerRole === role);
+  return data.entries.filter((entry) => entry.issuerRole === role);
 }
 
 /**
  * Gets the app package ID from the service history
- * 
+ *
  * @param data - The service history data structure
  * @returns The app package/contract address
- * 
+ *
  * @example
  * ```typescript
  * const appPackage = getServiceHistoryPackageId(historyData);
@@ -506,7 +524,7 @@ export {
   getServiceStatistics,
   formatServiceDate,
   getEntriesByRole,
-  getServiceHistoryPackageId
+  getServiceHistoryPackageId,
 };
 
 // Usage example with complete workflow:

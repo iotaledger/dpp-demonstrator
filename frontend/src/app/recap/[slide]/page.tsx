@@ -1,20 +1,22 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import NavigationButtons from '@/components/NavigationButtons';
-import RecapSlideManager, { RECAP_SLIDES_MAP } from '@/components/RecapSlideManager';
-import ProgressBar from '@/components/ProgressBar';
-import SlideCounter from '@/components/SlideCounter';
-import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 import { useParams } from 'next/navigation';
-import Main from '@/components/Main';
-import GridContainer from '@/components/GridContainer';
-import MainContent from '@/components/MainContent';
-import TutorialCard from '@/components/TutorialCard';
-import CardHeader from '@/components/CardHeader';
-import TutorialScrollContainer from '@/components/TutorialScrollContainer';
-import IntroSlideContainer from '@/components/IntroSlideContainer';
+
 import { useDisconnectWallet } from '@iota/dapp-kit';
+
+import CardHeader from '@/components/CardHeader';
+import GridContainer from '@/components/GridContainer';
+import IntroSlideContainer from '@/components/IntroSlideContainer';
+import Main from '@/components/Main';
+import MainContent from '@/components/MainContent';
+import NavigationButtons from '@/components/NavigationButtons';
+import ProgressBar from '@/components/ProgressBar';
+import RecapSlideManager, { RECAP_SLIDES_MAP } from '@/components/RecapSlideManager';
+import SlideCounter from '@/components/SlideCounter';
+import TutorialCard from '@/components/TutorialCard';
+import TutorialScrollContainer from '@/components/TutorialScrollContainer';
+import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 
 export default function PostExperiencePage() {
   const { slide: slideParam } = useParams();

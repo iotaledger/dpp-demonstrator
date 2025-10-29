@@ -1,15 +1,17 @@
 'use client';
 
 import React from 'react';
+
+import { useProductDetails } from '@/hooks/useProductDetails';
+import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { DPP_ID } from '@/utils/constants';
+
+import CollapsibleInnerSection from './CollapsableInnerSection';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import TwoColumnSection from './TwoColumnSection';
-import { useProductDetails } from '@/hooks/useProductDetails';
-import CollapsibleInnerSection from './CollapsableInnerSection';
-import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { DPP_ID } from '@/utils/constants';
+import TwoColumnSection from './TwoColumnSection';
 
 interface ProductDetailsCardProps {
   opacity?: number;

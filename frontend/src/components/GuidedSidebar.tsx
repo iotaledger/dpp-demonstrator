@@ -1,13 +1,16 @@
 'use client';
 
 import React, { useCallback } from 'react';
-import StepContent from './StepContent';
-import StepProgress from './StepProgress';
-import StepNavigation from './StepNavigation';
-import { useCurrentWallet } from '@iota/dapp-kit';
-import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 import { useRouter } from 'next/navigation';
+
+import { useCurrentWallet } from '@iota/dapp-kit';
 import clsx from 'clsx';
+
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+
+import StepContent from './StepContent';
+import StepNavigation from './StepNavigation';
+import StepProgress from './StepProgress';
 
 const TUTORIAL_STEPS = new Map([
   [

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import CheckmarkList from '../components/CheckmarkList';
 
 const meta: Meta<typeof CheckmarkList> = {

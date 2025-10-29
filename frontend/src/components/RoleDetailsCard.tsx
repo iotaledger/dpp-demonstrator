@@ -1,15 +1,18 @@
 'use client';
 
 import React from 'react';
+
+import { useCurrentAccount } from '@iota/dapp-kit';
+
+import { useFederationTransactions } from '@/hooks/useFederationTransactions';
+import { truncateAddress } from '@/utils/common';
+import { FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME } from '@/utils/constants';
+
+import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import BadgeWithLink from './BadgeWithLink';
-import { truncateAddress } from '@/utils/common';
-import { useCurrentAccount } from '@iota/dapp-kit';
 import PanelContent from './PanelContent';
-import { FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME } from '@/utils/constants';
-import { useFederationTransactions } from '@/hooks/useFederationTransactions';
 
 interface RoleDetailsCardProps {
   opacity?: number;

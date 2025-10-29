@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
+
 import './globals.css';
+
 import { AppLayout } from '@/components/AppLayout';
 
 export const metadata: Metadata = {

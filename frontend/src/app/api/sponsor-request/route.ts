@@ -1,6 +1,8 @@
-import { GAS_STATION_TOKEN, GAS_STATION_URL, RESERVE_DURATION_SEC } from '@/utils/constants';
-import { ObjectRef } from '@iota/iota-sdk/transactions';
 import { NextResponse } from 'next/server';
+
+import { ObjectRef } from '@iota/iota-sdk/transactions';
+
+import { GAS_STATION_TOKEN, GAS_STATION_URL, RESERVE_DURATION_SEC } from '@/utils/constants';
 
 interface ReserveGasResult {
   sponsor_address: string;

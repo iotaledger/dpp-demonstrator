@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
+
 import { type IotaObjectData, type IotaObjectResponse } from '@iota/iota-sdk/client';
 
 /*

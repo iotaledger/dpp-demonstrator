@@ -1,14 +1,17 @@
 'use client';
 
-import React, { useState, useTransition, useCallback } from 'react';
+import React, { useCallback, useState, useTransition } from 'react';
+
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
-import Dialog from './Dialog';
-import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
-import { FEDERATION_ID, HAS_NFT_REWARD } from '@/utils/constants';
+
 import { createAccreditation } from '@/helpers/api';
 import { Role } from '@/helpers/federation';
-import { generateRequestId, truncateAddress } from '@/utils/common';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAppProvider, useNotification } from '@/providers/appProvider';
+import { generateRequestId, truncateAddress } from '@/utils/common';
+import { FEDERATION_ID, HAS_NFT_REWARD } from '@/utils/constants';
+
+import Dialog from './Dialog';
 
 interface ServiceRequestModalProps {
   isOpen: boolean;
@@ -142,7 +145,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
           });
         }
       });
-
     },
     /* eslint-disable-next-line react-hooks/exhaustive-deps --
      * handleHierarchySentSuccess and handleNotificationSent are stable functions
@@ -196,7 +198,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 type='text'
                 readOnly
                 value={truncateAddress(federationAddress)}
-                onChange={() => { }} // Controlled component requirement
+                onChange={() => {}} // Controlled component requirement
                 className='w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono'
                 disabled={true}
               />

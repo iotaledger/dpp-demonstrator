@@ -1,9 +1,11 @@
 'use client';
 
-import { useProductDetails } from '@/hooks/useProductDetails';
 import React, { useCallback } from 'react';
-import CollapsibleSection from './CollapsibleSection';
+
+import { useProductDetails } from '@/hooks/useProductDetails';
 import { DPP_ID } from '@/utils/constants';
+
+import CollapsibleSection from './CollapsibleSection';
 
 interface ProductHeaderCardProps {
   tutorialState?: 'selected' | 'muted' | 'no';

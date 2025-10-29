@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useTransition, useCallback, useState, useMemo } from 'react';
-import SaveDiagnosticModal from './SaveDiagnosticModal';
+import React, { useCallback, useMemo, useState, useTransition } from 'react';
+
 import { useProgress } from '@/hooks/useProgress';
-import { LoadingBar } from './LoadingBar';
 import {
   useCurrentNetwork,
   useHierarchySent,
   useNotarizationSent,
   useWalletConnected,
 } from '@/providers/appProvider';
+
+import { LoadingBar } from './LoadingBar';
+import SaveDiagnosticModal from './SaveDiagnosticModal';
 
 const DIAGNOSTIC_MUTED_STYLE = 'border border-gray-200 !opacity-40';
 const DIAGNOSTIC_HIGHLIGHTED_STYLE = 'border border-blue-500 !bg-blue-50';

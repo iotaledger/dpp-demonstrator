@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type Notification } from '@/components/Toast';
 
 interface AppState {

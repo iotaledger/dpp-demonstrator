@@ -9,7 +9,7 @@ import SlideTitle from './SlideTitle';
 
 const IntroSlide10: React.FC = () => {
   return (
-    <div className='md:px-0 w-full mx-auto max-w-6xl py-6 sm:py-0'>
+    <div className='mx-auto w-full max-w-6xl py-6 sm:py-0 md:px-0'>
       <div className='mb-8 max-w-5xl pt-6 md:pt-0'>
         <SlideTitle size='large' margin='mb-4'>
           Your Mission in this Demo

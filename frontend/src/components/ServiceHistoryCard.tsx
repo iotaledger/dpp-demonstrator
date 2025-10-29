@@ -135,7 +135,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   <a
                     target='_blank'
                     href={`https://explorer.iota.org/object/${serviceEntry?.entryId}?network=testnet`}
-                    className='text-blue-600 hover:text-blue-700 transition-colors'
+                    className='text-blue-600 transition-colors hover:text-blue-700'
                   >
                     {truncateAddress(serviceEntry?.entryId)}
                   </a>
@@ -178,7 +178,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   <a
                     target='_blank'
                     href={`https://explorer.iota.org/txblock/${serviceEntry.txBlock}?network=testnet`}
-                    className='text-blue-600 hover:text-blue-700 transition-colors'
+                    className='text-blue-600 transition-colors hover:text-blue-700'
                   >
                     {truncateAddress(serviceEntry.txBlock)}
                   </a>
@@ -197,7 +197,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   <a
                     target='_blank'
                     href={`https://explorer.iota.org/address/${serviceEntry?.issuerAddress}?network=testnet`}
-                    className='text-blue-600 hover:text-blue-700 transition-colors'
+                    className='text-blue-600 transition-colors hover:text-blue-700'
                   >
                     {truncateAddress(serviceEntry?.issuerAddress)}
                   </a>
@@ -227,10 +227,10 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
         </PanelContent>
       ))}
       {serviceEntriesSize > 0 && (
-        <div className='w-full grid justify-center mt-6'>
+        <div className='mt-6 grid w-full justify-center'>
           {viewMore && (
             <button
-              className='inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2   svelte-1u9y1q3'
+              className='focus-visible:ring-ring bg-secondary text-secondary-foreground hover:bg-secondary/80 svelte-1u9y1q3 inline-flex h-10 cursor-pointer items-center justify-center rounded-full px-4 py-2 transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
               onClick={() => setViewMore(false)}
               disabled={isShowMoreDisabled()}
             >
@@ -252,7 +252,7 @@ function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
       return `All ${size} latest entries shown`;
     }
   };
-  return <div className='text-center text-sm text-gray-500 py-2'>{feedbackMessage()}</div>;
+  return <div className='py-2 text-center text-sm text-gray-500'>{feedbackMessage()}</div>;
 }
 
 export default ServiceHistoryCard;

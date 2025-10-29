@@ -159,18 +159,18 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   return (
     <Dialog isOpen={isOpen} onClose={handleClose} onEscape={handleEscape}>
       {/* Match exact HTML structure from service-request.html */}
-      <div className='w-full max-w-xl mx-auto'>
-        <div className='flex items-center justify-between mb-8'>
+      <div className='mx-auto w-full max-w-xl'>
+        <div className='mb-8 flex items-center justify-between'>
           <h2 id='dialog-title' className='text-xl font-semibold text-gray-900'>
             {MODAL_CONTENT.title}
           </h2>
           <button
             onClick={handleClose}
-            className='text-gray-400 hover:text-gray-600 p-1 cursor-pointer focus-visible:outline-gray-300'
+            className='cursor-pointer p-1 text-gray-400 hover:text-gray-600 focus-visible:outline-gray-300'
             disabled={isPending}
             aria-label='Close modal'
           >
-            <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+            <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
               <path
                 strokeLinecap='round'
                 strokeLinejoin='round'
@@ -199,18 +199,18 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 readOnly
                 value={truncateAddress(federationAddress)}
                 onChange={() => {}} // Controlled component requirement
-                className='w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono'
+                className='w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 font-mono text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500'
                 disabled={true}
               />
               <button
                 id='federationAddressCopy'
                 type='button'
                 onClick={handleCopyAddress}
-                className='absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 focus-visible:outline-gray-300 cursor-pointer'
+                className='absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer p-1 text-gray-400 hover:text-gray-600 focus-visible:outline-gray-300'
                 title={copied ? 'Copied!' : 'Copy address'}
                 aria-label={copied ? 'Address copied' : 'Copy address'}
               >
-                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                   <path
                     strokeLinecap='round'
                     strokeLinejoin='round'
@@ -232,7 +232,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               name='selectedRole'
               value={selectedRole.value}
               onChange={(e) => setSelectedRole(MODAL_CONTENT.roleOptions[e.target.value as Role])}
-              className='appearance-none w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus-visible focus-visible:ring-ring focus-visible:outline-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+              className='focus-visible focus-visible:ring-ring w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus-visible:outline-gray-300'
             >
               <option value={MODAL_CONTENT.roleOptions[Role.repairer].value}>
                 {MODAL_CONTENT.roleOptions[Role.repairer].label}
@@ -246,7 +246,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
           {/* Submit Button - exact classes match (cleaned up) */}
           <div className='pt-4'>
             <button
-              className='inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 w-full text-white'
+              className='focus-visible:ring-ring text-primary-foreground inline-flex h-10 w-full cursor-pointer items-center justify-center rounded-full bg-blue-700 px-4 py-2 text-white transition-all duration-200 ease-out hover:bg-blue-700/90 focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
               type='submit'
               disabled={isPending}
             >

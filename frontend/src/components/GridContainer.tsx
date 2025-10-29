@@ -13,7 +13,7 @@ const GridContainer: React.FC<GridContainerProps> = ({ children, hasDrawer = fal
   return (
     <div className={clsx(['h-full', hasDrawer && 'max-lg:pb-[12rem]'])}>
       <div
-        className={clsx(['h-full grid overflow-hidden transition-all duration-700 ease-out'])}
+        className={clsx(['grid h-full overflow-hidden transition-all duration-700 ease-out'])}
         style={{ gridTemplateColumns: '1fr 0px 0px' }}
       >
         {children}

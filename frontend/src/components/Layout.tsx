@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div style={{ display: 'contents' }}>
       <div
-        className='bg-gray-100 flex flex-col'
+        className='flex flex-col bg-gray-100'
         style={{
           minHeight: '100vh',
         }}

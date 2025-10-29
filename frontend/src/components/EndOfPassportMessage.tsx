@@ -21,7 +21,7 @@ const EndOfPassportMessage: React.FC<EndOfPassportMessageProps> = ({
 }) => {
   return (
     <section
-      className={`px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto ${paddingY}`}
+      className={`mx-auto max-w-7xl px-4 sm:px-6 xl:px-12 ${paddingY}`}
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`,

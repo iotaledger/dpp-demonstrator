@@ -13,7 +13,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ children, wide = true }) =>
   };
   return (
     <div
-      className={`relative flex items-center justify-center rounded-3xl overflow-hidden ${getHeight()}`}
+      className={`relative flex items-center justify-center overflow-hidden rounded-3xl ${getHeight()}`}
     >
       {children}
     </div>

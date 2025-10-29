@@ -41,11 +41,11 @@ const PanelContent: React.FC<PanelContentProps> = ({
 
   return (
     <div
-      className={`panel space-y-4 border-1 rounded-lg p-4 transition-all duration-300 ease-out ${getPanelStateStyle()}`}
+      className={`panel space-y-4 rounded-lg border-1 p-4 transition-all duration-300 ease-out ${getPanelStateStyle()}`}
     >
       {!hasBadge() && hasTitle() && <h3 className='font-medium text-gray-900'>{title}</h3>}
       {hasBadge() && (
-        <div className='flex items-center gap-2 mb-3'>
+        <div className='mb-3 flex items-center gap-2'>
           {hasTitle() && <h3 className='font-medium text-gray-900'>{title}</h3>}
           {badge}
         </div>

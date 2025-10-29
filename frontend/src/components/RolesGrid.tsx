@@ -22,7 +22,7 @@ interface RolesGridProps {
 export const RolesGrid: React.FC<RolesGridProps> = ({ children }) => {
   return (
     <div
-      className='grid grid-cols-1 md:grid-cols-2 justify-items-start items-center gap-1 md:gap-2 max-w-5xl pb-6 md:pb-0 mx-auto opacity-0 translate-y-4 opacity-100 translate-y-0'
+      className='mx-auto grid max-w-5xl translate-y-0 translate-y-4 grid-cols-1 items-center justify-items-start gap-1 pb-6 opacity-0 opacity-100 md:grid-cols-2 md:gap-2 md:pb-0'
       style={{ transition: 'opacity 0.6s ease-out 0.35s, transform 0.6s ease-out 0.35s' }}
     >
       {children}

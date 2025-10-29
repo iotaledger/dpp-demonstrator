@@ -16,9 +16,9 @@ export const LoadingBar: React.FC<LoadingBarProps> = ({ progress, loadingText })
         <span className='animate-pulse'>{loadingText}</span>
         <span>{progress}</span>
       </div>
-      <div className='w-full bg-gray-200 rounded-full h-4 overflow-hidden'>
+      <div className='h-4 w-full overflow-hidden rounded-full bg-gray-200'>
         <div
-          className='bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full transition-all duration-75 ease-out shadow-sm'
+          className='h-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-sm transition-all duration-75 ease-out'
           style={{ width: `${progress}%` }}
         ></div>
       </div>

@@ -17,7 +17,7 @@ const ImageTextLayout: React.FC<ImageTextLayoutProps> = ({
 }) => {
   return (
     <div
-      className={`grid grid-cols-1 md:grid-cols-2 ${gap} items-center self-center mx-auto ${maxWidth} ${pb}`}
+      className={`grid grid-cols-1 md:grid-cols-2 ${gap} mx-auto items-center self-center ${maxWidth} ${pb}`}
     >
       {children}
     </div>

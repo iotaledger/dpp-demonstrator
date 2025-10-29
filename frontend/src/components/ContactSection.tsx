@@ -31,15 +31,15 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   };
 
   return (
-    <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
-      <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full bg-gradient-to-br from-white/80 to-white/70 backdrop-blur-sm rounded-3xl p-4 md:p-6 border border-gray-200'>
+    <div className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
+      <div className='flex w-full flex-col gap-4 rounded-3xl border border-gray-200 bg-gradient-to-br from-white/80 to-white/70 p-4 backdrop-blur-sm md:flex-row md:items-center md:justify-between md:p-6'>
         <div className='text-center md:text-left'>
-          <h4 className='text-xl md:text-2xl font-semibold text-gray-900'>{title}</h4>
+          <h4 className='text-xl font-semibold text-gray-900 md:text-2xl'>{title}</h4>
         </div>
-        <div className='flex items-center gap-3 md:gap-4 bg-white rounded-2xl px-4 md:px-6 py-3 md:py-4 border border-gray-200 self-center md:self-auto'>
-          <div className='w-6 h-6 md:w-8 md:h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0'>
+        <div className='flex items-center gap-3 self-center rounded-2xl border border-gray-200 bg-white px-4 py-3 md:gap-4 md:self-auto md:px-6 md:py-4'>
+          <div className='flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 md:h-8 md:w-8'>
             <svg
-              className='w-4 h-4 md:w-5 md:h-5 text-blue-600'
+              className='h-4 w-4 text-blue-600 md:h-5 md:w-5'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
@@ -52,23 +52,23 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               />
             </svg>
           </div>
-          <div className='flex flex-col min-w-0'>
-            <span className='text-xs text-gray-500 mb-1'>{emailLabel}</span>
+          <div className='flex min-w-0 flex-col'>
+            <span className='mb-1 text-xs text-gray-500'>{emailLabel}</span>
             <a
-              className='text-sm md:text-base text-gray-900 font-medium hover:text-blue-600 transition-colors truncate'
+              className='truncate text-sm font-medium text-gray-900 transition-colors hover:text-blue-600 md:text-base'
               href={`mailto:${email}`}
             >
               {email}
             </a>
           </div>
           <button
-            className='w-6 h-6 md:w-8 md:h-8 rounded-lg flex items-center justify-center cursor-pointer transition-colors flex-shrink-0 bg-gray-100 hover:bg-gray-200'
+            className='flex h-6 w-6 flex-shrink-0 cursor-pointer items-center justify-center rounded-lg bg-gray-100 transition-colors hover:bg-gray-200 md:h-8 md:w-8'
             title={copied ? 'Copied!' : 'Copy email address'}
             onClick={handleCopy}
           >
             {copied ? (
               <svg
-                className='w-4 h-4 text-green-600'
+                className='h-4 w-4 text-green-600'
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'
@@ -82,7 +82,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               </svg>
             ) : (
               <svg
-                className='w-4 h-4 text-gray-600'
+                className='h-4 w-4 text-gray-600'
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'

@@ -77,7 +77,7 @@ export const Dialog: React.FC<DialogProps> = ({
       aria-labelledby='dialog-title'
     >
       <div
-        className={`fixed left-[50%] top-[50%] z-50 grid w-[95%] max-w-xl translate-x-[-50%] translate-y-[-50%] gap-4 border border-gray-200 bg-background p-6 shadow-lg rounded-lg ${className}`}
+        className={`bg-background fixed top-[50%] left-[50%] z-50 grid w-[95%] max-w-xl translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border border-gray-200 p-6 shadow-lg ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

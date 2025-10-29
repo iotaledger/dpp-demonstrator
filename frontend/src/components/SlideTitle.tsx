@@ -19,7 +19,7 @@ const SlideTitle: React.FC<SlideTitleProps> = ({ children, size = 'large', margi
     }
   };
 
-  return <h2 className={`${getSizeClasses()} ${margin} font-medium leading-tight`}>{children}</h2>;
+  return <h2 className={`${getSizeClasses()} ${margin} leading-tight font-medium`}>{children}</h2>;
 };
 
 export default SlideTitle;

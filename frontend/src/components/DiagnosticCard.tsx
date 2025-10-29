@@ -89,7 +89,7 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
   return (
     <div>
       <div
-        className={`bg-white rounded-lg shadow-xs transition-all duration-400 ease-out overflow-hidden p-3 sm:p-4 ${getCardStateClasses()}`}
+        className={`overflow-hidden rounded-lg bg-white p-3 shadow-xs transition-all duration-400 ease-out sm:p-4 ${getCardStateClasses()}`}
         data-card-state={cardState}
         data-section='diagnostic-tool'
         id='diagnostic-tool'
@@ -98,15 +98,15 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
           transition: `opacity ${delay}s ease-out`,
         }}
       >
-        <div className='transition-all duration-500 ease-out opacity-100 scale-100'>
+        <div className='scale-100 opacity-100 transition-all duration-500 ease-out'>
           <div className='p-0'>
             {/* Two-column layout matching HTML structure exactly */}
             <div className='flex flex-col sm:flex-row sm:gap-8'>
               {/* Image Section (Left Column) */}
               <div className='flex justify-center sm:max-w-xs sm:justify-start'>
-                <div className='w-full max-h-[220px] bg-blue-50 relative overflow-hidden rounded-lg'>
+                <div className='relative max-h-[220px] w-full overflow-hidden rounded-lg bg-blue-50'>
                   <img
-                    className='w-full h-full object-cover'
+                    className='h-full w-full object-cover'
                     alt={diagnosticInfo.imageAlt}
                     src={diagnosticInfo.imageUrl}
                   />
@@ -114,11 +114,11 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
               </div>
 
               {/* Content Section (Right Column) */}
-              <div className='flex-1 flex flex-col justify-center space-y-4 p-6'>
+              <div className='flex flex-1 flex-col justify-center space-y-4 p-6'>
                 {/* Text Content */}
                 <div className='space-y-0.5'>
-                  <div className='text-sm text-gray-500 font-medium'>{diagnosticInfo.title}</div>
-                  <div className='text-lg text-gray-900 font-medium'>{diagnosticInfo.subtitle}</div>
+                  <div className='text-sm font-medium text-gray-500'>{diagnosticInfo.title}</div>
+                  <div className='text-lg font-medium text-gray-900'>{diagnosticInfo.subtitle}</div>
                   {/* NOTE: Left it commented because it may receive a description latter on */}
                   {/* TODO: Remove if final version doesn't account for this */}
                   {/* <p className="text-gray-600 mt-2">{description}</p> */}
@@ -129,7 +129,7 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                   <form onSubmit={handleSubmit}>
                     {/* Submit Button */}
                     <button
-                      className='inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2'
+                      className='focus-visible:ring-ring text-primary-foreground inline-flex h-10 cursor-pointer items-center justify-center rounded-full bg-blue-700 px-4 py-2 transition-all duration-200 ease-out hover:bg-blue-700/90 focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
                       type='submit'
                       data-diagnostic-button='true'
                       id={'diagnostic-button'}
@@ -209,7 +209,7 @@ const CardWrapper: React.FC<CardWrapperProps> = ({ cardState }) => {
 
 const CardForLargeScreen: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <section className='max-lg:hidden px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3'>
+    <section className='mx-auto max-w-7xl px-4 py-2 max-lg:hidden sm:px-6 sm:py-3 xl:px-12'>
       {children}
     </section>
   );
@@ -217,7 +217,7 @@ const CardForLargeScreen: React.FC<React.PropsWithChildren> = ({ children }) => 
 
 const CardForMobileScreen: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <section className='lg:hidden px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3'>
+    <section className='mx-auto max-w-7xl px-4 py-2 sm:px-6 sm:py-3 lg:hidden xl:px-12'>
       {children}
     </section>
   );

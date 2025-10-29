@@ -19,7 +19,7 @@ const StepProgress: React.FC<StepProgressProps> = ({
 }) => {
   return (
     <div
-      className='flex items-center gap-3 shrink-[1]'
+      className='flex shrink-[1] items-center gap-3'
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`,
@@ -34,7 +34,7 @@ const StepProgress: React.FC<StepProgressProps> = ({
         </span>
       </span>
 
-      <div className='max-[380px]:hidden w-16 h-1 bg-gray-200 rounded-full overflow-hidden'>
+      <div className='h-1 w-16 overflow-hidden rounded-full bg-gray-200 max-[380px]:hidden'>
         <div
           className='h-full bg-blue-500 transition-all duration-300 ease-out'
           style={{ width: `${progressPercentage}%` }}

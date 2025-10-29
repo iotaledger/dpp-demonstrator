@@ -14,7 +14,7 @@ export const Notifications = () => {
   };
 
   return (
-    <div className='absolute top-4 right-4 z-[70] space-y-3 pointer-events-none'>
+    <div className='pointer-events-none absolute top-4 right-4 z-[70] space-y-3'>
       {notifications.map((toast) => (
         <Toast
           key={toast.id}

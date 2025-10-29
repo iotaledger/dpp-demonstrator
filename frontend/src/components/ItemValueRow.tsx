@@ -47,7 +47,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
       function ValuePendingPlaceholder() {
         return (
           <div className='flex items-center gap-3'>
-            <span className='text-blue-600 font-mono text-sm'>0x04c...99fa</span>
+            <span className='font-mono text-sm text-blue-600'>0x04c...99fa</span>
           </div>
         );
       }
@@ -62,7 +62,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
         <a
           target={linkTarget}
           href={linkHref}
-          className='text-blue-600 hover:text-blue-700 transition-colors'
+          className='text-blue-600 transition-colors hover:text-blue-700'
         >
           {value}
         </a>
@@ -104,7 +104,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
   return (
     <div
       className={clsx([
-        'max-sm:flex max-sm:flex-col gap-1',
+        'gap-1 max-sm:flex max-sm:flex-col',
         'sm:grid sm:grid-flow-col',
         'sm:grid-cols-2',
         getGridTemplate(),
@@ -115,7 +115,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
         transition: 'filter 0.3s ease,opacity 0.3s ease',
       }}
     >
-      <span className='text-gray-500 font-medium'>{label}</span>
+      <span className='font-medium text-gray-500'>{label}</span>
       <div className={getValueStyle()}>{renderValue()}</div>
     </div>
   );

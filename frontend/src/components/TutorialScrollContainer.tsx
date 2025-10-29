@@ -17,7 +17,7 @@ const TutorialScrollContainer: React.FC<TutorialScrollContainerProps> = ({
     <div
       id='tutorial-scroll-container'
       className={clsx([
-        'flex-1 overflow-y-auto overflow-x-hidden relative',
+        'relative flex-1 overflow-x-hidden overflow-y-auto',
         isRecap && 'bg-slate-100',
       ])}
       style={{

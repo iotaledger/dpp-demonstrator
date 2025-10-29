@@ -11,8 +11,8 @@ import SlideTitle from './SlideTitle';
 
 const IntroSlide11: React.FC = () => {
   return (
-    <div className='flex flex-col items-center md:px-0 w-full mx-auto max-w-6xl py-6 sm:py-0'>
-      <div className='flex flex-col items-center mb-8 max-w-3xl pt-6 md:pt-0'>
+    <div className='mx-auto flex w-full max-w-6xl flex-col items-center py-6 sm:py-0 md:px-0'>
+      <div className='mb-8 flex max-w-3xl flex-col items-center pt-6 md:pt-0'>
         <SlideTitle size='large'>Prepare your Wallet</SlideTitle>
         <SlideDescription margin='mb-2' width='max-w-4xl'>
           {'Choose your setup:'}
@@ -27,7 +27,7 @@ const IntroSlide11: React.FC = () => {
           description={
             <>
               <Link
-                className='inline italic text-blue-700'
+                className='inline text-blue-700 italic'
                 target='_blank'
                 href={
                   'https://chromewebstore.google.com/detail/iota-wallet/iidjkmdceolghepehaaddojmnjnkkija'
@@ -69,7 +69,7 @@ const IntroSlide11: React.FC = () => {
             <>
               {'Install Nightly Wallet ('}
               <Link
-                className='inline italic text-blue-700'
+                className='inline text-blue-700 italic'
                 target='_blank'
                 href={'https://apps.apple.com/es/app/nightly-multichain-wallet/id6444768157'}
               >
@@ -93,7 +93,7 @@ const IntroSlide11: React.FC = () => {
               </Link>
               {' | '}
               <Link
-                className='inline italic text-blue-700'
+                className='inline text-blue-700 italic'
                 target='_blank'
                 href={
                   'https://play.google.com/store/apps/details?id=com.nightlymobile&pcampaignid=web_share'

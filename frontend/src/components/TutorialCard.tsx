@@ -9,7 +9,7 @@ interface TutorialCardProps {
 const TutorialCard: React.FC<TutorialCardProps> = ({ children }) => {
   return (
     <div
-      className='bg-slate-50 rounded-2xl border border-gray-300 flex flex-col relative'
+      className='relative flex flex-col rounded-2xl border border-gray-300 bg-slate-50'
       style={{
         height: '100%',
         overflow: 'hidden',

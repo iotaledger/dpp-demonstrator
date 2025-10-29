@@ -30,14 +30,14 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
 }) => {
   return (
     <div
-      className={`text-blue-600 font-mono cursor-pointer flex flex-wrap items-center ${spacing}`}
+      className={`flex cursor-pointer flex-wrap items-center font-mono text-blue-600 ${spacing}`}
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`,
       }}
     >
       {badgeText && (
-        <div className='inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/80'>
+        <div className='focus:ring-ring bg-secondary text-secondary-foreground hover:bg-secondary/80 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none'>
           <span className='value-content'>{badgeText}</span>
         </div>
       )}
@@ -47,8 +47,8 @@ const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
       )}
 
       {linkText && (
-        <span className='text-xs sm:text-sm font-mono text-blue-600 cursor-pointer value-content wrap-anywhere'>
-          <a target={linkTarget} href={linkHref} className='hover:text-blue-700 transition-colors'>
+        <span className='value-content cursor-pointer font-mono text-xs wrap-anywhere text-blue-600 sm:text-sm'>
+          <a target={linkTarget} href={linkHref} className='transition-colors hover:text-blue-700'>
             {linkText}
           </a>
         </span>
@@ -85,8 +85,8 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
   }
 
   return (
-    <div className='flex items-center justify-center w-5 h-5 bg-green-100 rounded-full'>
-      <svg className='w-3 h-3 text-green-600' fill='currentColor' viewBox='0 0 20 20'>
+    <div className='flex h-5 w-5 items-center justify-center rounded-full bg-green-100'>
+      <svg className='h-3 w-3 text-green-600' fill='currentColor' viewBox='0 0 20 20'>
         <path
           fillRule='evenodd'
           d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'

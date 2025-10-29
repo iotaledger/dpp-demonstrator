@@ -50,18 +50,18 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   return (
     <div
       className={clsx([
-        'flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500',
+        'flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 text-xs text-gray-500',
         inNightlyWallet && 'hidden',
       ])}
     >
-      <div className='flex items-center justify-between gap-2 w-full leading-1'>
+      <div className='flex w-full items-center justify-between gap-2 leading-1'>
         {!canGoBack && <h4>{title}</h4>}
         {canGoBack && (
           <Link
             href={backUrl}
             onClick={onBack}
             prefetch={true}
-            className={`inline-flex shrink-0 items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ${BUTTON_OUTLINE_STYLE}`}
+            className={`hover:bg-accent hover:text-accent-foreground inline-flex h-9 shrink-0 cursor-pointer items-center justify-center rounded-full rounded-md px-3 transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50 ${BUTTON_OUTLINE_STYLE}`}
           >
             {backText}
           </Link>
@@ -70,7 +70,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
           <Link
             href={linkUrl}
             prefetch={true}
-            className={`inline-flex text-center items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50 active:scale-98 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 text-[10px] ${getButtonStyle()}`}
+            className={`hover:bg-accent hover:text-accent-foreground inline-flex h-9 cursor-pointer items-center justify-center rounded-full rounded-md px-3 text-center text-[10px] transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50 ${getButtonStyle()}`}
           >
             {linkText}
           </Link>

@@ -35,25 +35,25 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
 
   return (
     <>
-      <section className='max-lg:hidden px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3'>
+      <section className='mx-auto max-w-7xl px-4 py-2 max-lg:hidden sm:px-6 sm:py-3 xl:px-12'>
         <div>
           <div
-            className={`rounded-lg shadow-xs transition-all duration-400 ease-out overflow-hidden p-3 sm:p-4 border border-gray-200 bg-gray-100`}
+            className={`overflow-hidden rounded-lg border border-gray-200 bg-gray-100 p-3 shadow-xs transition-all duration-400 ease-out sm:p-4`}
             data-section='diagnostic-tool'
             style={{
               opacity: opacity / 100,
               transition: `opacity ${delay}s ease-out`,
             }}
           >
-            <div className='transition-all duration-500 ease-out opacity-100 scale-100'>
+            <div className='scale-100 opacity-100 transition-all duration-500 ease-out'>
               <div className='p-0'>
                 {/* Two-column layout matching HTML structure exactly */}
                 <div className='flex flex-col sm:flex-row sm:gap-8'>
                   {/* Image Section (Left Column) */}
                   <div className='flex justify-center sm:max-w-xs sm:justify-start'>
-                    <div className='w-full max-h-[220px] bg-blue-50 relative overflow-hidden rounded-lg'>
+                    <div className='relative max-h-[220px] w-full overflow-hidden rounded-lg bg-blue-50'>
                       <img
-                        className='w-full h-full object-cover'
+                        className='h-full w-full object-cover'
                         alt={noticeInfo.imageAlt}
                         src={noticeInfo.imageUrl}
                       />
@@ -61,11 +61,11 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
                   </div>
 
                   {/* Content Section (Right Column) */}
-                  <div className='flex-1 flex flex-col justify-start py-6'>
+                  <div className='flex flex-1 flex-col justify-start py-6'>
                     {/* Text Content */}
                     <div className='space-y-0.5'>
-                      <div className='text-sm text-gray-500 font-medium'>{noticeInfo.title}</div>
-                      <div className='text-lg text-gray-900 font-medium'>{noticeInfo.subtitle}</div>
+                      <div className='text-sm font-medium text-gray-500'>{noticeInfo.title}</div>
+                      <div className='text-lg font-medium text-gray-900'>{noticeInfo.subtitle}</div>
                     </div>
                   </div>
                 </div>

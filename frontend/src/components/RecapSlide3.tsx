@@ -86,24 +86,24 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
 
   return (
     <div
-      className='max-w-7xl mx-auto p-6 md:p-12 max-h-full overflow-y-auto'
+      className='mx-auto max-h-full max-w-7xl overflow-y-auto p-6 md:p-12'
       style={containerStyle}
     >
       <div className='flex flex-col gap-4'>
         <div className='text-center'>
-          <div className='text-gray-900 text-xl md:text-2xl lg:text-3xl font-medium tracking-[-0.56px] mb-4'>
+          <div className='mb-4 text-xl font-medium tracking-[-0.56px] text-gray-900 md:text-2xl lg:text-3xl'>
             <p className='leading-[1.2]'>{title}</p>
           </div>
-          <div className='text-gray-600 text-base md:text-lg mb-4 tracking-[0.1px] max-w-xl mx-auto'>
+          <div className='mx-auto mb-4 max-w-xl text-base tracking-[0.1px] text-gray-600 md:text-lg'>
             <p className='leading-[1.6]'>{description}</p>
           </div>
         </div>
         {/** Vida */}
         <div className='w-full'>
-          <div className='grid grid-cols-2 sm:grid sm:grid-cols-4 gap-4 grid-rows-2'>
-            <div className='col-span-2 sm:col-span-1 sm:row-span-2 row-start-1 col-start-1 opacity-0 translate-y-4 transition-all duration-700 ease-out opacity-100 translate-y-0 delay-300'>
+          <div className='grid grid-cols-2 grid-rows-2 gap-4 sm:grid sm:grid-cols-4'>
+            <div className='col-span-2 col-start-1 row-start-1 translate-y-0 translate-y-4 opacity-0 opacity-100 transition-all delay-300 duration-700 ease-out sm:col-span-1 sm:row-span-2'>
               <div
-                className='h-full bg-white/70 backdrop-blur-sm rounded-3xl p-6 md:p-8 border border-gray-200 hover:shadow-md transition-shadow cursor-pointer overflow-hidden relative select-none'
+                className='relative h-full cursor-pointer overflow-hidden rounded-3xl border border-gray-200 bg-white/70 p-6 backdrop-blur-sm transition-shadow select-none hover:shadow-md md:p-8'
                 style={{
                   backgroundImage: 'if(media(width > 64rem): url(/assets/recap/bip.webp);)',
                   backgroundSize: 'contain',
@@ -112,12 +112,12 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
                 }}
               >
                 <a target='_blank' className='block h-full' href=''>
-                  <div className='h-full flex flex-col justify-start relative z-10'>
-                    <div className='text-left max-w-[65%] md:max-w-[90%]'>
-                      <h4 className='text-xs md:text-sm  text-blue-700 mb-1 md:mb-2'>
+                  <div className='relative z-10 flex h-full flex-col justify-start'>
+                    <div className='max-w-[65%] text-left md:max-w-[90%]'>
+                      <h4 className='mb-1 text-xs text-blue-700 md:mb-2 md:text-sm'>
                         IOTA Trust Framework
                       </h4>
-                      <p className='text-sm md:text-base font-medium text-gray-800 leading-relaxed'>
+                      <p className='text-sm leading-relaxed font-medium text-gray-800 md:text-base'>
                         Enables trusted digital collaboration across the product lifecycle
                       </p>
                     </div>
@@ -139,7 +139,7 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
         </div>
         {/** Longa */}
         <div className='w-full'>
-          <div className='grid grid-cols-2 sm:grid sm:grid-cols-4 gap-4 pb-8 sm:pb-0'>
+          <div className='grid grid-cols-2 gap-4 pb-8 sm:grid sm:grid-cols-4 sm:pb-0'>
             {servicesProducts.map(({ title, description, icon, link }) => (
               <CardIcon
                 key={title}
@@ -184,16 +184,16 @@ function CardIcon({
   };
 
   return (
-    <div className='col-span-1 opacity-0 translate-y-4 transition-all duration-700 ease-out opacity-100 translate-y-0 delay-500'>
+    <div className='col-span-1 translate-y-0 translate-y-4 opacity-0 opacity-100 transition-all delay-500 duration-700 ease-out'>
       <div className={getVariationStyle()}>
         <a target='_blank' className='block h-full' href={link}>
-          <div className='flex flex-col h-full p-4'>
-            <div className='w-8 h-8 md:w-10 md:h-10 mb-4'>
-              <img className='w-full h-full object-contain' src={icon} alt={title} />
+          <div className='flex h-full flex-col p-4'>
+            <div className='mb-4 h-8 w-8 md:h-10 md:w-10'>
+              <img className='h-full w-full object-contain' src={icon} alt={title} />
             </div>
             <div className='flex-1'>
-              <h4 className='text-sm md:text-base font-medium text-gray-900 mb-1'>{title}</h4>
-              <p className='text-xs md:text-sm text-gray-600'>{description}</p>
+              <h4 className='mb-1 text-sm font-medium text-gray-900 md:text-base'>{title}</h4>
+              <p className='text-xs text-gray-600 md:text-sm'>{description}</p>
             </div>
           </div>
         </a>

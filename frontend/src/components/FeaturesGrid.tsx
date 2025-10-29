@@ -32,7 +32,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({
     <div
       className={clsx(
         `grid ${columns} ${gap} ${width} mx-auto ${pb} md:pb-14 lg:pb-16 opacity-${opacity} translate-y-${translateY}`,
-        isTriggered && 'opacity-100 translate-y-0',
+        isTriggered && 'translate-y-0 opacity-100',
       )}
       style={{
         transition: 'opacity 0.6s ease-out 0.35s, transform 0.6s ease-out 0.35s',

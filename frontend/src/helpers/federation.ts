@@ -256,7 +256,7 @@ export function extractAccreditationTransactions(
         // @ts-expect-error -- Inference do not catch all possible types
         const txInputs = tx.transaction!.data.transaction.inputs as unknown as IotaCallArg[];
         const txTransactions = // @ts-expect-error -- Inference do not catch all possible types
-        tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
+          tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
         const lastTransaction = txTransactions?.at(-1) as unknown as IotaTransaction;
         let haveCallToAccreditationToAttest = false;
 

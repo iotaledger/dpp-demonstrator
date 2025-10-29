@@ -48,13 +48,13 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
     <section className='py-0'>
       <header
         id='wallet'
-        className='bg-white relative z-40'
+        className='relative z-40 bg-white'
         style={{
           opacity: opacity / 100,
           transition: `opacity ${delay}s ease-out`,
         }}
       >
-        <div className='max-w-7xl mx-auto px-6 xl:px-12 py-4'>
+        <div className='mx-auto max-w-7xl px-6 py-4 xl:px-12'>
           <div className='flex items-center justify-between'>
             <div className='flex items-center space-x-3'>
               {/* TODO: Load the logo from `/assets` source */}
@@ -91,9 +91,9 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
 
             <div className='relative'>
               {getShowPopover() && (
-                <div className='absolute top-[calc(100%_+_2*4px)] right-[calc(50%_-_20px)] bottom-0 z-[60] pointer-events-none'>
-                  <div className='bg-blue-600 text-white px-4 py-3 rounded-lg shadow-xl border border-blue-700 min-w-max max-w-sm relative'>
-                    <div className='absolute -top-2 right-4 w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-blue-600'></div>
+                <div className='pointer-events-none absolute top-[calc(100%_+_2*4px)] right-[calc(50%_-_20px)] bottom-0 z-[60]'>
+                  <div className='relative max-w-sm min-w-max rounded-lg border border-blue-700 bg-blue-600 px-4 py-3 text-white shadow-xl'>
+                    <div className='absolute -top-2 right-4 h-0 w-0 border-r-4 border-b-4 border-l-4 border-r-transparent border-b-blue-600 border-l-transparent'></div>
                     <p className='text-sm font-medium whitespace-nowrap'>
                       {'Click "Connect" to continue'}
                     </p>
@@ -104,7 +104,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
                 ref={connectRef}
                 variant='primary'
                 size='md'
-                className='transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground h-10 px-4 py-2 p-6 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:text-primary'
+                className='text-primary-foreground focus-visible:ring-ring focus-visible:text-primary h-10 bg-blue-700 p-6 px-4 py-2 transition-all duration-200 ease-out hover:bg-blue-600 focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
                 style={
                   {
                     '--dapp-kit-backgroundColors-primaryButton': 'var(--color-blue-700)',

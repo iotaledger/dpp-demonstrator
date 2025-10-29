@@ -12,7 +12,7 @@ interface MainProps {
 const Main: React.FC<MainProps> = ({ children, background }) => {
   return (
     <div
-      className={clsx(['p-3 overflow-hidden', background && background])}
+      className={clsx(['overflow-hidden p-3', background && background])}
       style={{ height: '100dvh' }}
     >
       {children}

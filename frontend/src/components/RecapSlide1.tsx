@@ -35,15 +35,15 @@ const RecapSlide1: React.FC<RecapSlide1Props> = ({
 
   return (
     <div
-      className='max-w-6xl mx-auto p-6 md:p-12 max-h-full overflow-y-auto'
+      className='mx-auto max-h-full max-w-6xl overflow-y-auto p-6 md:p-12'
       style={containerStyle}
     >
       <div className='flex flex-col gap-6'>
         <div className='flex flex-col gap-4'>
-          <div className='text-gray-900 text-3xl md:text-4xl lg:text-5xl tracking-[-0.56px]'>
+          <div className='text-3xl tracking-[-0.56px] text-gray-900 md:text-4xl lg:text-5xl'>
             <p className='leading-[1.2]'>{title}</p>
           </div>
-          <div className='text-gray-600 text-lg md:text-xl tracking-[0.1px] max-w-3xl'>
+          <div className='max-w-3xl text-lg tracking-[0.1px] text-gray-600 md:text-xl'>
             <p className='leading-[28px]'>{description}</p>
           </div>
         </div>

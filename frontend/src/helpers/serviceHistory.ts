@@ -147,9 +147,8 @@ function extractServiceTransactionData(
   productIdToFilter: string,
 ): ServiceEntry[] {
   const transactionEntries = jsonData.map((tx) => {
-    const _transactionsCall = tx.transaction!.data.transaction
-      // @ts-expect-error -- Inference do not catch all possible types
-      .transactions as unknown as IotaTransaction[];
+    const _transactionsCall = // @ts-expect-error -- Inference do not catch all possible types
+    tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
     // @ts-expect-error -- Inference do not catch all possible types
     const _lastTransactionCall = _transactionsCall?.at(-1) as unknown as IotaTransaction;
     const _productEntryLoggedEvent = tx.events?.find((item) =>

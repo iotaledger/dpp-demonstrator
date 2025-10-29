@@ -21,15 +21,15 @@ const RoleItem: React.FC<RoleItemProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-center gap-3 md:gap-4 backdrop-blur-sm px-2 py-0.5 md:py-2 opacity-${opacity} translate-x-${translateX} opacity-100 translate-x-0`}
+      className={`flex items-center gap-3 px-2 py-0.5 backdrop-blur-sm md:gap-4 md:py-2 opacity-${opacity} translate-x-${translateX} translate-x-0 opacity-100`}
       style={{
         transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s ease-out ${delay}s`,
       }}
     >
-      <div className='w-6 h-6 aspect-square flex items-center justify-center'>
-        <img className='w-8 h-8 aspect-square' src={icon} alt={title} />
+      <div className='flex aspect-square h-6 w-6 items-center justify-center'>
+        <img className='aspect-square h-8 w-8' src={icon} alt={title} />
       </div>
-      <p className='text-sm md:text-sm text-left opacity-90 leading-relaxed'>{description}</p>
+      <p className='text-left text-sm leading-relaxed opacity-90 md:text-sm'>{description}</p>
     </div>
   );
 };

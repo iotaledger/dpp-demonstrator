@@ -179,19 +179,19 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
     <Dialog isOpen={isOpen} onClose={handleClose} onEscape={handleEscape}>
       <div className='overflow-hidden'>
         {/* Match exact HTML structure from save-diagnostic.html */}
-        <div className='w-full max-w-xl mx-auto flex-wrap'>
+        <div className='mx-auto w-full max-w-xl flex-wrap'>
           {/* Header with close button */}
-          <div className='flex items-center justify-between mb-8'>
+          <div className='mb-8 flex items-center justify-between'>
             <h2 id='dialog-title' className='text-xl font-semibold text-gray-900'>
               Health Snapshot
             </h2>
             <button
               onClick={handleClose}
-              className='text-gray-400 hover:text-gray-600 p-1 cursor-pointer'
+              className='cursor-pointer p-1 text-gray-400 hover:text-gray-600'
               disabled={isPending}
               aria-label='Close modal'
             >
-              <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                 <path
                   strokeLinecap='round'
                   strokeLinejoin='round'
@@ -272,7 +272,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
             <button
               onClick={handleSave}
               disabled={isPending || isLoading}
-              className='inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-700 text-primary-foreground hover:bg-blue-700/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-full font-medium'
+              className='focus-visible:ring-ring text-primary-foreground inline-flex h-10 w-full cursor-pointer items-center justify-center rounded-full bg-blue-600 bg-blue-700 px-4 py-2 py-3 font-medium text-white transition-all duration-200 ease-out hover:bg-blue-700 hover:bg-blue-700/90 focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
             >
               {getButtonText()}
             </button>

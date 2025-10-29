@@ -297,7 +297,7 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
       <DrawerOtherwise
         currentStep={currentStep}
         navigation={
-          <div className='flex-shrink-0 px-6 py-4 border-t bg-white border-gray-200 cursor-auto select-none'>
+          <div className='flex-shrink-0 cursor-auto border-t border-gray-200 bg-white px-6 py-4 select-none'>
             <div className='flex items-center justify-between'>
               <StepProgress
                 currentStep={currentStep}
@@ -340,16 +340,16 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({ currentStep, navigati
   return (
     <div
       aria-label='Drag to expand or collapse tutorial panel'
-      className='lg:hidden fixed bottom-0 inset-x-0 border-t border-gray-200 z-30 pb-safe select-none flex flex-col cursor-grab active:cursor-grabbing'
+      className='pb-safe fixed inset-x-0 bottom-0 z-30 flex cursor-grab flex-col border-t border-gray-200 select-none active:cursor-grabbing lg:hidden'
       style={{
         boxShadow: 'rgba(0, 0, 0, 0.1) 0px -10px 25px -3px, rgba(0, 0, 0, 0.05) 0px -4px 6px -2px',
       }}
     >
-      <div className='flex-shrink-0 px-6 py-2 bg-slate-200/50 backdrop-blur-md border-b border-slate-200 select-none'>
+      <div className='flex-shrink-0 border-b border-slate-200 bg-slate-200/50 px-6 py-2 backdrop-blur-md select-none'>
         <div className='flex items-center justify-between select-none'>
           <h3 className='text-md text-gray-600 select-none'>Behind the Scene</h3>
           <button
-            className='p-1 rounded-md hover:bg-slate-200 transition-colors cursor-pointer select-none'
+            className='cursor-pointer rounded-md p-1 transition-colors select-none hover:bg-slate-200'
             aria-label='Collapse tutorial panel'
             onClick={toggleExpanded}
           >
@@ -357,7 +357,7 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({ currentStep, navigati
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
-              className='w-6 h-6 text-gray-400 transition-transform duration-200 select-none rotate-180'
+              className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none'
             >
               <path
                 strokeLinecap='round'
@@ -369,23 +369,23 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({ currentStep, navigati
           </button>
         </div>
       </div>
-      <div className='flex-1 overflow-hidden bg-white backdrop-blur-md '>
+      <div className='flex-1 overflow-hidden bg-white backdrop-blur-md'>
         <div
           className={clsx([
             'px-6 pt-4 select-none',
-            isExpanded && 'pb-12 overflow-y-auto',
-            !isExpanded && 'pb-2 overflow-hidden',
+            isExpanded && 'overflow-y-auto pb-12',
+            !isExpanded && 'overflow-hidden pb-2',
           ])}
         >
-          <div className='space-y-1 select-none overflow-hidden'>
-            <div className='text-sm font-medium text-gray-500 uppercase tracking-wide select-none'></div>
-            <h2 className='text-xl font-semibold text-gray-900 pb-4 leading-tight select-none'>
+          <div className='space-y-1 overflow-hidden select-none'>
+            <div className='text-sm font-medium tracking-wide text-gray-500 uppercase select-none'></div>
+            <h2 className='pb-4 text-xl leading-tight font-semibold text-gray-900 select-none'>
               {stepObj?.stepTitle}
             </h2>
             <div
               className={clsx([
-                'text-base text-gray-700 leading-relaxed space-y-4 select-none',
-                !isExpanded && 'h-7 summarize',
+                'space-y-4 text-base leading-relaxed text-gray-700 select-none',
+                !isExpanded && 'summarize h-7',
               ])}
               style={{
                 transition: 'height 0.3s cubic-bezier(0.2, 0, 0, 1)',
@@ -416,13 +416,13 @@ const SideBarForLargeScreen: React.FC<SideBarForLargeScreenProps> = ({
 }) => {
   return (
     <div
-      className='max-lg:hidden flex bg-white rounded-xl border border-gray-300 h-full flex-col overflow-hidden'
+      className='flex h-full flex-col overflow-hidden rounded-xl border border-gray-300 bg-white max-lg:hidden'
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`,
       }}
     >
-      <div className='flex-shrink-0 bg-slate-100 px-6 py-3 border-b border-gray-200 text-xs text-gray-500'>
+      <div className='flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 text-xs text-gray-500'>
         <h4>Behind the Scene</h4>
       </div>
 

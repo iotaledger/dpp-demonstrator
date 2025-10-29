@@ -50,7 +50,7 @@ const OneColumnOtherwise: React.FC<OneColumnOtherwiseProps> = ({
 }) => {
   return (
     <div
-      className='lg:hidden grid grid-cols-1 h-full overflow-hidden transition-all duration-700 ease-out gap-10'
+      className='grid h-full grid-cols-1 gap-10 overflow-hidden transition-all duration-700 ease-out lg:hidden'
       style={{
         opacity: opacity / 100,
         transition: `opacity ${delay}s ease-out`,
@@ -78,7 +78,7 @@ const TwoColumnsForLargeScreen: React.FC<TwoColumnsForLargeScreenProps> = ({
       className={clsx([
         'max-lg:hidden',
         `grid grid-cols-[1fr_400px]`,
-        'h-full overflow-hidden transition-all duration-700 ease-out gap-4',
+        'h-full gap-4 overflow-hidden transition-all duration-700 ease-out',
       ])}
       style={{
         opacity: opacity / 100,

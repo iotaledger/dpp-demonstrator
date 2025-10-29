@@ -19,11 +19,11 @@ const IntroSlideContainer: React.FC<IntroSlideContainerProps> = ({
 }) => {
   const { isTriggered } = useTransitionTrigger(delay);
   return (
-    <div className='w-full h-full overflow-hidden'>
+    <div className='h-full w-full overflow-hidden'>
       <div
         className={clsx(
-          `flex items-start sm:items-center justify-center h-full overflow-y-auto p-0 opacity-${opacity} scale-${scale} overflow-hidden`,
-          isTriggered && 'opacity-100 scale-100',
+          `flex h-full items-start justify-center overflow-y-auto p-0 sm:items-center opacity-${opacity} scale-${scale} overflow-hidden`,
+          isTriggered && 'scale-100 opacity-100',
         )}
         style={{
           transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',

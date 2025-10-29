@@ -21,7 +21,7 @@ const OverlayText: React.FC<OverlayTextProps> = ({
 }) => {
   return (
     <div
-      className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-auto text-center px-6 md:px-12 py-6 md:py-8'
+      className='absolute top-1/2 left-1/2 mx-auto w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 transform px-6 py-6 text-center md:px-12 md:py-8'
       style={{ zIndex: 100 }}
     >
       <div
@@ -33,10 +33,10 @@ const OverlayText: React.FC<OverlayTextProps> = ({
         {welcomeText && (
           <div
             className={clsx([
-              'text-white/80 tracking-wide font-light',
-              'text-base pb-0.5',
-              'md:text-xl md:pb-1.5',
-              'lg:text-2xl lg:pb-2.5',
+              'font-light tracking-wide text-white/80',
+              'pb-0.5 text-base',
+              'md:pb-1.5 md:text-xl',
+              'lg:pb-2.5 lg:text-2xl',
             ])}
           >
             {welcomeText}
@@ -45,10 +45,10 @@ const OverlayText: React.FC<OverlayTextProps> = ({
         {title && (
           <h1
             className={clsx([
-              'font-semibold leading-tight text-white',
-              'text-2xl pb-2',
-              'md:text-3xl md:pb-3',
-              'lg:text-4xl lg:pb-4',
+              'leading-tight font-semibold text-white',
+              'pb-2 text-2xl',
+              'md:pb-3 md:text-3xl',
+              'lg:pb-4 lg:text-4xl',
             ])}
           >
             {title}
@@ -57,7 +57,7 @@ const OverlayText: React.FC<OverlayTextProps> = ({
         {description && (
           <p
             className={clsx([
-              'text-white/90 leading-relaxed max-w-3xl mx-auto',
+              'mx-auto max-w-3xl leading-relaxed text-white/90',
               'text-base',
               'md:text-xl',
               'lg:text-2xl',

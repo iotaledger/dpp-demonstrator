@@ -6,13 +6,14 @@ import { useCurrentAccount } from '@iota/dapp-kit';
 
 import { useFederationTransactions } from '@/hooks/useFederationTransactions';
 import { truncateAddress } from '@/utils/common';
-import { FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME } from '@/utils/constants';
+import { FEDERATION_ID, MANUFACTURER_DID } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
+import { useProductDetails } from '@/hooks/useProductDetails';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -30,6 +31,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
 }) => {
   const { accreditations } = useFederationTransactions();
   const currentAccount = useCurrentAccount();
+  const { isSuccess, productDetails } = useProductDetails();
 
   const getCurrentAccountBadge = React.useCallback(
     (otherAddress: string): string | null => {
@@ -89,20 +91,22 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
     >
       <PanelContent panelState={getPanelState()}>
         <DataGrid gap='gap-y-3 gap-x-6'>
-          <ItemValueRow
-            key={MANUFACTURER_DID}
-            rowState={getRowState('manufacturer')}
-            label='Manufacturer'
-            value={
-              <BadgeWithLink
-                badgeText={MANUFACTURER_NAME}
-                linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
-                linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
-                showVerification={true}
-                verificationDid={`did:iota:testnet:${MANUFACTURER_DID}`}
-              />
-            }
-          />
+          {isSuccess && (
+            <ItemValueRow
+              key={MANUFACTURER_DID}
+              rowState={getRowState('manufacturer')}
+              label='Manufacturer'
+              value={
+                <BadgeWithLink
+                  badgeText={productDetails?.billOfMaterial?.get('Manufacturer Name')}
+                  linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                  linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
+                  showVerification={true}
+                  verificationDid={productDetails?.manufacturer}
+                />
+              }
+            />
+          )}
           <ItemValueRow
             key={FEDERATION_ID}
             rowState={getRowState('network')}

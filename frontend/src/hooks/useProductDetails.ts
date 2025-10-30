@@ -5,11 +5,12 @@ import type { Dpp } from '@/helpers/product';
 import { useIotaClientQuery } from '@iota/dapp-kit';
 
 import { getDppData } from '@/helpers/product';
+import { DPP_ID } from '@/utils/constants';
 
 // TODO: what is the purpose of this hook?
-export function useProductDetails(dppId: string) {
+export function useProductDetails() {
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery('getObject', {
-    id: dppId || '',
+    id: DPP_ID || '',
     options: { showContent: true },
   });
 

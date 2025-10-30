@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { ObjectRef } from '@iota/iota-sdk/transactions';
 
-import { GAS_STATION_TOKEN, GAS_STATION_URL, RESERVE_DURATION_SEC } from '@/utils/constants';
+import { GAS_BUDGET_DEFAULT, GAS_STATION_TOKEN, GAS_STATION_URL, RESERVE_DURATION_SEC } from '@/utils/constants';
 
 interface ReserveGasResult {
   sponsor_address: string;
@@ -16,7 +16,7 @@ export interface ReserveGasResultResponse extends ReserveGasResult {
 
 export async function GET() {
   try {
-    const gasBudget = 100_000_000;
+    const gasBudget = GAS_BUDGET_DEFAULT;
     const reservedSponsorGasData = await getSponsorGas(gasBudget);
     const payload = { ...reservedSponsorGasData, gasBudget };
 

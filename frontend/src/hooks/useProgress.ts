@@ -36,7 +36,7 @@ export const useProgress = () => {
 
     const nextInternalProgress = internalProgressRef.current + increment;
 
-    if (nextInternalProgress < 100) {
+    if (nextInternalProgress < maxLimit) {
       internalProgressRef.current = nextInternalProgress;
       setProgress(nextInternalProgress);
     } else {

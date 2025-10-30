@@ -4,7 +4,7 @@ import { useCurrentAccount, useIotaClientQuery } from '@iota/dapp-kit';
 
 import { extractAccreditationTransactions } from '@/helpers/federation';
 import { useHierarchySent } from '@/providers/appProvider';
-import { FEDERATION_ID } from '@/utils/constants';
+import { FEDERATION_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
 
 // TODO: Documentation
 export function useFederationTransactions() {
@@ -16,7 +16,7 @@ export function useFederationTransactions() {
     filter: {
       ChangedObject: FEDERATION_ID || '',
     },
-    limit: 20,
+    limit: REQUEST_SIZE_LIMIT,
     order: 'descending',
     options: {
       showInput: true,

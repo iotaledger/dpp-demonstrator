@@ -12,6 +12,8 @@ import { generateRequestId, truncateAddress } from '@/utils/common';
 import { FEDERATION_ID, HAS_NFT_REWARD } from '@/utils/constants';
 
 import Dialog from './Dialog';
+import CloseIcon from './icons/CloseIcon';
+import CopyIcon from './icons/CopyIcon';
 
 interface ServiceRequestModalProps {
   isOpen: boolean;
@@ -170,14 +172,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
             disabled={isPending}
             aria-label='Close modal'
           >
-            <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M6 18L18 6M6 6l12 12'
-              ></path>
-            </svg>
+            <CloseIcon />
           </button>
         </div>
 
@@ -198,7 +193,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 type='text'
                 readOnly
                 value={truncateAddress(federationAddress)}
-                onChange={() => {}} // Controlled component requirement
+                onChange={() => { }} // Controlled component requirement
                 className='w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 font-mono text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500'
                 disabled={true}
               />
@@ -210,14 +205,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 title={copied ? 'Copied!' : 'Copy address'}
                 aria-label={copied ? 'Address copied' : 'Copy address'}
               >
-                <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'
-                  ></path>
-                </svg>
+                <CopyIcon />
               </button>
             </div>
           </div>

@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import CaretUpIcon from './icons/CaretUpIcon';
+import CaretDownIcon from './icons/CaretDownIcon';
 
 interface CollapsibleInnerSectionProps {
   title: string;
@@ -46,14 +48,7 @@ const CollapsibleInnerSection: React.FC<CollapsibleInnerSectionProps> = ({
             onClick={toggleExpanded}
             aria-expanded={getIsExpanded()}
           >
-            <svg className='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d={getIsExpanded() ? 'm18 15-6-6-6 6' : 'm6 9 6 6 6-6'}
-              />
-            </svg>
+            {getIsExpanded() ? <CaretUpIcon /> : <CaretDownIcon />}
           </button>
         )}
       </div>

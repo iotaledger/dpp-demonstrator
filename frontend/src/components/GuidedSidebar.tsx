@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useCallback } from 'react';
+import { useCurrentWallet } from '@iota/dapp-kit';
 import { useRouter } from 'next/navigation';
 
-import { useCurrentWallet } from '@iota/dapp-kit';
 import clsx from 'clsx';
+import CaretUpIcon from './icons/CaretUpIcon';
+import CaretDownIcon from './icons/CaretDownIcon';
 
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 
@@ -353,19 +355,7 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({ currentStep, navigati
             aria-label='Collapse tutorial panel'
             onClick={toggleExpanded}
           >
-            <svg
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d={isExpanded ? 'm18 15-6-6-6 6' : 'm6 9 6 6 6-6'}
-              />
-            </svg>
+            {isExpanded ? <CaretUpIcon className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none' /> : <CaretDownIcon className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none' />}
           </button>
         </div>
       </div>

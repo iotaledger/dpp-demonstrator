@@ -3,6 +3,9 @@
 import React from 'react';
 
 import FeatureCard from './FeatureCard';
+import WebIcon from './icons/WebIcon';
+import CopiedIcon from './icons/CopiedIcon';
+import CopyIcon from './icons/CopyIcon';
 
 interface RecapSlide4Props {
   title?: string;
@@ -119,19 +122,7 @@ function Contact() {
         </div>
         <div className='flex items-center gap-3 self-center rounded-2xl border border-gray-200 bg-white px-4 py-3 md:gap-4 md:self-auto md:px-6 md:py-4'>
           <div className='flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 md:h-8 md:w-8'>
-            <svg
-              className='h-4 w-4 text-blue-600 md:h-5 md:w-5'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'
-              ></path>
-            </svg>
+            <WebIcon />
           </div>
           <div className='flex min-w-0 flex-col'>
             <span className='mb-1 text-xs text-gray-500'>Email Address</span>
@@ -152,26 +143,6 @@ function Contact() {
         </div>
       </div>
     </div>
-  );
-}
-
-function CopiedIcon() {
-  return (
-    <svg className='h-4 w-4 text-green-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M5 13l4 4L19 7' />
-    </svg>
-  );
-}
-function CopyIcon() {
-  return (
-    <svg className='h-4 w-4 text-gray-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='2'
-        d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'
-      ></path>
-    </svg>
   );
 }
 

@@ -6,6 +6,7 @@ import { clsx } from 'clsx';
 
 import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 import { NOTIFICATION_DECAY_TIME_MS } from '@/utils/constants';
+import CloseIcon from './icons/CloseIcon';
 
 type ToastType = 'success' | 'warning' | 'error' | 'info' | string;
 
@@ -92,14 +93,7 @@ export const Toast: React.FC<ToastProps> = ({ id, type, message, onClose }) => {
           onClick={handleOnClose}
           className='focus-visible:ring-ring hover:bg-accent hover:text:brightness-50 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-md p-0 transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
         >
-          <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M6 18L18 6M6 6l12 12'
-            ></path>
-          </svg>
+          <CloseIcon />
         </button>
       </div>
     </div>

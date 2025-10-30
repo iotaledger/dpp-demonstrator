@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import CaretUpIcon from './icons/CaretUpIcon';
+import CaretDownIcon from './icons/CaretDownIcon';
 
 import clsx from 'clsx';
 
@@ -109,14 +111,7 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                     onClick={toggleExpanded}
                     aria-expanded={isExpanded}
                   >
-                    <svg className='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth='2'
-                        d={isExpanded ? 'm18 15-6-6-6 6' : 'm6 9 6 6 6-6'}
-                      />
-                    </svg>
+                    {isExpanded ? <CaretUpIcon /> : <CaretDownIcon />}
                   </button>
                 )}
               </div>

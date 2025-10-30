@@ -15,7 +15,6 @@ import {
   DPP_ID,
   FEDERATION_ID,
   MANUFACTURER_DID,
-  MANUFACTURER_NAME,
   NETWORK,
 } from '@/utils/constants';
 
@@ -63,7 +62,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
    * Pre-requisit information to send a transaction
    */
   const account = useCurrentAccount();
-  const { isLoading } = useProductDetails(DPP_ID);
+  const { isLoading, isSuccess: isLoaded, productDetails } = useProductDetails();
 
   /**
    * To be called in transaction submission
@@ -197,69 +196,71 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
           </div>
 
           {/* Data display section matching HTML structure */}
-          <div className='space-y-2'>
-            {/* DPP ID */}
-            <ItemValueRow
-              label='DPP ID'
-              labelWidth={150}
-              value={truncateAddress(DPP_ID)}
-              isLink={true}
-              linkHref={`https://explorer.iota.org/object/${DPP_ID}?network=testnet`}
-              fontMono={true}
-              valueColor='text-blue-600'
-            />
+          {isLoaded && (
+            <div className='space-y-2'>
+              {/* DPP ID */}
+              <ItemValueRow
+                label='DPP ID'
+                labelWidth={150}
+                value={truncateAddress(DPP_ID)}
+                isLink={true}
+                linkHref={`https://explorer.iota.org/object/${DPP_ID}?network=testnet`}
+                fontMono={true}
+                valueColor='text-blue-600'
+              />
 
-            {/* Manufacturer with badge and address */}
-            <ItemValueRow
-              label='Manufacturer'
-              labelWidth={150}
-              isValuePending={isLoading}
-              value={
-                <div className='flex items-center gap-3'>
-                  <BadgeWithLink
-                    badgeText={MANUFACTURER_NAME}
-                    linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
-                    linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
-                    showVerification={true}
-                    verificationDid={`did:iota:testnet:${MANUFACTURER_DID}`}
-                  />
-                </div>
-              }
-            />
+              {/* Manufacturer with badge and address */}
+              <ItemValueRow
+                label='Manufacturer'
+                labelWidth={150}
+                isValuePending={isLoading}
+                value={
+                  <div className='flex items-center gap-3'>
+                    <BadgeWithLink
+                      badgeText={productDetails?.billOfMaterial?.get('Manufacturer Name')}
+                      linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                      linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
+                      showVerification={true}
+                      verificationDid={productDetails?.manufacturer}
+                    />
+                  </div>
+                }
+              />
 
-            {/* Technician with badge and address */}
-            <ItemValueRow
-              label='Technician'
-              labelWidth={150}
-              value={
-                <div className='flex items-center gap-3'>
-                  <BadgeWithLink
-                    badgeText={diagnosticInfo.technicianName}
-                    linkText={`${truncateAddress(account?.address)}`}
-                    linkHref={`https://explorer.iota.org/address/${account?.address}?network=testnet`}
-                  />
-                </div>
-              }
-            />
+              {/* Technician with badge and address */}
+              <ItemValueRow
+                label='Technician'
+                labelWidth={150}
+                value={
+                  <div className='flex items-center gap-3'>
+                    <BadgeWithLink
+                      badgeText={diagnosticInfo.technicianName}
+                      linkText={`${truncateAddress(account?.address)}`}
+                      linkHref={`https://explorer.iota.org/address/${account?.address}?network=testnet`}
+                    />
+                  </div>
+                }
+              />
 
-            {/* HR Separator */}
-            <hr className='my-1 border-[var(--border)]' />
+              {/* HR Separator */}
+              <hr className='my-1 border-[var(--border)]' />
 
-            {/* Event */}
-            <ItemValueRow label='Event' labelWidth={150} value={diagnosticInfo.eventName} />
+              {/* Event */}
+              <ItemValueRow label='Event' labelWidth={150} value={diagnosticInfo.eventName} />
 
-            {/* Date */}
-            <ItemValueRow label='Date' labelWidth={150} value={diagnosticInfo.eventDate} />
+              {/* Date */}
+              <ItemValueRow label='Date' labelWidth={150} value={diagnosticInfo.eventDate} />
 
-            {/* HR Separator */}
-            <hr className='my-1 border-[var(--border)]' />
+              {/* HR Separator */}
+              <hr className='my-1 border-[var(--border)]' />
 
-            {/* Health Score */}
-            <ItemValueRow label='Health Score' labelWidth={150} value={healthScore} />
+              {/* Health Score */}
+              <ItemValueRow label='Health Score' labelWidth={150} value={healthScore} />
 
-            {/* Findings */}
-            <ItemValueRow label='Findings' labelWidth={150} value={findings} />
-          </div>
+              {/* Findings */}
+              <ItemValueRow label='Findings' labelWidth={150} value={findings} />
+            </div>
+          )}
 
           {/* Save button matching HTML styling */}
           <div className='mt-8'>

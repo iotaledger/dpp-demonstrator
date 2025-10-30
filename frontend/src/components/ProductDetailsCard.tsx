@@ -29,7 +29,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   tutorialState = 'no',
   scrollIntoView = false,
 }) => {
-  const { productDetails } = useProductDetails(DPP_ID as string);
+  const { productDetails } = useProductDetails();
   const [innerDetailsExpanded, setInnerDetailsExpanded] = React.useState(false);
 
   const getSectionState = () => {

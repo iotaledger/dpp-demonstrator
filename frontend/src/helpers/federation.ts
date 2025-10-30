@@ -1,3 +1,4 @@
+import { REPAIRER_ROLE } from '@/utils/constants';
 import type { IotaObjectData, IotaObjectResponse } from '@iota/iota-sdk/client';
 
 import {
@@ -289,7 +290,7 @@ export function extractAccreditationTransactions(
         };
       })
       .filter((acc) => acc.haveCallToAccreditationToAttest)
-      .filter((acc) => acc.role === 'repairer')
+      .filter((acc) => acc.role === REPAIRER_ROLE)
       .filter((acc) => acc.receiver === accountAddress),
   );
 }
@@ -333,7 +334,7 @@ function getAccreditationsByEntity(data: FederationData, entityId: string): Accr
 
 // TODO: write a documentation following the pattern in the file
 function getAllAccreditationsFlat(data: FederationData): string[] {
-  const allRepairers = getAllEntitiesByRole(data, 'repairer');
+  const allRepairers = getAllEntitiesByRole(data, REPAIRER_ROLE);
   return deduplicateAccreditationByAddress(allRepairers);
 }
 

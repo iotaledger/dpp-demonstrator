@@ -27,7 +27,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   tutorialState = 'no',
   scrollIntoView = false,
 }) => {
-  const { rewardDetails, isSuccess } = useRewardVaultDetails(VAULT_ID as string);
+  const { rewardDetails, isSuccess } = useRewardVaultDetails();
 
   const getSectionExpanded = () => {
     const open = true;

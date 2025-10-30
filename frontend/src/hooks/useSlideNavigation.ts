@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { POSITION_CHANGE_TO_SWIPE } from '@/utils/constants';
 
 const initialSlide = 1;
 
@@ -83,7 +84,7 @@ export function useSlideNavigation(
 
             const deltaPosX = endPosX - startPosX;
             // Do not swipe if delta is too small. The user may scroll up and down.
-            const threshold = 110;
+            const threshold = POSITION_CHANGE_TO_SWIPE;
             if (Math.abs(deltaPosX) < threshold) {
               clean();
               return;

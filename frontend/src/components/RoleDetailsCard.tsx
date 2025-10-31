@@ -14,6 +14,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import { useProductDetails } from '@/hooks/useProductDetails';
+import { BillOfMaterialProperties } from '@/types/product';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -98,7 +99,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
               label='Manufacturer'
               value={
                 <BadgeWithLink
-                  badgeText={productDetails?.billOfMaterial?.get('Manufacturer Name')}
+                  badgeText={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.ManufacturerName)}
                   linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
                   linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
                   showVerification={true}

@@ -3,6 +3,8 @@
  * Therefore, it should be by ported when the time comes to move this project there.
  */
 
+import { type DppData, type Dpp } from "@/types/product";
+
 export function getSerialNumber(content: Dpp | null): string | undefined {
   return content?.fields.serial_number;
 }
@@ -53,48 +55,3 @@ export function getDppData(content: Dpp | null): DppData | undefined {
     timestamp,
   };
 }
-
-export type DppData = {
-  billOfMaterial?: Map<string, string>;
-  federationAddr: string;
-  name: string;
-  objectId: string;
-  imageUrl: string;
-  manufacturer: string;
-  serialNumber: string;
-  timestamp: string;
-};
-
-type VecMapEntry = {
-  type: string;
-  fields: {
-    key: string;
-    value: string;
-  };
-};
-
-type BillOfMaterials = {
-  type: string;
-  fields: {
-    contents: VecMapEntry[];
-  };
-};
-
-type ProductFields = {
-  bill_of_materials: BillOfMaterials;
-  federation_addr: string;
-  id: {
-    id: string;
-  };
-  name: string;
-  image_url: string;
-  manufacturer: string;
-  serial_number: string;
-  timestamp: string;
-};
-
-export type Dpp = {
-  dataType: 'moveObject';
-  type: string;
-  fields: ProductFields;
-};

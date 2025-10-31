@@ -5,6 +5,7 @@ import React, { useCallback } from 'react';
 import { useProductDetails } from '@/hooks/useProductDetails';
 
 import CollapsibleSection from './CollapsibleSection';
+import { BillOfMaterialProperties } from '@/types/product';
 
 interface ProductHeaderCardProps {
   tutorialState?: 'selected' | 'muted' | 'no';
@@ -46,7 +47,7 @@ const ProductHeaderCard: React.FC<ProductHeaderCardProps> = ({ tutorialState = '
               </div>
               <div className='space-y-0.5'>
                 <div className='text-sm font-medium text-gray-500'>Manufacturer Name:</div>
-                <div className='text-xl font-medium text-gray-900'>{productDetails?.billOfMaterial?.get('Manufacturer Name')}</div>
+                <div className='text-xl font-medium text-gray-900'>{productDetails?.billOfMaterial?.get(BillOfMaterialProperties.ManufacturerName)}</div>
               </div>
             </div>
           </>

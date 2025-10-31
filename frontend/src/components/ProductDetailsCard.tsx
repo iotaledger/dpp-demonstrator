@@ -12,6 +12,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
+import { BillOfMaterialProperties } from '@/types/product';
 
 interface ProductDetailsCardProps {
   opacity?: number;
@@ -123,32 +124,32 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('batteryDetailsModel')}
                 label='Model'
-                value={productDetails?.billOfMaterial?.get('Model')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.Model)}
                 isLink={false}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsManufacturingDate')}
                 label='Manufacturing Date'
-                value={productDetails?.billOfMaterial?.get('Manufacturing Date')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.ManufacturingDate)}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsCapacity')}
                 label='Capacity'
-                value={productDetails?.billOfMaterial?.get('Capacity')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.Capacity)}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsExpectedLifespan')}
                 label='Expected Lifespan'
-                value={productDetails?.billOfMaterial?.get('Expected Lifespan')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.ExpectedLifespan)}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsBatteryPack')}
                 label='Battery Pack'
-                value={productDetails?.billOfMaterial?.get('Battery Pack')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.BatteryPack)}
                 fontMono={true}
               />
             </DataGrid>
@@ -164,19 +165,19 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsCells')}
                 label='Cells'
-                value={productDetails?.billOfMaterial?.get('Cells')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.Cells)}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsHousing')}
                 label='Housing'
-                value={productDetails?.billOfMaterial?.get('Housing')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.Housing)}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsVersion')}
                 label='Version'
-                value={productDetails?.billOfMaterial?.get('Version')}
+                value={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.Version)}
                 fontMono={true}
               />
             </DataGrid>

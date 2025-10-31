@@ -5,7 +5,6 @@ import React, { useCallback, useState, useTransition } from 'react';
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 
 import { createAccreditation } from '@/helpers/api';
-import { Role } from '@/helpers/federation';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAppProvider, useNotification } from '@/providers/appProvider';
 import { generateRequestId, truncateAddress } from '@/utils/common';
@@ -14,6 +13,7 @@ import { FEDERATION_ID, HAS_NFT_REWARD } from '@/utils/constants';
 import Dialog from './Dialog';
 import CloseIcon from './icons/CloseIcon';
 import CopyIcon from './icons/CopyIcon';
+import { Roles } from '@/types/identity';
 
 interface ServiceRequestModalProps {
   isOpen: boolean;
@@ -28,10 +28,6 @@ const MODAL_CONTENT = {
   labels: {
     federationAddress: 'Service Network Address',
     role: 'Role',
-  },
-  roleOptions: {
-    [Role.manufacturer]: { label: 'Manufacturer', value: Role.manufacturer },
-    [Role.repairer]: { label: 'Service Technician', value: Role.repairer },
   },
   buttons: {
     submit: 'Submit',
@@ -53,7 +49,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
 
   const [isPending, startTransition] = useTransition();
   const [federationAddress] = useState(FEDERATION_ID!);
-  const [selectedRole, setSelectedRole] = useState(MODAL_CONTENT.roleOptions[Role.repairer]);
+  const [selectedRole, setSelectedRole] = useState(Roles.Repairer);
 
   /**
    * To notify the user
@@ -219,14 +215,14 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               id='role'
               name='selectedRole'
               value={selectedRole.value}
-              onChange={(e) => setSelectedRole(MODAL_CONTENT.roleOptions[e.target.value as Role])}
+              onChange={(e) => setSelectedRole(Roles[e.target.value])}
               className='focus-visible focus-visible:ring-ring w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus-visible:outline-gray-300'
             >
-              <option value={MODAL_CONTENT.roleOptions[Role.repairer].value}>
-                {MODAL_CONTENT.roleOptions[Role.repairer].label}
+              <option value={Roles.Repairer.value}>
+                {Roles.Repairer.label}
               </option>
-              <option disabled value={MODAL_CONTENT.roleOptions[Role.manufacturer].value}>
-                {MODAL_CONTENT.roleOptions[Role.manufacturer].label}
+              <option disabled value={Roles.Manufacturer.value}>
+                {Roles.Manufacturer.label}
               </option>
             </select>
           </div>

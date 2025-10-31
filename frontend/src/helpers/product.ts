@@ -3,18 +3,20 @@
  * Therefore, it should be by ported when the time comes to move this project there.
  */
 
-export function getSerialNumber(content: Dpp | null): string | undefined {
+import { type DppModel, type DppData, BillOfMaterials } from "@/types/product";
+
+export function getSerialNumber(content: DppData | null): string | undefined {
   return content?.fields.serial_number;
 }
 
-export function getFederationAddress(content: Dpp | null): string | undefined {
+export function getFederationAddress(content: DppData | null): string | undefined {
   return content?.fields.federation_addr;
 }
 
 /**
  * NOTE: this function has changed
  */
-function getBillOfMaterials(content: Dpp | null): Map<string, string> | undefined {
+function getBillOfMaterials(content: DppData | null): BillOfMaterials | undefined {
   // TODO: Some dpp objects doens't have `bill_of_materials` property, which can make it to break,
   // therefore, implement some validation here to avoid silent break in the app
   const entries = content?.fields.bill_of_materials.fields.contents;
@@ -32,18 +34,18 @@ function getBillOfMaterials(content: Dpp | null): Map<string, string> | undefine
   }
 
   // Changes the return type
-  return result;
+  return new BillOfMaterials(result);
 }
 
-export function getDppData(content: Dpp | null): DppData | undefined {
+export function getDpp(content: DppData | null): DppModel | undefined {
   if (!content) return undefined;
 
-  const billOfMaterial = getBillOfMaterials(content);
+  const billOfMaterials = getBillOfMaterials(content);
   const { id, image_url, manufacturer, timestamp, serial_number, federation_addr, name } =
     content.fields;
 
   return {
-    billOfMaterial,
+    billOfMaterials,
     federationAddr: federation_addr,
     name,
     objectId: id.id,
@@ -53,48 +55,3 @@ export function getDppData(content: Dpp | null): DppData | undefined {
     timestamp,
   };
 }
-
-export type DppData = {
-  billOfMaterial?: Map<string, string>;
-  federationAddr: string;
-  name: string;
-  objectId: string;
-  imageUrl: string;
-  manufacturer: string;
-  serialNumber: string;
-  timestamp: string;
-};
-
-type VecMapEntry = {
-  type: string;
-  fields: {
-    key: string;
-    value: string;
-  };
-};
-
-type BillOfMaterials = {
-  type: string;
-  fields: {
-    contents: VecMapEntry[];
-  };
-};
-
-type ProductFields = {
-  bill_of_materials: BillOfMaterials;
-  federation_addr: string;
-  id: {
-    id: string;
-  };
-  name: string;
-  image_url: string;
-  manufacturer: string;
-  serial_number: string;
-  timestamp: string;
-};
-
-export type Dpp = {
-  dataType: 'moveObject';
-  type: string;
-  fields: ProductFields;
-};

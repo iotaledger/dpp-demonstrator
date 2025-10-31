@@ -123,32 +123,32 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('batteryDetailsModel')}
                 label='Model'
-                value={productDetails?.billOfMaterial?.get('Model')}
+                value={productDetails?.billOfMaterials?.model}
                 isLink={false}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsManufacturingDate')}
                 label='Manufacturing Date'
-                value={productDetails?.billOfMaterial?.get('Manufacturing Date')}
+                value={productDetails?.billOfMaterials?.manufacturingDate}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsCapacity')}
                 label='Capacity'
-                value={productDetails?.billOfMaterial?.get('Capacity')}
+                value={productDetails?.billOfMaterials?.capacity}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsExpectedLifespan')}
                 label='Expected Lifespan'
-                value={productDetails?.billOfMaterial?.get('Expected Lifespan')}
+                value={productDetails?.billOfMaterials?.expectedLifespan}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsBatteryPack')}
                 label='Battery Pack'
-                value={productDetails?.billOfMaterial?.get('Battery Pack')}
+                value={productDetails?.billOfMaterials?.batteryPack}
                 fontMono={true}
               />
             </DataGrid>
@@ -164,19 +164,19 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsCells')}
                 label='Cells'
-                value={productDetails?.billOfMaterial?.get('Cells')}
+                value={productDetails?.billOfMaterials?.cells}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsHousing')}
                 label='Housing'
-                value={productDetails?.billOfMaterial?.get('Housing')}
+                value={productDetails?.billOfMaterials?.housing}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsVersion')}
                 label='Version'
-                value={productDetails?.billOfMaterial?.get('Version')}
+                value={productDetails?.billOfMaterials?.version}
                 fontMono={true}
               />
             </DataGrid>

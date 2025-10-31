@@ -6,8 +6,12 @@
     "dev": "dotenvx run -- next dev",
     "build": "next build",
     "start": "dotenvx run -- next start",
-    "lint": "eslint",
-    "storybook": "storybook dev -p 6006",
+    "check-type": "tsc --noEmit",
+    "check-lint": "eslint src/ --no-warn-ignored",
+    "check-style": "prettier src/ --ignore-unknown --write",
+    "check-spell": "cspell src/ --no-must-find-files",
+    "fix-lint": "eslint src/ --fix --no-warn-ignored",
+    "fix-style": "prettier src/ --ignore-unknown --write",
     "build-storybook": "storybook build"
   },
   "dependencies": {

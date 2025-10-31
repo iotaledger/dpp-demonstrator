@@ -59,13 +59,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   // Copy to clipboard functionality using extracted hook
   const { copied, copyToClipboard } = useCopyToClipboard({
     successMessage: MODAL_CONTENT.messages.addressCopied,
-    onSuccess: () => {
-      // For now just log success - will be replaced with toast system later
-      console.log('✅ Address copied to clipboard');
-    },
-    onError: (error) => {
-      console.error('❌ Failed to copy address:', error);
-    },
   });
 
   const account = useCurrentAccount();
@@ -93,7 +86,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
       // TODO: Validate inputs, and send error notification if fail
       // like: 'Missing required data to perform the action'
       if (!account?.address) {
-        console.log('❌ Missing account address. You need connect your wallet first.');
+        console.warn('❌ Missing account address. You need connect your wallet first.');
         onClose();
       }
 
@@ -101,14 +94,10 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
         // TODO: Implement QR code interaction route
         // setQrCodeUrl(`${DAPP_URL}/dynamic_redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
         // setShowQrCode(true)
-        console.log('🚧 reward route not implemented yet!!!');
+        console.warn('🚧 reward route not implemented yet!!!');
       }
 
       startTransition(async () => {
-        console.log('🔴 Form submit started');
-        console.log('📋 Federation Address:', federationAddress);
-        console.log('👤 Selected Role:', selectedRole.label, selectedRole.value);
-
         try {
           // TODO: validate `account.address and `federationAddr`, if fails trigger an error notification
           // like: 'Missing required data to perform the action'
@@ -129,7 +118,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
           if (onSuccess) {
             onSuccess();
           }
-          console.log('🟢 Accredidation created with succes!');
         } catch (error) {
           console.error('❌ Error while calling createAccreditation.', error);
           handleNotificationSent!({

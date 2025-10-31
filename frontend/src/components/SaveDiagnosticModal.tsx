@@ -108,9 +108,6 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
 
       startTransition(async () => {
         // Simulate API call (replace with actual API call later)
-        console.log('🔴 Saving diagnostic snapshot');
-        console.log('📋 Federation Address:', federationAddress);
-
         try {
           const sponsoredGas = await getSponsorGas();
           const txInputs: CreateNotarizationEventTransactionArgs = {
@@ -135,7 +132,6 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
           startTransition(() => {
             const requestId = generateRequestId();
             handleNotarizationSentSuccess(requestId);
-            console.log('🟢 Diagnostic snapshot saved successfully');
             onSave();
             handleNotificationSent!({
               id: generateRequestId(),
@@ -144,7 +140,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
             });
           });
         } catch (error: unknown) {
-          console.log('❌ Error while calling sendTransaction.', (error as Error).message);
+          console.error('❌ Error while calling sendTransaction.', error);
           handleNotificationSent!({
             id: generateRequestId(),
             type: 'error',

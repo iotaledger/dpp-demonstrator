@@ -55,15 +55,11 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
           return;
         }
 
-        console.log('🔴 Diagnostic loading...:');
         const hasCompleted = await startProgress();
         if (hasCompleted) {
-          console.log('🟢 Diagnostic loaded');
           startTransition(() => {
             onButtonClick();
           });
-        } else {
-          console.log('❌ Error while loading diagnostic.');
         }
       });
     },

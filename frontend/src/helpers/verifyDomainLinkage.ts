@@ -22,7 +22,6 @@ export async function checkStartingFromDid(did: string) {
   try {
     const identityClient = await getIdentityClient();
     const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did));
-    console.log('DiD Document:', didDocument.toJSON());
 
     const firstValidService = didDocument
       .service()
@@ -32,28 +31,23 @@ export async function checkStartingFromDid(did: string) {
     if (!firstValidService) {
       return invalid;
     }
-    console.log('[Valid] DiD Service', firstValidService);
 
     // For this application we garantee the serviceEndpoint is a single string
     const serviceEndpoint = firstValidService!.serviceEndpoint() as unknown as string;
-    console.log('Service Endpoint:', serviceEndpoint);
 
     const configurationResult = await fetchDidConfiguration(serviceEndpoint);
     if (configurationResult.isError) {
       return invalid;
     }
-    console.log('Configuration data', configurationResult.data);
 
     const rawDomainLinkageConfiguration = configurationResult.data!.linked_dids.at(0);
     if (!rawDomainLinkageConfiguration) {
       return invalid;
     }
-    console.log('Raw domain linkage', rawDomainLinkageConfiguration);
 
     const domainLinkageConfiguration = new DomainLinkageConfiguration([
       Jwt.fromJSON(rawDomainLinkageConfiguration),
     ]);
-    console.log('Domain Linkage Configuration', domainLinkageConfiguration);
 
     // Throws if invalid
     new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
@@ -65,7 +59,7 @@ export async function checkStartingFromDid(did: string) {
 
     return valid;
   } catch {
-    console.log('Invalid Domain Linkage');
+    console.error('Invalid Domain Linkage');
     return invalid;
   }
 }
@@ -79,22 +73,18 @@ export async function checkStartingFromDomain() {
   if (result.isError) {
     return invalid;
   }
-  console.log('Configuration data', result.data);
 
   try {
     const rawDomainLinkageConfiguration = result.data!.linked_dids.at(0);
     const domainLinkageConfiguration = new DomainLinkageConfiguration([
       Jwt.fromJSON(rawDomainLinkageConfiguration),
     ]);
-    console.log('Domain Linkage Configuration', domainLinkageConfiguration);
 
     const issuer: string = domainLinkageConfiguration
       .issuers()
       .at(0)
       ?.toString() as unknown as string;
-    console.log('Issuer', issuer);
     const issuerDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(issuer));
-    console.log('Issuer Document', issuerDocument);
 
     // Throws if invalid
     new JwtDomainLinkageValidator(new EcDSAJwsVerifier()).validateLinkage(
@@ -106,7 +96,7 @@ export async function checkStartingFromDomain() {
 
     return valid;
   } catch {
-    console.log('Invalid Domain Linkage');
+    console.error('Invalid Domain Linkage');
     return invalid;
   }
 }
@@ -121,7 +111,6 @@ export async function fetchDidConfiguration(
   dappUrl: string,
 ): Promise<Result<DomainLinkageResource>> {
   const configurationUrl = new URL('/.well-known/did-configuration.json', dappUrl);
-  console.log('Fetching configuration URL', configurationUrl);
 
   const response = await fetch(configurationUrl, {
     method: 'GET',

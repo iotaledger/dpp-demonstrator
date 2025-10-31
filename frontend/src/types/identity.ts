@@ -71,9 +71,6 @@ export interface Accreditation {
  *
  * // Check what roles are allowed
  * console.log(data.allowedRoles); // ["manufacturer", "repairer"]
- *
- * // Find all manufacturers
- * const manufacturers = getAllEntitiesByRole(data, 'manufacturer');
  * ```
  */
 export interface FederationData {
@@ -94,6 +91,15 @@ export interface FederationData {
   /** Array of roles that this federation allows (defined in governance) */
   allowedRoles: string[];
 }
+
+export interface AccreditationTx {
+  digest: string;
+  sender: string;
+  haveCallToAccreditationToAttest: boolean;
+  receiver: string;
+  role: string;
+}
+
 
 export interface RoleEntry {
   id: string;

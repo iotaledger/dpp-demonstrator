@@ -60,11 +60,28 @@ export type Dpp = {
   fields: ProductFields;
 };
 
+export class BillOfMaterial {
+  _map: Map<string, string>;
+  constructor(bomMap: Map<string, string>) {
+    this._map = bomMap;
+  }
+
+  get manufacturerName() { return BillOfMaterialProperties.ManufacturerName; }
+  get version() { return BillOfMaterialProperties.Version; }
+  get housing() { return BillOfMaterialProperties.Housing; }
+  get cells() { return BillOfMaterialProperties.Cells; }
+  get batteryPack() { return BillOfMaterialProperties.BatteryPack; }
+  get expectedLifespan() { return BillOfMaterialProperties.ExpectedLifespan; }
+  get capacity() { return BillOfMaterialProperties.Capacity; }
+  get manufacturingDate() { return BillOfMaterialProperties.ManufacturingDate; }
+  get model() { return BillOfMaterialProperties.Model; }
+}
+
 /**
  * DPP Model parsed from raw DPP data.
  */
 export type DppModel = {
-  billOfMaterial?: Map<string, string>;
+  billOfMaterial?: BillOfMaterial;
   federationAddr: string;
   name: string;
   objectId: string;

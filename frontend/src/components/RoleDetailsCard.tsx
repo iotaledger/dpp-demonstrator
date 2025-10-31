@@ -99,7 +99,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
               label='Manufacturer'
               value={
                 <BadgeWithLink
-                  badgeText={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.ManufacturerName)}
+                  badgeText={productDetails?.billOfMaterial?.manufacturerName}
                   linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
                   linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
                   showVerification={true}

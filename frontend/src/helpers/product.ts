@@ -3,7 +3,7 @@
  * Therefore, it should be by ported when the time comes to move this project there.
  */
 
-import { type DppModel, type Dpp } from "@/types/product";
+import { type DppModel, type Dpp, BillOfMaterial } from "@/types/product";
 
 export function getSerialNumber(content: Dpp | null): string | undefined {
   return content?.fields.serial_number;
@@ -16,7 +16,7 @@ export function getFederationAddress(content: Dpp | null): string | undefined {
 /**
  * NOTE: this function has changed
  */
-function getBillOfMaterials(content: Dpp | null): Map<string, string> | undefined {
+function getBillOfMaterials(content: Dpp | null): BillOfMaterial | undefined {
   // TODO: Some dpp objects doens't have `bill_of_materials` property, which can make it to break,
   // therefore, implement some validation here to avoid silent break in the app
   const entries = content?.fields.bill_of_materials.fields.contents;
@@ -34,7 +34,7 @@ function getBillOfMaterials(content: Dpp | null): Map<string, string> | undefine
   }
 
   // Changes the return type
-  return result;
+  return new BillOfMaterial(result);
 }
 
 export function getDpp(content: Dpp | null): DppModel | undefined {

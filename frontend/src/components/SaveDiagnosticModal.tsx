@@ -218,7 +218,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
                 value={
                   <div className='flex items-center gap-3'>
                     <BadgeWithLink
-                      badgeText={productDetails?.billOfMaterial?.get(BillOfMaterialProperties.ManufacturerName)}
+                      badgeText={productDetails?.billOfMaterial?.manufacturerName}
                       linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
                       linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
                       showVerification={true}

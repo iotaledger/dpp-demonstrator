@@ -63,7 +63,6 @@ export const useProgress = () => {
       intervalId = window.setInterval(() => runProgress(resolve), frequencyMs);
 
       window.setTimeout(() => {
-        console.log('progress timeout');
         if (intervalId && window) {
           window.clearInterval(intervalId);
         }

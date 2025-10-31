@@ -2,7 +2,7 @@
 
 import { useIotaClientQuery } from '@iota/dapp-kit';
 
-import { getDppData } from '@/helpers/product';
+import { getDpp } from '@/helpers/product';
 import { DPP_ID } from '@/utils/constants';
 import { type Dpp } from '@/types/product';
 
@@ -14,7 +14,7 @@ export function useProductDetails() {
   });
 
   return {
-    productDetails: data?.data && getDppData(data.data.content as Dpp),
+    productDetails: data?.data && getDpp(data.data.content as Dpp),
     isSuccess,
     isLoading,
     isError,

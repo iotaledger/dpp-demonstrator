@@ -63,7 +63,7 @@ export type Dpp = {
 /**
  * DPP Model parsed from raw DPP data.
  */
-export type DppData = {
+export type DppModel = {
   billOfMaterial?: Map<string, string>;
   federationAddr: string;
   name: string;

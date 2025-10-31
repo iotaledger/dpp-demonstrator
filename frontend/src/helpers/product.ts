@@ -3,7 +3,7 @@
  * Therefore, it should be by ported when the time comes to move this project there.
  */
 
-import { type DppData, type Dpp } from "@/types/product";
+import { type DppModel, type Dpp } from "@/types/product";
 
 export function getSerialNumber(content: Dpp | null): string | undefined {
   return content?.fields.serial_number;
@@ -37,7 +37,7 @@ function getBillOfMaterials(content: Dpp | null): Map<string, string> | undefine
   return result;
 }
 
-export function getDppData(content: Dpp | null): DppData | undefined {
+export function getDpp(content: Dpp | null): DppModel | undefined {
   if (!content) return undefined;
 
   const billOfMaterial = getBillOfMaterials(content);

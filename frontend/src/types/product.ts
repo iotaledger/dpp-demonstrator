@@ -66,15 +66,15 @@ export class BillOfMaterials {
     this._map = bomMap;
   }
 
-  get manufacturerName() { return BillOfMaterialsDataProperties.ManufacturerName; }
-  get version() { return BillOfMaterialsDataProperties.Version; }
-  get housing() { return BillOfMaterialsDataProperties.Housing; }
-  get cells() { return BillOfMaterialsDataProperties.Cells; }
-  get batteryPack() { return BillOfMaterialsDataProperties.BatteryPack; }
-  get expectedLifespan() { return BillOfMaterialsDataProperties.ExpectedLifespan; }
-  get capacity() { return BillOfMaterialsDataProperties.Capacity; }
-  get manufacturingDate() { return BillOfMaterialsDataProperties.ManufacturingDate; }
-  get model() { return BillOfMaterialsDataProperties.Model; }
+  get manufacturerName() { return this._map.get(BillOfMaterialsDataProperties.ManufacturerName); }
+  get version() { return this._map.get(BillOfMaterialsDataProperties.Version); }
+  get housing() { return this._map.get(BillOfMaterialsDataProperties.Housing); }
+  get cells() { return this._map.get(BillOfMaterialsDataProperties.Cells); }
+  get batteryPack() { return this._map.get(BillOfMaterialsDataProperties.BatteryPack); }
+  get expectedLifespan() { return this._map.get(BillOfMaterialsDataProperties.ExpectedLifespan); }
+  get capacity() { return this._map.get(BillOfMaterialsDataProperties.Capacity); }
+  get manufacturingDate() { return this._map.get(BillOfMaterialsDataProperties.ManufacturingDate); }
+  get model() { return this._map.get(BillOfMaterialsDataProperties.Model); }
 }
 
 /**

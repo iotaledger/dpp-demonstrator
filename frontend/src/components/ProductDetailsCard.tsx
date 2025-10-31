@@ -12,7 +12,6 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
-import { BillOfMaterialProperties } from '@/types/product';
 
 interface ProductDetailsCardProps {
   opacity?: number;
@@ -124,32 +123,32 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('batteryDetailsModel')}
                 label='Model'
-                value={productDetails?.billOfMaterial?.model}
+                value={productDetails?.billOfMaterials?.model}
                 isLink={false}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsManufacturingDate')}
                 label='Manufacturing Date'
-                value={productDetails?.billOfMaterial?.manufacturingDate}
+                value={productDetails?.billOfMaterials?.manufacturingDate}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsCapacity')}
                 label='Capacity'
-                value={productDetails?.billOfMaterial?.capacity}
+                value={productDetails?.billOfMaterials?.capacity}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsExpectedLifespan')}
                 label='Expected Lifespan'
-                value={productDetails?.billOfMaterial?.expectedLifespan}
+                value={productDetails?.billOfMaterials?.expectedLifespan}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsBatteryPack')}
                 label='Battery Pack'
-                value={productDetails?.billOfMaterial?.batteryPack}
+                value={productDetails?.billOfMaterials?.batteryPack}
                 fontMono={true}
               />
             </DataGrid>
@@ -165,19 +164,19 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsCells')}
                 label='Cells'
-                value={productDetails?.billOfMaterial?.cells}
+                value={productDetails?.billOfMaterials?.cells}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsHousing')}
                 label='Housing'
-                value={productDetails?.billOfMaterial?.housing}
+                value={productDetails?.billOfMaterials?.housing}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsVersion')}
                 label='Version'
-                value={productDetails?.billOfMaterial?.version}
+                value={productDetails?.billOfMaterials?.version}
                 fontMono={true}
               />
             </DataGrid>

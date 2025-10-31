@@ -2,7 +2,7 @@
 /**
  * A Move structure holding a key-value pair entry.
  */
-export type VecMapEntry = {
+export type VecMapEntryData = {
   type: string;
   fields: {
     key: string;
@@ -13,17 +13,17 @@ export type VecMapEntry = {
 /**
  * A Move structure holding a key-value pair collection.
  */
-export type BillOfMaterials = {
+export type BillOfMaterialsData = {
   type: string;
   fields: {
-    contents: VecMapEntry[];
+    contents: VecMapEntryData[];
   };
 };
 
 /**
  * Known property names registered in the target product on Bill Of Materials.
  */
-export const BillOfMaterialProperties = {
+export const BillOfMaterialsDataProperties = {
   ManufacturerName: 'Manufacturer Name',
   Version: 'Version',
   Housing: 'Housing',
@@ -38,8 +38,8 @@ export const BillOfMaterialProperties = {
 /**
  * A Move structure with custom properties.
  */
-export type ProductFields = {
-  bill_of_materials: BillOfMaterials;
+export type ProductFieldsData = {
+  bill_of_materials: BillOfMaterialsData;
   federation_addr: string;
   id: {
     id: string;
@@ -54,34 +54,34 @@ export type ProductFields = {
 /**
  * Iota parsed data holding a Move object content.
  */
-export type Dpp = {
+export type DppData = {
   dataType: 'moveObject';
   type: string;
-  fields: ProductFields;
+  fields: ProductFieldsData;
 };
 
-export class BillOfMaterial {
+export class BillOfMaterials {
   _map: Map<string, string>;
   constructor(bomMap: Map<string, string>) {
     this._map = bomMap;
   }
 
-  get manufacturerName() { return BillOfMaterialProperties.ManufacturerName; }
-  get version() { return BillOfMaterialProperties.Version; }
-  get housing() { return BillOfMaterialProperties.Housing; }
-  get cells() { return BillOfMaterialProperties.Cells; }
-  get batteryPack() { return BillOfMaterialProperties.BatteryPack; }
-  get expectedLifespan() { return BillOfMaterialProperties.ExpectedLifespan; }
-  get capacity() { return BillOfMaterialProperties.Capacity; }
-  get manufacturingDate() { return BillOfMaterialProperties.ManufacturingDate; }
-  get model() { return BillOfMaterialProperties.Model; }
+  get manufacturerName() { return BillOfMaterialsDataProperties.ManufacturerName; }
+  get version() { return BillOfMaterialsDataProperties.Version; }
+  get housing() { return BillOfMaterialsDataProperties.Housing; }
+  get cells() { return BillOfMaterialsDataProperties.Cells; }
+  get batteryPack() { return BillOfMaterialsDataProperties.BatteryPack; }
+  get expectedLifespan() { return BillOfMaterialsDataProperties.ExpectedLifespan; }
+  get capacity() { return BillOfMaterialsDataProperties.Capacity; }
+  get manufacturingDate() { return BillOfMaterialsDataProperties.ManufacturingDate; }
+  get model() { return BillOfMaterialsDataProperties.Model; }
 }
 
 /**
  * DPP Model parsed from raw DPP data.
  */
 export type DppModel = {
-  billOfMaterial?: BillOfMaterial;
+  billOfMaterials?: BillOfMaterials;
   federationAddr: string;
   name: string;
   objectId: string;

@@ -22,7 +22,6 @@ import BadgeWithLink from './BadgeWithLink';
 import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import CloseIcon from './icons/CloseIcon';
-import { BillOfMaterialProperties } from '@/types/product';
 
 const diagnosticInfo = {
   technicianName: 'You',
@@ -218,7 +217,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
                 value={
                   <div className='flex items-center gap-3'>
                     <BadgeWithLink
-                      badgeText={productDetails?.billOfMaterial?.manufacturerName}
+                      badgeText={productDetails?.billOfMaterials?.manufacturerName}
                       linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
                       linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
                       showVerification={true}

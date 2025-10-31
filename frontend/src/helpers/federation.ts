@@ -1,4 +1,4 @@
-import { REPAIRER_ROLE } from '@/utils/constants';
+import { Accreditation, FederationData, Roles, RootAuthority } from '@/types/identity';
 import type { IotaObjectData, IotaObjectResponse } from '@iota/iota-sdk/client';
 
 import {
@@ -43,81 +43,6 @@ Federation (0x93f6e173...) → Root Authority → Entity Accreditations
 Accreditation Flow:
 Root Authority → Issues Accreditation → Entity gains Role → Can attest/validate
 */
-
-/**
- * Represents a root authority in the federation system
- * Root authorities are the top-level entities that can issue accreditations
- */
-interface RootAuthority {
-  /** The blockchain account identifier of the root authority */
-  accountId: string;
-  /** The unique object identifier for this root authority instance */
-  id: string;
-}
-
-/**
- * Represents an accreditation issued to an entity within the federation
- *
- * Structure:
- * ┌─ Accreditation ─┐
- * │ id: unique ID   │
- * │ accreditedBy    │ ──→ Points to Root Authority
- * │ role: assigned  │
- * │ entityId: owner │
- * └─────────────────┘
- */
-interface Accreditation {
-  /** Unique identifier for this specific accreditation */
-  id: string;
-  /** Account ID of the authority that issued this accreditation */
-  accreditedBy: string;
-  /** The role granted by this accreditation (e.g., "manufacturer", "repairer") */
-  role: string;
-  /** The entity ID that owns this accreditation */
-  entityId: string;
-}
-
-/**
- * Complete federation data structure containing all governance information
- *
- * Usage Example:
- * ```typescript
- * const data = extractFederationData(jsonResponse);
- *
- * // Check federation identity
- * console.log(`Federation ID: ${data.federationId}`);
- * console.log(`Version: ${data.version}`);
- *
- * // Check what roles are allowed
- * console.log(data.allowedRoles); // ["manufacturer", "repairer"]
- *
- * // Find all manufacturers
- * const manufacturers = getAllEntitiesByRole(data, 'manufacturer');
- * ```
- */
-interface FederationData {
-  /** The unique blockchain object ID of this federation */
-  federationId: string;
-  /** The version number of this federation object */
-  version: string;
-  /** The cryptographic digest/hash of this federation state */
-  digest: string;
-  /** Array of root authorities that can issue accreditations */
-  rootAuthorities: RootAuthority[];
-  /** Array of revoked root authorities (no longer valid) */
-  revokedRootAuthorities: RootAuthority[];
-  /** Map of entity ID to their accreditations for O(1) lookup */
-  accreditations: Map<string, Accreditation[]>;
-  /** Map of entity ID to their assigned roles for quick role checking */
-  rolesByEntity: Map<string, string[]>;
-  /** Array of roles that this federation allows (defined in governance) */
-  allowedRoles: string[];
-}
-
-export enum Role {
-  manufacturer = 'Manufacturer',
-  repairer = 'Repairer',
-}
 
 /**
  * Extracts and transforms federation data from IOTA Rebase JSON-RPC response
@@ -290,7 +215,7 @@ export function extractAccreditationTransactions(
         };
       })
       .filter((acc) => acc.haveCallToAccreditationToAttest)
-      .filter((acc) => acc.role === REPAIRER_ROLE)
+      .filter((acc) => acc.role === Roles.Repairer.id)
       .filter((acc) => acc.receiver === accountAddress),
   );
 }
@@ -334,7 +259,7 @@ function getAccreditationsByEntity(data: FederationData, entityId: string): Accr
 
 // TODO: write a documentation following the pattern in the file
 function getAllAccreditationsFlat(data: FederationData): string[] {
-  const allRepairers = getAllEntitiesByRole(data, REPAIRER_ROLE);
+  const allRepairers = getAllEntitiesByRole(data, Roles.Repairer.id);
   return deduplicateAccreditationByAddress(allRepairers);
 }
 

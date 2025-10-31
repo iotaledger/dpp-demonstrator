@@ -2,11 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { BACKEND_API_KEY, BACKEND_ENDPOINT } from '@/utils/constants';
 
-type UserRole = 'Repairer';
-
 interface RequestBody {
   user_addr: string;
-  user_role: UserRole;
+  user_role: string;
   federation_addr: string;
 }
 

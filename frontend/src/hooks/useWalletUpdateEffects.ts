@@ -7,9 +7,10 @@ import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 import { getRolesByEntity } from '@/helpers/federation';
 import { useAppProvider } from '@/providers/appProvider';
 import { generateRequestId } from '@/utils/common';
-import { FEDERATION_ID, REPAIRER_ROLE } from '@/utils/constants';
+import { FEDERATION_ID } from '@/utils/constants';
 
 import { useFederationDetails } from './useFederationDetails';
+import { Roles } from '@/types/identity';
 
 /**
  * INFO:
@@ -100,7 +101,7 @@ export function useWalletUpdateEffects() {
       }
 
       const roles = getRolesByEntity(federationDetails, currentAccountAddress);
-      if (roles.some((each) => each === REPAIRER_ROLE)) {
+      if (roles.some((each) => each === Roles.Repairer.id)) {
         return true;
       }
 

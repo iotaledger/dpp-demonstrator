@@ -7,7 +7,6 @@ export const NOTIFICATION_DECAY_TIME_MS = 8000;
 export const RESERVE_DURATION_SEC = 180;
 /** Finger deslocation in x axis to trigger a swipe*/
 export const POSITION_CHANGE_TO_SWIPE = 110;
-export const REPAIRER_ROLE = 'repairer';
 
 /**
  * Support to frontend components control

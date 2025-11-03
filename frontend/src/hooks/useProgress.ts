@@ -2,8 +2,6 @@
 
 import React from 'react';
 
-type IntervalId = number | null;
-
 export const useProgress = () => {
   const maxLimit = 100;
   const frequencyMs = 60;
@@ -12,41 +10,40 @@ export const useProgress = () => {
   // Increase by 4% every 60ms (100% in 1500ms, matching server delay)
   const increment = (maxLimit * frequencyMs) / maxLatencyMs;
 
-  const internalProgressRef = React.useRef(0);
+  const internalControlRef = React.useRef<{ intervalId: number | null, progress: number }>({ intervalId: null, progress: 0 });
   const [progress, setProgress] = React.useState(0);
   const [isComplete, setIsComplete] = React.useState(false);
   const [isTimedout, setIsTimedout] = React.useState(false);
-  let intervalId: IntervalId = null;
 
   const resetProgress = () => {
-    internalProgressRef.current = 0;
+    internalControlRef.current.progress = 0;
     setProgress(0);
     setIsComplete(false);
     setIsTimedout(false);
-    intervalId = null;
+    internalControlRef.current.intervalId = null;
   };
 
   const runProgress = (resolve?: (value: boolean) => void) => {
-    if (intervalId == null) {
+    if (internalControlRef.current.intervalId == null) {
       if (resolve) {
         resolve(false);
       }
       return;
     }
 
-    const nextInternalProgress = internalProgressRef.current + increment;
+    const nextInternalProgress = internalControlRef.current.progress + increment;
 
     if (nextInternalProgress < maxLimit) {
-      internalProgressRef.current = nextInternalProgress;
+      internalControlRef.current.progress = nextInternalProgress;
       setProgress(nextInternalProgress);
     } else {
-      internalProgressRef.current = maxLimit;
+      internalControlRef.current.progress = maxLimit;
       setProgress(maxLimit);
       setIsComplete(true);
-      if (intervalId && window) {
-        window.clearInterval(intervalId);
+      if (internalControlRef.current.intervalId && window) {
+        window.clearInterval(internalControlRef.current.intervalId);
       }
-      intervalId = null;
+      internalControlRef.current.intervalId = null;
       if (resolve) {
         resolve(true);
       }
@@ -55,18 +52,18 @@ export const useProgress = () => {
 
   const startProgress = async (): Promise<boolean> => {
     // Avoid start a new interval while in progress.
-    if (intervalId != null) {
+    if (internalControlRef.current.intervalId != null) {
       return Promise.resolve(false);
     }
 
     return new Promise((resolve) => {
-      intervalId = window.setInterval(() => runProgress(resolve), frequencyMs);
+      internalControlRef.current.intervalId = window.setInterval(() => runProgress(resolve), frequencyMs);
 
       window.setTimeout(() => {
-        if (intervalId && window) {
-          window.clearInterval(intervalId);
+        if (internalControlRef.current.intervalId && window) {
+          window.clearInterval(internalControlRef.current.intervalId);
         }
-        intervalId = null;
+        internalControlRef.current.intervalId = null;
         setIsTimedout(true);
         resolve(false);
       }, maxLatencyMs + timeoutBufferMs);

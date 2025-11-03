@@ -19,6 +19,7 @@
     "@iota/dapp-kit": "^0.5.2",
     "@iota/identity-wasm": "1.6.0-beta.7",
     "@iota/iota-sdk": "^1.6.1",
+    "@iota/wallet-standard": "^0.2.15",
     "@tanstack/react-query": "^5.85.5",
     "@types/styled-components": "^5.1.34",
     "clsx": "^2.1.1",

@@ -216,8 +216,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               linkHref={`https://explorer.iota.org/object/${serviceEntry?.packageId}?network=testnet`}
               isLink={true}
             />
-            {/* NOTE: Hardcoded, Sum of all rewards given */}
-            {/* TODO: Discover a way to get this information from the reward contract. Maybe analysing calls to  */}
+            {/* TODO: Discover a way to get the "sum of all rewards given" from the reward contract. Maybe analysing calls to  */}
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
               label='Reward Distributed'

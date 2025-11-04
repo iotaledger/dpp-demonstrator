@@ -15,9 +15,9 @@ const nextConfig: NextConfig = {
     /**
      * NOTE: Webpack doesn't recognize the necessity to source the WebAssembly asset, even if it recognizes
      * it is required to the codebase.
-     * - I solved this problem by writing the Webpack plugin CopyFileWebpackPlugin, which copies a file from
+     * I solved this problem by writing the Webpack plugin CopyFileWebpackPlugin, which copies a file from
      *   a target to a destination.
-     * - If the problem turns to happen or it becomes insuficient refer to following issues:
+     * If the problem turns to happen or it becomes insuficient refer to following issues:
      *   - https://github.com/vercel/next.js/issues/25852
      *   - https://github.com/vercel/next.js/discussions/35637
      */

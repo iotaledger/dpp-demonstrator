@@ -84,11 +84,6 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
               </svg>
             </div>
 
-            {/* NOTE: There is a style method mismatch between this project and dapp-kit UI
-             *  because the other uses radix and a custom style and this uses tailwind.
-             *  I believe it would be beneficial to decide on which one we should relly on as a whole.
-             */}
-
             <div className='relative'>
               {getShowPopover() && (
                 <div className='pointer-events-none absolute top-[calc(100%_+_2*4px)] right-[calc(50%_-_20px)] bottom-0 z-[60]'>
@@ -100,6 +95,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
                   </div>
                 </div>
               )}
+              {/* NOTE: ConnectButton is a component from dapp-kit UI and requires an inline CSS costomization. */}
               <ConnectButton
                 ref={connectRef}
                 variant='primary'

@@ -94,7 +94,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 label='Total Lifecycle Fund'
                 value={'1,000,000,000 LCC'}
               />
-              {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
+              {/* TODO: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label='End-of-life Rewards'
@@ -108,8 +108,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                   isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)
                 }
               />
-              {/* NOTE: Supply - Balance */}
-              {/* TODO: Get the balance information contained in `rewardDetails` */}
+              {/* TODO: Get (supply) balance information contained in `rewardDetails` */}
               <ItemValueRow rowState={getRowState('used')} label='Used' value={'<0.001%'} />
             </DataGrid>
           </PanelContent>
@@ -117,25 +116,21 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
         rightColumn={
           <PanelContent title='Reward Table'>
             <DataGrid>
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('annualMaintenanceReward')}
                 label='Annual Maintenance Reward'
                 value={'1 LCC'}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
                 label='Recycling Reward'
                 value={'10 LCC'}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
                 label='Final owner'
                 value={'10 LCC'}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
                 label='Manufacturer return'

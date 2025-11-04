@@ -19,10 +19,8 @@ export function useSlideNavigation(
   const progress = (currentSlide / totalSlides) * 100;
 
   /**
-   * NOTE: Maybe we should review this method in favor of <Link /> usage,
-   * as the use of the component enables a prefetching, which can improve
-   * user experience. However, this change should be measured to confirm
-   * its improvement claim.
+   * NOTE: Maybe we should review this method in favor of <Link /> usage.
+   * Link enables prefetching and this may improve UX.
    */
 
   const goPrevious = () => {

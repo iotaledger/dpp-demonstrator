@@ -76,7 +76,7 @@ Root Authority → Issues Accreditation → Entity gains Role → Can attest/val
  */
 function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
   const data = jsonResult.data as IotaObjectData;
-  // @ts-expect-error - TODO: Better understand the Iota types and make use of it
+  // @ts-expect-error -- turn off noise
   const federation = data.content?.fields;
   const governance = federation.governance.fields;
 

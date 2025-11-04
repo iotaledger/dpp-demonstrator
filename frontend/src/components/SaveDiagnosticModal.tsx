@@ -105,7 +105,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
   const handleSignature = useCallback(
     async (transaction: Transaction) => {
       const { bytes, signature } = await signTransaction({
-        // eslint-disable-next-line -- TODO: replace `any` by Transaction type from dapp-kit, currently not available
+        // eslint-disable-next-line -- can't use Transaction type because of a package conflict
         transaction: transaction as any,
         chain: `iota:${NETWORK}`,
       });

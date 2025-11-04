@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 /*
 Reward Vault Transactions Data Structure:
 ┌─────────────────────────────────────────────────────────────┐
@@ -66,6 +65,7 @@ import { ProductEntryEvent, RewardBalanceChange, RewardTransaction, RewardVaultT
  * ```
  */
 function extractRewardTransactionData(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
   jsonData: any[],
   productIdToFilter: string,
 ): RewardVaultTransactionData {
@@ -97,6 +97,7 @@ function extractRewardTransactionData(
     const events = txData.events || [];
 
     const productsSeen = new Set();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
     events.forEach((event: any) => {
       if (event.type?.includes('::app::ProductEntryLogged')) {
         const productEntry: ProductEntryEvent = {
@@ -124,6 +125,7 @@ function extractRewardTransactionData(
     const rewardChanges: RewardBalanceChange[] = [];
     const balanceChanges = txData.balanceChanges || [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
     balanceChanges.forEach((change: any) => {
       if (change.coinType?.includes('::LCC::LCC')) {
         const owner = change.owner?.AddressOwner;

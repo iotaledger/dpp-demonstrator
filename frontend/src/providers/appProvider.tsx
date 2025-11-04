@@ -262,13 +262,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children, inNightlyWal
 };
 
 export const useAppProvider = () => {
-  // TODO: Throw if value is undefined
   const value = React.useContext(AppContext);
 
   if (value == null) {
-    return {
-      state: initialState,
-    } as AppContextValue;
+    throw new Error('It must be used within a AppProvider');
   }
 
   return value;
@@ -278,9 +275,7 @@ export const useWalletConnected = () => {
   const value: AppContextValue | null = React.useContext(AppContext);
 
   if (value == null) {
-    return {
-      isWalletConnected: false,
-    };
+    throw new Error('It must be used within a AppProvider');
   }
 
   const {
@@ -296,14 +291,10 @@ export const useWalletConnected = () => {
 };
 
 export const useHierarchySent = () => {
-  // TODO: Throw if value is undefined
   const value: AppContextValue | null = React.useContext(AppContext);
 
   if (value == null) {
-    return {
-      isHierarchySent: false,
-      hierarchySent: [],
-    };
+    throw new Error('It must be used within a AppProvider');
   }
 
   const {
@@ -316,14 +307,10 @@ export const useHierarchySent = () => {
 };
 
 export const useNotarizationSent = () => {
-  // TODO: Throw if value is undefined
   const value: AppContextValue | null = React.useContext(AppContext);
 
   if (value == null) {
-    return {
-      isNotarizationSent: false,
-      notarizationSent: [],
-    };
+    throw new Error('It must be used within a AppProvider');
   }
 
   const {
@@ -338,10 +325,8 @@ export const useNotarizationSent = () => {
 export const useNotification = () => {
   const value: AppContextValue | null = React.useContext(AppContext);
 
-  if (value === null) {
-    return {
-      notifications: [],
-    };
+  if (value == null) {
+    throw new Error('It must be used within a AppProvider');
   }
 
   const {
@@ -360,10 +345,7 @@ export const useCurrentNetwork = () => {
   const value: AppContextValue | null = React.useContext(AppContext);
 
   if (value == null) {
-    return {
-      notTestnet: false,
-      isTestnet: true,
-    };
+    throw new Error('It must be used within a AppProvider');
   }
 
   const {
@@ -381,9 +363,7 @@ export const useNightlyWallet = () => {
   const value: AppContextValue | null = React.useContext(AppContext);
 
   if (value == null) {
-    return {
-      inNightlyWallet: false,
-    };
+    throw new Error('It must be used within a AppProvider');
   }
 
   const { inNightlyWallet } = value;

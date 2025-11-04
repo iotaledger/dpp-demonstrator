@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
-
 import { LCCBalance, RewardVaultData } from '@/types/reward';
 import { type IotaObjectData, type IotaObjectResponse } from '@iota/iota-sdk/client';
 
@@ -63,7 +61,7 @@ Ecosystem Activity → Accumulate Rewards → Vault Distribution → LCC Token C
  */
 function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   const data = jsonData.data as IotaObjectData;
-  // @ts-expect-error - TODO: Better understand the Iota types and make use of it
+  // @ts-expect-error - turn off parsing noise
   const vault = data.content?.fields;
   let lccPackageId = '';
   let lccTypeName = '';
@@ -79,6 +77,7 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
 
   const balancesContents = vault.balances.fields.contents || [];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
   balancesContents.forEach((entry: any) => {
     const address = entry.fields.key;
     const coinData = entry.fields.value.fields;

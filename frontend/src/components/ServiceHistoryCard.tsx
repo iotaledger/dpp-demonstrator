@@ -22,7 +22,6 @@ interface ServiceHistoryCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
   opacity = 100,
   delay = 0.4,

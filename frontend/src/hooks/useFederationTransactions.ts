@@ -6,7 +6,6 @@ import { extractAccreditationTransactions } from '@/helpers/federation';
 import { useHierarchySent } from '@/providers/appProvider';
 import { FEDERATION_ID, REQUEST_SIZE_LIMIT } from '@/utils/constants';
 
-// TODO: Documentation
 export function useFederationTransactions() {
   const currentAccount = useCurrentAccount();
   const { isHierarchySent } = useHierarchySent();

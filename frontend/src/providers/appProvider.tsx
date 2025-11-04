@@ -102,7 +102,6 @@ const actions = {
       return { type: actionTypes.hierarchySentSuccess, payload: requestId };
     },
     reduce: function (prevState: AppState): AppState {
-      // TODO: push the payload to hierarchySent list
       return {
         ...prevState,
         isHierarchySent: true,
@@ -115,7 +114,6 @@ const actions = {
       return { type: actionTypes.notarizationSentSuccess, payload: requestId };
     },
     reduce: function (prevState: AppState): AppState {
-      // TODO: push the payload to notarizationSent list
       return {
         ...prevState,
         isNotarizationSent: true,

@@ -20,7 +20,6 @@ interface RewardPoolCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   opacity = 100,
   delay = 0.4,
@@ -78,7 +77,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
         leftColumn={
           <PanelContent panelState={getPanelState()} title={'Lifecycle Credit (LCC) Rewards'}>
             <DataGrid>
-              {/* TODO: Truncate the address */}
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
                 label='Reward contract'

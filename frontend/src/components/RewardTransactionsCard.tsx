@@ -19,7 +19,6 @@ interface RewardTransactionsCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
   opacity = 100,
   delay = 0.4,

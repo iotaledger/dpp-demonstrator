@@ -21,7 +21,6 @@ interface ProductDetailsCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   opacity = 100,
   delay = 0.4,
@@ -105,7 +104,6 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
           <ItemValueRow
             rowState={getRowState('dppCreationDate')}
             label='DPP Creation Date'
-            // TODO: transform timestamp to a value template like: "2025-03-31 14:24:08"
             value={fromPosixMsToUtcDateFormat(productDetails?.timestamp)}
             fontMono={true}
           />

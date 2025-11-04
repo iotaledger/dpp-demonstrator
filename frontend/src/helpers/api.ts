@@ -15,7 +15,6 @@ export async function createAccreditation(
   accountAddress: string,
   role: string,
 ) {
-  // TODO: validate inputs
   return fetch('/api/roles', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -82,7 +81,6 @@ export function createNotarizationEventTransaction({
   entryDataKeys,
   entryDataValues,
 }: CreateNotarizationEventTransactionArgs): Transaction {
-  // TODO: validate inputs
   const tx = createDppTx(AUDIT_TRAIL_PKG_ID!, {
     dppId: DPP_ID,
     federationAddr: FEDERATION_ID!,
@@ -102,7 +100,6 @@ export function createNotarizationEventTransaction({
 }
 
 export async function sendTransaction(bytes: string, signature: string, gasReservationId: number) {
-  // TODO: validate inputs
   return fetch('/api/send-tx', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

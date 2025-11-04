@@ -99,8 +99,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    // TODO: Validate inputs, and send error notification if fail
-    // like: 'Missing required data to perform the action'
     if (!account?.address) {
       console.warn('❌ Missing account address. You need connect your wallet first.');
       onClose();
@@ -115,9 +113,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
 
     startTransition(async () => {
       try {
-        // TODO: validate `account.address and `federationAddr`, if fails trigger an error notification
-        // like: 'Missing required data to perform the action'
-
         const { isError } = await createAccreditation(
           federationAddress,
           account!.address,

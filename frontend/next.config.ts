@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 import type { NextConfig } from "next";
 import fs, { access } from "node:fs/promises";
 import path from "node:path";
@@ -54,6 +53,7 @@ class CopyFileWebpackPlugin {
     this.options = { ...CopyFileWebpackPlugin.defaultOptions, ...options };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off noise
   apply(compiler: any) {
     compiler.hooks.afterEmit.tapPromise(
       'CopyFileWebpackPlugin',
@@ -63,6 +63,7 @@ class CopyFileWebpackPlugin {
             await access(this.to);
             console.log(`\t[CopyFileWebpackPlugin] ✓ ${this.to} already exists`);
             return;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off noise
           } catch (error: any) {
             if (error.code === 'ENOENT') {
               // No file exists

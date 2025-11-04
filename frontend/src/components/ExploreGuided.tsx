@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffectEvent } from 'react';
 
 import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
 
@@ -267,20 +267,21 @@ const ExploreGuided: React.FC = () => {
   const { isNotarizationSent } = useNotarizationSent();
   const { mutateAsync } = useDisconnectWallet();
 
+  const onNext = useEffectEvent(() => {
+    goNext();
+  });
+
   React.useEffect(() => {
     if (!isGoingPrevious && currentStep === 9 && isConnected) {
       // Next when connected
-      goNext();
+      onNext()
     } else if (!isGoingPrevious && currentStep === 10 && isConnected && isHierarchySent) {
       // Next when accreditation request is success
-      goNext();
+      onNext()
     } else if (!isGoingPrevious && currentStep === 11 && isConnected && isNotarizationSent) {
       // Next when diagnostic request is success
-      goNext();
+      onNext()
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * goNext is a stable function that doesn't require to be a dependency.
-     */
   }, [currentStep, isConnected, isHierarchySent, isNotarizationSent, isGoingPrevious]);
 
   async function handleBackAction() {

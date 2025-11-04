@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffectEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { POSITION_CHANGE_TO_SWIPE } from '@/utils/constants';
 
@@ -24,28 +24,37 @@ export function useSlideNavigation(
    * user experience. However, this change should be measured to confirm
    * its improvement claim.
    */
-  const handlePrevious = () => {
+
+  const goPrevious = () => {
     if (currentSlide > 1) {
       router.push(getPathCb(currentSlide - 1));
     }
   };
 
-  const handleNext = () => {
+  const goNext = () => {
     if (currentSlide < totalSlides) {
       router.push(getPathCb(currentSlide + 1));
     }
   };
+
+  const onPrevious = useEffectEvent(() => {
+    goPrevious();
+  });
+
+  const onNext = useEffectEvent(() => {
+    goNext();
+  });
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'ArrowLeft':
           event.preventDefault();
-          if (canGoPrevious) handlePrevious();
+          if (canGoPrevious) onPrevious();
           break;
         case 'ArrowRight':
           event.preventDefault();
-          if (canGoNext) handleNext();
+          if (canGoNext) onNext();
           break;
         case 'Escape':
           event.preventDefault();
@@ -97,11 +106,11 @@ export function useSlideNavigation(
             const right = false;
             switch (swipeDirection) {
               case left:
-                if (canGoNext) handleNext();
+                if (canGoNext) onNext();
                 clean();
                 break;
               case right:
-                if (canGoPrevious) handlePrevious();
+                if (canGoPrevious) onPrevious();
                 clean();
                 break;
             }
@@ -121,10 +130,6 @@ export function useSlideNavigation(
       window.removeEventListener('touchmove', handleSwipeGesture);
       window.removeEventListener('touchend', handleSwipeGesture);
     };
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * The following functions handleNext, handlePrevious are stable and doesn't
-     * require to be dependencies.
-     */
   }, [canGoPrevious, canGoNext]);
 
   return {
@@ -132,8 +137,8 @@ export function useSlideNavigation(
     totalSlides,
     canGoPrevious,
     canGoNext,
-    goPrevious: handlePrevious,
-    goNext: handleNext,
+    goPrevious,
+    goNext,
     progress,
   };
 }

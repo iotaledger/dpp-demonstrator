@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffectEvent } from 'react';
 
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 
@@ -11,9 +11,10 @@ import { FEDERATION_ID } from '@/utils/constants';
 
 import { useFederationDetails } from './useFederationDetails';
 import { Roles } from '@/types/identity';
+import type { WalletAccount } from '@iota/wallet-standard';
 
 /**
- * INFO:
+ * NOTE:
  * We can think this hook logic as a facade to detach the dapp-kit managed state
  * from apps's managed state. The components should depends on the app state only,
  * as a single source of truth.
@@ -33,62 +34,50 @@ export function useWalletUpdateEffects() {
     handleNotificationSent,
   } = useAppProvider();
 
+  const { isConnected, isDisconnected } = useCurrentWallet();
+  const currentAccount = useCurrentAccount();
+  const onWalletConnected = useEffectEvent(() => {
+    if (handleWalletConnected) {
+      handleWalletConnected()
+    }
+  });
+  const onWalletDisconnected = useEffectEvent(() => {
+    if (handleWalletDisconnected) {
+      handleWalletDisconnected();
+    }
+  });
+  const onCurrentAccountChanged = useEffectEvent((currentAccount: WalletAccount | null) => {
+    handleCurrentAccountAddressChanged(currentAccount?.address || null);
+    handleCurrentAccountNetworkChanged(currentAccount?.chains.at(0) || null);
+  });
+
   /**
    * INFO: Effects from primary sources (external ones);
    */
 
-  const { isConnected, isDisconnected } = useCurrentWallet();
-  const currentAccount = useCurrentAccount();
-
   // Updates the app store when wallet connects.
   React.useEffect(() => {
-    if (isConnected && handleWalletConnected) {
-      handleWalletConnected();
+    if (isConnected) {
+      onWalletConnected();
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * The function handleWalletConnected is stable and doesn't require to be a dependency.
-     */
   }, [isConnected]);
 
   // Updates the app store when wallet disconnects.
   React.useEffect(() => {
-    if (isDisconnected && handleWalletDisconnected) {
-      handleWalletDisconnected();
+    if (isDisconnected) {
+      onWalletDisconnected();
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * The function handleWalletDisconnected is stable and doesn't require to be a dependency.
-     */
   }, [isDisconnected]);
 
   // Updates the app store when current account address changes.
   React.useEffect(() => {
-    handleCurrentAccountAddressChanged(currentAccount?.address || null);
-    handleCurrentAccountNetworkChanged(currentAccount?.chains.at(0) || null);
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * The following functions handleCurrentAccountAddressChanged and handleCurrentAccountNetworkChanged
-     * are stable and doesn't require to be a dependencies.
-     */
+    onCurrentAccountChanged(currentAccount);
   }, [currentAccount]);
 
   /**
    * INFO: Effects from secondary sources (internal state);
    * This kind of effect requires more attention to avoid a loop in the chain of events.
    */
-
-  // Triggers when the stored property isWalletConnect changes.
-  React.useEffect(() => {
-    // Notify user wallet is connected.
-    if (isWalletConnected) {
-      handleNotificationSent!({
-        id: 'wallet-connect', // a static id avoids duplication during rerenderings
-        type: 'success',
-        message: 'Wallet connected successfully! You can now request service access.',
-      });
-    }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * The function handleNotificationSent is stable and doesn't require to be a dependency.
-     */
-  }, [isWalletConnected]);
 
   const { federationDetails, isSuccess: isSuccessFederationDetails } =
     useFederationDetails(FEDERATION_ID);
@@ -110,31 +99,46 @@ export function useWalletUpdateEffects() {
     [federationDetails],
   );
 
+  const onStoreWalletConnected = useEffectEvent(() => {
+    handleNotificationSent!({
+      id: 'wallet-connect', // a static id avoids duplication during rerenderings
+      type: 'success',
+      message: 'Wallet connected successfully! You can now request service access.',
+    });
+  });
+  const onStoreWalletAccountAccreditationCheck = useEffectEvent((currentAccountAddress: string) => {
+    if (checkCurrentAccountAddressAccredited(currentAccountAddress)) {
+      // mark accreditation as sent, enabling diagnostic
+      handleHierarchySentSuccess(generateRequestId());
+    }
+  });
+  const onStoreWalletAccountAccredited = useEffectEvent(() => {
+    handleNotificationSent!({
+      id: 'accreditation-recognition',
+      type: 'success',
+      message: 'Role request approved! You can now access diagnostic tools.',
+    });
+  });
+
+  // Triggers when the stored property isWalletConnect changes.
+  React.useEffect(() => {
+    // Notify user wallet is connected.
+    if (isWalletConnected) {
+      onStoreWalletConnected();
+    }
+  }, [isWalletConnected]);
+
   // Triggers when wallet is connected, current address is changed and federation details is retrieved
   React.useEffect(() => {
     if (isWalletConnected && currentAccountAddress && isSuccessFederationDetails) {
-      if (checkCurrentAccountAddressAccredited(currentAccountAddress)) {
-        // mark accreditation as sent, enabling diagnostic
-        handleHierarchySentSuccess(generateRequestId());
-      }
+      onStoreWalletAccountAccreditationCheck(currentAccountAddress)
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * The functions handleHierarchySentSuccess and checkCurrentAccountAddressAccredited
-     * are stable and doesn't require to be a dependencies.
-     */
   }, [isWalletConnected, currentAccountAddress, isSuccessFederationDetails]);
 
   // Triggers when hierarchy is marked as sent, enabling diagnostic
   React.useEffect(() => {
     if (isHierarchySent) {
-      handleNotificationSent!({
-        id: 'accreditation-recognition',
-        type: 'success',
-        message: 'Role request approved! You can now access diagnostic tools.',
-      });
+      onStoreWalletAccountAccredited();
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * The function handleNotificationSent is stable and doesn't require to be a dependency.
-     */
   }, [isHierarchySent]);
 }

@@ -13,7 +13,6 @@ import { useAppProvider, useNotification } from '@/providers/appProvider';
 import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
 import {
   DPP_ID,
-  FEDERATION_ID,
   MANUFACTURER_DID,
   NETWORK,
 } from '@/utils/constants';
@@ -51,7 +50,6 @@ interface SaveDiagnosticModalProps {
 const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClose, onSave }) => {
   const [healthScore] = useState(diagnosticInfo.healthScore);
   const [findings] = useState(diagnosticInfo.findings);
-  const [federationAddress] = useState(FEDERATION_ID);
 
   /**
    * Coordinates component state during transaction processing
@@ -75,15 +73,36 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
    */
   const { handleNotificationSent } = useNotification();
 
-  // Handle modal close
-  const handleClose = useCallback(() => {
+  const onNotarizationSuccess = () => {
+    startTransition(() => {
+      const requestId = generateRequestId();
+      handleNotarizationSentSuccess(requestId);
+      onSave();
+      handleNotificationSent!({
+        id: generateRequestId(),
+        type: 'success',
+        message: 'Health snapshot saved to service history.',
+      });
+    });
+  };
+
+  const onNotarizationError = (error: unknown) => {
+    console.error('❌ Error while calling sendTransaction.', error);
+    handleNotificationSent!({
+      id: generateRequestId(),
+      type: 'error',
+      message: 'Error while calling sendTransaction.',
+    });
+  };
+
+  const handleClose = () => {
     onClose();
-  }, [onClose]);
+  };
 
   // Handle ESC key with same logic as close
-  const handleEscape = useCallback(() => {
-    handleClose();
-  }, [handleClose]);
+  const handleEscape = () => {
+    onClose();
+  };
 
   const handleSignature = useCallback(
     async (transaction: Transaction) => {
@@ -102,62 +121,40 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
   );
 
   // Handle save snapshot
-  const handleSave = useCallback(
-    async (event: React.FormEvent) => {
-      event.preventDefault();
+  const handleSave = (event: React.FormEvent) => {
+    event.preventDefault();
 
-      startTransition(async () => {
-        // Simulate API call (replace with actual API call later)
-        try {
-          const sponsoredGas = await getSponsorGas();
-          const txInputs: CreateNotarizationEventTransactionArgs = {
-            accountAddress: account!.address,
-            gas: sponsoredGas.result!,
-            issuerRole: diagnosticInfo.issuerRole,
-            entryDataKeys: ['HealthScore', 'Findings'],
-            entryDataValues: [healthScore, findings],
-          };
-          const tx = createNotarizationEventTransaction(txInputs);
-          const { bytes, signature } = await handleSignature(tx);
-          const { isError } = await sendTransaction(
-            bytes,
-            signature,
-            sponsoredGas.result!.reservation_id!,
-          );
+    startTransition(async () => {
+      // Simulate API call (replace with actual API call later)
+      try {
+        const sponsoredGas = await getSponsorGas();
+        const txInputs: CreateNotarizationEventTransactionArgs = {
+          accountAddress: account!.address,
+          gas: sponsoredGas.result!,
+          issuerRole: diagnosticInfo.issuerRole,
+          entryDataKeys: ['HealthScore', 'Findings'],
+          entryDataValues: [healthScore, findings],
+        };
+        const tx = createNotarizationEventTransaction(txInputs);
+        const { bytes, signature } = await handleSignature(tx);
+        const { isError } = await sendTransaction(
+          bytes,
+          signature,
+          sponsoredGas.result!.reservation_id!,
+        );
 
-          if (isError) {
-            throw new Error(isError);
-          }
-
-          startTransition(() => {
-            const requestId = generateRequestId();
-            handleNotarizationSentSuccess(requestId);
-            onSave();
-            handleNotificationSent!({
-              id: generateRequestId(),
-              type: 'success',
-              message: 'Health snapshot saved to service history.',
-            });
-          });
-        } catch (error: unknown) {
-          console.error('❌ Error while calling sendTransaction.', error);
-          handleNotificationSent!({
-            id: generateRequestId(),
-            type: 'error',
-            message: 'Error while calling sendTransaction.',
-          });
-        } finally {
-          startTransition(() => {
-            handleClose();
-          });
+        if (isError) {
+          throw new Error(isError);
         }
-      });
-    },
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * handleNotarizationSentSuccess, handleNotificationSent and onSave are stable functions
-     */
-    [account, federationAddress, findings, healthScore, handleSignature, handleClose],
-  );
+
+        onNotarizationSuccess();
+      } catch (error: unknown) {
+        onNotarizationError(error);
+      } finally {
+        onClose();
+      }
+    });
+  };
 
   const getButtonText = () => {
     if (isPending) {
@@ -182,7 +179,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
               Health Snapshot
             </h2>
             <button
-              onClick={handleClose}
+              onClick={onClose}
               className='cursor-pointer p-1 text-gray-400 hover:text-gray-600'
               disabled={isPending}
               aria-label='Close modal'

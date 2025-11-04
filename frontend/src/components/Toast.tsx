@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffectEvent } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -55,7 +55,13 @@ function getFlyOutRightStyles() {
 export const Toast: React.FC<ToastProps> = ({ id, type, message, onClose }) => {
   const { isTriggered } = useTransitionTrigger(NOTIFICATION_DECAY_TIME_MS);
 
-  const handleOnClose = () => {
+  const onFinal = useEffectEvent(() => {
+    if (onClose) {
+      onClose(id);
+    }
+  });
+
+  const handleClose = () => {
     if (onClose) {
       onClose(id);
     }
@@ -64,14 +70,9 @@ export const Toast: React.FC<ToastProps> = ({ id, type, message, onClose }) => {
   React.useEffect(() => {
     if (isTriggered) {
       window.setTimeout(() => {
-        if (onClose) {
-          onClose(id);
-        }
+        onFinal()
       }, 300);
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * onClose is a stable function and doesn't require to be a dependency.
-     */
   }, [id, isTriggered]);
 
   return (
@@ -90,7 +91,7 @@ export const Toast: React.FC<ToastProps> = ({ id, type, message, onClose }) => {
           <p className='text-sm font-medium'>{message}</p>
         </div>
         <button
-          onClick={handleOnClose}
+          onClick={handleClose}
           className='focus-visible:ring-ring hover:bg-accent hover:text:brightness-50 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-md p-0 transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
         >
           <CloseIcon />

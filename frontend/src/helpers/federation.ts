@@ -8,8 +8,6 @@ import {
   MoveCallIotaTransaction,
 } from '@iota/iota-sdk/client';
 
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
-
 /*
 Federation Data Structure:
 ┌─────────────────────────────────────────────────────────────┐
@@ -88,6 +86,7 @@ function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
   const digest = data.digest;
 
   // Extract Root Authorities
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
   const rootAuthorities: RootAuthority[] = federation.root_authorities.map((auth: any) => ({
     accountId: auth.fields.account_id,
     id: auth.fields.id.id,
@@ -95,6 +94,7 @@ function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
 
   // Extract Revoked Root Authorities
   const revokedRootAuthorities: RootAuthority[] = federation.revoked_root_authorities.map(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
     (auth: any) => ({
       accountId: auth.fields.account_id,
       id: auth.fields.id.id,
@@ -103,12 +103,14 @@ function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
 
   // Extract Allowed Roles from Federation Properties
   const federationProperties = governance.properties.fields.data.fields.contents;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
   const roleProperty = federationProperties.find((prop: any) =>
     prop.fields.key.fields.names.includes('role'),
   );
 
   const allowedRoles: string[] =
     roleProperty?.fields.value.fields.allowed_values.fields.contents.map(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
       (value: any) => value.fields.pos0,
     ) || [];
 
@@ -119,10 +121,12 @@ function extractFederationData(jsonResult: IotaObjectResponse): FederationData {
   // Process accreditations_to_attest (who can validate)
   const attestAccreds = governance.accreditations_to_attest.fields.contents;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
   attestAccreds.forEach((entry: any) => {
     const entityId = entry.fields.key;
     const accredList = entry.fields.value.fields.accreditations;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
     const entityAccreditations: Accreditation[] = accredList.map((accred: any) => {
       const role =
         accred.fields.properties.fields.contents[0]?.fields.value.fields.allowed_values.fields

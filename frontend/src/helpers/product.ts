@@ -1,8 +1,3 @@
-/**
- * NOTE: This file is a copy of the `frontend/src/lib/product.ts` from the dpp-demonstrator repository.
- * Therefore, it should be by ported when the time comes to move this project there.
- */
-
 import { type DppModel, type DppData, BillOfMaterials } from "@/types/product";
 
 export function getSerialNumber(content: DppData | null): string | undefined {
@@ -13,9 +8,6 @@ export function getFederationAddress(content: DppData | null): string | undefine
   return content?.fields.federation_addr;
 }
 
-/**
- * NOTE: this function has changed
- */
 function getBillOfMaterials(content: DppData | null): BillOfMaterials | undefined {
   // TODO: Some dpp objects doens't have `bill_of_materials` property, which can make it to break,
   // therefore, implement some validation here to avoid silent break in the app

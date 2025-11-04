@@ -117,25 +117,21 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
         rightColumn={
           <PanelContent title='Reward Table'>
             <DataGrid>
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('annualMaintenanceReward')}
                 label='Annual Maintenance Reward'
                 value={'1 LCC'}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
                 label='Recycling Reward'
                 value={'10 LCC'}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
                 label='Final owner'
                 value={'10 LCC'}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
                 label='Manufacturer return'

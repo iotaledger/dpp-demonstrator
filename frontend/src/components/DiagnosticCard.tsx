@@ -107,9 +107,6 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                 <div className='space-y-0.5'>
                   <div className='text-sm font-medium text-gray-500'>{diagnosticInfo.title}</div>
                   <div className='text-lg font-medium text-gray-900'>{diagnosticInfo.subtitle}</div>
-                  {/* NOTE: Left it commented because it may receive a description latter on */}
-                  {/* TODO: Remove if final version doesn't account for this */}
-                  {/* <p className="text-gray-600 mt-2">{description}</p> */}
                 </div>
 
                 {/* Form Section */}

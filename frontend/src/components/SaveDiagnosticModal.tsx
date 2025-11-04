@@ -24,7 +24,7 @@ import CloseIcon from './icons/CloseIcon';
 
 const diagnosticInfo = {
   technicianName: 'You',
-  eventName: 'Health Checkup', // NOTE: what should be the event name? It is empty in the example, but I'm assuming "Health Checkup"
+  eventName: 'Health Checkup',
   eventDate: fromPosixMsToUtcDateFormat(Date.now()),
   healthScore: '76%',
   findings: 'Routine maintenance completed successfully',

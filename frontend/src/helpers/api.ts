@@ -1,4 +1,3 @@
-import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 
 import {
   AUDIT_TRAIL_PKG_ID,
@@ -9,17 +8,7 @@ import {
 } from '@/utils/constants';
 
 import { createDppTx } from './transaction';
-
-// TODO: Evaluate extraction to central place of types
-interface ReserveGasResult {
-  sponsor_address: string;
-  reservation_id: number;
-  gas_coins: ObjectRef[];
-}
-
-export interface ReserveGasResultResponse extends ReserveGasResult {
-  gasBudget: number;
-}
+import type { CreateNotarizationEventTransactionArgs, ReserveGasResultResponse, Transaction } from '@/types/api';
 
 export async function createAccreditation(
   federationAddress: string,
@@ -84,14 +73,6 @@ export async function getSponsorGas() {
         result: null,
       };
     });
-}
-
-export interface CreateNotarizationEventTransactionArgs {
-  accountAddress: string;
-  gas: ReserveGasResultResponse;
-  issuerRole: string;
-  entryDataKeys: string[];
-  entryDataValues: string[];
 }
 
 export function createNotarizationEventTransaction({

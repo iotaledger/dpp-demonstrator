@@ -2,10 +2,7 @@
 
 import React, { useCallback, useState, useTransition } from 'react';
 
-import type { CreateNotarizationEventTransactionArgs } from '@/helpers/api';
-
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
-import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 
 import { createNotarizationEventTransaction, getSponsorGas, sendTransaction } from '@/helpers/api';
 import { useProductDetails } from '@/hooks/useProductDetails';
@@ -21,6 +18,7 @@ import BadgeWithLink from './BadgeWithLink';
 import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import CloseIcon from './icons/CloseIcon';
+import type { CreateNotarizationEventTransactionArgs, ObjectRef, Transaction } from '@/types/api';
 
 const diagnosticInfo = {
   technicianName: 'You',

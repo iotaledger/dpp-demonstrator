@@ -1,17 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { BACKEND_API_KEY, BACKEND_ENDPOINT } from '@/utils/constants';
-
-interface RequestBody {
-  user_addr: string;
-  user_role: string;
-  federation_addr: string;
-}
+import { RouteRequestBody } from '@/types/api';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
   try {
-    const { user_addr, user_role, federation_addr }: RequestBody = body;
+    const { user_addr, user_role, federation_addr }: RouteRequestBody = body;
 
     if (!user_addr || !user_role || !federation_addr) {
       const validationPayload = { error: 'Missing required fields' };

@@ -1,3 +1,5 @@
+import { EXPLORER_URL, NETWORK } from "./constants";
+
 /**
  * Checks if `value`is an empty string.
  *
@@ -97,4 +99,16 @@ export function formatTokenBalance(balanceStr: string): string {
   const wholeFormatted = wholePart.toLocaleString();
 
   return `${wholeFormatted}`;
+}
+
+export function getObjectExplorerUrl(objectId: string): string {
+  return `${EXPLORER_URL}/object/${objectId}?network=${NETWORK}`;
+}
+
+export function getAddressExplorerUrl(address: string): string {
+  return `${EXPLORER_URL}/address/${address}?network=${NETWORK}`;
+}
+
+export function getTxBlockExplorerUrl(txDigest: string): string {
+  return `${EXPLORER_URL}/txblock/${txDigest}?network=${NETWORK}`;
 }

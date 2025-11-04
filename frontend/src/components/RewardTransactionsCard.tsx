@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { useRewardTransactions } from '@/hooks/useRewardTransactions';
-import { formatTokenBalance, fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { formatTokenBalance, fromPosixMsToUtcDateFormat, getAddressExplorerUrl, getTxBlockExplorerUrl, truncateAddress } from '@/utils/common';
 import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
@@ -128,7 +128,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
               fontMono={true}
               valueColor='text-blue-600'
               isLink={true}
-              linkHref={`https://explorer.iota.org/txblock/${rewardEntry.digest}?network=testnet`}
+              linkHref={getTxBlockExplorerUrl(rewardEntry.digest)}
             />
             <ItemValueRow
               rowState={getRowState()}
@@ -143,7 +143,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
                 fontMono={true}
                 valueColor='text-blue-600'
                 isLink={true}
-                linkHref={`https://explorer.iota.org/address/${rewardEntry.productEntries.at(0)?.sender}?network=testnet`}
+                linkHref={getAddressExplorerUrl(rewardEntry.productEntries.at(0)?.sender as string)}
               />
             )}
             <ItemValueRow

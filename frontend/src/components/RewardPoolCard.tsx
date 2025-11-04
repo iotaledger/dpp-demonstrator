@@ -4,7 +4,7 @@ import React from 'react';
 
 import { getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
-import { truncateAddress } from '@/utils/common';
+import { getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { DPP_ID, VAULT_ID } from '@/utils/constants';
 
 import CollapsibleSection from './CollapsibleSection';
@@ -81,7 +81,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 rowState={getRowState('rewardContract')}
                 label='Reward contract'
                 value={truncateAddress(VAULT_ID)}
-                linkHref={`https://explorer.iota.org/object/${VAULT_ID}?network=testnet`}
+                linkHref={getObjectExplorerUrl(VAULT_ID)}
                 fontMono={true}
                 valueColor='text-blue-600'
                 isLink={true}

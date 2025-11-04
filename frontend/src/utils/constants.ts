@@ -24,6 +24,7 @@ export const VAULT_ID = process.env.NEXT_PUBLIC_REWARD_VAULT_ID || '';
 export const NETWORK = process.env.NEXT_PUBLIC_NETWORK;
 export const CURRENT_CHAIN: string = `iota:${NETWORK}`;
 export const MANUFACTURER_DID = process.env.NEXT_PUBLIC_MANUFACTURER_DID || '';
+export const EXPLORER_URL = process.env.NEXT_PUBLIC_EXPLORER_URL;
 
 /**
  * Support to backend APIs

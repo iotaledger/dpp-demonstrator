@@ -51,6 +51,23 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   const [federationAddress] = useState(FEDERATION_ID!);
   const [selectedRole, setSelectedRole] = useState(Roles.Repairer);
 
+  const onAccreditationCreated = () => {
+    const requestId = generateRequestId();
+    handleHierarchySentSuccess(requestId);
+
+    if (onSuccess) {
+      onSuccess();
+    }
+  };
+  const onAccreditationError = (error: unknown) => {
+    console.error('❌ Error while calling createAccreditation.', error);
+    handleNotificationSent!({
+      id: generateRequestId(),
+      type: 'error',
+      message: 'Error while requesting accreditation.',
+    });
+  };
+
   /**
    * To notify the user
    */
@@ -64,14 +81,14 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   const account = useCurrentAccount();
 
   // Handle modal close
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     onClose();
-  }, [onClose]);
+  };
 
   // Handle ESC key with same logic as close
-  const handleEscape = useCallback(() => {
-    handleClose();
-  }, [handleClose]);
+  const handleEscape = () => {
+    onClose();
+  };
 
   // Copy federation address to clipboard
   const handleCopyAddress = useCallback(async () => {
@@ -79,64 +96,46 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   }, [federationAddress, copyToClipboard]);
 
   // Handle form submission
-  const handleSubmit = useCallback(
-    (event: React.FormEvent) => {
-      event.preventDefault();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
 
-      // TODO: Validate inputs, and send error notification if fail
-      // like: 'Missing required data to perform the action'
-      if (!account?.address) {
-        console.warn('❌ Missing account address. You need connect your wallet first.');
-        onClose();
-      }
+    // TODO: Validate inputs, and send error notification if fail
+    // like: 'Missing required data to perform the action'
+    if (!account?.address) {
+      console.warn('❌ Missing account address. You need connect your wallet first.');
+      onClose();
+    }
 
-      if (HAS_NFT_REWARD) {
-        // TODO: Implement QR code interaction route
-        // setQrCodeUrl(`${DAPP_URL}/dynamic_redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
-        // setShowQrCode(true)
-        console.warn('🚧 reward route not implemented yet!!!');
-      }
+    if (HAS_NFT_REWARD) {
+      // TODO: Implement QR code interaction route
+      // setQrCodeUrl(`${DAPP_URL}/dynamic_redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
+      // setShowQrCode(true)
+      console.warn('🚧 reward route not implemented yet!!!');
+    }
 
-      startTransition(async () => {
-        try {
-          // TODO: validate `account.address and `federationAddr`, if fails trigger an error notification
-          // like: 'Missing required data to perform the action'
+    startTransition(async () => {
+      try {
+        // TODO: validate `account.address and `federationAddr`, if fails trigger an error notification
+        // like: 'Missing required data to perform the action'
 
-          const { isError } = await createAccreditation(
-            federationAddress,
-            account!.address,
-            selectedRole.value,
-          );
+        const { isError } = await createAccreditation(
+          federationAddress,
+          account!.address,
+          selectedRole.value,
+        );
 
-          if (isError) {
-            throw new Error(isError);
-          }
-
-          const requestId = generateRequestId();
-          handleHierarchySentSuccess(requestId);
-
-          if (onSuccess) {
-            onSuccess();
-          }
-        } catch (error) {
-          console.error('❌ Error while calling createAccreditation.', error);
-          handleNotificationSent!({
-            id: generateRequestId(),
-            type: 'error',
-            message: 'Error while requesting accreditation.',
-          });
-        } finally {
-          startTransition(() => {
-            onClose();
-          });
+        if (isError) {
+          throw new Error(isError);
         }
-      });
-    },
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * handleHierarchySentSuccess and handleNotificationSent are stable functions
-     */
-    [federationAddress, selectedRole, account, onClose, onSuccess],
-  );
+
+        onAccreditationCreated();
+      } catch (error) {
+        onAccreditationError(error);
+      } finally {
+        onClose()
+      }
+    });
+  };
 
   if (!isConnected) {
     return null;

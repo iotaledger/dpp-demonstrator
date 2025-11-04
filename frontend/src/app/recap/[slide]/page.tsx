@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useEffectEvent } from 'react';
 import { useParams } from 'next/navigation';
 
 import { useDisconnectWallet } from '@iota/dapp-kit';
@@ -23,6 +23,13 @@ export default function PostExperiencePage() {
   const { currentSlide, totalSlides, canGoNext, canGoPrevious, progress, goNext, goPrevious } =
     useSlideNavigation(getSlide(slideParam), RECAP_SLIDES_MAP.size, getPathCallback);
   const { mutateAsync } = useDisconnectWallet();
+
+  const onNext = useEffectEvent(() => {
+    goNext();
+  });
+  const onPrevious = useEffectEvent(() => {
+    goPrevious();
+  });
 
   function getSlide(slideParam: string | string[] | undefined) {
     if (
@@ -49,11 +56,11 @@ export default function PostExperiencePage() {
       switch (event.key) {
         case 'ArrowLeft':
           event.preventDefault();
-          if (canGoPrevious) goPrevious();
+          if (canGoPrevious) onPrevious();
           break;
         case 'ArrowRight':
           event.preventDefault();
-          if (canGoNext) goNext();
+          if (canGoNext) onNext();
           break;
         case 'Escape':
           event.preventDefault();
@@ -63,9 +70,6 @@ export default function PostExperiencePage() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * goPrevious and goNext and functions that didn't change
-     */
   }, [currentSlide, canGoPrevious, canGoNext]);
 
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo, useState, useTransition } from 'react';
+import React, { useMemo, useState, useTransition } from 'react';
 
 import { useProgress } from '@/hooks/useProgress';
 import {
@@ -45,29 +45,21 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
   const { progress, startProgress, resetProgress } = useProgress();
 
   // Handle form submission
-  const handleSubmit = useCallback(
-    (event: React.FormEvent) => {
-      event.preventDefault();
-      resetProgress();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    resetProgress();
 
-      startTransition(async () => {
-        if (!onButtonClick) {
-          return;
-        }
+    if (!onButtonClick) {
+      return;
+    }
 
-        const hasCompleted = await startProgress();
-        if (hasCompleted) {
-          startTransition(() => {
-            onButtonClick();
-          });
-        }
-      });
-    },
-    /* eslint-disable-next-line react-hooks/exhaustive-deps --
-     * resetProgress and startProgress are stable functions
-     */
-    [onButtonClick],
-  );
+    startTransition(async () => {
+      const hasCompleted = await startProgress();
+      if (hasCompleted) {
+        onButtonClick();
+      }
+    });
+  };
 
   // Card state styling (following ServiceRequestCard pattern)
   const getCardStateClasses = () => {

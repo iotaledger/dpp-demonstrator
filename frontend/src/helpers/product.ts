@@ -9,18 +9,18 @@ export function getFederationAddress(content: DppData | null): string | undefine
 }
 
 function getBillOfMaterials(content: DppData | null): BillOfMaterials | undefined {
-  // TODO: Some dpp objects doens't have `bill_of_materials` property, which can make it to break,
-  // therefore, implement some validation here to avoid silent break in the app
-  const entries = content?.fields.bill_of_materials.fields.contents;
-  if (!entries) {
-    // TODO: Check engineering principles related to return `undefined` primitive
-    //  Wouln'd be better to return null? Returning null now conflicts with type
-    //  check, triggering the error  [2322]
-    return undefined;
+  const billOfMaterials = content?.fields.bill_of_materials;
+  if (billOfMaterials == null) {
+    return;
   }
+
+  const entries = billOfMaterials.fields.contents;
+  if (!entries) {
+    return;
+  }
+
   // Changed from a simple plain object to Map
   const result: Map<string, string> = new Map();
-
   for (const entry of entries) {
     result.set(entry.fields.key, entry.fields.value);
   }

@@ -196,7 +196,6 @@ function reducer(state: AppState, action: AppReducerAction): AppState {
   }
 }
 
-// TODO: Find a better alternative to `null` because the initiaal context state is never null
 const AppContext: React.Context<AppContextValue | null> =
   React.createContext<AppContextValue | null>(null);
 

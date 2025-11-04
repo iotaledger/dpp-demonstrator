@@ -22,7 +22,6 @@ interface RoleDetailsCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   opacity = 100,
   delay = 0.4,

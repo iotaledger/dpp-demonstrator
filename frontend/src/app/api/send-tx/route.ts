@@ -21,7 +21,6 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // TODO: Replace `fromB64` to the new method, as this is deprecated
     const txBytes = fromB64(tx);
     const transactionEffects = await sponsorSignAndSubmit(reservation_id, txBytes, signature);
 

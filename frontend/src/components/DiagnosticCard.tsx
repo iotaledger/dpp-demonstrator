@@ -170,7 +170,6 @@ const CardWrapper: React.FC<CardWrapperProps> = ({ cardState }) => {
 
   return (
     <>
-      {/* TODO: Replace by `CollapsibleSection` without button */}
       {isAllowedToShowOnLargeScreen && (
         <CardForLargeScreen>
           <DiagnosticCard cardState={cardState} onButtonClick={handleButtonClick} />

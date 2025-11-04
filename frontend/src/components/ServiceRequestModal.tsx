@@ -21,8 +21,6 @@ interface ServiceRequestModalProps {
   onSuccess?: () => void;
 }
 
-// TODO: Replicate this structure to other components
-// Content constants (equivalent to Svelte pageContent)
 const MODAL_CONTENT = {
   title: 'Request Service Network Access',
   labels: {

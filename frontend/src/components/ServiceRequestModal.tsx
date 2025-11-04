@@ -103,9 +103,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
     }
 
     if (HAS_NFT_REWARD) {
-      // TODO: Implement QR code interaction route
-      // setQrCodeUrl(`${DAPP_URL}/dynamic_redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
-      // setShowQrCode(true)
       console.warn('🚧 reward route not implemented yet!!!');
     }
 

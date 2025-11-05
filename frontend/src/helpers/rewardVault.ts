@@ -181,8 +181,35 @@ function getVaultTotalValuePerAddress(data: RewardVaultData, address: string): s
   return amount + ` ${data.lccTypeName}`;
 }
 
+function getVaultRewardBalancePerAddress(data: RewardVaultData, address: string): string {
+  if (data.balancesByAddress.has(address)) {
+    return data.balancesByAddress.get(address)!.balance;
+  }
+  return '0';
+}
+
 function getVaultTotalSupply(totalSupply: string, data: RewardVaultData): string {
   return formatLCCBalance(totalSupply) + `${data.lccTypeName}`;
+}
+
+function getVaultRewardUsagePercentage(totalSupply: string, remainingSupply: string): string {
+  const totalSupplyValue = Number.parseInt(totalSupply);
+  const remainingSupplyValue = Number.parseInt(remainingSupply);
+  const usedSupplyValue = totalSupplyValue - remainingSupplyValue;
+  const ratio = 100 * usedSupplyValue / totalSupplyValue;
+  if (ratio < 0.0001) {
+    return '<0.0001%'
+  } else if (ratio < 0.001) {
+    return '<0.001%'
+  } else if (ratio < 0.01) {
+    return '<0.01%'
+  } else if (ratio < 0.1) {
+    return '<0.1%'
+  } else if (ratio < 1) {
+    return '<1%'
+  } else {
+    return Math.floor(ratio) + '%';
+  }
 }
 
 /**
@@ -253,6 +280,8 @@ export {
   formatLCCBalance,
   getVaultTotalValuePerAddress,
   getVaultTotalSupply,
+  getVaultRewardUsagePercentage,
+  getVaultRewardBalancePerAddress,
   extractCoinDefinition,
   parseCoinDefinition,
 };

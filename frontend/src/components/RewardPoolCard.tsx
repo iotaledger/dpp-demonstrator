@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { getVaultTotalSupply, getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
+import { getVaultRewardBalancePerAddress, getVaultRewardUsagePercentage, getVaultTotalSupply, getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
 import { getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { DPP_ID, VAULT_ID } from '@/utils/constants';
@@ -13,7 +13,6 @@ import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
 import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
-import { RewardVaultData } from '@/types/reward';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -92,9 +91,9 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label='Total Lifecycle Fund'
-                value={isTotalSupplyLoaded && getVaultTotalSupply(totalSupply as string, rewardDetails as RewardVaultData) || '0 LCC'}
+                value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || '0 LCC'}
               />
-              {/* TODO: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
+              {/* TODO: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label='End-of-life Rewards'
@@ -108,8 +107,8 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                   isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)
                 }
               />
-              {/* TODO: Get (supply) balance information contained in `rewardDetails` */}
-              <ItemValueRow rowState={getRowState('used')} label='Used' value={'<0.001%'} />
+              <ItemValueRow rowState={getRowState('used')} label='Used'
+                value={isSuccess && isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultRewardUsagePercentage(totalSupply, getVaultRewardBalancePerAddress(rewardDetails, DPP_ID))} />
             </DataGrid>
           </PanelContent>
         }

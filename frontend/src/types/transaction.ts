@@ -29,6 +29,7 @@ export interface ServiceEntry {
   timestamp: string;
   /** The app package ID where this service entry is defined */
   packageId: string | null;
+  rewardBalance: string;
   /** The status of transaction that determines effectiveness */
   status?: string;
 }

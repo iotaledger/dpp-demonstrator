@@ -13,6 +13,7 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
+import { formatLCCBalance } from '@/helpers/rewardVault';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
@@ -219,7 +220,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
               label='Reward Distributed'
-              value={'1 LCC'}
+              value={`${formatLCCBalance(serviceEntry.rewardBalance)} LCC`}
             />
           </DataGrid>
         </PanelContent>

@@ -21,8 +21,6 @@ interface ServiceRequestModalProps {
   onSuccess?: () => void;
 }
 
-// TODO: Replicate this structure to other components
-// Content constants (equivalent to Svelte pageContent)
 const MODAL_CONTENT = {
   title: 'Request Service Network Access',
   labels: {
@@ -99,25 +97,17 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    // TODO: Validate inputs, and send error notification if fail
-    // like: 'Missing required data to perform the action'
     if (!account?.address) {
       console.warn('❌ Missing account address. You need connect your wallet first.');
       onClose();
     }
 
     if (HAS_NFT_REWARD) {
-      // TODO: Implement QR code interaction route
-      // setQrCodeUrl(`${DAPP_URL}/dynamic_redirect?url=${DAPP_URL}/admin?recipient=${account.address}`)
-      // setShowQrCode(true)
       console.warn('🚧 reward route not implemented yet!!!');
     }
 
     startTransition(async () => {
       try {
-        // TODO: validate `account.address and `federationAddr`, if fails trigger an error notification
-        // like: 'Missing required data to perform the action'
-
         const { isError } = await createAccreditation(
           federationAddress,
           account!.address,

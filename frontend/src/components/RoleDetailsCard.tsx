@@ -5,7 +5,7 @@ import React from 'react';
 import { useCurrentAccount } from '@iota/dapp-kit';
 
 import { useFederationTransactions } from '@/hooks/useFederationTransactions';
-import { truncateAddress } from '@/utils/common';
+import { getAddressExplorerUrl, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { FEDERATION_ID, MANUFACTURER_DID } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
@@ -22,7 +22,6 @@ interface RoleDetailsCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   opacity = 100,
   delay = 0.4,
@@ -100,7 +99,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 <BadgeWithLink
                   badgeText={productDetails?.billOfMaterials?.manufacturerName}
                   linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
-                  linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
+                  linkHref={getObjectExplorerUrl(MANUFACTURER_DID)}
                   showVerification={true}
                   verificationDid={productDetails?.manufacturer}
                 />
@@ -115,7 +114,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
               <BadgeWithLink
                 badgeText={'Hierarchy'}
                 linkText={truncateAddress(FEDERATION_ID)}
-                linkHref={`https://explorer.iota.org/object/${FEDERATION_ID}?network=testnet`}
+                linkHref={getObjectExplorerUrl(FEDERATION_ID)}
               />
             }
           />
@@ -128,7 +127,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                 <BadgeWithLink
                   badgeText={getCurrentAccountBadge(accreditation.receiver)}
                   linkText={truncateAddress(accreditation.receiver)}
-                  linkHref={`https://explorer.iota.org/address/${accreditation.receiver}?network=testnet`}
+                  linkHref={getAddressExplorerUrl(accreditation.receiver)}
                 />
               }
             />

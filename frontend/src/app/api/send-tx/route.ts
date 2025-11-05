@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// TODO: Finde a replacement to `toB64`, which is deprecated
 import { fromB64, toB64 } from '@iota/bcs';
-import { TransactionEffects } from '@iota/iota-sdk/client';
 
 import { GAS_STATION_TOKEN, GAS_STATION_URL } from '@/utils/constants';
+import { type TransactionEffects } from '@/types/api';
 
 interface SendTxRequest {
   tx: string;
@@ -21,7 +22,6 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // TODO: Replace `fromB64` to the new method, as this is deprecated
     const txBytes = fromB64(tx);
     const transactionEffects = await sponsorSignAndSubmit(reservation_id, txBytes, signature);
 

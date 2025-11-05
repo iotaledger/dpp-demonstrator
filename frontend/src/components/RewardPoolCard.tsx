@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-import { getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
+import { getVaultRewardBalancePerAddress, getVaultRewardUsagePercentage, getVaultTotalSupply, getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
-import { truncateAddress } from '@/utils/common';
+import { getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { DPP_ID, VAULT_ID } from '@/utils/constants';
 
 import CollapsibleSection from './CollapsibleSection';
@@ -12,6 +12,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
+import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -20,7 +21,6 @@ interface RewardPoolCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   opacity = 100,
   delay = 0.4,
@@ -28,6 +28,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   scrollIntoView = false,
 }) => {
   const { rewardDetails, isSuccess } = useRewardVaultDetails();
+  const { totalSupply, isSuccess: isTotalSupplyLoaded } = useRewardTotalSupply();
 
   const getSectionExpanded = () => {
     const open = true;
@@ -78,29 +79,26 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
         leftColumn={
           <PanelContent panelState={getPanelState()} title={'Lifecycle Credit (LCC) Rewards'}>
             <DataGrid>
-              {/* TODO: Truncate the address */}
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
                 label='Reward contract'
                 value={truncateAddress(VAULT_ID)}
-                linkHref={`https://explorer.iota.org/object/${VAULT_ID}?network=testnet`}
+                linkHref={getObjectExplorerUrl(VAULT_ID)}
                 fontMono={true}
                 valueColor='text-blue-600'
                 isLink={true}
               />
-              {/* TODO: Get the supply information contained in the first transaction in the Vault object */}
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label='Total Lifecycle Fund'
-                value={'1,000,000,000 LCC'}
+                value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || '0 LCC'}
               />
-              {/* TODO: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
+              {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label='End-of-life Rewards'
                 value={'30 LCC'}
               />
-              {/* TODO: Remove the fraction when it is zero */}
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
                 label='Maintenance Rewards remaining'
@@ -108,8 +106,8 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                   isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)
                 }
               />
-              {/* TODO: Get (supply) balance information contained in `rewardDetails` */}
-              <ItemValueRow rowState={getRowState('used')} label='Used' value={'<0.001%'} />
+              <ItemValueRow rowState={getRowState('used')} label='Used'
+                value={isSuccess && isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultRewardUsagePercentage(totalSupply, getVaultRewardBalancePerAddress(rewardDetails, DPP_ID))} />
             </DataGrid>
           </PanelContent>
         }

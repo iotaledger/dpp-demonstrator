@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
-import { DPP_ID } from '@/utils/constants';
+import { DPP_ID, EXPLORER_URL, NETWORK } from '@/utils/constants';
 
 import CollapsibleInnerSection from './CollapsableInnerSection';
 import CollapsibleSection from './CollapsibleSection';
@@ -21,7 +21,6 @@ interface ProductDetailsCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   opacity = 100,
   delay = 0.4,
@@ -85,14 +84,9 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
           <ItemValueRow
             rowState={getRowState('dppId')}
             label='DPP ID'
-            value={truncateAddress(DPP_ID as string)}
+            value={truncateAddress(DPP_ID)}
             isLink={true}
-            // TODO: mount the link to the object ID, probably getting it from explorer in a template like: "https://explorer.iota.org/txblock/3BDwVQffoQ55ke72oevpLjjVCdFzYDVQeSRiAktgZxCp"
-            // This is how it is soved in the demonstrator: `${NEXT_PUBLIC_EXPLORER_URL}/object/${objectId}?network=${NEXT_PUBLIC_NETWORK}`
-            // Being the network constants hardcoded as following:
-            // - process.env.NEXT_PUBLIC_EXPLORER_URL
-            // - process.env.NEXT_PUBLIC_NETWORK
-            linkHref={`https://explorer.iota.org/object/${DPP_ID as string}?network=testnet`}
+            linkHref={`${EXPLORER_URL}/object/${DPP_ID}?network=${NETWORK}`}
             fontMono={true}
             valueColor='text-blue-600'
           />
@@ -105,7 +99,6 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
           <ItemValueRow
             rowState={getRowState('dppCreationDate')}
             label='DPP Creation Date'
-            // TODO: transform timestamp to a value template like: "2025-03-31 14:24:08"
             value={fromPosixMsToUtcDateFormat(productDetails?.timestamp)}
             fontMono={true}
           />

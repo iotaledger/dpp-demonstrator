@@ -2,15 +2,12 @@
 
 import React, { useCallback, useState, useTransition } from 'react';
 
-import type { CreateNotarizationEventTransactionArgs } from '@/helpers/api';
-
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
-import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 
 import { createNotarizationEventTransaction, getSponsorGas, sendTransaction } from '@/helpers/api';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { useAppProvider, useNotification } from '@/providers/appProvider';
-import { fromPosixMsToUtcDateFormat, generateRequestId, truncateAddress } from '@/utils/common';
+import { fromPosixMsToUtcDateFormat, generateRequestId, getAddressExplorerUrl, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import {
   DPP_ID,
   MANUFACTURER_DID,
@@ -21,6 +18,7 @@ import BadgeWithLink from './BadgeWithLink';
 import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import CloseIcon from './icons/CloseIcon';
+import type { CreateNotarizationEventTransactionArgs, ObjectRef, Transaction } from '@/types/api';
 
 const diagnosticInfo = {
   technicianName: 'You',
@@ -107,7 +105,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
   const handleSignature = useCallback(
     async (transaction: Transaction) => {
       const { bytes, signature } = await signTransaction({
-        // eslint-disable-next-line -- TODO: replace `any` by Transaction type from dapp-kit, currently not available
+        // eslint-disable-next-line -- can't use Transaction type because of a package conflict
         transaction: transaction as any,
         chain: `iota:${NETWORK}`,
       });
@@ -197,7 +195,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
                 labelWidth={150}
                 value={truncateAddress(DPP_ID)}
                 isLink={true}
-                linkHref={`https://explorer.iota.org/object/${DPP_ID}?network=testnet`}
+                linkHref={getObjectExplorerUrl(DPP_ID)}
                 fontMono={true}
                 valueColor='text-blue-600'
               />
@@ -212,7 +210,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
                     <BadgeWithLink
                       badgeText={productDetails?.billOfMaterials?.manufacturerName}
                       linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
-                      linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
+                      linkHref={getObjectExplorerUrl(MANUFACTURER_DID)}
                       showVerification={true}
                       verificationDid={productDetails?.manufacturer}
                     />
@@ -229,7 +227,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
                     <BadgeWithLink
                       badgeText={diagnosticInfo.technicianName}
                       linkText={`${truncateAddress(account?.address)}`}
-                      linkHref={`https://explorer.iota.org/address/${account?.address}?network=testnet`}
+                      linkHref={getAddressExplorerUrl(account?.address as string)}
                     />
                   </div>
                 }

@@ -118,7 +118,6 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
             </div>
           )}
 
-          {/* TODO: Implement smooth transition to collapsable section */}
           {isExpanded && (
             <div>
               <div className='space-y-6 p-0'>{children}</div>

@@ -5,7 +5,7 @@ import React from 'react';
 import { useCurrentAccount } from '@iota/dapp-kit';
 
 import { useServiceHistory } from '@/hooks/useServiceHistory';
-import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
+import { fromPosixMsToUtcDateFormat, getAddressExplorerUrl, getObjectExplorerUrl, getTxBlockExplorerUrl, truncateAddress } from '@/utils/common';
 import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
@@ -13,6 +13,7 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
+import { formatLCCBalance } from '@/helpers/rewardVault';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
@@ -22,7 +23,6 @@ interface ServiceHistoryCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
   opacity = 100,
   delay = 0.4,
@@ -134,7 +134,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                 <div className='flex items-center gap-2'>
                   <a
                     target='_blank'
-                    href={`https://explorer.iota.org/object/${serviceEntry?.entryId}?network=testnet`}
+                    href={getObjectExplorerUrl(serviceEntry?.entryId)}
                     className='text-blue-600 transition-colors hover:text-blue-700'
                   >
                     {truncateAddress(serviceEntry?.entryId)}
@@ -177,7 +177,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   <p>{'Notarized at block'}</p>
                   <a
                     target='_blank'
-                    href={`https://explorer.iota.org/txblock/${serviceEntry.txBlock}?network=testnet`}
+                    href={getTxBlockExplorerUrl(serviceEntry.txBlock)}
                     className='text-blue-600 transition-colors hover:text-blue-700'
                   >
                     {truncateAddress(serviceEntry.txBlock)}
@@ -196,7 +196,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
                   {getCurrentAccountBadge(serviceEntry?.issuerAddress)}
                   <a
                     target='_blank'
-                    href={`https://explorer.iota.org/address/${serviceEntry?.issuerAddress}?network=testnet`}
+                    href={getAddressExplorerUrl(serviceEntry?.issuerAddress)}
                     className='text-blue-600 transition-colors hover:text-blue-700'
                   >
                     {truncateAddress(serviceEntry?.issuerAddress)}
@@ -213,14 +213,14 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               value={truncateAddress(serviceEntry?.packageId)}
               fontMono={true}
               valueColor='text-blue-600'
-              linkHref={`https://explorer.iota.org/object/${serviceEntry?.packageId}?network=testnet`}
+              linkHref={getObjectExplorerUrl(serviceEntry?.packageId as string)}
               isLink={true}
             />
             {/* TODO: Discover a way to get the "sum of all rewards given" from the reward contract. Maybe analysing calls to  */}
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
               label='Reward Distributed'
-              value={'1 LCC'}
+              value={`${formatLCCBalance(serviceEntry.rewardBalance)} LCC`}
             />
           </DataGrid>
         </PanelContent>

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
-
 import { LCCBalance, RewardVaultData } from '@/types/reward';
 import { type IotaObjectData, type IotaObjectResponse } from '@iota/iota-sdk/client';
 
@@ -63,7 +61,7 @@ Ecosystem Activity → Accumulate Rewards → Vault Distribution → LCC Token C
  */
 function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   const data = jsonData.data as IotaObjectData;
-  // @ts-expect-error - TODO: Better understand the Iota types and make use of it
+  // @ts-expect-error - turn off parsing noise
   const vault = data.content?.fields;
   let lccPackageId = '';
   let lccTypeName = '';
@@ -79,6 +77,7 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
 
   const balancesContents = vault.balances.fields.contents || [];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off parsing noise
   balancesContents.forEach((entry: any) => {
     const address = entry.fields.key;
     const coinData = entry.fields.value.fields;
@@ -120,11 +119,17 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   };
 }
 
+function extractRewardTotalSuply(jsonData: IotaObjectResponse): string | undefined {
+  // @ts-expect-error -- turn off parsing noise
+  const total_supply = jsonData.data?.content?.fields?.total_supply;
+  return total_supply?.fields?.value;
+}
+
 /**
  * Formats LCC balance from smallest units to human-readable format
  *
  * Formatting Pattern:
- * "9999998000000000" → "9,999,998.000000000" LCC
+ * "9999998000000000" → "9,999,998" LCC
  *
  * @param balance - LCC balance in smallest units (string or LCCBalance object)
  * @returns Formatted balance string with proper decimals
@@ -132,7 +137,7 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
  * @example
  * ```typescript
  * const formatted = formatLCCBalance("9999998000000000");
- * console.log(formatted); // "9,999,998.000000000"
+ * console.log(formatted); // "9,999,998"
  *
  * const balance = getBalanceByAddress(vaultData, address);
  * console.log(`You have ${formatLCCBalance(balance)} LCC tokens`);
@@ -147,12 +152,9 @@ function formatLCCBalance(balance: string | LCCBalance): string {
   const divisor = BigInt(10 ** decimals);
 
   const wholePart = balanceBigInt / divisor;
-  // const fractionalPart = balanceBigInt % divisor;
 
   const wholeFormatted = wholePart.toLocaleString();
-  // const fractionalFormatted = fractionalPart.toString().padStart(decimals, '0');
 
-  // return `${wholeFormatted}.${fractionalFormatted}`;
   return `${wholeFormatted}`;
 }
 
@@ -174,6 +176,37 @@ function getVaultTotalValuePerAddress(data: RewardVaultData, address: string): s
     amount = formatLCCBalance(data.balancesByAddress.get(address)!.balance);
   }
   return amount + ` ${data.lccTypeName}`;
+}
+
+function getVaultRewardBalancePerAddress(data: RewardVaultData, address: string): string {
+  if (data.balancesByAddress.has(address)) {
+    return data.balancesByAddress.get(address)!.balance;
+  }
+  return '0';
+}
+
+function getVaultTotalSupply(totalSupply: string, data: RewardVaultData): string {
+  return formatLCCBalance(totalSupply) + `${data.lccTypeName}`;
+}
+
+function getVaultRewardUsagePercentage(totalSupply: string, remainingSupply: string): string {
+  const totalSupplyValue = Number.parseInt(totalSupply);
+  const remainingSupplyValue = Number.parseInt(remainingSupply);
+  const usedSupplyValue = totalSupplyValue - remainingSupplyValue;
+  const ratio = 100 * usedSupplyValue / totalSupplyValue;
+  if (ratio < 0.0001) {
+    return '<0.0001%'
+  } else if (ratio < 0.001) {
+    return '<0.001%'
+  } else if (ratio < 0.01) {
+    return '<0.01%'
+  } else if (ratio < 0.1) {
+    return '<0.1%'
+  } else if (ratio < 1) {
+    return '<1%'
+  } else {
+    return Math.floor(ratio) + '%';
+  }
 }
 
 /**
@@ -240,8 +273,12 @@ function parseCoinDefinition(coinDefinition: string): {
 
 export {
   extractRewardVaultData,
+  extractRewardTotalSuply,
   formatLCCBalance,
   getVaultTotalValuePerAddress,
+  getVaultTotalSupply,
+  getVaultRewardUsagePercentage,
+  getVaultRewardBalancePerAddress,
   extractCoinDefinition,
   parseCoinDefinition,
 };

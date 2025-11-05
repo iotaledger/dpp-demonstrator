@@ -6,7 +6,6 @@ import { extractRewardTransactionData } from '@/helpers/rewardVaultTransactions'
 import { useNotarizationSent } from '@/providers/appProvider';
 import { DPP_ID, REQUEST_SIZE_LIMIT, VAULT_ID } from '@/utils/constants';
 
-// TODO: Document
 export function useRewardTransactions() {
   const { isNotarizationSent } = useNotarizationSent();
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery(

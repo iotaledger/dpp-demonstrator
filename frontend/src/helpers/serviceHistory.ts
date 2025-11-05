@@ -77,6 +77,7 @@ function extractServiceTransactionData(
   productIdToFilter: string,
 ): ServiceEntry[] {
   const transactionEntries = jsonData.map((tx) => {
+    const rewardBalance = tx.balanceChanges?.at(-1)?.amount || '0';
     const _transactionsCall = // @ts-expect-error -- Inference do not catch all possible types
       tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
     // @ts-expect-error -- Inference do not catch all possible types
@@ -146,6 +147,7 @@ function extractServiceTransactionData(
       packageId,
       status,
       isCallingLogEntry,
+      rewardBalance,
     } as ServiceEntry & { isCallingLogEntry: boolean };
   });
 

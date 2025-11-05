@@ -6,7 +6,6 @@ import { extractServiceTransactionData } from '@/helpers/serviceHistory';
 import { useNotarizationSent } from '@/providers/appProvider';
 import { DPP_ID, REQUEST_SIZE_LIMIT, VAULT_ID } from '@/utils/constants';
 
-// TODO: document the purpose of this hook
 export function useServiceHistory() {
   const { isNotarizationSent } = useNotarizationSent();
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery(

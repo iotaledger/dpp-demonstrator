@@ -10,7 +10,6 @@ interface ProductHeaderCardProps {
   tutorialState?: 'selected' | 'muted' | 'no';
 }
 
-// TODO: Implement loading state
 const ProductHeaderCard: React.FC<ProductHeaderCardProps> = ({ tutorialState = 'no' }) => {
   const { isSuccess, productDetails } = useProductDetails();
 

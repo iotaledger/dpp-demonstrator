@@ -119,6 +119,12 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   };
 }
 
+function extractRewardTotalSuply(jsonData: IotaObjectResponse): string | undefined {
+  // @ts-expect-error -- turn off parsing noise
+  const total_supply = jsonData.data?.content?.fields?.total_supply;
+  return total_supply?.fields?.value;
+}
+
 /**
  * Formats LCC balance from smallest units to human-readable format
  *
@@ -173,6 +179,10 @@ function getVaultTotalValuePerAddress(data: RewardVaultData, address: string): s
     amount = formatLCCBalance(data.balancesByAddress.get(address)!.balance);
   }
   return amount + ` ${data.lccTypeName}`;
+}
+
+function getVaultTotalSupply(totalSupply: string, data: RewardVaultData): string {
+  return formatLCCBalance(totalSupply) + `${data.lccTypeName}`;
 }
 
 /**
@@ -239,8 +249,10 @@ function parseCoinDefinition(coinDefinition: string): {
 
 export {
   extractRewardVaultData,
+  extractRewardTotalSuply,
   formatLCCBalance,
   getVaultTotalValuePerAddress,
+  getVaultTotalSupply,
   extractCoinDefinition,
   parseCoinDefinition,
 };

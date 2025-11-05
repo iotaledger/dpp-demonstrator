@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
+import { getVaultTotalSupply, getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
 import { getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { DPP_ID, VAULT_ID } from '@/utils/constants';
@@ -12,6 +12,8 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
+import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
+import { RewardVaultData } from '@/types/reward';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -27,6 +29,7 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   scrollIntoView = false,
 }) => {
   const { rewardDetails, isSuccess } = useRewardVaultDetails();
+  const { totalSupply, isSuccess: isTotalSupplyLoaded } = useRewardTotalSupply();
 
   const getSectionExpanded = () => {
     const open = true;
@@ -86,11 +89,10 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 valueColor='text-blue-600'
                 isLink={true}
               />
-              {/* TODO: Get the supply information contained in the first transaction in the Vault object */}
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label='Total Lifecycle Fund'
-                value={'1,000,000,000 LCC'}
+                value={isTotalSupplyLoaded && getVaultTotalSupply(totalSupply as string, rewardDetails as RewardVaultData) || '0 LCC'}
               />
               {/* TODO: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
               <ItemValueRow

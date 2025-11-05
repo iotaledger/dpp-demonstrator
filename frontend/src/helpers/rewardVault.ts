@@ -129,7 +129,7 @@ function extractRewardTotalSuply(jsonData: IotaObjectResponse): string | undefin
  * Formats LCC balance from smallest units to human-readable format
  *
  * Formatting Pattern:
- * "9999998000000000" → "9,999,998.000000000" LCC
+ * "9999998000000000" → "9,999,998" LCC
  *
  * @param balance - LCC balance in smallest units (string or LCCBalance object)
  * @returns Formatted balance string with proper decimals
@@ -137,7 +137,7 @@ function extractRewardTotalSuply(jsonData: IotaObjectResponse): string | undefin
  * @example
  * ```typescript
  * const formatted = formatLCCBalance("9999998000000000");
- * console.log(formatted); // "9,999,998.000000000"
+ * console.log(formatted); // "9,999,998"
  *
  * const balance = getBalanceByAddress(vaultData, address);
  * console.log(`You have ${formatLCCBalance(balance)} LCC tokens`);
@@ -152,12 +152,9 @@ function formatLCCBalance(balance: string | LCCBalance): string {
   const divisor = BigInt(10 ** decimals);
 
   const wholePart = balanceBigInt / divisor;
-  // const fractionalPart = balanceBigInt % divisor;
 
   const wholeFormatted = wholePart.toLocaleString();
-  // const fractionalFormatted = fractionalPart.toString().padStart(decimals, '0');
 
-  // return `${wholeFormatted}.${fractionalFormatted}`;
   return `${wholeFormatted}`;
 }
 

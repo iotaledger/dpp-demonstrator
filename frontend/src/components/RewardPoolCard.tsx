@@ -93,13 +93,12 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 label='Total Lifecycle Fund'
                 value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || '0 LCC'}
               />
-              {/* TODO: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
+              {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label='End-of-life Rewards'
                 value={'30 LCC'}
               />
-              {/* TODO: Remove the fraction when it is zero */}
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
                 label='Maintenance Rewards remaining'

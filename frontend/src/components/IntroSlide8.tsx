@@ -17,7 +17,11 @@ const IntroSlide8: React.FC = () => {
       <SlideContent textAlign='left'>
         <SlideTitle size='large'>{INTRO_SLIDE_8.content.title}</SlideTitle>
         <SlideDescription>
-          {INTRO_SLIDE_8.content.description}
+          <span
+            dangerouslySetInnerHTML={{
+              __html: INTRO_SLIDE_8.content.description,
+            }}
+          />
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

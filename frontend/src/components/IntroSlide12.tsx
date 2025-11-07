@@ -17,7 +17,11 @@ const IntroSlide12: React.FC = () => {
       <SlideContent textAlign='left'>
         <SlideTitle size='large'>{INTRO_SLIDE_12.content.title}</SlideTitle>
         <SlideDescription>
-          <span>{INTRO_SLIDE_12.content.description}</span>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: INTRO_SLIDE_12.content.description,
+            }}
+          />
         </SlideDescription>
 
         <div className='flex flex-col items-center gap-6 py-6 md:flex-row'>

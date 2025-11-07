@@ -17,7 +17,11 @@ const IntroSlide9: React.FC = () => {
           {INTRO_SLIDE_9.content.title}
         </SlideTitle>
         <SlideDescription margin='mb-2' width='max-w-4xl'>
-          {INTRO_SLIDE_9.content.description}
+          <span
+            dangerouslySetInnerHTML={{
+              __html: INTRO_SLIDE_9.content.description,
+            }}
+          />
         </SlideDescription>
       </div>
 

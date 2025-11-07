@@ -216,7 +216,6 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
               linkHref={getObjectExplorerUrl(serviceEntry?.packageId as string)}
               isLink={true}
             />
-            {/* TODO: Discover a way to get the "sum of all rewards given" from the reward contract. Maybe analysing calls to  */}
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
               label='Reward Distributed'

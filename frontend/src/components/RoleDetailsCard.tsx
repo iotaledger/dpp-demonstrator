@@ -14,6 +14,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import { useProductDetails } from '@/hooks/useProductDetails';
+import { EXPLORE } from '@/contents/explore';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -84,7 +85,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title='Role Details'
+      title={EXPLORE.roleDetails.title}
       opacity={opacity}
       delay={delay}
     >
@@ -94,7 +95,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             <ItemValueRow
               key={MANUFACTURER_DID}
               rowState={getRowState('manufacturer')}
-              label='Manufacturer'
+              label={EXPLORE.roleDetails.manufacturerLabel}
               value={
                 <BadgeWithLink
                   badgeText={productDetails?.billOfMaterials?.manufacturerName}
@@ -109,10 +110,10 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
           <ItemValueRow
             key={FEDERATION_ID}
             rowState={getRowState('network')}
-            label='Service Network'
+            label={EXPLORE.roleDetails.serviceNetworkLabel}
             value={
               <BadgeWithLink
-                badgeText={'Hierarchy'}
+                badgeText={EXPLORE.roleDetails.hierarchyBadgeLabel}
                 linkText={truncateAddress(FEDERATION_ID)}
                 linkHref={getObjectExplorerUrl(FEDERATION_ID)}
               />
@@ -122,7 +123,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             <ItemValueRow
               key={accreditation.receiver}
               rowState={getRowState(getCurrentAccountBadge(accreditation.receiver) || '')}
-              label={'Technician'}
+              label={EXPLORE.roleDetails.technicianBadgeLabel}
               value={
                 <BadgeWithLink
                   badgeText={getCurrentAccountBadge(accreditation.receiver)}

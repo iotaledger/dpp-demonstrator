@@ -13,6 +13,7 @@ import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
 import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
+import { EXPLORE } from '@/contents/explore';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -70,18 +71,18 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title='Reward Pool Status'
+      title={EXPLORE.rewardPool.title}
       opacity={opacity}
       delay={delay}
     >
       <TwoColumnSection
         gap='gap-4'
         leftColumn={
-          <PanelContent panelState={getPanelState()} title={'Lifecycle Credit (LCC) Rewards'}>
+          <PanelContent panelState={getPanelState()} title={EXPLORE.rewardPool.lifecycleCreditTitle}>
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
-                label='Reward contract'
+                label={EXPLORE.rewardPool.rewardContractLabel}
                 value={truncateAddress(VAULT_ID)}
                 linkHref={getObjectExplorerUrl(VAULT_ID)}
                 fontMono={true}
@@ -90,18 +91,18 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               />
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
-                label='Total Lifecycle Fund'
+                label={EXPLORE.rewardPool.totalLifecycleFundLabel}
                 value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || '0 LCC'}
               />
               {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
-                label='End-of-life Rewards'
+                label={EXPLORE.rewardPool.endOfLifeRewardsLabel}
                 value={'30 LCC'}
               />
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
-                label='Maintenance Rewards remaining'
+                label={EXPLORE.rewardPool.maintenanceRewardsRemainingLabel}
                 value={
                   isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)
                 }
@@ -112,26 +113,26 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
           </PanelContent>
         }
         rightColumn={
-          <PanelContent title='Reward Table'>
+          <PanelContent title={EXPLORE.rewardPool.rewardTableTitle}>
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('annualMaintenanceReward')}
-                label='Annual Maintenance Reward'
+                label={EXPLORE.rewardPool.annualMaintenanceRewardLabel}
                 value={'1 LCC'}
               />
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
-                label='Recycling Reward'
+                label={EXPLORE.rewardPool.recyclingRewardLabel}
                 value={'10 LCC'}
               />
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
-                label='Final owner'
+                label={EXPLORE.rewardPool.finalOwnerLabel}
                 value={'10 LCC'}
               />
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
-                label='Manufacturer return'
+                label={EXPLORE.rewardPool.manufacturerReturnLabel}
                 value={'10 LCC'}
               />
             </DataGrid>

@@ -12,6 +12,7 @@ export const POSITION_CHANGE_TO_SWIPE = 110;
  * Support to frontend components control
  */
 
+export const REWARD_TOKEN_SYMBOL: string = 'LCC';
 export const HAS_NFT_REWARD: boolean = false;
 export const DAPP_URL = process.env.NEXT_PUBLIC_DAPP_URL;
 export const DPP_ID = process.env.NEXT_PUBLIC_PRODUCT_ID || '';

@@ -12,6 +12,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
+import { EXPLORE } from '@/contents/explore';
 
 interface ProductDetailsCardProps {
   opacity?: number;
@@ -79,11 +80,11 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
       opacity={opacity}
       delay={delay}
     >
-      <PanelContent title={'Product Passport Details'} panelState={getPanelState()}>
+      <PanelContent title={EXPLORE.passportDetails.title} panelState={getPanelState()}>
         <DataGrid>
           <ItemValueRow
             rowState={getRowState('dppId')}
-            label='DPP ID'
+            label={EXPLORE.passportDetails.dppIdLabel}
             value={truncateAddress(DPP_ID)}
             isLink={true}
             linkHref={`${EXPLORER_URL}/object/${DPP_ID}?network=${NETWORK}`}
@@ -92,13 +93,13 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
           />
           <ItemValueRow
             rowState={getRowState('serialNumber')}
-            label='Serial Number'
+            label={EXPLORE.passportDetails.serialNumberLabel}
             value={productDetails?.serialNumber}
             fontMono={true}
           />
           <ItemValueRow
             rowState={getRowState('dppCreationDate')}
-            label='DPP Creation Date'
+            label={EXPLORE.passportDetails.dppCreationDate}
             value={fromPosixMsToUtcDateFormat(productDetails?.timestamp)}
             fontMono={true}
           />
@@ -108,39 +109,39 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
       <TwoColumnSection
         leftColumn={
           <CollapsibleInnerSection
-            title='Battery Details'
+            title={EXPLORE.batteryDetails.title}
             defaultExpanded={innerDetailsExpanded}
             onExpandToggle={handleExpandToggle}
           >
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('batteryDetailsModel')}
-                label='Model'
+                label={EXPLORE.batteryDetails.modelLabel}
                 value={productDetails?.billOfMaterials?.model}
                 isLink={false}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsManufacturingDate')}
-                label='Manufacturing Date'
+                label={EXPLORE.batteryDetails.manufacturingDateLabel}
                 value={productDetails?.billOfMaterials?.manufacturingDate}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsCapacity')}
-                label='Capacity'
+                label={EXPLORE.batteryDetails.capacityLabel}
                 value={productDetails?.billOfMaterials?.capacity}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsExpectedLifespan')}
-                label='Expected Lifespan'
+                label={EXPLORE.batteryDetails.expectedLifespanLabel}
                 value={productDetails?.billOfMaterials?.expectedLifespan}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('batteryDetailsBatteryPack')}
-                label='Battery Pack'
+                label={EXPLORE.batteryDetails.batteryPackLabel}
                 value={productDetails?.billOfMaterials?.batteryPack}
                 fontMono={true}
               />
@@ -149,26 +150,26 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
         }
         rightColumn={
           <CollapsibleInnerSection
-            title='Bill of Materials'
+            title={EXPLORE.billOfMaterials.title}
             defaultExpanded={innerDetailsExpanded}
             onExpandToggle={handleExpandToggle}
           >
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsCells')}
-                label='Cells'
+                label={EXPLORE.billOfMaterials.cellsLabel}
                 value={productDetails?.billOfMaterials?.cells}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsHousing')}
-                label='Housing'
+                label={EXPLORE.billOfMaterials.housingLabel}
                 value={productDetails?.billOfMaterials?.housing}
                 fontMono={true}
               />
               <ItemValueRow
                 rowState={getRowState('billOfMaterialsVersion')}
-                label='Version'
+                label={EXPLORE.billOfMaterials.versionLabel}
                 value={productDetails?.billOfMaterials?.version}
                 fontMono={true}
               />

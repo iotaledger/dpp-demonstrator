@@ -19,6 +19,7 @@ import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import CloseIcon from './icons/CloseIcon';
 import type { CreateNotarizationEventTransactionArgs, ObjectRef, Transaction } from '@/types/api';
+import { NOTIFICATION } from '@/contents/notification';
 
 const diagnosticInfo = {
   technicianName: 'You',
@@ -79,7 +80,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
       handleNotificationSent!({
         id: generateRequestId(),
         type: 'success',
-        message: 'Health snapshot saved to service history.',
+        message: NOTIFICATION.savedHealthSnapshot,
       });
     });
   };
@@ -89,7 +90,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
     handleNotificationSent!({
       id: generateRequestId(),
       type: 'error',
-      message: 'Error while calling sendTransaction.',
+      message: NOTIFICATION.errorSendTransaction,
     });
   };
 

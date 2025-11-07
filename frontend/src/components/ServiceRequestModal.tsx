@@ -14,6 +14,7 @@ import Dialog from './Dialog';
 import CloseIcon from './icons/CloseIcon';
 import CopyIcon from './icons/CopyIcon';
 import { Roles } from '@/types/identity';
+import { NOTIFICATION } from '@/contents/notification';
 
 interface ServiceRequestModalProps {
   isOpen: boolean;
@@ -32,7 +33,7 @@ const MODAL_CONTENT = {
     submitting: 'Submitting...',
   },
   messages: {
-    successToast: 'Service request submitted successfully!',
+    successToast: NOTIFICATION.submittedAccreditation,
     addressCopied: 'Address copied to clipboard!',
   },
 };
@@ -62,7 +63,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
     handleNotificationSent!({
       id: generateRequestId(),
       type: 'error',
-      message: 'Error while requesting accreditation.',
+      message: NOTIFICATION.errorAccreditation,
     });
   };
 

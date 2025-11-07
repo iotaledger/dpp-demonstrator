@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { INTRO_SLIDE_7 } from '@/contents/introduction';
 import { EnumerationItem, EnumerationSection } from './Enumeration';
 import ImageTextLayout from './ImageTextLayout';
 import SlideContent from './SlideContent';
@@ -13,43 +14,22 @@ const IntroSlide7: React.FC = () => {
   return (
     <>
       <ImageTextLayout maxWidth='max-w-5xl'>
-        <SlideImage src='/assets/intro/pool-players.webp' alt='Solving the Data-Sharing Problem' />
+        <SlideImage src={INTRO_SLIDE_7.image.src} alt={INTRO_SLIDE_7.image.alt} />
         <SlideContent textAlign='left'>
-          <SlideTitle size='large'>Solving the Data-Sharing Problem</SlideTitle>
+          <SlideTitle size='large'>{INTRO_SLIDE_7.content.title}</SlideTitle>
           <SlideDescription>
-            Lifecycle data is fragmented and rarely shared, making it hard to track. To solve this,
-            each DPP can be pre-funded with Lifecycle Credits (LCCs), tokens that reward verified
-            data contributions and are redeemable for real-world value.
+            {INTRO_SLIDE_7.content.description}
           </SlideDescription>
         </SlideContent>
       </ImageTextLayout>
 
       <EnumerationSection>
-        <EnumerationItem
-          description={
-            'Manufacturers provide fiat funds to the EPRO, ensuring reward pools are backed with real-world value'
-          }
-        />
-        <EnumerationItem
-          description={
-            'Manufacturers build the product, create its DPP, and pre-fund it with Lifecycle Credits (LCCs)'
-          }
-        />
-        <EnumerationItem
-          description={
-            'EPROs define the LCC allocation for each DPP, and service providers earn these credits automatically when documenting repairs or maintenance'
-          }
-        />
-        <EnumerationItem
-          description={
-            'Service providers send their earned LCC tokens back to the EPRO for redemption'
-          }
-        />
-        <EnumerationItem
-          description={
-            'The EPRO processes redemption, converting LCCs back into fiat and closing the economic loop'
-          }
-        />
+        {INTRO_SLIDE_7.content.steps.map((step, index) => (
+          <EnumerationItem
+            key={index}
+            description={step}
+          />
+        ))}
       </EnumerationSection>
     </>
   );

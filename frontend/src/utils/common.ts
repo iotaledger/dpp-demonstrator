@@ -112,3 +112,15 @@ export function getAddressExplorerUrl(address: string): string {
 export function getTxBlockExplorerUrl(txDigest: string): string {
   return `${EXPLORER_URL}/txblock/${txDigest}?network=${NETWORK}`;
 }
+
+// replaceComponents('Install Nightly Wallet ({COMPONENT} | {COMPONENT}) and connect when prompted.', [<Link />, <Link />])
+// >>> ['Install Nightly Wallet (', <Link />,' | ',<Link />,') and connect when prompted.', undefined]
+export function replaceComponents(text: string, components: React.ReactNode[]): unknown[] {
+  const pieaces = text.split('{COMPONENT}');
+  const newComponents: unknown[] = [];
+  pieaces.forEach((eachPiece, idx) => {
+    newComponents.push(eachPiece);
+    newComponents.push(components.at(idx));
+  });
+  return newComponents;
+}

@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { INTRO_SLIDE_8 } from '@/contents/introduction';
 import ImageTextLayout from './ImageTextLayout';
 import SlideContent from './SlideContent';
 import SlideDescription from './SlideDescription';
@@ -11,14 +12,12 @@ import SlideTitle from './SlideTitle';
 const IntroSlide8: React.FC = () => {
   return (
     <ImageTextLayout>
-      <SlideImage src='/assets/intro/help.webp' alt='A Trusted Digital Backbone' />
+      <SlideImage src={INTRO_SLIDE_8.image.src} alt={INTRO_SLIDE_8.image.alt} />
 
       <SlideContent textAlign='left'>
-        <SlideTitle size='large'>A Trusted Digital Backbone</SlideTitle>
+        <SlideTitle size='large'>{INTRO_SLIDE_8.content.title}</SlideTitle>
         <SlideDescription>
-          IOTA provides the trusted digital backbone for use cases like Digital Product Passports.
-          At its core is a global, public network where data is permanent, verifiable, and not
-          controlled by any single company.
+          {INTRO_SLIDE_8.content.description}
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

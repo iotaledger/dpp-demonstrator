@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import { useNotification } from '@/providers/appProvider';
 
 import { Toast } from './Toast';

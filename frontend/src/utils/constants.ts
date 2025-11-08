@@ -2,6 +2,8 @@
  * Internal control
  */
 
+export const HEALTH_SCORE_PROP = 'HealthScore';
+export const FINDINGS_PROP = 'Findings';
 export const REQUEST_SIZE_LIMIT = 20;
 export const NOTIFICATION_DECAY_TIME_MS = 8000;
 export const RESERVE_DURATION_SEC = 180;

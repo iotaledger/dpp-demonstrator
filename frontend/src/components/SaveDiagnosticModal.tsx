@@ -7,38 +7,22 @@ import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
 import { createNotarizationEventTransaction, getSponsorGas, sendTransaction } from '@/helpers/api';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { useAppProvider, useNotification } from '@/providers/appProvider';
-import { fromPosixMsToUtcDateFormat, generateRequestId, getAddressExplorerUrl, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
+import { fromPosixMsToUtcDateFormat, generateRequestId, getAddressExplorerUrl, getChain, getDidScheme, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import {
   DPP_ID,
+  FINDINGS_PROP,
+  HEALTH_SCORE_PROP,
   MANUFACTURER_DID,
-  NETWORK,
 } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
 import Dialog from './Dialog';
 import ItemValueRow from './ItemValueRow';
 import CloseIcon from './icons/CloseIcon';
-import type { CreateNotarizationEventTransactionArgs, ObjectRef, Transaction } from '@/types/api';
+import type { CreateNotarizationEventTransactionArgs, Transaction } from '@/types/api';
 import { NOTIFICATION } from '@/contents/notification';
-
-const diagnosticInfo = {
-  technicianName: 'You',
-  eventName: 'Health Checkup',
-  eventDate: fromPosixMsToUtcDateFormat(Date.now()),
-  healthScore: '76%',
-  findings: 'Routine maintenance completed successfully',
-  issuerRole: 'repairer',
-};
-
-interface ReserveGasResult {
-  sponsor_address: string;
-  reservation_id: number;
-  gas_coins: ObjectRef[];
-}
-
-export interface ReserveGasResultResponse extends ReserveGasResult {
-  gasBudget: number;
-}
+import { SAVE_DIAGNOSTIC_MODAL } from '@/contents/common';
+import { ErrorNotification, SuccessNotification } from '@/types/common';
 
 interface SaveDiagnosticModalProps {
   isOpen: boolean;
@@ -47,8 +31,8 @@ interface SaveDiagnosticModalProps {
 }
 
 const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClose, onSave }) => {
-  const [healthScore] = useState(diagnosticInfo.healthScore);
-  const [findings] = useState(diagnosticInfo.findings);
+  const [healthScore] = useState(SAVE_DIAGNOSTIC_MODAL.content.diagnosticInfo.healthScore);
+  const [findings] = useState(SAVE_DIAGNOSTIC_MODAL.content.diagnosticInfo.findings);
 
   /**
    * Coordinates component state during transaction processing
@@ -77,21 +61,13 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
       const requestId = generateRequestId();
       handleNotarizationSentSuccess(requestId);
       onSave();
-      handleNotificationSent!({
-        id: generateRequestId(),
-        type: 'success',
-        message: NOTIFICATION.savedHealthSnapshot,
-      });
+      handleNotificationSent!(SuccessNotification(NOTIFICATION.savedHealthSnapshot));
     });
   };
 
   const onNotarizationError = (error: unknown) => {
     console.error('❌ Error while calling sendTransaction.', error);
-    handleNotificationSent!({
-      id: generateRequestId(),
-      type: 'error',
-      message: NOTIFICATION.errorSendTransaction,
-    });
+    handleNotificationSent!(ErrorNotification(NOTIFICATION.errorSendTransaction));
   };
 
   const handleClose = () => {
@@ -108,7 +84,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
       const { bytes, signature } = await signTransaction({
         // eslint-disable-next-line -- can't use Transaction type because of a package conflict
         transaction: transaction as any,
-        chain: `iota:${NETWORK}`,
+        chain: getChain(),
       });
 
       return {
@@ -130,8 +106,8 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
         const txInputs: CreateNotarizationEventTransactionArgs = {
           accountAddress: account!.address,
           gas: sponsoredGas.result!,
-          issuerRole: diagnosticInfo.issuerRole,
-          entryDataKeys: ['HealthScore', 'Findings'],
+          issuerRole: SAVE_DIAGNOSTIC_MODAL.content.diagnosticInfo.issuerRole,
+          entryDataKeys: [HEALTH_SCORE_PROP, FINDINGS_PROP],
           entryDataValues: [healthScore, findings],
         };
         const tx = createNotarizationEventTransaction(txInputs);
@@ -157,14 +133,14 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
 
   const getButtonText = () => {
     if (isPending) {
-      return 'Saving...';
+      return SAVE_DIAGNOSTIC_MODAL.content.buttons.saving;
     }
 
     if (isLoading) {
-      return 'Loading...';
+      return SAVE_DIAGNOSTIC_MODAL.content.buttons.loading;
     }
 
-    return 'Save Snapshot';
+    return SAVE_DIAGNOSTIC_MODAL.content.buttons.save;
   };
 
   return (
@@ -175,13 +151,13 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
           {/* Header with close button */}
           <div className='mb-8 flex items-center justify-between'>
             <h2 id='dialog-title' className='text-xl font-semibold text-gray-900'>
-              Health Snapshot
+              {SAVE_DIAGNOSTIC_MODAL.content.title}
             </h2>
             <button
               onClick={onClose}
               className='cursor-pointer p-1 text-gray-400 hover:text-gray-600'
               disabled={isPending}
-              aria-label='Close modal'
+              aria-label={SAVE_DIAGNOSTIC_MODAL.content.buttons.closeAriaLabel}
             >
               <CloseIcon />
             </button>
@@ -192,7 +168,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
             <div className='space-y-2'>
               {/* DPP ID */}
               <ItemValueRow
-                label='DPP ID'
+                label={SAVE_DIAGNOSTIC_MODAL.content.labels.dppId}
                 labelWidth={150}
                 value={truncateAddress(DPP_ID)}
                 isLink={true}
@@ -203,14 +179,14 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
 
               {/* Manufacturer with badge and address */}
               <ItemValueRow
-                label='Manufacturer'
+                label={SAVE_DIAGNOSTIC_MODAL.content.labels.manufacturer}
                 labelWidth={150}
                 isValuePending={isLoading}
                 value={
                   <div className='flex items-center gap-3'>
                     <BadgeWithLink
                       badgeText={productDetails?.billOfMaterials?.manufacturerName}
-                      linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                      linkText={getDidScheme(MANUFACTURER_DID)}
                       linkHref={getObjectExplorerUrl(MANUFACTURER_DID)}
                       showVerification={true}
                       verificationDid={productDetails?.manufacturer}
@@ -221,12 +197,12 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
 
               {/* Technician with badge and address */}
               <ItemValueRow
-                label='Technician'
+                label={SAVE_DIAGNOSTIC_MODAL.content.labels.technician}
                 labelWidth={150}
                 value={
                   <div className='flex items-center gap-3'>
                     <BadgeWithLink
-                      badgeText={diagnosticInfo.technicianName}
+                      badgeText={SAVE_DIAGNOSTIC_MODAL.content.diagnosticInfo.technicianName}
                       linkText={`${truncateAddress(account?.address)}`}
                       linkHref={getAddressExplorerUrl(account?.address as string)}
                     />
@@ -238,19 +214,19 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
               <hr className='my-1 border-[var(--border)]' />
 
               {/* Event */}
-              <ItemValueRow label='Event' labelWidth={150} value={diagnosticInfo.eventName} />
+              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.event} labelWidth={150} value={SAVE_DIAGNOSTIC_MODAL.content.diagnosticInfo.eventName} />
 
               {/* Date */}
-              <ItemValueRow label='Date' labelWidth={150} value={diagnosticInfo.eventDate} />
+              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.date} labelWidth={150} value={fromPosixMsToUtcDateFormat(Date.now())} />
 
               {/* HR Separator */}
               <hr className='my-1 border-[var(--border)]' />
 
               {/* Health Score */}
-              <ItemValueRow label='Health Score' labelWidth={150} value={healthScore} />
+              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.healthScore} labelWidth={150} value={healthScore} />
 
               {/* Findings */}
-              <ItemValueRow label='Findings' labelWidth={150} value={findings} />
+              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.findings} labelWidth={150} value={findings} />
             </div>
           )}
 

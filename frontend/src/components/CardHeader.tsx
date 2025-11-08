@@ -6,6 +6,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 
 import { useNightlyWallet } from '@/providers/appProvider';
+import { CARD_HEADER } from '@/contents/common';
 
 interface CardHeaderProps {
   title?: string;
@@ -28,11 +29,11 @@ const BUTTON_OUTLINE_STYLE =
   '!leading-[12px] !h-auto !px-3 !py-1 !rounded-full border hover:bg-gray-200 transition-colors bg-gray-100 text-gray-600 border-gray-300';
 
 const CardHeader: React.FC<CardHeaderProps> = ({
-  title = 'Welcome',
+  title = CARD_HEADER.content.titleDefault,
   showLink = true,
-  linkText = 'Button',
+  linkText = CARD_HEADER.content.linkTextDefault,
   linkUrl = '/introduction/1',
-  backText = 'Back to the Start',
+  backText = CARD_HEADER.content.backTextDefault,
   backUrl = '/introduction/1',
   canGoBack = false,
   variation = 'outline',

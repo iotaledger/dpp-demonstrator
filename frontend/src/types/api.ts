@@ -33,3 +33,14 @@ export interface CreateNotarizationEventTransactionArgs {
 
 export type { ObjectRef, Transaction, TransactionEffects };
 
+export interface ReserveGasResult {
+  sponsor_address: string;
+  reservation_id: number;
+  gas_coins: ObjectRef[];
+}
+
+export interface ReserveGasResultResponse extends ReserveGasResult {
+  gasBudget: number;
+}
+
+

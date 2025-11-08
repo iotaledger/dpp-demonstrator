@@ -1,3 +1,4 @@
+import { VIEW_MORE_BUTTON } from '@/contents/common';
 
 interface ViewMoreButtonProps {
   amountToReveal: number;
@@ -11,7 +12,7 @@ const ViewMoreButton: React.FC<ViewMoreButtonProps> = ({ amountToReveal: amount,
     onClick={onClick}
     disabled={isDisabled}
   >
-    {`View more (${amount})`}
+    {`${VIEW_MORE_BUTTON.content.text} (${amount})`}
   </button>
 );
 export default ViewMoreButton;

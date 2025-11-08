@@ -92,13 +92,13 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label={EXPLORE.rewardPool.totalLifecycleFundLabel}
-                value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || '0 LCC'}
+                value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || EXPLORE.rewardPool.totalLifecycleFundValueFallback}
               />
               {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label={EXPLORE.rewardPool.endOfLifeRewardsLabel}
-                value={'30 LCC'}
+                value={EXPLORE.rewardPool.endOfLifeRewardsValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
@@ -118,22 +118,22 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('annualMaintenanceReward')}
                 label={EXPLORE.rewardPool.annualMaintenanceRewardLabel}
-                value={'1 LCC'}
+                value={EXPLORE.rewardPool.annualMaintenanceRewardValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
                 label={EXPLORE.rewardPool.recyclingRewardLabel}
-                value={'10 LCC'}
+                value={EXPLORE.rewardPool.recyclingRewardValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
                 label={EXPLORE.rewardPool.finalOwnerLabel}
-                value={'10 LCC'}
+                value={EXPLORE.rewardPool.finalOwnerValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
                 label={EXPLORE.rewardPool.manufacturerReturnLabel}
-                value={'10 LCC'}
+                value={EXPLORE.rewardPool.manufacturerReturnValueDefault}
               />
             </DataGrid>
           </PanelContent>

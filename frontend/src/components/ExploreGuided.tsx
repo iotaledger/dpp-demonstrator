@@ -6,6 +6,7 @@ import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
 
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { EXPLORE_GUIDED } from '@/contents/common';
 
 import CardHeader from './CardHeader';
 import DiagnosticCard from './DiagnosticCard';
@@ -294,11 +295,11 @@ const ExploreGuided: React.FC = () => {
     <TutorialCard>
       <CardHeader
         canGoBack={true}
-        backText='↺ Reset to Intro'
-        backUrl='/introduction/1'
+        backText={EXPLORE_GUIDED.content.backText}
+        backUrl={EXPLORE_GUIDED.content.backUrl}
         onBack={handleBackAction}
-        linkText='Switch to free exploration'
-        linkUrl='/explore-freely'
+        linkText={EXPLORE_GUIDED.content.linkText}
+        linkUrl={EXPLORE_GUIDED.content.linkUrl}
         variation='primary'
       />
       <TutorialScrollContainer>

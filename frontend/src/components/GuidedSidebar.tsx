@@ -9,6 +9,7 @@ import CaretUpIcon from './icons/CaretUpIcon';
 import CaretDownIcon from './icons/CaretDownIcon';
 
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { GUIDED_SIDEBAR } from '@/contents/common';
 
 import StepContent from './StepContent';
 import StepNavigation from './StepNavigation';
@@ -226,32 +227,32 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
   }, [currentStep, canGoNext, isHierarchySent, isNotarizationSent, isConnected]);
 
   const getPreviousLabel = (): string => {
-    return 'Back';
+    return GUIDED_SIDEBAR.content.back;
   };
 
   const getNextLabel = (): string => {
     if (currentStep === 9 && !isConnected) {
-      return 'Connect';
+      return GUIDED_SIDEBAR.content.connect;
     }
 
     if (currentStep === 10 && !isHierarchySent) {
-      return 'Request';
+      return GUIDED_SIDEBAR.content.request;
     }
 
     if (currentStep === 11 && !isNotarizationSent) {
-      return 'Diagnostic';
+      return GUIDED_SIDEBAR.content.diagnostic;
     }
 
     if (currentStep === 13) {
-      return 'Finish';
+      return GUIDED_SIDEBAR.content.finish;
     }
 
-    return 'Next';
+    return GUIDED_SIDEBAR.content.next;
   };
 
   const handleOnNext = () => {
     if (currentStep === 13) {
-      router.push('/recap/1');
+      router.push(GUIDED_SIDEBAR.content.recapUrl);
       return;
     }
     onNext();
@@ -337,7 +338,7 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({ currentStep, navigati
     >
       <div className='flex-shrink-0 border-b border-slate-200 bg-slate-200/50 px-6 py-2 backdrop-blur-md select-none'>
         <div className='flex items-center justify-between select-none'>
-          <h3 className='text-md text-gray-600 select-none'>Behind the Scene</h3>
+          <h3 className='text-md text-gray-600 select-none'>{GUIDED_SIDEBAR.content.behindTheScene}</h3>
           <button
             className='cursor-pointer rounded-md p-1 transition-colors select-none hover:bg-slate-200'
             aria-label='Collapse tutorial panel'
@@ -401,7 +402,7 @@ const SideBarForLargeScreen: React.FC<SideBarForLargeScreenProps> = ({
       }}
     >
       <div className='flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 text-xs text-gray-500'>
-        <h4>Behind the Scene</h4>
+        <h4>{GUIDED_SIDEBAR.content.behindTheScene}</h4>
       </div>
 
       {TUTORIAL_STEPS.get(currentStep)!.map((step) => (

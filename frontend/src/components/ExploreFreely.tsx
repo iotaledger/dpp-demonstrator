@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
+import { EXPLORE_FREELY } from '@/contents/common';
 
 import CardHeader from './CardHeader';
 import DiagnosticCard from './DiagnosticCard';
@@ -34,11 +35,11 @@ const ExploreFreely: React.FC = () => {
     <TutorialCard>
       <CardHeader
         canGoBack={true}
-        backText='↺ Reset to Intro'
-        backUrl='/introduction/1'
+        backText={EXPLORE_FREELY.content.backText}
+        backUrl={EXPLORE_FREELY.content.backUrl}
         onBack={handleBackAction}
-        linkText='Switch to Guided Tour'
-        linkUrl='/explore-guided'
+        linkText={EXPLORE_FREELY.content.linkText}
+        linkUrl={EXPLORE_FREELY.content.linkUrl}
       />
       <TutorialScrollContainer>
         <div className='dpp-content-container'>

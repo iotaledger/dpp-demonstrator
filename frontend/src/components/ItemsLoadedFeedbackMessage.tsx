@@ -1,13 +1,16 @@
 import { REQUEST_SIZE_LIMIT } from "@/utils/constants";
+import { ITEMS_LOADED_FEEDBACK_MESSAGE } from '@/contents/common';
+import { replaceComponents } from "@/utils/common";
 
 function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
-  const feedbackMessage = () => {
+  return <div className='py-2 text-center text-sm text-gray-500'>{feedbackMessage()}</div>;
+
+  function feedbackMessage(): React.ReactNode[] {
     if (size < REQUEST_SIZE_LIMIT) {
-      return `All ${size} transactins shown`;
+      return replaceComponents(ITEMS_LOADED_FEEDBACK_MESSAGE.content.allTransactionsShown, [size]) as React.ReactNode[];
     } else {
-      return `All ${size} latest transactions shown`;
+      return replaceComponents(ITEMS_LOADED_FEEDBACK_MESSAGE.content.latestTransactionsShown, [size]) as React.ReactNode[];
     }
   };
-  return <div className='py-2 text-center text-sm text-gray-500'>{feedbackMessage()}</div>;
 }
 export default ItemsLoadedFeedbackMessage;

@@ -113,6 +113,14 @@ export function getTxBlockExplorerUrl(txDigest: string): string {
   return `${EXPLORER_URL}/txblock/${txDigest}?network=${NETWORK}`;
 }
 
+export function getDidScheme(did: string): string {
+  return `did:iota:${NETWORK}:${truncateAddress(did)}`
+}
+
+export function getChain(): `${string}:${string}` {
+  return `iota:${NETWORK}`;
+}
+
 // replaceComponents('Install Nightly Wallet ({COMPONENT} | {COMPONENT}) and connect when prompted.', [<Link />, <Link />])
 // >>> ['Install Nightly Wallet (', <Link />,' | ',<Link />,') and connect when prompted.', undefined]
 export function replaceComponents(text: string, components: React.ReactNode[]): unknown[] {

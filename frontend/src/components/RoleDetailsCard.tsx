@@ -5,7 +5,7 @@ import React from 'react';
 import { useCurrentAccount } from '@iota/dapp-kit';
 
 import { useFederationTransactions } from '@/hooks/useFederationTransactions';
-import { getAddressExplorerUrl, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
+import { getAddressExplorerUrl, getDidScheme, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { FEDERATION_ID, MANUFACTURER_DID } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
@@ -99,7 +99,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
               value={
                 <BadgeWithLink
                   badgeText={productDetails?.billOfMaterials?.manufacturerName}
-                  linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                  linkText={getDidScheme(MANUFACTURER_DID)}
                   linkHref={getObjectExplorerUrl(MANUFACTURER_DID)}
                   showVerification={true}
                   verificationDid={productDetails?.manufacturer}

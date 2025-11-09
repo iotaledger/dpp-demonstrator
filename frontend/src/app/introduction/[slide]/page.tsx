@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useParams } from 'next/navigation';
 
 import CardHeader from '@/components/CardHeader';
@@ -16,6 +15,7 @@ import SlideCounter from '@/components/SlideCounter';
 import TutorialCard from '@/components/TutorialCard';
 import TutorialScrollContainer from '@/components/TutorialScrollContainer';
 import { useSlideNavigation } from '@/hooks/useSlideNavigation';
+import { INTRODUCTION_NAVIGATION } from '@/contents/introduction';
 
 export default function IntroductionPage() {
   const { slide: slideParam } = useParams();
@@ -45,10 +45,10 @@ export default function IntroductionPage() {
           <MainContent>
             <TutorialCard>
               <CardHeader
-                title='Welcome'
-                linkText='Skip Intro'
-                linkUrl='/explore-guided'
-                backUrl='/introduction/1'
+                title={INTRODUCTION_NAVIGATION.content.title}
+                linkText={INTRODUCTION_NAVIGATION.content.linkText}
+                linkUrl={INTRODUCTION_NAVIGATION.content.linkUrl}
+                backUrl={INTRODUCTION_NAVIGATION.content.backUrl}
                 canGoBack={canGoPrevious}
               />
               <TutorialScrollContainer>
@@ -72,7 +72,7 @@ export default function IntroductionPage() {
         canGoNext={canGoNext}
       />
 
-      <NavigationHint text='Use arrow keys or click to navigate' opacity={100} delay={0.5} />
+      <NavigationHint opacity={100} delay={0.5} />
     </>
   );
 }

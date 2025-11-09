@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useEffectEvent } from 'react';
+import { useEffect, useEffectEvent } from 'react';
 import { useParams } from 'next/navigation';
 
 import { useDisconnectWallet } from '@iota/dapp-kit';
@@ -17,6 +17,7 @@ import SlideCounter from '@/components/SlideCounter';
 import TutorialCard from '@/components/TutorialCard';
 import TutorialScrollContainer from '@/components/TutorialScrollContainer';
 import { useSlideNavigation } from '@/hooks/useSlideNavigation';
+import { RECAP_NAVIGATION } from '@/contents/recap';
 
 export default function PostExperiencePage() {
   const { slide: slideParam } = useParams();
@@ -79,11 +80,11 @@ export default function PostExperiencePage() {
           <MainContent>
             <TutorialCard>
               <CardHeader
-                title='Welcome'
-                linkText='↺ Reset to Intro'
-                linkUrl='/introduction/1'
-                backText='← Back to DPP'
-                backUrl='/explore-freely'
+                title={RECAP_NAVIGATION.content.title}
+                backText={RECAP_NAVIGATION.content.backText}
+                backUrl={RECAP_NAVIGATION.content.backUrl}
+                linkText={RECAP_NAVIGATION.content.linkText}
+                linkUrl={RECAP_NAVIGATION.content.linkUrl}
                 onBack={handleBackAction}
                 canGoBack={true}
               />

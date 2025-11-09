@@ -1,3 +1,21 @@
+export const EXPLORE_FREELY_NAVIGATION = {
+  content: {
+    backText: '↺ Reset to Intro',
+    backUrl: '/introduction/1',
+    linkText: 'Switch to Guided Tour',
+    linkUrl: '/explore-guided',
+  },
+};
+
+export const EXPLORE_GUIDED_NAVIGATION = {
+  content: {
+    backText: '↺ Reset to Intro',
+    backUrl: '/introduction/1',
+    linkText: 'Switch to free exploration',
+    linkUrl: '/explore-freely',
+  },
+};
+
 export const EXPLORE = {
   productName: 'Product Name:',
   manufacturerName: 'Manufacturer Name:',

@@ -6,7 +6,6 @@ import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
 
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
-import { EXPLORE_GUIDED } from '@/contents/common';
 
 import CardHeader from './CardHeader';
 import DiagnosticCard from './DiagnosticCard';
@@ -24,6 +23,7 @@ import ServiceRequestCard from './ServiceRequestCard';
 import TutorialCard from './TutorialCard';
 import TutorialScrollContainer from './TutorialScrollContainer';
 import TwoColumnLayout from './TwoColumnLayout';
+import { EXPLORE_GUIDED_NAVIGATION } from '@/contents/explore';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -295,11 +295,11 @@ const ExploreGuided: React.FC = () => {
     <TutorialCard>
       <CardHeader
         canGoBack={true}
-        backText={EXPLORE_GUIDED.content.backText}
-        backUrl={EXPLORE_GUIDED.content.backUrl}
+        backText={EXPLORE_GUIDED_NAVIGATION.content.backText}
+        backUrl={EXPLORE_GUIDED_NAVIGATION.content.backUrl}
         onBack={handleBackAction}
-        linkText={EXPLORE_GUIDED.content.linkText}
-        linkUrl={EXPLORE_GUIDED.content.linkUrl}
+        linkText={EXPLORE_GUIDED_NAVIGATION.content.linkText}
+        linkUrl={EXPLORE_GUIDED_NAVIGATION.content.linkUrl}
         variation='primary'
       />
       <TutorialScrollContainer>

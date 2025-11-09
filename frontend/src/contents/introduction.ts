@@ -10,6 +10,15 @@ import { SCAN_PRODUCT_DATA_ICON } from "@/components/icons/ScanProductDataIcon";
 import { TOKENIZATION_DATA_ICON } from "@/components/icons/TokenizationDataIcon";
 import { WALLET_DATA_ICON } from "@/components/icons/WalletDataIcon";
 
+export const INTRODUCTION_NAVIGATION = {
+  content: {
+    title: 'Welcome',
+    backUrl: '/introduction/1',
+    linkText: 'Skip Intro',
+    linkUrl: '/explore-guided',
+  },
+};
+
 export const INTRO_SLIDE_1 = {
   video: {
     src: '/assets/intro/placeholder-video.mp4',

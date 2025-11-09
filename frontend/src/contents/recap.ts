@@ -8,6 +8,15 @@ import { NOTARIZATION_DATA_ICON } from "@/components/icons/NotarizationDataIcon"
 import { TOKENIZATION_DATA_ICON } from "@/components/icons/TokenizationDataIcon";
 import { WALLET_DATA_ICON } from "@/components/icons/WalletDataIcon";
 
+export const RECAP_NAVIGATION = {
+  content: {
+    title: 'Welcome',
+    backText: '← Back to DPP',
+    backUrl: '/explore-freely',
+    linkText: '↺ Reset to Intro',
+    linkUrl: '/introduction/1',
+  },
+};
 
 export const RECAP_SLIDE_1 = {
   title: 'What You Just Experienced',

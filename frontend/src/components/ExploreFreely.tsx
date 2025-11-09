@@ -3,7 +3,6 @@
 import React from 'react';
 
 import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
-import { EXPLORE_FREELY } from '@/contents/common';
 
 import CardHeader from './CardHeader';
 import DiagnosticCard from './DiagnosticCard';
@@ -20,6 +19,7 @@ import ServiceHistoryCard from './ServiceHistoryCard';
 import ServiceRequestCard from './ServiceRequestCard';
 import TutorialCard from './TutorialCard';
 import TutorialScrollContainer from './TutorialScrollContainer';
+import { EXPLORE_FREELY_NAVIGATION } from '@/contents/explore';
 
 const ExploreFreely: React.FC = () => {
   const { isConnected } = useCurrentWallet();
@@ -35,11 +35,11 @@ const ExploreFreely: React.FC = () => {
     <TutorialCard>
       <CardHeader
         canGoBack={true}
-        backText={EXPLORE_FREELY.content.backText}
-        backUrl={EXPLORE_FREELY.content.backUrl}
+        backText={EXPLORE_FREELY_NAVIGATION.content.backText}
+        backUrl={EXPLORE_FREELY_NAVIGATION.content.backUrl}
         onBack={handleBackAction}
-        linkText={EXPLORE_FREELY.content.linkText}
-        linkUrl={EXPLORE_FREELY.content.linkUrl}
+        linkText={EXPLORE_FREELY_NAVIGATION.content.linkText}
+        linkUrl={EXPLORE_FREELY_NAVIGATION.content.linkUrl}
       />
       <TutorialScrollContainer>
         <div className='dpp-content-container'>

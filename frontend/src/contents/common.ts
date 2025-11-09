@@ -1,3 +1,9 @@
+export const APP_METADATA = {
+  title: 'DPP with IOTA Trust Framework',
+  description: 'Explore the Digital Product Passport with IOTA Trust Framework',
+  iconUrl: '/assets/favicon-32x32.webp',
+};
+
 export const END_OF_PASSPORT_MESSAGE = {
   content: {
     messageDefault: 'End of Digital Product Passport',
@@ -104,24 +110,6 @@ export const CARD_HEADER = {
     titleDefault: 'Welcome',
     linkTextDefault: 'Button',
     backTextDefault: 'Back to the Start',
-  },
-};
-
-export const EXPLORE_FREELY = {
-  content: {
-    backText: '↺ Reset to Intro',
-    backUrl: '/introduction/1',
-    linkText: 'Switch to Guided Tour',
-    linkUrl: '/explore-guided',
-  },
-};
-
-export const EXPLORE_GUIDED = {
-  content: {
-    backText: '↺ Reset to Intro',
-    backUrl: '/introduction/1',
-    linkText: 'Switch to free exploration',
-    linkUrl: '/explore-freely',
   },
 };
 

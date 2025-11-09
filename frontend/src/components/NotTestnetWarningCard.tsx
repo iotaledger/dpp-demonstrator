@@ -41,7 +41,7 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
                       <img
                         className='h-full w-full object-cover'
                         alt={NOT_TESTNET_WARNING_CARD.content.imageAlt}
-                        src={NOT_TESTNET_WARNING_CARD.content.imageUrl}
+                        src={NOT_TESTNET_WARNING_CARD.asset.imageUrl}
                       />
                     </div>
                   </div>

@@ -104,7 +104,7 @@ export function useWalletUpdateEffects() {
     handleNotificationSent!({
       id: 'wallet-connect', // a static id avoids duplication during rerenderings
       type: 'success',
-      message: NOTIFICATION.connectedWallet,
+      message: NOTIFICATION.content.connectedWallet,
     });
   });
   const onStoreWalletAccountAccreditationCheck = useEffectEvent((currentAccountAddress: string) => {
@@ -117,7 +117,7 @@ export function useWalletUpdateEffects() {
     handleNotificationSent!({
       id: 'accreditation-recognition',
       type: 'success',
-      message: NOTIFICATION.approvedRole,
+      message: NOTIFICATION.content.approvedRole,
     });
   });
 

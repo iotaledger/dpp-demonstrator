@@ -14,7 +14,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import { useProductDetails } from '@/hooks/useProductDetails';
-import { EXPLORE } from '@/contents/explore';
+import { ROLE_DETAILS } from '@/contents/explore';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -85,7 +85,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title={EXPLORE.roleDetails.title}
+      title={ROLE_DETAILS.content.title}
       opacity={opacity}
       delay={delay}
     >
@@ -95,7 +95,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             <ItemValueRow
               key={MANUFACTURER_DID}
               rowState={getRowState('manufacturer')}
-              label={EXPLORE.roleDetails.manufacturerLabel}
+              label={ROLE_DETAILS.content.manufacturerLabel}
               value={
                 <BadgeWithLink
                   badgeText={productDetails?.billOfMaterials?.manufacturerName}
@@ -110,10 +110,10 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
           <ItemValueRow
             key={FEDERATION_ID}
             rowState={getRowState('network')}
-            label={EXPLORE.roleDetails.serviceNetworkLabel}
+            label={ROLE_DETAILS.content.serviceNetworkLabel}
             value={
               <BadgeWithLink
-                badgeText={EXPLORE.roleDetails.hierarchyBadgeLabel}
+                badgeText={ROLE_DETAILS.content.hierarchyBadgeLabel}
                 linkText={truncateAddress(FEDERATION_ID)}
                 linkHref={getObjectExplorerUrl(FEDERATION_ID)}
               />
@@ -123,7 +123,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             <ItemValueRow
               key={accreditation.receiver}
               rowState={getRowState(getCurrentAccountBadge(accreditation.receiver) || '')}
-              label={EXPLORE.roleDetails.technicianBadgeLabel}
+              label={ROLE_DETAILS.content.technicianBadgeLabel}
               value={
                 <BadgeWithLink
                   badgeText={getCurrentAccountBadge(accreditation.receiver)}

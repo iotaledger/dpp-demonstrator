@@ -36,10 +36,10 @@ const ExploreFreely: React.FC = () => {
       <CardHeader
         canGoBack={true}
         backText={EXPLORE_FREELY_NAVIGATION.content.backText}
-        backUrl={EXPLORE_FREELY_NAVIGATION.content.backUrl}
+        backUrl={EXPLORE_FREELY_NAVIGATION.navigation.backUrl}
         onBack={handleBackAction}
         linkText={EXPLORE_FREELY_NAVIGATION.content.linkText}
-        linkUrl={EXPLORE_FREELY_NAVIGATION.content.linkUrl}
+        linkUrl={EXPLORE_FREELY_NAVIGATION.navigation.linkUrl}
       />
       <TutorialScrollContainer>
         <div className='dpp-content-container'>

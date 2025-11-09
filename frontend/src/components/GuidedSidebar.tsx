@@ -22,10 +22,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 1,
-        imageSrc: TUTORIAL_STEP_1.image.src,
-        imageAlt: TUTORIAL_STEP_1.image.alt,
-        stepTitle: TUTORIAL_STEP_1.title,
-        stepDescription: TUTORIAL_STEP_1.description,
+        imageSrc: TUTORIAL_STEP_1.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_1.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_1.content.title,
+        stepDescription: TUTORIAL_STEP_1.content.description,
       },
     ],
   ],
@@ -34,10 +34,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 2,
-        imageSrc: TUTORIAL_STEP_2.image.src,
-        imageAlt: TUTORIAL_STEP_2.image.alt,
-        stepTitle: TUTORIAL_STEP_2.title,
-        stepDescription: TUTORIAL_STEP_2.description,
+        imageSrc: TUTORIAL_STEP_2.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_2.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_2.content.title,
+        stepDescription: TUTORIAL_STEP_2.content.description,
       },
     ],
   ],
@@ -46,10 +46,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 3,
-        imageSrc: TUTORIAL_STEP_3.image.src,
-        imageAlt: TUTORIAL_STEP_3.image.alt,
-        stepTitle: TUTORIAL_STEP_3.title,
-        stepDescription: TUTORIAL_STEP_3.description,
+        imageSrc: TUTORIAL_STEP_3.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_3.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_3.content.title,
+        stepDescription: TUTORIAL_STEP_3.content.description,
       },
     ],
   ],
@@ -58,10 +58,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 4,
-        imageSrc: TUTORIAL_STEP_4.image.src,
-        imageAlt: TUTORIAL_STEP_4.image.alt,
-        stepTitle: TUTORIAL_STEP_4.title,
-        stepDescription: TUTORIAL_STEP_4.description,
+        imageSrc: TUTORIAL_STEP_4.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_4.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_4.content.title,
+        stepDescription: TUTORIAL_STEP_4.content.description,
       },
     ],
   ],
@@ -70,10 +70,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 5,
-        imageSrc: TUTORIAL_STEP_5.image.src,
-        imageAlt: TUTORIAL_STEP_5.image.alt,
-        stepTitle: TUTORIAL_STEP_5.title,
-        stepDescription: TUTORIAL_STEP_5.description,
+        imageSrc: TUTORIAL_STEP_5.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_5.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_5.content.title,
+        stepDescription: TUTORIAL_STEP_5.content.description,
       },
     ],
   ],
@@ -82,10 +82,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 6,
-        imageSrc: TUTORIAL_STEP_6.image.src,
-        imageAlt: TUTORIAL_STEP_6.image.alt,
-        stepTitle: TUTORIAL_STEP_6.title,
-        stepDescription: TUTORIAL_STEP_6.description,
+        imageSrc: TUTORIAL_STEP_6.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_6.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_6.content.title,
+        stepDescription: TUTORIAL_STEP_6.content.description,
       },
     ],
   ],
@@ -94,10 +94,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 7,
-        imageSrc: TUTORIAL_STEP_7.image.src,
-        imageAlt: TUTORIAL_STEP_7.image.alt,
-        stepTitle: TUTORIAL_STEP_7.title,
-        stepDescription: TUTORIAL_STEP_7.description,
+        imageSrc: TUTORIAL_STEP_7.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_7.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_7.content.title,
+        stepDescription: TUTORIAL_STEP_7.content.description,
       },
     ],
   ],
@@ -106,10 +106,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 8,
-        imageSrc: TUTORIAL_STEP_8.image.src,
-        imageAlt: TUTORIAL_STEP_8.image.alt,
-        stepTitle: TUTORIAL_STEP_8.title,
-        stepDescription: TUTORIAL_STEP_8.description,
+        imageSrc: TUTORIAL_STEP_8.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_8.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_8.content.title,
+        stepDescription: TUTORIAL_STEP_8.content.description,
       },
     ],
   ],
@@ -118,10 +118,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 9,
-        imageSrc: TUTORIAL_STEP_9.image.src,
-        imageAlt: TUTORIAL_STEP_9.image.alt,
-        stepTitle: TUTORIAL_STEP_9.title,
-        stepDescription: TUTORIAL_STEP_9.description,
+        imageSrc: TUTORIAL_STEP_9.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_9.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_9.content.title,
+        stepDescription: TUTORIAL_STEP_9.content.description,
       },
     ],
   ],
@@ -130,10 +130,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 10,
-        imageSrc: TUTORIAL_STEP_10.image.src,
-        imageAlt: TUTORIAL_STEP_10.image.alt,
-        stepTitle: TUTORIAL_STEP_10.title,
-        stepDescription: TUTORIAL_STEP_10.description,
+        imageSrc: TUTORIAL_STEP_10.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_10.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_10.content.title,
+        stepDescription: TUTORIAL_STEP_10.content.description,
       },
     ],
   ],
@@ -142,10 +142,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 11,
-        imageSrc: TUTORIAL_STEP_11.image.src,
-        imageAlt: TUTORIAL_STEP_11.image.alt,
-        stepTitle: TUTORIAL_STEP_11.title,
-        stepDescription: TUTORIAL_STEP_11.description,
+        imageSrc: TUTORIAL_STEP_11.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_11.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_11.content.title,
+        stepDescription: TUTORIAL_STEP_11.content.description,
       },
     ],
   ],
@@ -154,10 +154,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 12,
-        imageSrc: TUTORIAL_STEP_12.image.src,
-        imageAlt: TUTORIAL_STEP_12.image.alt,
-        stepTitle: TUTORIAL_STEP_12.title,
-        stepDescription: TUTORIAL_STEP_12.description,
+        imageSrc: TUTORIAL_STEP_12.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_12.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_12.content.title,
+        stepDescription: TUTORIAL_STEP_12.content.description,
       },
     ],
   ],
@@ -166,10 +166,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 13,
-        imageSrc: TUTORIAL_STEP_13.image.src,
-        imageAlt: TUTORIAL_STEP_13.image.alt,
-        stepTitle: TUTORIAL_STEP_13.title,
-        stepDescription: TUTORIAL_STEP_13.description,
+        imageSrc: TUTORIAL_STEP_13.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_13.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_13.content.title,
+        stepDescription: TUTORIAL_STEP_13.content.description,
       },
     ],
   ],
@@ -252,7 +252,7 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
 
   const handleOnNext = () => {
     if (currentStep === 13) {
-      router.push(GUIDED_SIDEBAR.content.recapUrl);
+      router.push(GUIDED_SIDEBAR.navigation.recapUrl);
       return;
     }
     onNext();

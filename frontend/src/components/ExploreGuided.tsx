@@ -296,10 +296,10 @@ const ExploreGuided: React.FC = () => {
       <CardHeader
         canGoBack={true}
         backText={EXPLORE_GUIDED_NAVIGATION.content.backText}
-        backUrl={EXPLORE_GUIDED_NAVIGATION.content.backUrl}
+        backUrl={EXPLORE_GUIDED_NAVIGATION.navigation.backUrl}
         onBack={handleBackAction}
         linkText={EXPLORE_GUIDED_NAVIGATION.content.linkText}
-        linkUrl={EXPLORE_GUIDED_NAVIGATION.content.linkUrl}
+        linkUrl={EXPLORE_GUIDED_NAVIGATION.navigation.linkUrl}
         variation='primary'
       />
       <TutorialScrollContainer>

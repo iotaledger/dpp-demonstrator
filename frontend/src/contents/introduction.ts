@@ -13,8 +13,10 @@ import { WALLET_DATA_ICON } from "@/components/icons/WalletDataIcon";
 export const INTRODUCTION_NAVIGATION = {
   content: {
     title: 'Welcome',
-    backUrl: '/introduction/1',
     linkText: 'Skip Intro',
+  },
+  navigation: {
+    backUrl: '/introduction/1',
     linkUrl: '/explore-guided',
   },
 };

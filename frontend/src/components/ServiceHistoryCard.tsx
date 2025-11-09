@@ -14,7 +14,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import { formatLCCBalance } from '@/helpers/rewardVault';
-import { EXPLORE } from '@/contents/explore';
+import { SERVICE_HISTORY } from '@/contents/explore';
 import ViewMoreButton from './ViewMoreButton';
 import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 
@@ -122,17 +122,17 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title={EXPLORE.serviceHistory.title}
-      subtitle={EXPLORE.serviceHistory.subtitle}
+      title={SERVICE_HISTORY.content.title}
+      subtitle={SERVICE_HISTORY.content.subtitle}
       opacity={opacity}
       delay={delay}
     >
       {getServiceEntriesToShow()?.map((serviceEntry) => (
-        <PanelContent key={serviceEntry.digest} title={EXPLORE.serviceHistory.healthSnapshotEventName}>
+        <PanelContent key={serviceEntry.digest} title={SERVICE_HISTORY.content.healthSnapshotEventName}>
           <DataGrid gap='gap-y-2 gap-x-6'>
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label={EXPLORE.serviceHistory.eventIdLabel}
+              label={SERVICE_HISTORY.content.eventIdLabel}
               value={
                 <div className='flex items-center gap-2'>
                   <a
@@ -148,12 +148,12 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label={EXPLORE.serviceHistory.entryTypeLabel}
-              value={EXPLORE.serviceHistory.entryTypeValue}
+              label={SERVICE_HISTORY.content.entryTypeLabel}
+              value={SERVICE_HISTORY.content.entryTypeValue}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label={EXPLORE.serviceHistory.timestampLabel}
+              label={SERVICE_HISTORY.content.timestampLabel}
               value={fromPosixMsToUtcDateFormat(serviceEntry?.timestamp)}
             />
 
@@ -162,22 +162,22 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             {serviceEntry?.healthScore && (
               <ItemValueRow
                 rowState={getRowState('detailsSelected')}
-                label={EXPLORE.serviceHistory.healthScoreLabel}
+                label={SERVICE_HISTORY.content.healthScoreLabel}
                 value={serviceEntry.healthScore}
                 valueColor='text-gray-900 font-semibold'
               />
             )}
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label={EXPLORE.serviceHistory.findingsLabel}
+              label={SERVICE_HISTORY.content.findingsLabel}
               value={serviceEntry?.findings || serviceEntry?.serviceDescription}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label={EXPLORE.serviceHistory.verificationLabel}
+              label={SERVICE_HISTORY.content.verificationLabel}
               value={
                 <div className='flex items-center gap-2'>
-                  <p>{EXPLORE.serviceHistory.verificationValue}</p>
+                  <p>{SERVICE_HISTORY.content.verificationValue}</p>
                   <a
                     target='_blank'
                     href={getTxBlockExplorerUrl(serviceEntry.txBlock)}
@@ -193,7 +193,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label={EXPLORE.serviceHistory.technicianLabel}
+              label={SERVICE_HISTORY.content.technicianLabel}
               value={
                 <div className='flex items-center gap-2'>
                   {getCurrentAccountBadge(serviceEntry?.issuerAddress)}
@@ -212,7 +212,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
-              label={EXPLORE.serviceHistory.rewardContractLabel}
+              label={SERVICE_HISTORY.content.rewardContractLabel}
               value={truncateAddress(serviceEntry?.packageId)}
               fontMono={true}
               valueColor='text-blue-600'
@@ -221,7 +221,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             />
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
-              label={EXPLORE.serviceHistory.rewardDistributedLabel}
+              label={SERVICE_HISTORY.content.rewardDistributedLabel}
               value={`${formatLCCBalance(serviceEntry.rewardBalance)} ${REWARD_TOKEN_SYMBOL}`}
             />
           </DataGrid>

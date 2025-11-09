@@ -10,7 +10,7 @@ interface BackgroundVideoProps {
 
 const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
   src,
-  poster = BACKGROUND_VIDEO.content.defaultPoster,
+  poster = BACKGROUND_VIDEO.asset.defaultPoster,
 }) => {
   return (
     <div className='absolute inset-0 h-full w-full' style={{ zIndex: 10 }}>

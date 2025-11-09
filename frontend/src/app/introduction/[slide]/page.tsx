@@ -47,8 +47,8 @@ export default function IntroductionPage() {
               <CardHeader
                 title={INTRODUCTION_NAVIGATION.content.title}
                 linkText={INTRODUCTION_NAVIGATION.content.linkText}
-                linkUrl={INTRODUCTION_NAVIGATION.content.linkUrl}
-                backUrl={INTRODUCTION_NAVIGATION.content.backUrl}
+                linkUrl={INTRODUCTION_NAVIGATION.navigation.linkUrl}
+                backUrl={INTRODUCTION_NAVIGATION.navigation.backUrl}
                 canGoBack={canGoPrevious}
               />
               <TutorialScrollContainer>

@@ -61,13 +61,13 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
       const requestId = generateRequestId();
       handleNotarizationSentSuccess(requestId);
       onSave();
-      handleNotificationSent!(SuccessNotification(NOTIFICATION.savedHealthSnapshot));
+      handleNotificationSent!(SuccessNotification(NOTIFICATION.content.savedHealthSnapshot));
     });
   };
 
   const onNotarizationError = (error: unknown) => {
     console.error('❌ Error while calling sendTransaction.', error);
-    handleNotificationSent!(ErrorNotification(NOTIFICATION.errorSendTransaction));
+    handleNotificationSent!(ErrorNotification(NOTIFICATION.content.errorSendTransaction));
   };
 
   const handleClose = () => {

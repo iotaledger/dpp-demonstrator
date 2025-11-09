@@ -12,8 +12,10 @@ export const RECAP_NAVIGATION = {
   content: {
     title: 'Welcome',
     backText: '← Back to DPP',
-    backUrl: '/explore-freely',
     linkText: '↺ Reset to Intro',
+  },
+  navigation: {
+    backUrl: '/explore-freely',
     linkUrl: '/introduction/1',
   },
 };

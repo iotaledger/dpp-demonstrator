@@ -7,11 +7,11 @@ import { AppLayout } from '@/components/AppLayout';
 import { APP_METADATA } from '@/contents/common';
 
 export const metadata: Metadata = {
-  title: APP_METADATA.title,
-  description: APP_METADATA.description,
+  title: APP_METADATA.content.title,
+  description: APP_METADATA.content.description,
   // See documentation at: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#icons
   icons: {
-    icon: APP_METADATA.iconUrl,
+    icon: APP_METADATA.asset.iconUrl,
   },
   // See documentation at: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#robots
   robots: {

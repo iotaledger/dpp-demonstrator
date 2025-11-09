@@ -86,7 +86,7 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                   <img
                     className='h-full w-full object-cover'
                     alt={DIAGNOSTIC_CARD.content.imageAlt}
-                    src={DIAGNOSTIC_CARD.content.imageUrl}
+                    src={DIAGNOSTIC_CARD.asset.imageUrl}
                   />
                 </div>
               </div>

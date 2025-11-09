@@ -10,7 +10,7 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
-import { EXPLORE } from '@/contents/explore';
+import { REWARD_TRANSACTIONS } from '@/contents/explore';
 import ViewMoreButton from './ViewMoreButton';
 import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 
@@ -103,29 +103,29 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title={EXPLORE.rewardTransactions.title}
-      subtitle={EXPLORE.rewardTransactions.subtitle}
+      title={REWARD_TRANSACTIONS.content.title}
+      subtitle={REWARD_TRANSACTIONS.content.subtitle}
       opacity={opacity}
       delay={delay}
     >
       {getTransactionsToShow()?.map((rewardEntry) => (
         <PanelContent
           key={rewardEntry.digest}
-          title={EXPLORE.rewardTransactions.healthSnapshotEventName}
+          title={REWARD_TRANSACTIONS.content.healthSnapshotEventName}
           badge={<BadgeWithLink badgeText={getBadgeText(rewardEntry.status)} spacing='gap-0' />}
         >
           <DataGrid gap='gap-y-2 gap-x-6'>
             {!hasTxFailed(rewardEntry.status) && (
               <ItemValueRow
                 rowState={getRowState()}
-                label={EXPLORE.rewardTransactions.serviceIdLabel}
+                label={REWARD_TRANSACTIONS.content.serviceIdLabel}
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.productAddr)}
                 fontMono={true}
               />
             )}
             <ItemValueRow
               rowState={getRowState()}
-              label={EXPLORE.rewardTransactions.transactionIdLabel}
+              label={REWARD_TRANSACTIONS.content.transactionIdLabel}
               value={truncateAddress(rewardEntry.digest)}
               fontMono={true}
               valueColor='text-blue-600'
@@ -134,13 +134,13 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
             />
             <ItemValueRow
               rowState={getRowState()}
-              label={EXPLORE.rewardTransactions.timestampLabel}
+              label={REWARD_TRANSACTIONS.content.timestampLabel}
               value={fromPosixMsToUtcDateFormat(rewardEntry.timestamp)}
             />
             {!hasTxFailed(rewardEntry.status) && (
               <ItemValueRow
                 rowState={getRowState()}
-                label={EXPLORE.rewardTransactions.technicianLabel}
+                label={REWARD_TRANSACTIONS.content.technicianLabel}
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.sender)}
                 fontMono={true}
                 valueColor='text-blue-600'
@@ -150,7 +150,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
             )}
             <ItemValueRow
               rowState={getRowState()}
-              label={EXPLORE.rewardTransactions.rewardDistributedLabel}
+              label={REWARD_TRANSACTIONS.content.rewardDistributedLabel}
               value={`${formatTokenBalance(rewardEntry.rewardChanges.at(0)?.amount || '0')} LCC`}
             />
           </DataGrid>

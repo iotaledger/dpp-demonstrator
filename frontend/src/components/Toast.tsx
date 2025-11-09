@@ -17,14 +17,14 @@ interface ToastProps extends Notification {
 function getToastIcon(type: ToastType) {
   switch (type) {
     case 'success':
-      return TOAST.content.icons.success;
+      return TOAST.icon.success;
     case 'warning':
-      return TOAST.content.icons.warning;
+      return TOAST.icon.warning;
     case 'error':
-      return TOAST.content.icons.error;
+      return TOAST.icon.error;
     case 'info':
     default:
-      return TOAST.content.icons.info;
+      return TOAST.icon.info;
   }
 }
 

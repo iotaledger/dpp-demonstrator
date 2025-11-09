@@ -47,7 +47,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   };
   const onAccreditationError = (error: unknown) => {
     console.error('❌ Error while calling createAccreditation.', error);
-    handleNotificationSent!(ErrorNotification(NOTIFICATION.errorAccreditation));
+    handleNotificationSent!(ErrorNotification(NOTIFICATION.content.errorAccreditation));
   };
 
   /**

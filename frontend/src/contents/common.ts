@@ -1,7 +1,11 @@
 export const APP_METADATA = {
-  title: 'DPP with IOTA Trust Framework',
-  description: 'Explore the Digital Product Passport with IOTA Trust Framework',
-  iconUrl: '/assets/favicon-32x32.webp',
+  content: {
+    title: 'DPP with IOTA Trust Framework',
+    description: 'Explore the Digital Product Passport with IOTA Trust Framework',
+  },
+  asset: {
+    iconUrl: '/assets/favicon-32x32.webp',
+  },
 };
 
 export const END_OF_PASSPORT_MESSAGE = {
@@ -20,8 +24,10 @@ export const NOT_TESTNET_WARNING_CARD = {
   content: {
     title: 'Wrong network detected. ',
     subtitle: 'Please switch your wallet to the IOTA Testnet.',
-    imageUrl: '/assets/testnet-network.png',
     imageAlt: 'Wrong network detected.',
+  },
+  asset: {
+    imageUrl: '/assets/testnet-network.png',
   },
 };
 
@@ -89,18 +95,16 @@ export const SAVE_DIAGNOSTIC_MODAL = {
 };
 
 export const TOAST = {
-  content: {
-    icons: {
-      success: '✅',
-      warning: '⚠️',
-      error: '❌',
-      info: 'ℹ️',
-    },
+  icon: {
+    success: '✅',
+    warning: '⚠️',
+    error: '❌',
+    info: 'ℹ️',
   },
 };
 
 export const BACKGROUND_VIDEO = {
-  content: {
+  asset: {
     defaultPoster: '/src/lib/assets/intro/placeholder-poster.jpg',
   },
 };
@@ -149,11 +153,13 @@ export const DIAGNOSTIC_CARD = {
   content: {
     title: 'EcoBike Pro Battery diagnostic tool',
     subtitle: 'Annual Health Snapshot',
-    imageUrl: 'https://dpp-demo-three.vercel.app/_app/immutable/assets/step_11.DFR7MaqW.webp',
     imageAlt: 'Diagnostic tool',
     buttonTextStartDiagnostic: 'Start diagnostic now',
     buttonTextRunningDiagnostic: 'Running diagnostic...',
     loadingText: 'Analyzing battery health...',
+  },
+  asset: {
+    imageUrl: 'https://dpp-demo-three.vercel.app/_app/immutable/assets/step_11.DFR7MaqW.webp',
   },
 };
 
@@ -174,6 +180,8 @@ export const GUIDED_SIDEBAR = {
     finish: 'Finish',
     next: 'Next',
     behindTheScene: 'Behind the Scene',
+  },
+  navigation: {
     recapUrl: '/recap/1',
   },
 };

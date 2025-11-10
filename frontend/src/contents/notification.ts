@@ -1,10 +1,13 @@
+import i18n from "@/i18n";
+const t = i18n.t;
+
 export const NOTIFICATION = {
   content: {
-    savedHealthSnapshot: 'Health snapshot saved to service history.',
-    errorSendTransaction: 'Error while calling sendTransaction.',
-    submittedAccreditation: 'Service request submitted successfully!',
-    errorAccreditation: 'Error while requesting accreditation.',
-    connectedWallet: 'Wallet connected successfully! You can now request service access.',
-    approvedRole: 'Role request approved! You can now access diagnostic tools.',
+    savedHealthSnapshot: t('Health snapshot saved to service history.'),
+    errorSendTransaction: t('Error while calling sendTransaction.'),
+    submittedAccreditation: t('Service request submitted successfully!'),
+    errorAccreditation: t('Error while requesting accreditation.'),
+    connectedWallet: t('Wallet connected successfully! You can now request service access.'),
+    approvedRole: t('Role request approved! You can now access diagnostic tools.'),
   },
 }

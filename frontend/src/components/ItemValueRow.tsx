@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { clsx } from 'clsx';
+import { ITEM_VALUE_ROW } from '@/contents/common';
 
 interface ItemValueRowProps {
   label: string;
@@ -47,7 +48,7 @@ const ItemValueRow: React.FC<ItemValueRowProps> = ({
       function ValuePendingPlaceholder() {
         return (
           <div className='flex items-center gap-3'>
-            <span className='font-mono text-sm text-blue-600'>0x04c...99fa</span>
+            <span className='font-mono text-sm text-blue-600'>{ITEM_VALUE_ROW.content.addressPlaceholder}</span>
           </div>
         );
       }

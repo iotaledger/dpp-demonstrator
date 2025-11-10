@@ -6,15 +6,9 @@ import { clsx } from 'clsx';
 
 import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 import { NOTIFICATION_DECAY_TIME_MS } from '@/utils/constants';
+import { TOAST } from '@/contents/common';
 import CloseIcon from './icons/CloseIcon';
-
-type ToastType = 'success' | 'warning' | 'error' | 'info' | string;
-
-export interface Notification {
-  id: string;
-  type: ToastType;
-  message: string;
-}
+import type { Notification, ToastType } from '@/types/common';
 
 interface ToastProps extends Notification {
   onClose?: (id: string) => void;
@@ -23,14 +17,14 @@ interface ToastProps extends Notification {
 function getToastIcon(type: ToastType) {
   switch (type) {
     case 'success':
-      return '✅';
+      return TOAST.icon.success;
     case 'warning':
-      return '⚠️';
+      return TOAST.icon.warning;
     case 'error':
-      return '❌';
+      return TOAST.icon.error;
     case 'info':
     default:
-      return 'ℹ️';
+      return TOAST.icon.info;
   }
 }
 

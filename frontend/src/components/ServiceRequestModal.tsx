@@ -14,6 +14,7 @@ import Dialog from './Dialog';
 import CloseIcon from './icons/CloseIcon';
 import CopyIcon from './icons/CopyIcon';
 import { Roles } from '@/types/identity';
+import { NOTIFICATION } from '@/contents/notification';
 
 interface ServiceRequestModalProps {
   isOpen: boolean;
@@ -21,21 +22,8 @@ interface ServiceRequestModalProps {
   onSuccess?: () => void;
 }
 
-const MODAL_CONTENT = {
-  title: 'Request Service Network Access',
-  labels: {
-    federationAddress: 'Service Network Address',
-    role: 'Role',
-  },
-  buttons: {
-    submit: 'Submit',
-    submitting: 'Submitting...',
-  },
-  messages: {
-    successToast: 'Service request submitted successfully!',
-    addressCopied: 'Address copied to clipboard!',
-  },
-};
+import { SERVICE_REQUEST_MODAL } from '@/contents/common';
+import { ErrorNotification } from '@/types/common';
 
 export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   isOpen,
@@ -59,11 +47,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   };
   const onAccreditationError = (error: unknown) => {
     console.error('❌ Error while calling createAccreditation.', error);
-    handleNotificationSent!({
-      id: generateRequestId(),
-      type: 'error',
-      message: 'Error while requesting accreditation.',
-    });
+    handleNotificationSent!(ErrorNotification(NOTIFICATION.content.errorAccreditation));
   };
 
   /**
@@ -73,7 +57,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
 
   // Copy to clipboard functionality using extracted hook
   const { copied, copyToClipboard } = useCopyToClipboard({
-    successMessage: MODAL_CONTENT.messages.addressCopied,
+    successMessage: SERVICE_REQUEST_MODAL.content.messages.addressCopied,
   });
 
   const account = useCurrentAccount();
@@ -137,13 +121,13 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
       <div className='mx-auto w-full max-w-xl'>
         <div className='mb-8 flex items-center justify-between'>
           <h2 id='dialog-title' className='text-xl font-semibold text-gray-900'>
-            {MODAL_CONTENT.title}
+            {SERVICE_REQUEST_MODAL.content.title}
           </h2>
           <button
             onClick={handleClose}
             className='cursor-pointer p-1 text-gray-400 hover:text-gray-600 focus-visible:outline-gray-300'
             disabled={isPending}
-            aria-label='Close modal'
+            aria-label={SERVICE_REQUEST_MODAL.content.buttons.closeAriaLabel}
           >
             <CloseIcon />
           </button>
@@ -157,7 +141,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               htmlFor='federationAddressCopy'
               className='block text-sm font-medium text-gray-700'
             >
-              {MODAL_CONTENT.labels.federationAddress}
+              {SERVICE_REQUEST_MODAL.content.labels.federationAddress}
             </label>
             <div className='relative'>
               <input
@@ -175,8 +159,12 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 type='button'
                 onClick={handleCopyAddress}
                 className='absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer p-1 text-gray-400 hover:text-gray-600 focus-visible:outline-gray-300'
-                title={copied ? 'Copied!' : 'Copy address'}
-                aria-label={copied ? 'Address copied' : 'Copy address'}
+                title={copied ? SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopied : SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopy}
+                aria-label={(
+                  copied
+                    ? SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopiedAriaLabel
+                    : SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopyAriaLabel
+                )}
               >
                 <CopyIcon />
               </button>
@@ -186,7 +174,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
           {/* Role Selection - exact structure match */}
           <div className='space-y-2'>
             <label htmlFor='role' className='block text-sm font-medium text-gray-700'>
-              {MODAL_CONTENT.labels.role}
+              {SERVICE_REQUEST_MODAL.content.labels.role}
             </label>
             <select
               id='role'
@@ -211,7 +199,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               type='submit'
               disabled={isPending}
             >
-              {isPending ? MODAL_CONTENT.buttons.submitting : MODAL_CONTENT.buttons.submit}
+              {isPending ? SERVICE_REQUEST_MODAL.content.buttons.submitting : SERVICE_REQUEST_MODAL.content.buttons.submit}
             </button>
           </div>
         </form>

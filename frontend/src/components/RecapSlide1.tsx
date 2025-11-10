@@ -3,6 +3,7 @@
 import React from 'react';
 
 import CheckmarkList from './CheckmarkList';
+import { RECAP_SLIDE_1 } from '@/contents/recap';
 
 interface RecapSlide1Props {
   title?: string;
@@ -13,16 +14,6 @@ interface RecapSlide1Props {
 }
 
 const RecapSlide1: React.FC<RecapSlide1Props> = ({
-  title = 'What You Just Experienced',
-  description = 'You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:',
-  checkmarkItems = [
-    'Verified manufacturer identity via domain linkage',
-    'Became certified through IOTA Hierarchies',
-    'Added a signed health snapshot using IOTA Notarization',
-    'Received a token payout via IOTA Tokenization',
-    'Paid no fees thanks to IOTA Gas Station',
-    'Connected securely via a browser or mobile wallet',
-  ],
   opacity = 100,
   delay = 0.2,
 }) => {
@@ -41,13 +32,13 @@ const RecapSlide1: React.FC<RecapSlide1Props> = ({
       <div className='flex flex-col gap-6'>
         <div className='flex flex-col gap-4'>
           <div className='text-3xl tracking-[-0.56px] text-gray-900 md:text-4xl lg:text-5xl'>
-            <p className='leading-[1.2]'>{title}</p>
+            <p className='leading-[1.2]'>{RECAP_SLIDE_1.title}</p>
           </div>
           <div className='max-w-3xl text-lg tracking-[0.1px] text-gray-600 md:text-xl'>
-            <p className='leading-[28px]'>{description}</p>
+            <p className='leading-[28px]'>{RECAP_SLIDE_1.description}</p>
           </div>
         </div>
-        <CheckmarkList items={checkmarkItems} opacity={100} delay={delay + 0.2} />
+        <CheckmarkList items={RECAP_SLIDE_1.checkmarkItems} opacity={100} delay={delay + 0.2} />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ import ServiceHistoryCard from './ServiceHistoryCard';
 import ServiceRequestCard from './ServiceRequestCard';
 import TutorialCard from './TutorialCard';
 import TutorialScrollContainer from './TutorialScrollContainer';
+import { EXPLORE_FREELY_NAVIGATION } from '@/contents/explore';
 
 const ExploreFreely: React.FC = () => {
   const { isConnected } = useCurrentWallet();
@@ -34,11 +35,11 @@ const ExploreFreely: React.FC = () => {
     <TutorialCard>
       <CardHeader
         canGoBack={true}
-        backText='↺ Reset to Intro'
-        backUrl='/introduction/1'
+        backText={EXPLORE_FREELY_NAVIGATION.content.backText}
+        backUrl={EXPLORE_FREELY_NAVIGATION.navigation.backUrl}
         onBack={handleBackAction}
-        linkText='Switch to Guided Tour'
-        linkUrl='/explore-guided'
+        linkText={EXPLORE_FREELY_NAVIGATION.content.linkText}
+        linkUrl={EXPLORE_FREELY_NAVIGATION.navigation.linkUrl}
       />
       <TutorialScrollContainer>
         <div className='dpp-content-container'>

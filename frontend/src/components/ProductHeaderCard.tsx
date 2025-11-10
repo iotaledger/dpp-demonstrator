@@ -5,6 +5,7 @@ import React, { useCallback } from 'react';
 import { useProductDetails } from '@/hooks/useProductDetails';
 
 import CollapsibleSection from './CollapsibleSection';
+import { PRODUCT_HEADER } from '@/contents/explore';
 
 interface ProductHeaderCardProps {
   tutorialState?: 'selected' | 'muted' | 'no';
@@ -40,11 +41,11 @@ const ProductHeaderCard: React.FC<ProductHeaderCardProps> = ({ tutorialState = '
             {/* Content Container */}
             <div className='flex flex-1 flex-col justify-center space-y-4 pt-3'>
               <div className='space-y-0.5'>
-                <div className='text-sm font-medium text-gray-500'>Product Name:</div>
+                <div className='text-sm font-medium text-gray-500'>{PRODUCT_HEADER.content.productName}</div>
                 <h1 className='text-2xl font-semibold text-gray-900'>{productDetails?.name}</h1>
               </div>
               <div className='space-y-0.5'>
-                <div className='text-sm font-medium text-gray-500'>Manufacturer Name:</div>
+                <div className='text-sm font-medium text-gray-500'>{PRODUCT_HEADER.content.manufacturerName}</div>
                 <div className='text-xl font-medium text-gray-900'>{productDetails?.billOfMaterials?.manufacturerName}</div>
               </div>
             </div>

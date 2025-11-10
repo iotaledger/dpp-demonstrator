@@ -12,6 +12,7 @@ import { FEDERATION_ID } from '@/utils/constants';
 import { useFederationDetails } from './useFederationDetails';
 import { Roles } from '@/types/identity';
 import type { WalletAccount } from '@iota/wallet-standard';
+import { NOTIFICATION } from '@/contents/notification';
 
 /**
  * NOTE:
@@ -103,7 +104,7 @@ export function useWalletUpdateEffects() {
     handleNotificationSent!({
       id: 'wallet-connect', // a static id avoids duplication during rerenderings
       type: 'success',
-      message: 'Wallet connected successfully! You can now request service access.',
+      message: NOTIFICATION.content.connectedWallet,
     });
   });
   const onStoreWalletAccountAccreditationCheck = useEffectEvent((currentAccountAddress: string) => {
@@ -116,7 +117,7 @@ export function useWalletUpdateEffects() {
     handleNotificationSent!({
       id: 'accreditation-recognition',
       type: 'success',
-      message: 'Role request approved! You can now access diagnostic tools.',
+      message: NOTIFICATION.content.approvedRole,
     });
   });
 

@@ -13,6 +13,7 @@ import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
 import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
+import { REWARD_POOL } from '@/contents/explore';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -70,18 +71,18 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title='Reward Pool Status'
+      title={REWARD_POOL.content.title}
       opacity={opacity}
       delay={delay}
     >
       <TwoColumnSection
         gap='gap-4'
         leftColumn={
-          <PanelContent panelState={getPanelState()} title={'Lifecycle Credit (LCC) Rewards'}>
+          <PanelContent panelState={getPanelState()} title={REWARD_POOL.content.lifecycleCreditTitle}>
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
-                label='Reward contract'
+                label={REWARD_POOL.content.rewardContractLabel}
                 value={truncateAddress(VAULT_ID)}
                 linkHref={getObjectExplorerUrl(VAULT_ID)}
                 fontMono={true}
@@ -90,18 +91,18 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               />
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
-                label='Total Lifecycle Fund'
-                value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || '0 LCC'}
+                label={REWARD_POOL.content.totalLifecycleFundLabel}
+                value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || REWARD_POOL.content.totalLifecycleFundValueFallback}
               />
               {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
-                label='End-of-life Rewards'
-                value={'30 LCC'}
+                label={REWARD_POOL.content.endOfLifeRewardsLabel}
+                value={REWARD_POOL.content.endOfLifeRewardsValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
-                label='Maintenance Rewards remaining'
+                label={REWARD_POOL.content.maintenanceRewardsRemainingLabel}
                 value={
                   isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)
                 }
@@ -112,27 +113,27 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
           </PanelContent>
         }
         rightColumn={
-          <PanelContent title='Reward Table'>
+          <PanelContent title={REWARD_POOL.content.rewardTableTitle}>
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('annualMaintenanceReward')}
-                label='Annual Maintenance Reward'
-                value={'1 LCC'}
+                label={REWARD_POOL.content.annualMaintenanceRewardLabel}
+                value={REWARD_POOL.content.annualMaintenanceRewardValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
-                label='Recycling Reward'
-                value={'10 LCC'}
+                label={REWARD_POOL.content.recyclingRewardLabel}
+                value={REWARD_POOL.content.recyclingRewardValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
-                label='Final owner'
-                value={'10 LCC'}
+                label={REWARD_POOL.content.finalOwnerLabel}
+                value={REWARD_POOL.content.finalOwnerValueDefault}
               />
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
-                label='Manufacturer return'
-                value={'10 LCC'}
+                label={REWARD_POOL.content.manufacturerReturnLabel}
+                value={REWARD_POOL.content.manufacturerReturnValueDefault}
               />
             </DataGrid>
           </PanelContent>

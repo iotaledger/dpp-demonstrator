@@ -1,25 +1,11 @@
 'use client';
 
 import { useCurrentNetwork, useWalletConnected } from '@/providers/appProvider';
-
-const noticeInfo = {
-  title: 'Wrong network detected. ',
-  subtitle: 'Please switch your wallet to the IOTA Testnet.',
-  imageUrl: '/assets/testnet-network.png',
-  imageAlt: 'Wrong network detected.',
-  buttonTextStartDiagnostic: 'Switch Network',
-  buttonTextRunningDiagnostic: 'Switching Network...',
-};
+import { NOT_TESTNET_WARNING_CARD } from '@/contents/common';
 
 interface NotTestnetWarningCardProps {
-  title?: string;
-  description?: string;
-  buttonText?: string;
-  onButtonClick?: () => void;
-  buttonId?: string;
   opacity?: number;
   delay?: number;
-  cardState?: 'normal' | 'muted' | 'highlighted';
 }
 
 const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
@@ -54,8 +40,8 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
                     <div className='relative max-h-[220px] w-full overflow-hidden rounded-lg bg-blue-50'>
                       <img
                         className='h-full w-full object-cover'
-                        alt={noticeInfo.imageAlt}
-                        src={noticeInfo.imageUrl}
+                        alt={NOT_TESTNET_WARNING_CARD.content.imageAlt}
+                        src={NOT_TESTNET_WARNING_CARD.asset.imageUrl}
                       />
                     </div>
                   </div>
@@ -64,8 +50,8 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
                   <div className='flex flex-1 flex-col justify-start py-6'>
                     {/* Text Content */}
                     <div className='space-y-0.5'>
-                      <div className='text-sm font-medium text-gray-500'>{noticeInfo.title}</div>
-                      <div className='text-lg font-medium text-gray-900'>{noticeInfo.subtitle}</div>
+                      <div className='text-sm font-medium text-gray-500'>{NOT_TESTNET_WARNING_CARD.content.title}</div>
+                      <div className='text-lg font-medium text-gray-900'>{NOT_TESTNET_WARNING_CARD.content.subtitle}</div>
                     </div>
                   </div>
                 </div>

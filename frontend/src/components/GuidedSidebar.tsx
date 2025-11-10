@@ -9,10 +9,12 @@ import CaretUpIcon from './icons/CaretUpIcon';
 import CaretDownIcon from './icons/CaretDownIcon';
 
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
+import { GUIDED_SIDEBAR } from '@/contents/common';
 
 import StepContent from './StepContent';
 import StepNavigation from './StepNavigation';
 import StepProgress from './StepProgress';
+import { TUTORIAL_STEP_1, TUTORIAL_STEP_10, TUTORIAL_STEP_11, TUTORIAL_STEP_12, TUTORIAL_STEP_13, TUTORIAL_STEP_2, TUTORIAL_STEP_3, TUTORIAL_STEP_4, TUTORIAL_STEP_5, TUTORIAL_STEP_6, TUTORIAL_STEP_7, TUTORIAL_STEP_8, TUTORIAL_STEP_9 } from '@/contents/explore';
 
 const TUTORIAL_STEPS = new Map([
   [
@@ -20,11 +22,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 1,
-        imageSrc: '/assets/steps/step_1.webp',
-        imageAlt: 'Meet the Product',
-        stepTitle: 'Meet the Product',
-        stepDescription:
-          '<p>This e-bike battery is the product we will track throughout the demo. Its Digital Product Passport was created by EcoBike, and every service event or reward you add later will link back to this single on-chain identity.</p>',
+        imageSrc: TUTORIAL_STEP_1.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_1.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_1.content.title,
+        stepDescription: TUTORIAL_STEP_1.content.description,
       },
     ],
   ],
@@ -33,11 +34,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 2,
-        imageSrc: '/assets/steps/step_2.webp',
-        imageAlt: 'Product Details',
-        stepTitle: 'Product Details',
-        stepDescription:
-          "<p>Here you can review the product details that the manufacturer initially attached to the passport, including production facts, key attributes, and the bill of materials. The DPP ID is this battery's unique identifier on the IOTA network. Follow the link to open the <strong>IOTA Explorer</strong> and view the on-chain record and metadata in full. Thanks to IOTA's core characteristics and <strong>IOTA Notarization</strong>, this information is immutably stored and accessible to everyone.</p>",
+        imageSrc: TUTORIAL_STEP_2.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_2.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_2.content.title,
+        stepDescription: TUTORIAL_STEP_2.content.description,
       },
     ],
   ],
@@ -46,11 +46,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 3,
-        imageSrc: '/assets/steps/step_3.webp',
-        imageAlt: 'Manufacturer Identity',
-        stepTitle: 'Manufacturer Identity',
-        stepDescription:
-          "<p>EcoBike is the legal entity that produced this battery and is responsible for its Digital Product Passport. EcoBike represents itself via an <strong>IOTA Identity</strong> called a Decentralized Identifier (DID) on the IOTA network.</p></br><p>The green checkmark indicates that EcoBike's DID is <strong>domain-linked</strong>, meaning its digital identity has been cryptographically verified to match its official website domain — proving that this identity truly belongs to the <strong>legitimate manufacturer</strong>.</p>",
+        imageSrc: TUTORIAL_STEP_3.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_3.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_3.content.title,
+        stepDescription: TUTORIAL_STEP_3.content.description,
       },
     ],
   ],
@@ -59,11 +58,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 4,
-        imageSrc: '/assets/steps/step_4.webp',
-        imageAlt: 'Service Network',
-        stepTitle: 'Service Network',
-        stepDescription:
-          "<p>For products that can move freely across this planet, a manufacturer needs a reliable way to let trusted repairers and recyclers add information to the passport. EcoBike solves this by keeping an on-chain Service Network via <strong>IOTA Hierarchies</strong>. Only trusted actors on that list are eligible to write to the passport. Your address - the Technician - isn't on that list yet, but you'll request access throughout this demo.</p>",
+        imageSrc: TUTORIAL_STEP_4.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_4.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_4.content.title,
+        stepDescription: TUTORIAL_STEP_4.content.description,
       },
     ],
   ],
@@ -72,11 +70,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 5,
-        imageSrc: '/assets/steps/step_5.webp',
-        imageAlt: 'Reward Pool',
-        stepTitle: 'Reward Pool',
-        stepDescription:
-          '<p>A major challenge in building useful DPPs is motivating actors to participate in this circular economy. Why should a service technician document their actions? Why should an owner bring the product to a certified recycler?<br><br>EcoBike solves this with a pre-funded reward pool using <strong>IOTA Tokenization</strong>. Each verified service or recycling event automatically triggers a token reward through transparent smart contract logic. This creates direct economic incentives for proper product care throughout the entire lifecycle.</p>',
+        imageSrc: TUTORIAL_STEP_5.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_5.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_5.content.title,
+        stepDescription: TUTORIAL_STEP_5.content.description,
       },
     ],
   ],
@@ -85,11 +82,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 6,
-        imageSrc: '/assets/steps/step_6.webp',
-        imageAlt: 'Reward Transactions',
-        stepTitle: 'Reward Transactions',
-        stepDescription:
-          '<p>Each time a certified technician performs a verified action like an annual health check, the DPP triggers an automated reward token payout. Each payout is recorded immutably on the IOTA ledger and can be verified publicly via the <strong>IOTA Explorer</strong>. This ensures transparency, traceability, and accountability for every reward that gets distributed.</p>',
+        imageSrc: TUTORIAL_STEP_6.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_6.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_6.content.title,
+        stepDescription: TUTORIAL_STEP_6.content.description,
       },
     ],
   ],
@@ -98,11 +94,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 7,
-        imageSrc: '/assets/steps/step_7.webp',
-        imageAlt: 'Service History',
-        stepTitle: 'Service History',
-        stepDescription:
-          '<p>Every entry in this timeline reflects a real action, such as a maintenance check or component replacement, performed by a certified actor. The data is digitally signed, timestamped, and immutably anchored on the IOTA network using <strong>IOTA Notarization</strong>.<br><br>This creates a tamper-proof audit trail that regulators, manufacturers, and future owners can rely on to verify that the product was properly maintained throughout its lifecycle.</p>',
+        imageSrc: TUTORIAL_STEP_7.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_7.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_7.content.title,
+        stepDescription: TUTORIAL_STEP_7.content.description,
       },
     ],
   ],
@@ -111,11 +106,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 8,
-        imageSrc: '/assets/steps/step_8.webp',
-        imageAlt: 'Explore Mode',
-        stepTitle: 'Explore Mode',
-        stepDescription:
-          "<p>You've now been guided through each section of the Digital Product Passport and seen how different IOTA components contribute to it.<br><br>Take a moment to explore freely: scroll through the full DPP, review product details, inspect service records, and follow any links to the <strong>IOTA Explorer</strong> for a deeper look at on-chain data.<br><br>When you're ready, continue to the next step to connect your wallet and begin interacting with the system as a certified technician.</p>",
+        imageSrc: TUTORIAL_STEP_8.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_8.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_8.content.title,
+        stepDescription: TUTORIAL_STEP_8.content.description,
       },
     ],
   ],
@@ -124,11 +118,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 9,
-        imageSrc: '/assets/steps/step_9.webp',
-        imageAlt: 'Connect Wallet',
-        stepTitle: 'Connect Wallet',
-        stepDescription:
-          "<p>In order to let the DPP application know who you are, you now need to connect your wallet. This lets the system recognize your identity and determine which actions you're allowed to perform.<br><br>On the desktop, use the <strong>IOTA Browser Wallet</strong> extension. On mobile, use the Nightly app.<br><br>Don't worry, you don't need to hold IOTA or any other tokens. The wallet simply proves who you are and lets you sign messages and transactions when needed.<br><br>Once connected, you'll be able to request access and start interacting with the product's Digital Product Passport.</p>",
+        imageSrc: TUTORIAL_STEP_9.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_9.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_9.content.title,
+        stepDescription: TUTORIAL_STEP_9.content.description,
       },
     ],
   ],
@@ -137,11 +130,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 10,
-        imageSrc: '/assets/steps/step_10.webp',
-        imageAlt: 'Request Access',
-        stepTitle: 'Request Access',
-        stepDescription:
-          "<p>Earlier, you learned that EcoBike maintains a trusted Service Network through <strong>IOTA Hierarchies</strong>. Only certified technicians in that list are allowed to add information to the Digital Product Passport.<br><br>Now that your wallet is connected, you can request to join. Clicking the button simulates how a technician contacts the manufacturer through one of the channels defined in EcoBike's <strong>IOTA Identity</strong>.<br><br>If approved, you will be able to add verified service records to the passport.</p>",
+        imageSrc: TUTORIAL_STEP_10.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_10.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_10.content.title,
+        stepDescription: TUTORIAL_STEP_10.content.description,
       },
     ],
   ],
@@ -150,11 +142,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 11,
-        imageSrc: '/assets/steps/step_11.webp',
-        imageAlt: 'Start Diagnostic',
-        stepTitle: 'Start Diagnostic',
-        stepDescription:
-          "<p>You've been approved as a trusted technician! EcoBike has added your wallet address to their Service Network through <strong>IOTA Hierarchies</strong>.<br><br>Now you can simulate running a diagnostic and writing a health snapshot to the passport. Your service record will become part of the product's permanent, verifiable history.</p>",
+        imageSrc: TUTORIAL_STEP_11.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_11.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_11.content.title,
+        stepDescription: TUTORIAL_STEP_11.content.description,
       },
     ],
   ],
@@ -163,11 +154,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 12,
-        imageSrc: '/assets/steps/step_12.webp',
-        imageAlt: 'View New History Entry',
-        stepTitle: 'View New History Entry',
-        stepDescription:
-          "<p>Your health snapshot has been written to the IOTA network — immutably and verifiably. You didn't need to pay fees or hold tokens. The <strong>IOTA Gas Station</strong> sponsored your transaction in the background, ensuring a smooth experience.<br><br>Your entry is now part of the product's permanent service history, visible to all future owners and stakeholders.</p>",
+        imageSrc: TUTORIAL_STEP_12.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_12.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_12.content.title,
+        stepDescription: TUTORIAL_STEP_12.content.description,
       },
     ],
   ],
@@ -176,11 +166,10 @@ const TUTORIAL_STEPS = new Map([
     [
       {
         key: 13,
-        imageSrc: '/assets/steps/step_13.webp',
-        imageAlt: 'View Reward Information',
-        stepTitle: 'View Reward Information',
-        stepDescription:
-          "<p>Congratulations! Your verified service action has triggered an automated reward payout from EcoBike's reward pool.<br><br>The smart contract logic recognized your certified maintenance work and released tokens accordingly. Look at the reward contract and reward distributed entries in the service history below - these show the on-chain reward transaction details.<br><br>This reward can later be redeemed through an Extended Producer Responsibility Organization (EPRO) for real-world value. This incentive system encourages proper product care throughout the entire lifecycle.</p>",
+        imageSrc: TUTORIAL_STEP_13.asset.imageSrc,
+        imageAlt: TUTORIAL_STEP_13.content.imageAlt,
+        stepTitle: TUTORIAL_STEP_13.content.title,
+        stepDescription: TUTORIAL_STEP_13.content.description,
       },
     ],
   ],
@@ -238,32 +227,32 @@ const GuidedSidebar: React.FC<GuidedSidebarProps> = ({
   }, [currentStep, canGoNext, isHierarchySent, isNotarizationSent, isConnected]);
 
   const getPreviousLabel = (): string => {
-    return 'Back';
+    return GUIDED_SIDEBAR.content.back;
   };
 
   const getNextLabel = (): string => {
     if (currentStep === 9 && !isConnected) {
-      return 'Connect';
+      return GUIDED_SIDEBAR.content.connect;
     }
 
     if (currentStep === 10 && !isHierarchySent) {
-      return 'Request';
+      return GUIDED_SIDEBAR.content.request;
     }
 
     if (currentStep === 11 && !isNotarizationSent) {
-      return 'Diagnostic';
+      return GUIDED_SIDEBAR.content.diagnostic;
     }
 
     if (currentStep === 13) {
-      return 'Finish';
+      return GUIDED_SIDEBAR.content.finish;
     }
 
-    return 'Next';
+    return GUIDED_SIDEBAR.content.next;
   };
 
   const handleOnNext = () => {
     if (currentStep === 13) {
-      router.push('/recap/1');
+      router.push(GUIDED_SIDEBAR.navigation.recapUrl);
       return;
     }
     onNext();
@@ -349,7 +338,7 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({ currentStep, navigati
     >
       <div className='flex-shrink-0 border-b border-slate-200 bg-slate-200/50 px-6 py-2 backdrop-blur-md select-none'>
         <div className='flex items-center justify-between select-none'>
-          <h3 className='text-md text-gray-600 select-none'>Behind the Scene</h3>
+          <h3 className='text-md text-gray-600 select-none'>{GUIDED_SIDEBAR.content.behindTheScene}</h3>
           <button
             className='cursor-pointer rounded-md p-1 transition-colors select-none hover:bg-slate-200'
             aria-label='Collapse tutorial panel'
@@ -413,7 +402,7 @@ const SideBarForLargeScreen: React.FC<SideBarForLargeScreenProps> = ({
       }}
     >
       <div className='flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 text-xs text-gray-500'>
-        <h4>Behind the Scene</h4>
+        <h4>{GUIDED_SIDEBAR.content.behindTheScene}</h4>
       </div>
 
       {TUTORIAL_STEPS.get(currentStep)!.map((step) => (

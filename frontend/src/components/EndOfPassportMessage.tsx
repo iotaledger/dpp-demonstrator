@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { END_OF_PASSPORT_MESSAGE } from '@/contents/common';
+
 interface EndOfPassportMessageProps {
   message?: string;
   textColor?: string;
@@ -12,7 +14,7 @@ interface EndOfPassportMessageProps {
 }
 
 const EndOfPassportMessage: React.FC<EndOfPassportMessageProps> = ({
-  message = 'End of Digital Product Passport',
+  message = END_OF_PASSPORT_MESSAGE.content.messageDefault,
   textColor = 'text-gray-500',
   textSize = 'text-sm',
   paddingY = 'py-6 sm:py-8',

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { NAVIGATION_BUTTONS } from '@/contents/common';
 import CaretLeftIcon from './icons/CaretLeftIcon';
 import CaretRightIcon from './icons/CaretRightIcon';
 
@@ -23,7 +24,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         disabled={!canGoPrevious}
         onClick={onPrevious}
         className='flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-slate-300 text-gray-600 shadow-lg transition-all duration-200 hover:bg-slate-400 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none'
-        aria-label='Previous slide'
+        aria-label={NAVIGATION_BUTTONS.content.previousSlide}
       >
         <CaretLeftIcon />
       </button>
@@ -32,7 +33,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         disabled={!canGoNext}
         onClick={onNext}
         className='flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition-all duration-200 hover:bg-blue-700 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none'
-        aria-label='Next slide'
+        aria-label={NAVIGATION_BUTTONS.content.nextSlide}
       >
         <CaretRightIcon />
       </button>

@@ -5,7 +5,7 @@ import React from 'react';
 import { useCurrentAccount } from '@iota/dapp-kit';
 
 import { useFederationTransactions } from '@/hooks/useFederationTransactions';
-import { getAddressExplorerUrl, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
+import { getAddressExplorerUrl, getDidScheme, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { FEDERATION_ID, MANUFACTURER_DID } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
@@ -14,6 +14,7 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import { useProductDetails } from '@/hooks/useProductDetails';
+import { ROLE_DETAILS } from '@/contents/explore';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -84,7 +85,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title='Role Details'
+      title={ROLE_DETAILS.content.title}
       opacity={opacity}
       delay={delay}
     >
@@ -94,11 +95,11 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             <ItemValueRow
               key={MANUFACTURER_DID}
               rowState={getRowState('manufacturer')}
-              label='Manufacturer'
+              label={ROLE_DETAILS.content.manufacturerLabel}
               value={
                 <BadgeWithLink
                   badgeText={productDetails?.billOfMaterials?.manufacturerName}
-                  linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
+                  linkText={getDidScheme(MANUFACTURER_DID)}
                   linkHref={getObjectExplorerUrl(MANUFACTURER_DID)}
                   showVerification={true}
                   verificationDid={productDetails?.manufacturer}
@@ -109,10 +110,10 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
           <ItemValueRow
             key={FEDERATION_ID}
             rowState={getRowState('network')}
-            label='Service Network'
+            label={ROLE_DETAILS.content.serviceNetworkLabel}
             value={
               <BadgeWithLink
-                badgeText={'Hierarchy'}
+                badgeText={ROLE_DETAILS.content.hierarchyBadgeLabel}
                 linkText={truncateAddress(FEDERATION_ID)}
                 linkHref={getObjectExplorerUrl(FEDERATION_ID)}
               />
@@ -122,7 +123,7 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             <ItemValueRow
               key={accreditation.receiver}
               rowState={getRowState(getCurrentAccountBadge(accreditation.receiver) || '')}
-              label={'Technician'}
+              label={ROLE_DETAILS.content.technicianBadgeLabel}
               value={
                 <BadgeWithLink
                   badgeText={getCurrentAccountBadge(accreditation.receiver)}

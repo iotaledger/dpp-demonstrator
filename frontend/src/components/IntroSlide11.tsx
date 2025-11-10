@@ -3,57 +3,45 @@
 import React from 'react';
 import Link from 'next/link';
 
+import { INTRO_SLIDE_11 } from '@/contents/introduction';
 import ClientCard from './ClientCard';
 import FeaturesGrid from './FeaturesGrid';
 import NoticeCard from './NoticeCard';
 import SlideDescription from './SlideDescription';
 import SlideTitle from './SlideTitle';
+import LinkOutIcon from './icons/LinkOutIcon';
+import { replaceComponents } from '@/utils/common';
 
 const IntroSlide11: React.FC = () => {
   return (
     <div className='mx-auto flex w-full max-w-6xl flex-col items-center py-6 sm:py-0 md:px-0'>
       <div className='mb-8 flex max-w-3xl flex-col items-center pt-6 md:pt-0'>
-        <SlideTitle size='large'>Prepare your Wallet</SlideTitle>
+        <SlideTitle size='large'>{INTRO_SLIDE_11.content.title}</SlideTitle>
         <SlideDescription margin='mb-2' width='max-w-4xl'>
-          {'Choose your setup:'}
+          {INTRO_SLIDE_11.content.description}
         </SlideDescription>
       </div>
 
       <FeaturesGrid columns='sm:grid-cols-2' width='max-w-6xl' gap='gap-10' pb='pb-20'>
         <ClientCard
-          image='/assets/intro/desktop.webp'
-          alt='Desktop'
-          title='Desktop'
+          image={INTRO_SLIDE_11.content.walletOptions[0].image}
+          alt={INTRO_SLIDE_11.content.walletOptions[0].alt}
+          title={INTRO_SLIDE_11.content.walletOptions[0].title}
           description={
             <>
-              <Link
-                className='inline text-blue-700 italic'
-                target='_blank'
-                href={
-                  'https://chromewebstore.google.com/detail/iota-wallet/iidjkmdceolghepehaaddojmnjnkkija'
-                }
-              >
-                {'Install IOTA Browser Wallet'}{' '}
-                <svg
-                  className='inline align-baseline'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='14'
-                  height='14'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+              {replaceComponents(INTRO_SLIDE_11.content.walletOptions[0].installText, [
+                <Link
+                  key={'desktop-link'}
+                  className='inline text-blue-700 italic'
+                  target='_blank'
+                  href={INTRO_SLIDE_11.content.walletOptions[0].desktopUrl as string}
                 >
-                  <path d='M15 3h6v6' />
-                  <path d='M10 14 21 3' />
-                  <path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' />
-                </svg>
-              </Link>{' '}
-              {'and connect when prompted.'}
+                  {INTRO_SLIDE_11.content.walletOptions[0].desktopText}{' '}
+                  <LinkOutIcon />
+                </Link>
+              ])}
               <br />
-              {'Please make sure you are connected to the IOTA testnet.'}
+              {INTRO_SLIDE_11.content.walletOptions[0].testnetNotice}
             </>
           }
           opacity={100}
@@ -62,64 +50,33 @@ const IntroSlide11: React.FC = () => {
         />
 
         <ClientCard
-          image='/assets/intro/mobile.webp'
-          alt='Mobile'
-          title='Mobile'
+          image={INTRO_SLIDE_11.content.walletOptions[1].image}
+          alt={INTRO_SLIDE_11.content.walletOptions[1].alt}
+          title={INTRO_SLIDE_11.content.walletOptions[1].title}
           description={
             <>
-              {'Install Nightly Wallet ('}
-              <Link
-                className='inline text-blue-700 italic'
-                target='_blank'
-                href={'https://apps.apple.com/es/app/nightly-multichain-wallet/id6444768157'}
-              >
-                {'iOS'}{' '}
-                <svg
-                  className='inline align-baseline'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='14'
-                  height='14'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+              {replaceComponents(INTRO_SLIDE_11.content.walletOptions[1].installText, [
+                <Link
+                  key={'ios-link'}
+                  className='inline text-blue-700 italic'
+                  target='_blank'
+                  href={INTRO_SLIDE_11.content.walletOptions[1].iosUrl as string}
                 >
-                  <path d='M15 3h6v6' />
-                  <path d='M10 14 21 3' />
-                  <path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' />
-                </svg>
-              </Link>
-              {' | '}
-              <Link
-                className='inline text-blue-700 italic'
-                target='_blank'
-                href={
-                  'https://play.google.com/store/apps/details?id=com.nightlymobile&pcampaignid=web_share'
-                }
-              >
-                {'Android'}{' '}
-                <svg
-                  className='inline align-baseline'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='14'
-                  height='14'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+                  {INTRO_SLIDE_11.content.walletOptions[1].iosText}{' '}
+                  <LinkOutIcon />
+                </Link>,
+                <Link
+                  key={'android-link'}
+                  className='inline text-blue-700 italic'
+                  target='_blank'
+                  href={INTRO_SLIDE_11.content.walletOptions[1].androidUrl as string}
                 >
-                  <path d='M15 3h6v6' />
-                  <path d='M10 14 21 3' />
-                  <path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' />
-                </svg>
-              </Link>
-              {') and connect when prompted.'}
+                  {INTRO_SLIDE_11.content.walletOptions[1].androidText}{' '}
+                  <LinkOutIcon />
+                </Link>
+              ])}
               <br />
-              {'Please make sure you are connected to the IOTA testnet.'}
+              {INTRO_SLIDE_11.content.walletOptions[1].testnetNotice}
             </>
           }
           opacity={100}
@@ -136,8 +93,7 @@ const IntroSlide11: React.FC = () => {
         >
           <div className='text-black/80'>
             <h4 className='text-base md:text-xl'>
-              Both wallets enable secure interaction with this demo without requiring any token
-              balance.
+              {INTRO_SLIDE_11.content.notice.text}
             </h4>
           </div>
         </NoticeCard>

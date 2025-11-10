@@ -6,7 +6,7 @@ import { useCurrentAccount } from '@iota/dapp-kit';
 
 import { useServiceHistory } from '@/hooks/useServiceHistory';
 import { fromPosixMsToUtcDateFormat, getAddressExplorerUrl, getObjectExplorerUrl, getTxBlockExplorerUrl, truncateAddress } from '@/utils/common';
-import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
+import { REWARD_TOKEN_SYMBOL } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
@@ -14,6 +14,9 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import { formatLCCBalance } from '@/helpers/rewardVault';
+import { SERVICE_HISTORY } from '@/contents/explore';
+import ViewMoreButton from './ViewMoreButton';
+import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
@@ -119,17 +122,17 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title='Service History'
-      subtitle='Maintenance and Repairs'
+      title={SERVICE_HISTORY.content.title}
+      subtitle={SERVICE_HISTORY.content.subtitle}
       opacity={opacity}
       delay={delay}
     >
       {getServiceEntriesToShow()?.map((serviceEntry) => (
-        <PanelContent key={serviceEntry.digest} title='Health Snapshot'>
+        <PanelContent key={serviceEntry.digest} title={SERVICE_HISTORY.content.healthSnapshotEventName}>
           <DataGrid gap='gap-y-2 gap-x-6'>
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label='Event ID'
+              label={SERVICE_HISTORY.content.eventIdLabel}
               value={
                 <div className='flex items-center gap-2'>
                   <a
@@ -145,12 +148,12 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label='Entry Type'
-              value={'Annual Maintenance'}
+              label={SERVICE_HISTORY.content.entryTypeLabel}
+              value={SERVICE_HISTORY.content.entryTypeValue}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label='Timestamp'
+              label={SERVICE_HISTORY.content.timestampLabel}
               value={fromPosixMsToUtcDateFormat(serviceEntry?.timestamp)}
             />
 
@@ -159,22 +162,22 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
             {serviceEntry?.healthScore && (
               <ItemValueRow
                 rowState={getRowState('detailsSelected')}
-                label='Health Score'
+                label={SERVICE_HISTORY.content.healthScoreLabel}
                 value={serviceEntry.healthScore}
                 valueColor='text-gray-900 font-semibold'
               />
             )}
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label='Findings'
+              label={SERVICE_HISTORY.content.findingsLabel}
               value={serviceEntry?.findings || serviceEntry?.serviceDescription}
             />
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label='Verification'
+              label={SERVICE_HISTORY.content.verificationLabel}
               value={
                 <div className='flex items-center gap-2'>
-                  <p>{'Notarized at block'}</p>
+                  <p>{SERVICE_HISTORY.content.verificationValue}</p>
                   <a
                     target='_blank'
                     href={getTxBlockExplorerUrl(serviceEntry.txBlock)}
@@ -190,7 +193,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
-              label={'Technician'}
+              label={SERVICE_HISTORY.content.technicianLabel}
               value={
                 <div className='flex items-center gap-2'>
                   {getCurrentAccountBadge(serviceEntry?.issuerAddress)}
@@ -209,18 +212,17 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
 
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
-              label='Reward contract'
+              label={SERVICE_HISTORY.content.rewardContractLabel}
               value={truncateAddress(serviceEntry?.packageId)}
               fontMono={true}
               valueColor='text-blue-600'
               linkHref={getObjectExplorerUrl(serviceEntry?.packageId as string)}
               isLink={true}
             />
-            {/* TODO: Discover a way to get the "sum of all rewards given" from the reward contract. Maybe analysing calls to  */}
             <ItemValueRow
               rowState={getRowState('rewardSelected')}
-              label='Reward Distributed'
-              value={`${formatLCCBalance(serviceEntry.rewardBalance)} LCC`}
+              label={SERVICE_HISTORY.content.rewardDistributedLabel}
+              value={`${formatLCCBalance(serviceEntry.rewardBalance)} ${REWARD_TOKEN_SYMBOL}`}
             />
           </DataGrid>
         </PanelContent>
@@ -228,13 +230,7 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       {serviceEntriesSize > 0 && (
         <div className='mt-6 grid w-full justify-center'>
           {viewMore && (
-            <button
-              className='focus-visible:ring-ring bg-secondary text-secondary-foreground hover:bg-secondary/80 svelte-1u9y1q3 inline-flex h-10 cursor-pointer items-center justify-center rounded-full px-4 py-2 transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
-              onClick={() => setViewMore(false)}
-              disabled={isShowMoreDisabled()}
-            >
-              {`View more (${serviceEntriesSize - 1})`}
-            </button>
+            <ViewMoreButton amountToReveal={serviceEntriesSize - 1} onClick={() => setViewMore(false)} isDisabled={isShowMoreDisabled()} />
           )}
           {!viewMore && <ItemsLoadedFeedbackMessage size={serviceEntriesSize} />}
         </div>
@@ -242,16 +238,5 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
     </CollapsibleSection>
   );
 };
-
-function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
-  const feedbackMessage = () => {
-    if (size < REQUEST_SIZE_LIMIT) {
-      return `All ${size} entries shown`;
-    } else {
-      return `All ${size} latest entries shown`;
-    }
-  };
-  return <div className='py-2 text-center text-sm text-gray-500'>{feedbackMessage()}</div>;
-}
 
 export default ServiceHistoryCard;

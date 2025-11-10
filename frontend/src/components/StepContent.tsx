@@ -3,20 +3,19 @@
 import React from 'react';
 
 interface StepContentProps {
-  imageSrc?: string;
-  imageAlt?: string;
-  stepType?: string;
-  stepTitle?: string;
-  stepDescription?: string;
+  imageSrc: string;
+  imageAlt: string;
+  stepTitle: string;
+  stepDescription: string;
   opacity?: number;
   delay?: number;
 }
 
 const StepContent: React.FC<StepContentProps> = ({
-  imageSrc = '/assets/steps/step_8.webp',
-  imageAlt = 'Step Image',
-  stepTitle = 'Step Title',
-  stepDescription = 'Step description content goes here.',
+  imageSrc,
+  imageAlt,
+  stepTitle,
+  stepDescription,
   opacity = 100,
   delay = 0,
 }) => {

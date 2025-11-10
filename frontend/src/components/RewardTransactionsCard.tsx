@@ -4,13 +4,15 @@ import React from 'react';
 
 import { useRewardTransactions } from '@/hooks/useRewardTransactions';
 import { formatTokenBalance, fromPosixMsToUtcDateFormat, getAddressExplorerUrl, getTxBlockExplorerUrl, truncateAddress } from '@/utils/common';
-import { REQUEST_SIZE_LIMIT } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
+import { REWARD_TRANSACTIONS } from '@/contents/explore';
+import ViewMoreButton from './ViewMoreButton';
+import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 
 interface RewardTransactionsCardProps {
   opacity?: number;
@@ -101,29 +103,29 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title='Rewards transactions'
-      subtitle='List of all rewards transactions'
+      title={REWARD_TRANSACTIONS.content.title}
+      subtitle={REWARD_TRANSACTIONS.content.subtitle}
       opacity={opacity}
       delay={delay}
     >
       {getTransactionsToShow()?.map((rewardEntry) => (
         <PanelContent
           key={rewardEntry.digest}
-          title='Health Snapshot'
+          title={REWARD_TRANSACTIONS.content.healthSnapshotEventName}
           badge={<BadgeWithLink badgeText={getBadgeText(rewardEntry.status)} spacing='gap-0' />}
         >
           <DataGrid gap='gap-y-2 gap-x-6'>
             {!hasTxFailed(rewardEntry.status) && (
               <ItemValueRow
                 rowState={getRowState()}
-                label='Service ID'
+                label={REWARD_TRANSACTIONS.content.serviceIdLabel}
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.productAddr)}
                 fontMono={true}
               />
             )}
             <ItemValueRow
               rowState={getRowState()}
-              label='Transaction ID'
+              label={REWARD_TRANSACTIONS.content.transactionIdLabel}
               value={truncateAddress(rewardEntry.digest)}
               fontMono={true}
               valueColor='text-blue-600'
@@ -132,13 +134,13 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
             />
             <ItemValueRow
               rowState={getRowState()}
-              label='Timestamp'
+              label={REWARD_TRANSACTIONS.content.timestampLabel}
               value={fromPosixMsToUtcDateFormat(rewardEntry.timestamp)}
             />
             {!hasTxFailed(rewardEntry.status) && (
               <ItemValueRow
                 rowState={getRowState()}
-                label='Technician'
+                label={REWARD_TRANSACTIONS.content.technicianLabel}
                 value={truncateAddress(rewardEntry.productEntries.at(0)?.sender)}
                 fontMono={true}
                 valueColor='text-blue-600'
@@ -148,7 +150,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
             )}
             <ItemValueRow
               rowState={getRowState()}
-              label='Reward Distributed'
+              label={REWARD_TRANSACTIONS.content.rewardDistributedLabel}
               value={`${formatTokenBalance(rewardEntry.rewardChanges.at(0)?.amount || '0')} LCC`}
             />
           </DataGrid>
@@ -157,13 +159,7 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
       {transactionsSize > 0 && (
         <div className='mt-6 grid w-full justify-center'>
           {viewMore && (
-            <button
-              className='focus-visible:ring-ring bg-secondary text-secondary-foreground hover:bg-secondary/80 svelte-1u9y1q3 inline-flex h-10 cursor-pointer items-center justify-center rounded-full px-4 py-2 transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
-              onClick={() => setViewMore(false)}
-              disabled={isShowMoreDisabled()}
-            >
-              {`View more (${transactionsSize - 1})`}
-            </button>
+            <ViewMoreButton amountToReveal={transactionsSize - 1} onClick={() => setViewMore(false)} isDisabled={isShowMoreDisabled()} />
           )}
           {!viewMore && <ItemsLoadedFeedbackMessage size={transactionsSize} />}
         </div>
@@ -171,16 +167,5 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
     </CollapsibleSection>
   );
 };
-
-function ItemsLoadedFeedbackMessage({ size }: { size: number }) {
-  const feedbackMessage = () => {
-    if (size < REQUEST_SIZE_LIMIT) {
-      return `All ${size} transactins shown`;
-    } else {
-      return `All ${size} latest transactions shown`;
-    }
-  };
-  return <div className='py-2 text-center text-sm text-gray-500'>{feedbackMessage()}</div>;
-}
 
 export default RewardTransactionsCard;

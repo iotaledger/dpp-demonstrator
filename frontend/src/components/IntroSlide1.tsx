@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { INTRO_SLIDE_1 } from '@/contents/introduction';
 import BackgroundVideo from './BackgroundVideo';
 import OverlayText from './OverlayText';
 import VideoSection from './VideoSection';
@@ -12,17 +13,16 @@ const IntroSlide1: React.FC = () => {
       {/* Video Section */}
       <VideoSection>
         <BackgroundVideo
-          src='/assets/intro/placeholder-video.mp4'
-          poster='/assets/intro/placeholder-poster.jpg'
+          src={INTRO_SLIDE_1.video.src}
+          poster={INTRO_SLIDE_1.video.poster}
         />
         <OverlayText
-          welcomeText='Welcome to the'
-          title='IOTA Product Demo'
+          welcomeText={INTRO_SLIDE_1.content.welcomeText}
+          title={INTRO_SLIDE_1.content.title}
           description={
             <span
               dangerouslySetInnerHTML={{
-                __html:
-                  'Imagine a product traveling through its entire lifecycle – from manufacturing to repairs, resale, and recycling. How can we ensure <strong>data about the product is trustworthy, complete, and accessible?</strong>',
+                __html: INTRO_SLIDE_1.content.description,
               }}
             />
           }

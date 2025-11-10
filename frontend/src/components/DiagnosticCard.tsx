@@ -12,21 +12,11 @@ import {
 
 import { LoadingBar } from './LoadingBar';
 import SaveDiagnosticModal from './SaveDiagnosticModal';
+import { DIAGNOSTIC_CARD } from '@/contents/common';
 
 const DIAGNOSTIC_MUTED_STYLE = 'border border-gray-200 !opacity-40';
 const DIAGNOSTIC_HIGHLIGHTED_STYLE = 'border border-blue-500 !bg-blue-50';
 const DIAGNOSTIC_NORMAL_STYLE = 'border border-gray-200 !bg-gray-100';
-
-const diagnosticInfo = {
-  title: 'EcoBike Pro Battery diagnostic tool',
-  subtitle: 'Annual Health Snapshot',
-  imageUrl: 'https://dpp-demo-three.vercel.app/_app/immutable/assets/step_11.DFR7MaqW.webp',
-  imageAlt: 'Diagnostic tool',
-  userAddress: '0xad2f16bc4d93c294d655abfebac363c010f05fb8',
-  findings: 'Routine maintenance completed successfully',
-  buttonTextStartDiagnostic: 'Start diagnostic now',
-  buttonTextRunningDiagnostic: 'Running diagnostic...',
-};
 
 interface DiagnosticCardProps {
   opacity?: number;
@@ -95,8 +85,8 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                 <div className='relative max-h-[220px] w-full overflow-hidden rounded-lg bg-blue-50'>
                   <img
                     className='h-full w-full object-cover'
-                    alt={diagnosticInfo.imageAlt}
-                    src={diagnosticInfo.imageUrl}
+                    alt={DIAGNOSTIC_CARD.content.imageAlt}
+                    src={DIAGNOSTIC_CARD.asset.imageUrl}
                   />
                 </div>
               </div>
@@ -105,8 +95,8 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
               <div className='flex flex-1 flex-col justify-center space-y-4 p-6'>
                 {/* Text Content */}
                 <div className='space-y-0.5'>
-                  <div className='text-sm font-medium text-gray-500'>{diagnosticInfo.title}</div>
-                  <div className='text-lg font-medium text-gray-900'>{diagnosticInfo.subtitle}</div>
+                  <div className='text-sm font-medium text-gray-500'>{DIAGNOSTIC_CARD.content.title}</div>
+                  <div className='text-lg font-medium text-gray-900'>{DIAGNOSTIC_CARD.content.subtitle}</div>
                 </div>
 
                 {/* Form Section */}
@@ -121,12 +111,12 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                       disabled={isPending}
                     >
                       {isPending
-                        ? diagnosticInfo.buttonTextRunningDiagnostic
-                        : diagnosticInfo.buttonTextStartDiagnostic}
+                        ? DIAGNOSTIC_CARD.content.buttonTextRunningDiagnostic
+                        : DIAGNOSTIC_CARD.content.buttonTextStartDiagnostic}
                     </button>
                   </form>
                   {isPending && (
-                    <LoadingBar progress={progress} loadingText='Analyzing battery health...' />
+                    <LoadingBar progress={progress} loadingText={DIAGNOSTIC_CARD.content.loadingText} />
                   )}
                 </div>
               </div>

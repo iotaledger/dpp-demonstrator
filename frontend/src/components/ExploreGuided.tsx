@@ -23,6 +23,7 @@ import ServiceRequestCard from './ServiceRequestCard';
 import TutorialCard from './TutorialCard';
 import TutorialScrollContainer from './TutorialScrollContainer';
 import TwoColumnLayout from './TwoColumnLayout';
+import { EXPLORE_GUIDED_NAVIGATION } from '@/contents/explore';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -294,11 +295,11 @@ const ExploreGuided: React.FC = () => {
     <TutorialCard>
       <CardHeader
         canGoBack={true}
-        backText='↺ Reset to Intro'
-        backUrl='/introduction/1'
+        backText={EXPLORE_GUIDED_NAVIGATION.content.backText}
+        backUrl={EXPLORE_GUIDED_NAVIGATION.navigation.backUrl}
         onBack={handleBackAction}
-        linkText='Switch to free exploration'
-        linkUrl='/explore-freely'
+        linkText={EXPLORE_GUIDED_NAVIGATION.content.linkText}
+        linkUrl={EXPLORE_GUIDED_NAVIGATION.navigation.linkUrl}
         variation='primary'
       />
       <TutorialScrollContainer>

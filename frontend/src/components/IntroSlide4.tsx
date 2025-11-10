@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { INTRO_SLIDE_4 } from '@/contents/introduction';
 import ImageTextLayout from './ImageTextLayout';
 import SlideContent from './SlideContent';
 import SlideDescription from './SlideDescription';
@@ -11,15 +12,16 @@ import SlideTitle from './SlideTitle';
 const IntroSlide4: React.FC = () => {
   return (
     <ImageTextLayout>
-      <SlideImage src='/assets/intro/map.webp' alt="Products Move, Data Doesn't" />
+      <SlideImage src={INTRO_SLIDE_4.image.src} alt={INTRO_SLIDE_4.image.alt} />
 
       <SlideContent textAlign='left'>
-        <SlideTitle size='large'>{"Products Move, Data Doesn't"}</SlideTitle>
+        <SlideTitle size='large'>{INTRO_SLIDE_4.content.title}</SlideTitle>
         <SlideDescription>
-          Lifecycle data often gets <strong>trapped in silos</strong>, lost along the product
-          journey, or duplicated. Without incentives to share data, stakeholders{' '}
-          <strong>hold onto information</strong>, creating gaps in trust, compliance, and
-          sustainability.
+          <span
+            dangerouslySetInnerHTML={{
+              __html: INTRO_SLIDE_4.content.description,
+            }}
+          />
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

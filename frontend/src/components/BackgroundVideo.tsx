@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { BACKGROUND_VIDEO } from '@/contents/common';
 
 interface BackgroundVideoProps {

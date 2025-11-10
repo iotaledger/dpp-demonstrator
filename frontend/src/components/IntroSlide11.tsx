@@ -4,13 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 
 import { INTRO_SLIDE_11 } from '@/contents/introduction';
+import { replaceComponents } from '@/utils/common';
+
 import ClientCard from './ClientCard';
 import FeaturesGrid from './FeaturesGrid';
+import LinkOutIcon from './icons/LinkOutIcon';
 import NoticeCard from './NoticeCard';
 import SlideDescription from './SlideDescription';
 import SlideTitle from './SlideTitle';
-import LinkOutIcon from './icons/LinkOutIcon';
-import { replaceComponents } from '@/utils/common';
 
 const IntroSlide11: React.FC = () => {
   return (
@@ -36,9 +37,8 @@ const IntroSlide11: React.FC = () => {
                   target='_blank'
                   href={INTRO_SLIDE_11.content.walletOptions[0].desktopUrl as string}
                 >
-                  {INTRO_SLIDE_11.content.walletOptions[0].desktopText}{' '}
-                  <LinkOutIcon />
-                </Link>
+                  {INTRO_SLIDE_11.content.walletOptions[0].desktopText} <LinkOutIcon />
+                </Link>,
               ])}
               <br />
               {INTRO_SLIDE_11.content.walletOptions[0].testnetNotice}
@@ -62,8 +62,7 @@ const IntroSlide11: React.FC = () => {
                   target='_blank'
                   href={INTRO_SLIDE_11.content.walletOptions[1].iosUrl as string}
                 >
-                  {INTRO_SLIDE_11.content.walletOptions[1].iosText}{' '}
-                  <LinkOutIcon />
+                  {INTRO_SLIDE_11.content.walletOptions[1].iosText} <LinkOutIcon />
                 </Link>,
                 <Link
                   key={'android-link'}
@@ -71,9 +70,8 @@ const IntroSlide11: React.FC = () => {
                   target='_blank'
                   href={INTRO_SLIDE_11.content.walletOptions[1].androidUrl as string}
                 >
-                  {INTRO_SLIDE_11.content.walletOptions[1].androidText}{' '}
-                  <LinkOutIcon />
-                </Link>
+                  {INTRO_SLIDE_11.content.walletOptions[1].androidText} <LinkOutIcon />
+                </Link>,
               ])}
               <br />
               {INTRO_SLIDE_11.content.walletOptions[1].testnetNotice}
@@ -92,9 +90,7 @@ const IntroSlide11: React.FC = () => {
           translateY={0}
         >
           <div className='text-black/80'>
-            <h4 className='text-base md:text-xl'>
-              {INTRO_SLIDE_11.content.notice.text}
-            </h4>
+            <h4 className='text-base md:text-xl'>{INTRO_SLIDE_11.content.notice.text}</h4>
           </div>
         </NoticeCard>
       </FeaturesGrid>

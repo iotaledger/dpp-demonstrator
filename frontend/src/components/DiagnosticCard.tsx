@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState, useTransition } from 'react';
 
+import { DIAGNOSTIC_CARD } from '@/contents/common';
 import { useProgress } from '@/hooks/useProgress';
 import {
   useCurrentNetwork,
@@ -12,7 +13,6 @@ import {
 
 import { LoadingBar } from './LoadingBar';
 import SaveDiagnosticModal from './SaveDiagnosticModal';
-import { DIAGNOSTIC_CARD } from '@/contents/common';
 
 const DIAGNOSTIC_MUTED_STYLE = 'border border-gray-200 !opacity-40';
 const DIAGNOSTIC_HIGHLIGHTED_STYLE = 'border border-blue-500 !bg-blue-50';
@@ -95,8 +95,12 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
               <div className='flex flex-1 flex-col justify-center space-y-4 p-6'>
                 {/* Text Content */}
                 <div className='space-y-0.5'>
-                  <div className='text-sm font-medium text-gray-500'>{DIAGNOSTIC_CARD.content.title}</div>
-                  <div className='text-lg font-medium text-gray-900'>{DIAGNOSTIC_CARD.content.subtitle}</div>
+                  <div className='text-sm font-medium text-gray-500'>
+                    {DIAGNOSTIC_CARD.content.title}
+                  </div>
+                  <div className='text-lg font-medium text-gray-900'>
+                    {DIAGNOSTIC_CARD.content.subtitle}
+                  </div>
                 </div>
 
                 {/* Form Section */}
@@ -116,7 +120,10 @@ const DiagnosticCard: React.FC<DiagnosticCardProps> = ({
                     </button>
                   </form>
                   {isPending && (
-                    <LoadingBar progress={progress} loadingText={DIAGNOSTIC_CARD.content.loadingText} />
+                    <LoadingBar
+                      progress={progress}
+                      loadingText={DIAGNOSTIC_CARD.content.loadingText}
+                    />
                   )}
                 </div>
               </div>

@@ -1,4 +1,3 @@
-
 const CopyIcon = () => (
   <svg className='h-4 w-4 text-gray-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
     <path

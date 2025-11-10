@@ -2,7 +2,14 @@
 
 import React from 'react';
 
-import { getVaultRewardBalancePerAddress, getVaultRewardUsagePercentage, getVaultTotalSupply, getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
+import { REWARD_POOL } from '@/contents/explore';
+import {
+  getVaultRewardBalancePerAddress,
+  getVaultRewardUsagePercentage,
+  getVaultTotalSupply,
+  getVaultTotalValuePerAddress,
+} from '@/helpers/rewardVault';
+import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
 import { getObjectExplorerUrl, truncateAddress } from '@/utils/common';
 import { DPP_ID, VAULT_ID } from '@/utils/constants';
@@ -12,8 +19,6 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
-import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
-import { REWARD_POOL } from '@/contents/explore';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -78,7 +83,10 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
       <TwoColumnSection
         gap='gap-4'
         leftColumn={
-          <PanelContent panelState={getPanelState()} title={REWARD_POOL.content.lifecycleCreditTitle}>
+          <PanelContent
+            panelState={getPanelState()}
+            title={REWARD_POOL.content.lifecycleCreditTitle}
+          >
             <DataGrid>
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
@@ -92,7 +100,13 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label={REWARD_POOL.content.totalLifecycleFundLabel}
-                value={isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultTotalSupply(totalSupply, rewardDetails) || REWARD_POOL.content.totalLifecycleFundValueFallback}
+                value={
+                  (isTotalSupplyLoaded &&
+                    totalSupply &&
+                    rewardDetails &&
+                    getVaultTotalSupply(totalSupply, rewardDetails)) ||
+                  REWARD_POOL.content.totalLifecycleFundValueFallback
+                }
               />
               {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
@@ -107,8 +121,20 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                   isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)
                 }
               />
-              <ItemValueRow rowState={getRowState('used')} label='Used'
-                value={isSuccess && isTotalSupplyLoaded && totalSupply && rewardDetails && getVaultRewardUsagePercentage(totalSupply, getVaultRewardBalancePerAddress(rewardDetails, DPP_ID))} />
+              <ItemValueRow
+                rowState={getRowState('used')}
+                label='Used'
+                value={
+                  isSuccess &&
+                  isTotalSupplyLoaded &&
+                  totalSupply &&
+                  rewardDetails &&
+                  getVaultRewardUsagePercentage(
+                    totalSupply,
+                    getVaultRewardBalancePerAddress(rewardDetails, DPP_ID),
+                  )
+                }
+              />
             </DataGrid>
           </PanelContent>
         }

@@ -27,7 +27,12 @@ Reward Flow:
 Product Activity → Issue Entry Log → LCC Token Grant → Balance Update → Vault State Change
 */
 
-import { ProductEntryEvent, RewardBalanceChange, RewardTransaction, RewardVaultTransactionData } from "@/types/reward";
+import {
+  ProductEntryEvent,
+  RewardBalanceChange,
+  RewardTransaction,
+  RewardVaultTransactionData,
+} from '@/types/reward';
 
 /**
  * Extracts and transforms reward vault transaction data from IOTA Rebase JSON-RPC response
@@ -208,6 +213,4 @@ function extractRewardTransactionData(
 }
 
 // Export all interfaces and functions
-export {
-  extractRewardTransactionData,
-};
+export { extractRewardTransactionData };

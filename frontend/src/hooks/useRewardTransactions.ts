@@ -26,7 +26,7 @@ export function useRewardTransactions() {
     // options
     {
       queryKey: [isNotarizationSent],
-    }
+    },
   );
 
   return {

@@ -4,6 +4,8 @@ import React from 'react';
 
 import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
 
+import { EXPLORE_FREELY_NAVIGATION } from '@/contents/explore';
+
 import CardHeader from './CardHeader';
 import DiagnosticCard from './DiagnosticCard';
 import EndOfPassportMessage from './EndOfPassportMessage';
@@ -19,7 +21,6 @@ import ServiceHistoryCard from './ServiceHistoryCard';
 import ServiceRequestCard from './ServiceRequestCard';
 import TutorialCard from './TutorialCard';
 import TutorialScrollContainer from './TutorialScrollContainer';
-import { EXPLORE_FREELY_NAVIGATION } from '@/contents/explore';
 
 const ExploreFreely: React.FC = () => {
   const { isConnected } = useCurrentWallet();

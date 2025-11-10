@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import CaretUpIcon from './icons/CaretUpIcon';
+
 import CaretDownIcon from './icons/CaretDownIcon';
+import CaretUpIcon from './icons/CaretUpIcon';
 
 interface CollapsibleInnerSectionProps {
   title: string;

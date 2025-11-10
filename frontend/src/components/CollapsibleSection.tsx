@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import CaretUpIcon from './icons/CaretUpIcon';
-import CaretDownIcon from './icons/CaretDownIcon';
 
 import clsx from 'clsx';
+
+import CaretDownIcon from './icons/CaretDownIcon';
+import CaretUpIcon from './icons/CaretUpIcon';
 
 const CARD_DEFAULT_STYLE = 'border border-gray-200';
 const CARD_MUTED_STYLE = 'border border-gray-200 !opacity-40';

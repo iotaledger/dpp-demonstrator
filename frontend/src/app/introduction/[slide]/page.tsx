@@ -14,8 +14,8 @@ import ProgressBar from '@/components/ProgressBar';
 import SlideCounter from '@/components/SlideCounter';
 import TutorialCard from '@/components/TutorialCard';
 import TutorialScrollContainer from '@/components/TutorialScrollContainer';
-import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 import { INTRODUCTION_NAVIGATION } from '@/contents/introduction';
+import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 
 export default function IntroductionPage() {
   const { slide: slideParam } = useParams();

@@ -2,17 +2,23 @@
 
 import React from 'react';
 
+import { REWARD_TRANSACTIONS } from '@/contents/explore';
 import { useRewardTransactions } from '@/hooks/useRewardTransactions';
-import { formatTokenBalance, fromPosixMsToUtcDateFormat, getAddressExplorerUrl, getTxBlockExplorerUrl, truncateAddress } from '@/utils/common';
+import {
+  formatTokenBalance,
+  fromPosixMsToUtcDateFormat,
+  getAddressExplorerUrl,
+  getTxBlockExplorerUrl,
+  truncateAddress,
+} from '@/utils/common';
 
 import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
+import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
-import { REWARD_TRANSACTIONS } from '@/contents/explore';
 import ViewMoreButton from './ViewMoreButton';
-import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 
 interface RewardTransactionsCardProps {
   opacity?: number;
@@ -159,7 +165,11 @@ const RewardTransactionsCard: React.FC<RewardTransactionsCardProps> = ({
       {transactionsSize > 0 && (
         <div className='mt-6 grid w-full justify-center'>
           {viewMore && (
-            <ViewMoreButton amountToReveal={transactionsSize - 1} onClick={() => setViewMore(false)} isDisabled={isShowMoreDisabled()} />
+            <ViewMoreButton
+              amountToReveal={transactionsSize - 1}
+              onClick={() => setViewMore(false)}
+              isDisabled={isShowMoreDisabled()}
+            />
           )}
           {!viewMore && <ItemsLoadedFeedbackMessage size={transactionsSize} />}
         </div>

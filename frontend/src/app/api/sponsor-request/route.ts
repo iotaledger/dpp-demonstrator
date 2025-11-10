@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server';
 
-import { GAS_BUDGET_DEFAULT, GAS_STATION_TOKEN, GAS_STATION_URL, RESERVE_DURATION_SEC } from '@/utils/constants';
 import { type SponsorRequestReserveGasResult } from '@/types/api';
+import {
+  GAS_BUDGET_DEFAULT,
+  GAS_STATION_TOKEN,
+  GAS_STATION_URL,
+  RESERVE_DURATION_SEC,
+} from '@/utils/constants';
 
 export async function GET() {
   try {

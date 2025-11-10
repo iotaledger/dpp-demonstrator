@@ -1,7 +1,8 @@
 'use client';
 
-import { RECAP_SLIDE_3 } from '@/contents/recap';
 import React from 'react';
+
+import { RECAP_SLIDE_3 } from '@/contents/recap';
 
 interface RecapSlide3Props {
   title?: string;
@@ -10,10 +11,7 @@ interface RecapSlide3Props {
   delay?: number;
 }
 
-const RecapSlide3: React.FC<RecapSlide3Props> = ({
-  opacity = 100,
-  delay = 0.3,
-}) => {
+const RecapSlide3: React.FC<RecapSlide3Props> = ({ opacity = 100, delay = 0.3 }) => {
   const containerStyle = {
     opacity: opacity / 100,
     transform: `scale(${opacity === 100 ? 1 : 0.95})`,
@@ -51,8 +49,12 @@ const RecapSlide3: React.FC<RecapSlide3Props> = ({
                 <a target='_blank' className='block h-full' href=''>
                   <div className='relative z-10 flex h-full flex-col justify-start'>
                     <div className='max-w-[65%] text-left md:max-w-[90%]'>
-                      <h4 className='mb-1 text-xs text-blue-700 md:mb-2 md:text-sm'>{RECAP_SLIDE_3.trustFramework.title}</h4>
-                      <p className='text-sm leading-relaxed font-medium text-gray-800 md:text-base'>{RECAP_SLIDE_3.trustFramework.description}</p>
+                      <h4 className='mb-1 text-xs text-blue-700 md:mb-2 md:text-sm'>
+                        {RECAP_SLIDE_3.trustFramework.title}
+                      </h4>
+                      <p className='text-sm leading-relaxed font-medium text-gray-800 md:text-base'>
+                        {RECAP_SLIDE_3.trustFramework.description}
+                      </p>
                     </div>
                   </div>
                 </a>

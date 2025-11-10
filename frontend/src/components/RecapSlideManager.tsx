@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+
 import { SLIDE_MANAGERS } from '@/contents/common';
 
 import RecapSlide1 from './RecapSlide1';

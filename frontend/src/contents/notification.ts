@@ -1,4 +1,5 @@
-import i18n from "@/i18n";
+import i18n from '@/i18n';
+
 const t = i18n.t;
 
 export const NOTIFICATION = {
@@ -10,4 +11,4 @@ export const NOTIFICATION = {
     connectedWallet: t('Wallet connected successfully! You can now request service access.'),
     approvedRole: t('Role request approved! You can now access diagnostic tools.'),
   },
-}
+};

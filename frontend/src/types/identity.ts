@@ -100,7 +100,6 @@ export interface AccreditationTx {
   role: string;
 }
 
-
 export interface RoleEntry {
   id: string;
   value: string;
@@ -118,5 +117,4 @@ export const Roles: Record<string, RoleEntry> = {
     value: 'Repairer',
     label: 'Service Technician',
   },
-}
-
+};

@@ -1,4 +1,4 @@
-import { EXPLORER_URL, NETWORK } from "./constants";
+import { EXPLORER_URL, NETWORK } from './constants';
 
 /**
  * Checks if `value`is an empty string.
@@ -114,7 +114,7 @@ export function getTxBlockExplorerUrl(txDigest: string): string {
 }
 
 export function getDidScheme(did: string): string {
-  return `did:iota:${NETWORK}:${truncateAddress(did)}`
+  return `did:iota:${NETWORK}:${truncateAddress(did)}`;
 }
 
 export function getChain(): `${string}:${string}` {

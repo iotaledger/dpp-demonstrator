@@ -10,7 +10,10 @@ export const useProgress = () => {
   // Increase by 4% every 60ms (100% in 1500ms, matching server delay)
   const increment = (maxLimit * frequencyMs) / maxLatencyMs;
 
-  const internalControlRef = React.useRef<{ intervalId: number | null, progress: number }>({ intervalId: null, progress: 0 });
+  const internalControlRef = React.useRef<{ intervalId: number | null; progress: number }>({
+    intervalId: null,
+    progress: 0,
+  });
   const [progress, setProgress] = React.useState(0);
   const [isComplete, setIsComplete] = React.useState(false);
   const [isTimedout, setIsTimedout] = React.useState(false);
@@ -57,7 +60,10 @@ export const useProgress = () => {
     }
 
     return new Promise((resolve) => {
-      internalControlRef.current.intervalId = window.setInterval(() => runProgress(resolve), frequencyMs);
+      internalControlRef.current.intervalId = window.setInterval(
+        () => runProgress(resolve),
+        frequencyMs,
+      );
 
       window.setTimeout(() => {
         if (internalControlRef.current.intervalId && window) {

@@ -1,4 +1,3 @@
-
 /**
  * Represents a single service entry in a product's lifecycle history
  */

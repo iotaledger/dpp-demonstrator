@@ -4,6 +4,7 @@ import React, { useEffectEvent } from 'react';
 
 import { useCurrentWallet, useDisconnectWallet } from '@iota/dapp-kit';
 
+import { EXPLORE_GUIDED_NAVIGATION } from '@/contents/explore';
 import { useTutorialNavigation } from '@/hooks/useTutorialNavigation';
 import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 
@@ -23,7 +24,6 @@ import ServiceRequestCard from './ServiceRequestCard';
 import TutorialCard from './TutorialCard';
 import TutorialScrollContainer from './TutorialScrollContainer';
 import TwoColumnLayout from './TwoColumnLayout';
-import { EXPLORE_GUIDED_NAVIGATION } from '@/contents/explore';
 
 const INITIAL_STEP = 1;
 const TUTORIAL_STEPS = new Map([
@@ -275,13 +275,13 @@ const ExploreGuided: React.FC = () => {
   React.useEffect(() => {
     if (!isGoingPrevious && currentStep === 9 && isConnected) {
       // Next when connected
-      onNext()
+      onNext();
     } else if (!isGoingPrevious && currentStep === 10 && isConnected && isHierarchySent) {
       // Next when accreditation request is success
-      onNext()
+      onNext();
     } else if (!isGoingPrevious && currentStep === 11 && isConnected && isNotarizationSent) {
       // Next when diagnostic request is success
-      onNext()
+      onNext();
     }
   }, [currentStep, isConnected, isHierarchySent, isNotarizationSent, isGoingPrevious]);
 

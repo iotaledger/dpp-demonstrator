@@ -9,7 +9,7 @@ export function useRewardTotalSupply() {
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery('getObject', {
     id: VAULT_TREASURE_CAP_ID,
     options: { showContent: true },
-  })
+  });
 
   return {
     totalSupply: data?.data && extractRewardTotalSuply(data),

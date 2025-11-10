@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import CheckIcon from './icons/CheckIcon';
 
 import { useCheckLinkage } from '@/hooks/useCheckLinkage';
+
+import CheckIcon from './icons/CheckIcon';
 
 interface BadgeWithLinkProps {
   badgeText?: string | null;

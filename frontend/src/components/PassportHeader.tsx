@@ -5,6 +5,7 @@ import React, { useRef } from 'react';
 import { ConnectButton } from '@iota/dapp-kit';
 
 import { useWalletUpdateEffects } from '@/hooks/useWalletUpdateEffects';
+
 import IotaLogoIcon from './icons/IotaLogoIcon';
 
 interface PassportHeaderProps {

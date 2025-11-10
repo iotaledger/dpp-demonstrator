@@ -1,4 +1,3 @@
-
 const CheckIcon = () => (
   <svg className='h-3 w-3 text-green-600' fill='currentColor' viewBox='0 0 20 20'>
     <path

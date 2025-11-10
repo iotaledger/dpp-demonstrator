@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { INTRO_SLIDE_6 } from '@/contents/introduction';
+
 import FeaturesGrid from './FeaturesGrid';
 import ImageTextLayout from './ImageTextLayout';
 import LeanFeatureCard from './LeanFeatureCard';
@@ -30,11 +31,7 @@ const IntroSlide6: React.FC = () => {
 
       <FeaturesGrid pb='pb-24'>
         {INTRO_SLIDE_6.content.players.map((player, index) => (
-          <LeanFeatureCard
-            key={index}
-            title={player.title}
-            description={player.description}
-          />
+          <LeanFeatureCard key={index} title={player.title} description={player.description} />
         ))}
       </FeaturesGrid>
     </>

@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { INTRO_SLIDE_7 } from '@/contents/introduction';
+
 import { EnumerationItem, EnumerationSection } from './Enumeration';
 import ImageTextLayout from './ImageTextLayout';
 import SlideContent from './SlideContent';
@@ -29,10 +30,7 @@ const IntroSlide7: React.FC = () => {
 
       <EnumerationSection>
         {INTRO_SLIDE_7.content.steps.map((step, index) => (
-          <EnumerationItem
-            key={index}
-            description={step}
-          />
+          <EnumerationItem key={index} description={step} />
         ))}
       </EnumerationSection>
     </>

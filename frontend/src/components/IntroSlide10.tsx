@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { INTRO_SLIDE_10 } from '@/contents/introduction';
+
 import FeaturesGrid from './FeaturesGrid';
 import ProcessCard from './ProcessCard';
 import SlideDescription from './SlideDescription';
@@ -18,7 +19,7 @@ const IntroSlide10: React.FC = () => {
         <SlideDescription margin='mb-2' width='max-w-5xl'>
           <span
             dangerouslySetInnerHTML={{
-              __html: INTRO_SLIDE_10.content.description
+              __html: INTRO_SLIDE_10.content.description,
             }}
           />
         </SlideDescription>

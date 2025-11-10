@@ -4,26 +4,25 @@ import React, { useCallback, useState, useTransition } from 'react';
 
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 
+import { SERVICE_REQUEST_MODAL } from '@/contents/common';
+import { NOTIFICATION } from '@/contents/notification';
 import { createAccreditation } from '@/helpers/api';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useAppProvider, useNotification } from '@/providers/appProvider';
+import { ErrorNotification } from '@/types/common';
+import { Roles } from '@/types/identity';
 import { generateRequestId, truncateAddress } from '@/utils/common';
 import { FEDERATION_ID, HAS_NFT_REWARD } from '@/utils/constants';
 
 import Dialog from './Dialog';
 import CloseIcon from './icons/CloseIcon';
 import CopyIcon from './icons/CopyIcon';
-import { Roles } from '@/types/identity';
-import { NOTIFICATION } from '@/contents/notification';
 
 interface ServiceRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess?: () => void;
 }
-
-import { SERVICE_REQUEST_MODAL } from '@/contents/common';
-import { ErrorNotification } from '@/types/common';
 
 export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   isOpen,
@@ -106,7 +105,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
       } catch (error) {
         onAccreditationError(error);
       } finally {
-        onClose()
+        onClose();
       }
     });
   };
@@ -150,7 +149,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 type='text'
                 readOnly
                 value={truncateAddress(federationAddress)}
-                onChange={() => { }} // Controlled component requirement
+                onChange={() => {}} // Controlled component requirement
                 className='w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 font-mono text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500'
                 disabled={true}
               />
@@ -159,12 +158,16 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
                 type='button'
                 onClick={handleCopyAddress}
                 className='absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer p-1 text-gray-400 hover:text-gray-600 focus-visible:outline-gray-300'
-                title={copied ? SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopied : SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopy}
-                aria-label={(
+                title={
+                  copied
+                    ? SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopied
+                    : SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopy
+                }
+                aria-label={
                   copied
                     ? SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopiedAriaLabel
                     : SERVICE_REQUEST_MODAL.content.buttons.federationAddressCopyAriaLabel
-                )}
+                }
               >
                 <CopyIcon />
               </button>
@@ -183,9 +186,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               onChange={(e) => setSelectedRole(Roles[e.target.value])}
               className='focus-visible focus-visible:ring-ring w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus-visible:outline-gray-300'
             >
-              <option value={Roles.Repairer.value}>
-                {Roles.Repairer.label}
-              </option>
+              <option value={Roles.Repairer.value}>{Roles.Repairer.label}</option>
               <option disabled value={Roles.Manufacturer.value}>
                 {Roles.Manufacturer.label}
               </option>
@@ -199,7 +200,9 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               type='submit'
               disabled={isPending}
             >
-              {isPending ? SERVICE_REQUEST_MODAL.content.buttons.submitting : SERVICE_REQUEST_MODAL.content.buttons.submit}
+              {isPending
+                ? SERVICE_REQUEST_MODAL.content.buttons.submitting
+                : SERVICE_REQUEST_MODAL.content.buttons.submit}
             </button>
           </div>
         </form>

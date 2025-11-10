@@ -1,7 +1,8 @@
 'use client';
 
-import { RECAP_SLIDE_2 } from '@/contents/recap';
 import React from 'react';
+
+import { RECAP_SLIDE_2 } from '@/contents/recap';
 
 interface RecapSlide2Props {
   title?: string;
@@ -12,10 +13,7 @@ interface RecapSlide2Props {
   delay?: number;
 }
 
-const RecapSlide2: React.FC<RecapSlide2Props> = ({
-  opacity = 100,
-  delay = 0.3,
-}) => {
+const RecapSlide2: React.FC<RecapSlide2Props> = ({ opacity = 100, delay = 0.3 }) => {
   const containerStyle = {
     opacity: opacity / 100,
     transform: `translateX(${opacity === 100 ? 0 : 4}px)`,

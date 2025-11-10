@@ -24,8 +24,8 @@ export function useFederationTransactions() {
     },
     // options
     {
-      queryKey: [isHierarchySent, currentAccount?.address]
-    }
+      queryKey: [isHierarchySent, currentAccount?.address],
+    },
   );
 
   return {

@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { INTRO_SLIDE_9 } from '@/contents/introduction';
+
 import FeaturesGrid from './FeaturesGrid';
 import ProductCard from './ProductCard';
 import SlideDescription from './SlideDescription';
@@ -30,28 +31,24 @@ const IntroSlide9: React.FC = () => {
         gap='gap-10'
         leftColumn={
           <div>
-            <h3 className='mb-3 text-xl font-medium md:mb-6 md:text-2xl'>{INTRO_SLIDE_9.content.sections.trustFramework.title}</h3>
+            <h3 className='mb-3 text-xl font-medium md:mb-6 md:text-2xl'>
+              {INTRO_SLIDE_9.content.sections.trustFramework.title}
+            </h3>
             <FeaturesGrid columns='grid-cols-1' gap='gap-4' pb='pb-4'>
               {INTRO_SLIDE_9.content.sections.trustFramework.products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  icon={product.icon}
-                  title={product.title}
-                />
+                <ProductCard key={index} icon={product.icon} title={product.title} />
               ))}
             </FeaturesGrid>
           </div>
         }
         rightColumn={
           <div>
-            <h3 className='mb-3 text-xl font-medium md:mb-6 md:text-2xl'>{INTRO_SLIDE_9.content.sections.servicesAndDapps.title}</h3>
+            <h3 className='mb-3 text-xl font-medium md:mb-6 md:text-2xl'>
+              {INTRO_SLIDE_9.content.sections.servicesAndDapps.title}
+            </h3>
             <FeaturesGrid columns='grid-cols-1' gap='gap-4' pb='pb-20'>
               {INTRO_SLIDE_9.content.sections.servicesAndDapps.products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  icon={product.icon}
-                  title={product.title}
-                />
+                <ProductCard key={index} icon={product.icon} title={product.title} />
               ))}
             </FeaturesGrid>
           </div>

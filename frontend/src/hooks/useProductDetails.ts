@@ -3,8 +3,8 @@
 import { useIotaClientQuery } from '@iota/dapp-kit';
 
 import { getDpp } from '@/helpers/product';
-import { DPP_ID } from '@/utils/constants';
 import { type DppData } from '@/types/product';
+import { DPP_ID } from '@/utils/constants';
 
 export function useProductDetails() {
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery('getObject', {

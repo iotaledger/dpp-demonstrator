@@ -8,11 +8,14 @@ import { NOTARIZATION_DATA_ICON } from "@/components/icons/NotarizationDataIcon"
 import { TOKENIZATION_DATA_ICON } from "@/components/icons/TokenizationDataIcon";
 import { WALLET_DATA_ICON } from "@/components/icons/WalletDataIcon";
 
+import i18n from "@/i18n";
+const t = i18n.t;
+
 export const RECAP_NAVIGATION = {
   content: {
-    title: 'Welcome',
-    backText: '← Back to DPP',
-    linkText: '↺ Reset to Intro',
+    title: t('Welcome'),
+    backText: t('← Back to DPP'),
+    linkText: t('↺ Reset to Intro'),
   },
   navigation: {
     backUrl: '/explore-freely',
@@ -21,15 +24,15 @@ export const RECAP_NAVIGATION = {
 };
 
 export const RECAP_SLIDE_1 = {
-  title: 'What You Just Experienced',
-  description: 'You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:',
+  title: t('What You Just Experienced'),
+  description: t('recapSlide1.description', 'You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:'),
   checkmarkItems: [
-    'Verified manufacturer identity via domain linkage',
-    'Became certified through IOTA Hierarchies',
-    'Added a signed health snapshot using IOTA Notarization',
-    'Received a token payout via IOTA Tokenization',
-    'Paid no fees thanks to IOTA Gas Station',
-    'Connected securely via a browser or mobile wallet',
+    t('Verified manufacturer identity via domain linkage'),
+    t('Became certified through IOTA Hierarchies'),
+    t('Added a signed health snapshot using IOTA Notarization'),
+    t('Received a token payout via IOTA Tokenization'),
+    t('Paid no fees thanks to IOTA Gas Station'),
+    t('Connected securely via a browser or mobile wallet'),
   ],
 };
 
@@ -38,71 +41,71 @@ export const RECAP_SLIDE_2 = {
     src: '/assets/recap/recap_1.webp',
     alt: 'Beyond Digital Product Passports',
   },
-  title: 'Beyond Digital Product Passports',
-  description: 'While this demo used a DPPs as its example, the principles and components you just explored are not tied to one sector or regulation. All showcased IOTA components are designed to be modular, open, and industry-agnostic.',
+  title: t('Beyond Digital Product Passports'),
+  description: t('recapSlide2.description', 'While this demo used a DPPs as its example, the principles and components you just explored are not tied to one sector or regulation. All showcased IOTA components are designed to be modular, open, and industry-agnostic.'),
 };
 
 export const RECAP_SLIDE_3 = {
-  title: 'IOTA Product Recap',
-  description: 'The IOTA Trust Framework enables trusted digital collaboration across the product lifecycle:',
+  title: t('IOTA Product Recap'),
+  description: t('recapSlide3.description', 'The IOTA Trust Framework enables trusted digital collaboration across the product lifecycle:'),
   trustFramework: {
-    title: 'IOTA Trust Framework',
-    description: 'Enables trusted digital collaboration across the product lifecycle ',
+    title: t('IOTA Trust Framework'),
+    description: t('Enables trusted digital collaboration across the product lifecycle '),
   },
   trustFrameworkProducts: [
     {
-      title: 'IOTA Identity',
-      description: 'Issue digital identities linked to real-world organisations',
+      title: t('IOTA Identity'),
+      description: t('Issue digital identities linked to real-world organisations'),
       icon: IDENTITY_DATA_ICON,
       link: 'https://www.iota.org/products/identity',
     },
     {
-      title: 'IOTA Hierarchies',
-      description: 'Grant attribute-based permissions',
+      title: t('IOTA Hierarchies'),
+      description: t('Grant attribute-based permissions'),
       icon: HIERARCHIES_DATA_ICON,
       link: 'https://www.iota.org/products/hierarchies',
     },
     {
-      title: 'IOTA Notarization',
-      description: 'Anchor data in an immutable audit trail',
+      title: t('IOTA Notarization'),
+      description: t('Anchor data in an immutable audit trail'),
       icon: NOTARIZATION_DATA_ICON,
       link: 'https://www.iota.org/products/notarization',
     },
     {
-      title: 'IOTA Tokenization',
-      description: 'Automate reward distribution',
+      title: t('IOTA Tokenization'),
+      description: t('Automate reward distribution'),
       icon: TOKENIZATION_DATA_ICON,
       link: 'https://www.iota.org/products/tokenization',
     },
     {
-      title: 'IOTA Gas Station',
-      description: 'Sponsor transaction fees',
+      title: t('IOTA Gas Station'),
+      description: t('Sponsor transaction fees'),
       icon: GAS_STATION_DATA_ICON,
       link: 'https://www.iota.org/products/gas-station',
     },
   ],
   servicesProducts: [
     {
-      title: 'IOTA Public Infrastructure',
+      title: t('IOTA Public Infrastructure'),
       description: '',
       icon: LINK_OUT_DATA_ICON,
       link: 'https://www.iota.org/products/tooling',
     },
     {
-      title: 'IOTA Wallets',
-      description: 'Securely connect to apps',
+      title: t('IOTA Wallets'),
+      description: t('Securely connect to apps'),
       icon: WALLET_DATA_ICON,
       link: 'https://www.iota.org/products/wallet',
     },
     {
-      title: 'IOTA Explorer',
-      description: 'Verify everything publicly',
+      title: t('IOTA Explorer'),
+      description: t('Verify everything publicly'),
       icon: EXPLORER_DATA_ICON,
       link: 'https://explorer.iota.org',
     },
     {
-      title: 'IOTA Mainnet',
-      description: 'High performance Ledger',
+      title: t('IOTA Mainnet'),
+      description: t('High performance Ledger'),
       icon: NETWORK_DATA_ICON,
       link: 'https://www.iota.org/products/mainnet',
     },
@@ -110,24 +113,24 @@ export const RECAP_SLIDE_3 = {
 };
 
 export const RECAP_SLIDE_4 = {
-  title: 'Get Started with IOTA',
+  title: t('Get Started with IOTA'),
   resources: [
     {
-      title: 'Developer Documentation',
-      description: 'Get started building on IOTA today',
+      title: t('Developer Documentation'),
+      description: t('Get started building on IOTA today'),
       image: '/assets/recap/docs.webp',
       url: 'https://docs.iota.org',
     },
     {
-      title: 'IOTA Grants',
-      description: 'Apply for a grant from iotalabs and turn your wildest dApp dreams into reality',
+      title: t('IOTA Grants'),
+      description: t('Apply for a grant from iotalabs and turn your wildest dApp dreams into reality'),
       image: '/assets/recap/grants.webp',
       url: 'https://www.iotalabs.io/grants',
     },
   ],
   businessProgram: {
-    title: 'IOTA Business Innovation Program',
-    description: 'We invite innovators to showcase real-world impact with IOTA',
+    title: t('IOTA Business Innovation Program'),
+    description: t('We invite innovators to showcase real-world impact with IOTA'),
     image: '/assets/recap/bip.webp',
     url: 'https://www.iota.org/build/business-innovation-program',
   },

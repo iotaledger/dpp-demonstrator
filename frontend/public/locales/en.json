@@ -1,0 +1,347 @@
+{
+  "translation": {
+    "{COMPONENT} and connect when prompted": "{COMPONENT} and connect when prompted",
+    "{current} of {total}": "{current} of {total}",
+    "← Back to DPP": "← Back to DPP",
+    "↺ Reset to Intro": "↺ Reset to Intro",
+    "0 LCC": "0 LCC",
+    "1 LCC": "1 LCC",
+    "10 LCC": "10 LCC",
+    "30 LCC": "30 LCC",
+    "A Trusted Digital Backbone": "A Trusted Digital Backbone",
+    "Added a signed health snapshot using IOTA Notarization": "Added a signed health snapshot using IOTA Notarization",
+    "Address copied": "Address copied",
+    "Address copied to clipboard!": "Address copied to clipboard!",
+    "All {COMPONENT} latest transactions shown": "All {COMPONENT} latest transactions shown",
+    "All {COMPONENT} transactions shown": "All {COMPONENT} transactions shown",
+    "Anchor data in an immutable audit trail": "Anchor data in an immutable audit trail",
+    "and record health status": "and record health status",
+    "and request write access": "and request write access",
+    "Annual Health Snapshot": "Annual Health Snapshot",
+    "Annual Maintenance": "Annual Maintenance",
+    "Annual Maintenance Reward": "Annual Maintenance Reward",
+    "Apply for a grant from iotalabs and turn your wildest dApp dreams into reality": "Apply for a grant from iotalabs and turn your wildest dApp dreams into reality",
+    "Automate reward distribution": "Automate reward distribution",
+    "automatically in your wallet": "automatically in your wallet",
+    "Back": "Back",
+    "Back to the Start": "Back to the Start",
+    "Battery Details": "Battery Details",
+    "Battery Pack": "Battery Pack",
+    "Became certified through IOTA Hierarchies": "Became certified through IOTA Hierarchies",
+    "Behind the Scene": "Behind the Scene",
+    "Beyond Digital Product Passports": "Beyond Digital Product Passports",
+    "Bill of Materials": "Bill of Materials",
+    "Both wallets enable secure interaction with this demo without requiring any token balance": {
+      "": "Both wallets enable secure interaction with this demo without requiring any token balance."
+    },
+    "Button": "Button",
+    "Capacity": "Capacity",
+    "Cells": "Cells",
+    "Close modal": "Close modal",
+    "Connect": "Connect",
+    "Connect Wallet": "Connect Wallet",
+    "Connected securely via a browser or mobile wallet": "Connected securely via a browser or mobile wallet",
+    "Consumers": "Consumers",
+    "Contact us": "Contact us",
+    "Continue": "Continue",
+    "Copied!": "Copied!",
+    "Copy address": "Copy address",
+    "Copy email address": "Copy email address",
+    "Date": "Date",
+    "Design and produce goods, adding material, sustainability, and compliance data to the DPP": {
+      "": "Design and produce goods, adding material, sustainability, and compliance data to the DPP."
+    },
+    "Desktop": "Desktop",
+    "Developer Documentation": "Developer Documentation",
+    "Diagnostic": "Diagnostic",
+    "Diagnostic tool": "Diagnostic tool",
+    "diagnosticCard": {
+      "button": {
+        "runningDiagnostic": "Running diagnostic..."
+      },
+      "loading": "Analyzing battery health..."
+    },
+    "Disclaimer": "Disclaimer",
+    "Distributors": "Distributors",
+    "DPP - Launch Now": "DPP - Launch Now",
+    "DPP Creation Date": "DPP Creation Date",
+    "DPP ID": "DPP ID",
+    "DPP with IOTA Trust Framework": "DPP with IOTA Trust Framework",
+    "EcoBike Pro Battery diagnostic tool": "EcoBike Pro Battery diagnostic tool",
+    "Email Address": "Email Address",
+    "Enables trusted digital collaboration across the product lifecycle ": "Enables trusted digital collaboration across the product lifecycle ",
+    "End of Digital Product Passport": "End of Digital Product Passport",
+    "End-of-life Rewards": "End-of-life Rewards",
+    "Entry Type": "Entry Type",
+    "EPROs define the LCC allocation for each DPP, and service providers earn these credits automatically when documenting repairs or maintenance": "EPROs define the LCC allocation for each DPP, and service providers earn these credits automatically when documenting repairs or maintenance",
+    "Error while calling sendTransaction": {
+      "": "Error while calling sendTransaction."
+    },
+    "Error while requesting accreditation": {
+      "": "Error while requesting accreditation."
+    },
+    "Event": "Event",
+    "Event ID": "Event ID",
+    "Expected Lifespan": "Expected Lifespan",
+    "Explore Mode": "Explore Mode",
+    "Explore the Digital Product Passport with IOTA Trust Framework": "Explore the Digital Product Passport with IOTA Trust Framework",
+    "Extended Producer Responsibility Organizations (EPRO)": "Extended Producer Responsibility Organizations (EPRO)",
+    "Final owner": "Final owner",
+    "Findings": "Findings",
+    "Finish": "Finish",
+    "Get started building on IOTA today": "Get started building on IOTA today",
+    "Get Started with IOTA": "Get Started with IOTA",
+    "Grant attribute-based permissions": "Grant attribute-based permissions",
+    "Handle product logistics and market delivery, updating the DPP with tracking, certification, and transport data": {
+      "": "Handle product logistics and market delivery, updating the DPP with tracking, certification, and transport data."
+    },
+    "Health Checkup": "Health Checkup",
+    "Health Score": "Health Score",
+    "Health Snapshot": "Health Snapshot",
+    "Health snapshot saved to service history": {
+      "": "Health snapshot saved to service history."
+    },
+    "Hierarchy": "Hierarchy",
+    "High performance Ledger": "High performance Ledger",
+    "Housing": "Housing",
+    "Install IOTA Browser Wallet": "Install IOTA Browser Wallet",
+    "Install Nightly Wallet ({COMPONENT} | {COMPONENT}) and connect when prompted": {
+      "": "Install Nightly Wallet ({COMPONENT} | {COMPONENT}) and connect when prompted."
+    },
+    "Introducing the Digital Product Passport (DPP)": "Introducing the Digital Product Passport (DPP)",
+    "introSlide1": {
+      "description": "Imagine a product traveling through its entire lifecycle - from manufacturing to repairs, resale, and recycling. How can we ensure <strong>data about the product is trustworthy, complete, and accessible?</strong>"
+    },
+    "introSlide10": {
+      "description": "Step into the role of a <strong>Service Provider</strong> in the ecosystem. Your job is to perform and document a maintenance event. In this demo, you'll:"
+    },
+    "introSlide11": {
+      "description": "Choose your setup:"
+    },
+    "introSlide12": {
+      "description": "Click to start the guided demo as a Service Technician!"
+    },
+    "introSlide2": {
+      "description": "Today, you'll see how IOTA makes this possible through <strong>a hands-on Digital Product Passport (DPP) example.</strong>"
+    },
+    "introSlide3": {
+      "description": "This demo is for <strong>reference</strong> and is not a fully-functional or regulation-compliant DPP application. It was built to showcase how IOTA components can <strong>power real-world use cases</strong>, using Digital Product Passports as one example."
+    },
+    "introSlide4": {
+      "description": "Lifecycle data often gets <strong>trapped in silos</strong>, lost along the product journey, or duplicated. Without incentives to share data, stakeholders <strong>hold onto information</strong>, creating gaps in trust, compliance, and sustainability."
+    },
+    "introSlide5": {
+      "description": "A DPP is a <strong>digital record</strong> that tracks a product throughout its entire lifecycle – from design to recycling. It is linked to a <strong>unique product ID</strong>, stores specifications, repairs, material data, compliance info, and more, and is soon to be <strong>required by EU regulation</strong> for many products. It transforms scattered data into a <strong>trusted and permanent record.</strong>"
+    },
+    "introSlide6": {
+      "description": "These are the key players in a minimal product lifecycle, each interacting with the Digital Product Passport at different stages."
+    },
+    "introSlide7": {
+      "description": "Lifecycle data is fragmented and rarely shared, making it hard to track. To solve this, each DPP can be pre-funded with Lifecycle Credits (LCCs), tokens that reward verified data contributions and are redeemable for real-world value."
+    },
+    "introSlide8": {
+      "description": "IOTA provides the trusted digital backbone for use cases like Digital Product Passports. At its core is a global, public network where data is permanent, verifiable, and not controlled by any single company."
+    },
+    "introSlide9": {
+      "description": "This journey is powered by IOTA's open-source infrastructure and the IOTA Trust Framework."
+    },
+    "IOTA Business Innovation Program": "IOTA Business Innovation Program",
+    "IOTA Explorer": "IOTA Explorer",
+    "IOTA Gas Station": "IOTA Gas Station",
+    "IOTA Grants": "IOTA Grants",
+    "IOTA Hierarchies": "IOTA Hierarchies",
+    "IOTA Identity": "IOTA Identity",
+    "IOTA Mainnet": "IOTA Mainnet",
+    "IOTA Notarization": "IOTA Notarization",
+    "IOTA Product Demo": "IOTA Product Demo",
+    "IOTA Product Recap": "IOTA Product Recap",
+    "IOTA Public Infrastructure": "IOTA Public Infrastructure",
+    "IOTA Tokenization": "IOTA Tokenization",
+    "IOTA Trust Framework": "IOTA Trust Framework",
+    "IOTA Wallets": "IOTA Wallets",
+    "Issue digital identities linked to real-world organisations": "Issue digital identities linked to real-world organisations",
+    "Key Players in the DPP ecosystem": "Key Players in the DPP ecosystem",
+    "Lifecycle Credit (LCC) Rewards": "Lifecycle Credit (LCC) Rewards",
+    "List of all rewards transactions": "List of all rewards transactions",
+    "Maintenance and Repairs": "Maintenance and Repairs",
+    "Maintenance Rewards remaining": "Maintenance Rewards remaining",
+    "Manufacturer": "Manufacturer",
+    "Manufacturer Identity": "Manufacturer Identity",
+    "Manufacturer Name": "Manufacturer Name",
+    "Manufacturer return": "Manufacturer return",
+    "Manufacturers": "Manufacturers",
+    "Manufacturers build the product, create its DPP, and pre-fund it with Lifecycle Credits (LCCs)": "Manufacturers build the product, create its DPP, and pre-fund it with Lifecycle Credits (LCCs)",
+    "Manufacturers provide fiat funds to the EPRO, ensuring reward pools are backed with real-world value": "Manufacturers provide fiat funds to the EPRO, ensuring reward pools are backed with real-world value",
+    "Manufacturing Date": "Manufacturing Date",
+    "Meet the Product": "Meet the Product",
+    "Mobile": "Mobile",
+    "Model": "Model",
+    "Next": "Next",
+    "Next slide": "Next slide",
+    "No slides": "No slides",
+    "Notarized at block": "Notarized at block",
+    "Offer repair, maintenance, and upgrades, relying on the DPP for product history and part details": {
+      "": "Offer repair, maintenance, and upgrades, relying on the DPP for product history and part details."
+    },
+    "Paid no fees thanks to IOTA Gas Station": "Paid no fees thanks to IOTA Gas Station",
+    "Perform diagnostics": "Perform diagnostics",
+    "Please make sure you are connected to the IOTA testnet": {
+      "": "Please make sure you are connected to the IOTA testnet."
+    },
+    "Please switch your wallet to the IOTA Testnet": {
+      "": "Please switch your wallet to the IOTA Testnet."
+    },
+    "Powered by IOTA": "Powered by IOTA",
+    "Prepare your Wallet": "Prepare your Wallet",
+    "Previous slide": "Previous slide",
+    "Process end-of-life products, using the DPP to identify materials and improve recovery": {
+      "": "Process end-of-life products, using the DPP to identify materials and improve recovery."
+    },
+    "Product Details": "Product Details",
+    "Product Name": "Product Name",
+    "Product Passport Details": "Product Passport Details",
+    "Products Move, Data Doesn't": "Products Move, Data Doesn't",
+    "Purchase and use products, consulting the DPP for origin, sustainability, and repair options": {
+      "": "Purchase and use products, consulting the DPP for origin, sustainability, and repair options."
+    },
+    "Ready to Begin?": "Ready to Begin?",
+    "recapSlide1": {
+      "description": "You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:"
+    },
+    "recapSlide2": {
+      "description": "While this demo used a DPPs as its example, the principles and components you just explored are not tied to one sector or regulation. All showcased IOTA components are designed to be modular, open, and industry-agnostic."
+    },
+    "recapSlide3": {
+      "description": "The IOTA Trust Framework enables trusted digital collaboration across the product lifecycle:"
+    },
+    "Receive Lifecycle Credits": "Receive Lifecycle Credits",
+    "Received a token payout via IOTA Tokenization": "Received a token payout via IOTA Tokenization",
+    "Recyclers": "Recyclers",
+    "Recycling Reward": "Recycling Reward",
+    "repairer": "repairer",
+    "Request": "Request",
+    "Request Access": "Request Access",
+    "Request Service Network Access": "Request Service Network Access",
+    "Review history": "Review history",
+    "Reward contract": "Reward contract",
+    "Reward Distributed": "Reward Distributed",
+    "Reward Pool": "Reward Pool",
+    "Reward Pool Status": "Reward Pool Status",
+    "Reward Table": "Reward Table",
+    "Reward Transactions": "Reward Transactions",
+    "Rewards transactions": "Rewards transactions",
+    "Role": "Role",
+    "Role Details": "Role Details",
+    "Role request approved! You can now access diagnostic tools": {
+      "": "Role request approved! You can now access diagnostic tools."
+    },
+    "Routine maintenance completed successfully": "Routine maintenance completed successfully",
+    "Save Snapshot": "Save Snapshot",
+    "saveDiagnosticModal": {
+      "buttons": {
+        "loading": "Loading...",
+        "saving": "Saving..."
+      }
+    },
+    "Scan a product": "Scan a product",
+    "Securely connect to apps": "Securely connect to apps",
+    "Serial Number": "Serial Number",
+    "Service History": "Service History",
+    "Service ID": "Service ID",
+    "Service Network": "Service Network",
+    "Service Network Address": "Service Network Address",
+    "Service Network Request": "Service Network Request",
+    "Service Providers": "Service Providers",
+    "Service providers send their earned LCC tokens back to the EPRO for redemption": "Service providers send their earned LCC tokens back to the EPRO for redemption",
+    "Service request submitted successfully!": "Service request submitted successfully!",
+    "serviceRequestModal": {
+      "buttons": {
+        "submitting": "Submitting..."
+      }
+    },
+    "Services & dApps": "Services & dApps",
+    "Skip Intro": "Skip Intro",
+    "Solving the Data-Sharing Problem": "Solving the Data-Sharing Problem",
+    "Sponsor transaction fees": "Sponsor transaction fees",
+    "Start Diagnostic": "Start Diagnostic",
+    "Start diagnostic now": "Start diagnostic now",
+    "Start Tour": "Start Tour",
+    "Submit": "Submit",
+    "Support manufacturers in end-of-life obligations and oversee recycling & compliance": {
+      "": "Support manufacturers in end-of-life obligations and oversee recycling & compliance."
+    },
+    "Switch to free exploration": "Switch to free exploration",
+    "Switch to Guided Tour": "Switch to Guided Tour",
+    "Technician": "Technician",
+    "The EPRO processes redemption, converting LCCs back into fiat and closing the economic loop": "The EPRO processes redemption, converting LCCs back into fiat and closing the economic loop",
+    "Timestamp": "Timestamp",
+    "to access its DPP": "to access its DPP",
+    "To add information to this Digital Product Passport, you must be certified by EcoBike through their Service Network": {
+      " Click below to request access as a trusted technician": {
+        "": "To add information to this Digital Product Passport, you must be certified by EcoBike through their Service Network. Click below to request access as a trusted technician."
+      }
+    },
+    "Total Lifecycle Fund": "Total Lifecycle Fund",
+    "Transaction ID": "Transaction ID",
+    "Trust Framework": "Trust Framework",
+    "tutorialStep1": {
+      "description": "<p>This e-bike battery is the product we will track throughout the demo. Its Digital Product Passport was created by EcoBike, and every service event or reward you add later will link back to this single on-chain identity.</p>"
+    },
+    "tutorialStep10": {
+      "description": "<p>Earlier, you learned that EcoBike maintains a trusted Service Network through <strong>IOTA Hierarchies</strong>. Only certified technicians in that list are allowed to add information to the Digital Product Passport.<br><br>Now that your wallet is connected, you can request to join. Clicking the button simulates how a technician contacts the manufacturer through one of the channels defined in EcoBike's <strong>IOTA Identity</strong>.<br><br>If approved, you will be able to add verified service records to the passport.</p>"
+    },
+    "tutorialStep11": {
+      "description": "<p>You've been approved as a trusted technician! EcoBike has added your wallet address to their Service Network through <strong>IOTA Hierarchies</strong>.<br><br>Now you can simulate running a diagnostic and writing a health snapshot to the passport. Your service record will become part of the product's permanent, verifiable history.</p>"
+    },
+    "tutorialStep12": {
+      "description": "<p>Your health snapshot has been written to the IOTA network — immutably and verifiably. You didn't need to pay fees or hold tokens. The <strong>IOTA Gas Station</strong> sponsored your transaction in the background, ensuring a smooth experience.<br><br>Your entry is now part of the product's permanent service history, visible to all future owners and stakeholders.</p>"
+    },
+    "tutorialStep13": {
+      "description": "<p>Congratulations! Your verified service action has triggered an automated reward payout from EcoBike's reward pool.<br><br>The smart contract logic recognized your certified maintenance work and released tokens accordingly. Look at the reward contract and reward distributed entries in the service history below - these show the on-chain reward transaction details.<br><br>This reward can later be redeemed through an Extended Producer Responsibility Organization (EPRO) for real-world value. This incentive system encourages proper product care throughout the entire lifecycle.</p>"
+    },
+    "tutorialStep2": {
+      "description": "<p>Here you can review the product details that the manufacturer initially attached to the passport, including production facts, key attributes, and the bill of materials. The DPP ID is this battery's unique identifier on the IOTA network. Follow the link to open the <strong>IOTA Explorer</strong> and view the on-chain record and metadata in full. Thanks to IOTA's core characteristics and <strong>IOTA Notarization</strong>, this information is immutably stored and accessible to everyone.</p>"
+    },
+    "tutorialStep3": {
+      "description": "<p>EcoBike is the legal entity that produced this battery and is responsible for its Digital Product Passport. EcoBike represents itself via an <strong>IOTA Identity</strong> called a Decentralized Identifier (DID) on the IOTA network.</p></br><p>The green checkmark indicates that EcoBike's DID is <strong>domain-linked</strong>, meaning its digital identity has been cryptographically verified to match its official website domain — proving that this identity truly belongs to the <strong>legitimate manufacturer</strong>.</p>"
+    },
+    "tutorialStep4": {
+      "description": "<p>For products that can move freely across this planet, a manufacturer needs a reliable way to let trusted repairers and recyclers add information to the passport. EcoBike solves this by keeping an on-chain Service Network via <strong>IOTA Hierarchies</strong>. Only trusted actors on that list are eligible to write to the passport. Your address - the Technician - isn't on that list yet, but you'll request access throughout this demo.</p>"
+    },
+    "tutorialStep5": {
+      "description": "<p>A major challenge in building useful DPPs is motivating actors to participate in this circular economy. Why should a service technician document their actions? Why should an owner bring the product to a certified recycler?<br><br>EcoBike solves this with a pre-funded reward pool using <strong>IOTA Tokenization</strong>. Each verified service or recycling event automatically triggers a token reward through transparent smart contract logic. This creates direct economic incentives for proper product care throughout the entire lifecycle.</p>"
+    },
+    "tutorialStep6": {
+      "description": "<p>Each time a certified technician performs a verified action like an annual health check, the DPP triggers an automated reward token payout. Each payout is recorded immutably on the IOTA ledger and can be verified publicly via the <strong>IOTA Explorer</strong>. This ensures transparency, traceability, and accountability for every reward that gets distributed.</p>"
+    },
+    "tutorialStep7": {
+      "description": "<p>Every entry in this timeline reflects a real action, such as a maintenance check or component replacement, performed by a certified actor. The data is digitally signed, timestamped, and immutably anchored on the IOTA network using <strong>IOTA Notarization</strong>.<br><br>This creates a tamper-proof audit trail that regulators, manufacturers, and future owners can rely on to verify that the product was properly maintained throughout its lifecycle.</p>"
+    },
+    "tutorialStep8": {
+      "description": "<p>You've now been guided through each section of the Digital Product Passport and seen how different IOTA components contribute to it.<br><br>Take a moment to explore freely: scroll through the full DPP, review product details, inspect service records, and follow any links to the <strong>IOTA Explorer</strong> for a deeper look at on-chain data.<br><br>When you're ready, continue to the next step to connect your wallet and begin interacting with the system as a certified technician.</p>"
+    },
+    "tutorialStep9": {
+      "description": "<p>In order to let the DPP application know who you are, you now need to connect your wallet. This lets the system recognize your identity and determine which actions you're allowed to perform.<br><br>On the desktop, use the <strong>IOTA Browser Wallet</strong> extension. On mobile, use the Nightly app.<br><br>Don't worry, you don't need to hold IOTA or any other tokens. The wallet simply proves who you are and lets you sign messages and transactions when needed.<br><br>Once connected, you'll be able to request access and start interacting with the product's Digital Product Passport.</p>"
+    },
+    "Use arrow keys or click to navigate": "Use arrow keys or click to navigate",
+    "Verification": "Verification",
+    "Verified manufacturer identity via domain linkage": "Verified manufacturer identity via domain linkage",
+    "Verify everything publicly": "Verify everything publicly",
+    "Version": "Version",
+    "View more": "View more",
+    "View New History Entry": "View New History Entry",
+    "View Reward Information": "View Reward Information",
+    "Wallet connected successfully! You can now request service access": {
+      "": "Wallet connected successfully! You can now request service access."
+    },
+    "We invite innovators to showcase real-world impact with IOTA": "We invite innovators to showcase real-world impact with IOTA",
+    "Welcome": "Welcome",
+    "Welcome to the": "Welcome to the",
+    "What You Just Experienced": "What You Just Experienced",
+    "Wrong network detected": {
+      "": "Wrong network detected."
+    },
+    "You": "You",
+    "Your Mission in this Demo": "Your Mission in this Demo"
+  }
+}

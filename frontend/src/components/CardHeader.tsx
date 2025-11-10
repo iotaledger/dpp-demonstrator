@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import { useNightlyWallet } from '@/providers/appProvider';
 import { CARD_HEADER } from '@/contents/common';
+import { useNightlyWallet } from '@/providers/appProvider';
 
 interface CardHeaderProps {
   title?: string;

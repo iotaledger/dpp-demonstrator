@@ -2,13 +2,15 @@
 
 import React, { useEffectEvent } from 'react';
 
+import type { Notification, ToastType } from '@/types/common';
+
 import { clsx } from 'clsx';
 
+import { TOAST } from '@/contents/common';
 import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 import { NOTIFICATION_DECAY_TIME_MS } from '@/utils/constants';
-import { TOAST } from '@/contents/common';
+
 import CloseIcon from './icons/CloseIcon';
-import type { Notification, ToastType } from '@/types/common';
 
 interface ToastProps extends Notification {
   onClose?: (id: string) => void;
@@ -64,7 +66,7 @@ export const Toast: React.FC<ToastProps> = ({ id, type, message, onClose }) => {
   React.useEffect(() => {
     if (isTriggered) {
       window.setTimeout(() => {
-        onFinal()
+        onFinal();
       }, 300);
     }
   }, [id, isTriggered]);

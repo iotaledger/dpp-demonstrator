@@ -1,5 +1,6 @@
-import { ServiceEntry } from '@/types/transaction';
 import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef } from '@iota/iota-sdk/client';
+
+import { ServiceEntry } from '@/types/transaction';
 
 /*
 Service History Data Structure:
@@ -164,6 +165,4 @@ function extractServiceTransactionData(
 }
 
 // Export all interfaces and functions
-export {
-  extractServiceTransactionData,
-};
+export { extractServiceTransactionData };

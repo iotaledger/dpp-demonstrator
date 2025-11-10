@@ -1,20 +1,34 @@
 'use client';
 
 import React, { useCallback } from 'react';
-import { useCurrentWallet } from '@iota/dapp-kit';
 import { useRouter } from 'next/navigation';
 
+import { useCurrentWallet } from '@iota/dapp-kit';
 import clsx from 'clsx';
-import CaretUpIcon from './icons/CaretUpIcon';
-import CaretDownIcon from './icons/CaretDownIcon';
 
-import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 import { GUIDED_SIDEBAR } from '@/contents/common';
+import {
+  TUTORIAL_STEP_1,
+  TUTORIAL_STEP_2,
+  TUTORIAL_STEP_3,
+  TUTORIAL_STEP_4,
+  TUTORIAL_STEP_5,
+  TUTORIAL_STEP_6,
+  TUTORIAL_STEP_7,
+  TUTORIAL_STEP_8,
+  TUTORIAL_STEP_9,
+  TUTORIAL_STEP_10,
+  TUTORIAL_STEP_11,
+  TUTORIAL_STEP_12,
+  TUTORIAL_STEP_13,
+} from '@/contents/explore';
+import { useHierarchySent, useNotarizationSent } from '@/providers/appProvider';
 
+import CaretDownIcon from './icons/CaretDownIcon';
+import CaretUpIcon from './icons/CaretUpIcon';
 import StepContent from './StepContent';
 import StepNavigation from './StepNavigation';
 import StepProgress from './StepProgress';
-import { TUTORIAL_STEP_1, TUTORIAL_STEP_10, TUTORIAL_STEP_11, TUTORIAL_STEP_12, TUTORIAL_STEP_13, TUTORIAL_STEP_2, TUTORIAL_STEP_3, TUTORIAL_STEP_4, TUTORIAL_STEP_5, TUTORIAL_STEP_6, TUTORIAL_STEP_7, TUTORIAL_STEP_8, TUTORIAL_STEP_9 } from '@/contents/explore';
 
 const TUTORIAL_STEPS = new Map([
   [
@@ -338,13 +352,19 @@ const DrawerOtherwise: React.FC<DrawerOtherwiseProps> = ({ currentStep, navigati
     >
       <div className='flex-shrink-0 border-b border-slate-200 bg-slate-200/50 px-6 py-2 backdrop-blur-md select-none'>
         <div className='flex items-center justify-between select-none'>
-          <h3 className='text-md text-gray-600 select-none'>{GUIDED_SIDEBAR.content.behindTheScene}</h3>
+          <h3 className='text-md text-gray-600 select-none'>
+            {GUIDED_SIDEBAR.content.behindTheScene}
+          </h3>
           <button
             className='cursor-pointer rounded-md p-1 transition-colors select-none hover:bg-slate-200'
             aria-label='Collapse tutorial panel'
             onClick={toggleExpanded}
           >
-            {isExpanded ? <CaretUpIcon className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none' /> : <CaretDownIcon className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none' />}
+            {isExpanded ? (
+              <CaretUpIcon className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none' />
+            ) : (
+              <CaretDownIcon className='h-6 w-6 rotate-180 text-gray-400 transition-transform duration-200 select-none' />
+            )}
           </button>
         </div>
       </div>

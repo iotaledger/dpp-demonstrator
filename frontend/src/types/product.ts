@@ -1,4 +1,3 @@
-
 /**
  * A Move structure holding a key-value pair entry.
  */
@@ -66,15 +65,33 @@ export class BillOfMaterials {
     this._map = bomMap;
   }
 
-  get manufacturerName() { return this._map.get(BillOfMaterialsDataProperties.ManufacturerName); }
-  get version() { return this._map.get(BillOfMaterialsDataProperties.Version); }
-  get housing() { return this._map.get(BillOfMaterialsDataProperties.Housing); }
-  get cells() { return this._map.get(BillOfMaterialsDataProperties.Cells); }
-  get batteryPack() { return this._map.get(BillOfMaterialsDataProperties.BatteryPack); }
-  get expectedLifespan() { return this._map.get(BillOfMaterialsDataProperties.ExpectedLifespan); }
-  get capacity() { return this._map.get(BillOfMaterialsDataProperties.Capacity); }
-  get manufacturingDate() { return this._map.get(BillOfMaterialsDataProperties.ManufacturingDate); }
-  get model() { return this._map.get(BillOfMaterialsDataProperties.Model); }
+  get manufacturerName() {
+    return this._map.get(BillOfMaterialsDataProperties.ManufacturerName);
+  }
+  get version() {
+    return this._map.get(BillOfMaterialsDataProperties.Version);
+  }
+  get housing() {
+    return this._map.get(BillOfMaterialsDataProperties.Housing);
+  }
+  get cells() {
+    return this._map.get(BillOfMaterialsDataProperties.Cells);
+  }
+  get batteryPack() {
+    return this._map.get(BillOfMaterialsDataProperties.BatteryPack);
+  }
+  get expectedLifespan() {
+    return this._map.get(BillOfMaterialsDataProperties.ExpectedLifespan);
+  }
+  get capacity() {
+    return this._map.get(BillOfMaterialsDataProperties.Capacity);
+  }
+  get manufacturingDate() {
+    return this._map.get(BillOfMaterialsDataProperties.ManufacturingDate);
+  }
+  get model() {
+    return this._map.get(BillOfMaterialsDataProperties.Model);
+  }
 }
 
 /**
@@ -90,4 +107,3 @@ export type DppModel = {
   serialNumber: string;
   timestamp: string;
 };
-

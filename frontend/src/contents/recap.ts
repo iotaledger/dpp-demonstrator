@@ -1,14 +1,14 @@
-import { EXPLORER_DATA_ICON } from "@/components/icons/ExplorerDataIcon";
-import { GAS_STATION_DATA_ICON } from "@/components/icons/GasStationDataIcon";
-import { HIERARCHIES_DATA_ICON } from "@/components/icons/HierarchiesDataIcon";
-import { IDENTITY_DATA_ICON } from "@/components/icons/IdentityDataIcon";
-import { LINK_OUT_DATA_ICON } from "@/components/icons/LinkOutDataIcon";
-import { NETWORK_DATA_ICON } from "@/components/icons/NetworkDataIcon";
-import { NOTARIZATION_DATA_ICON } from "@/components/icons/NotarizationDataIcon";
-import { TOKENIZATION_DATA_ICON } from "@/components/icons/TokenizationDataIcon";
-import { WALLET_DATA_ICON } from "@/components/icons/WalletDataIcon";
+import { EXPLORER_DATA_ICON } from '@/components/icons/ExplorerDataIcon';
+import { GAS_STATION_DATA_ICON } from '@/components/icons/GasStationDataIcon';
+import { HIERARCHIES_DATA_ICON } from '@/components/icons/HierarchiesDataIcon';
+import { IDENTITY_DATA_ICON } from '@/components/icons/IdentityDataIcon';
+import { LINK_OUT_DATA_ICON } from '@/components/icons/LinkOutDataIcon';
+import { NETWORK_DATA_ICON } from '@/components/icons/NetworkDataIcon';
+import { NOTARIZATION_DATA_ICON } from '@/components/icons/NotarizationDataIcon';
+import { TOKENIZATION_DATA_ICON } from '@/components/icons/TokenizationDataIcon';
+import { WALLET_DATA_ICON } from '@/components/icons/WalletDataIcon';
+import i18n from '@/i18n';
 
-import i18n from "@/i18n";
 const t = i18n.t;
 
 export const RECAP_NAVIGATION = {
@@ -25,7 +25,10 @@ export const RECAP_NAVIGATION = {
 
 export const RECAP_SLIDE_1 = {
   title: t('What You Just Experienced'),
-  description: t('recapSlide1.description', 'You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:'),
+  description: t(
+    'recapSlide1.description',
+    'You stepped into the role of a certified service technician and experienced how IOTA infrastructure enables verifiable and incentivized lifecycle actions:',
+  ),
   checkmarkItems: [
     t('Verified manufacturer identity via domain linkage'),
     t('Became certified through IOTA Hierarchies'),
@@ -42,12 +45,18 @@ export const RECAP_SLIDE_2 = {
     alt: 'Beyond Digital Product Passports',
   },
   title: t('Beyond Digital Product Passports'),
-  description: t('recapSlide2.description', 'While this demo used a DPPs as its example, the principles and components you just explored are not tied to one sector or regulation. All showcased IOTA components are designed to be modular, open, and industry-agnostic.'),
+  description: t(
+    'recapSlide2.description',
+    'While this demo used a DPPs as its example, the principles and components you just explored are not tied to one sector or regulation. All showcased IOTA components are designed to be modular, open, and industry-agnostic.',
+  ),
 };
 
 export const RECAP_SLIDE_3 = {
   title: t('IOTA Product Recap'),
-  description: t('recapSlide3.description', 'The IOTA Trust Framework enables trusted digital collaboration across the product lifecycle:'),
+  description: t(
+    'recapSlide3.description',
+    'The IOTA Trust Framework enables trusted digital collaboration across the product lifecycle:',
+  ),
   trustFramework: {
     title: t('IOTA Trust Framework'),
     description: t('Enables trusted digital collaboration across the product lifecycle '),
@@ -123,7 +132,9 @@ export const RECAP_SLIDE_4 = {
     },
     {
       title: t('IOTA Grants'),
-      description: t('Apply for a grant from iotalabs and turn your wildest dApp dreams into reality'),
+      description: t(
+        'Apply for a grant from iotalabs and turn your wildest dApp dreams into reality',
+      ),
       image: '/assets/recap/grants.webp',
       url: 'https://www.iotalabs.io/grants',
     },
@@ -136,5 +147,5 @@ export const RECAP_SLIDE_4 = {
   },
   contact: {
     email: 'partnerships@iota.org',
-  }
+  },
 };

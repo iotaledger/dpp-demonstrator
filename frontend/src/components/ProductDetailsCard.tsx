@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { PRODUCT_DETAILS } from '@/contents/explore';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { fromPosixMsToUtcDateFormat, truncateAddress } from '@/utils/common';
 import { DPP_ID, EXPLORER_URL, NETWORK } from '@/utils/constants';
@@ -12,7 +13,6 @@ import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
 import TwoColumnSection from './TwoColumnSection';
-import { PRODUCT_DETAILS } from '@/contents/explore';
 
 interface ProductDetailsCardProps {
   opacity?: number;
@@ -80,7 +80,10 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
       opacity={opacity}
       delay={delay}
     >
-      <PanelContent title={PRODUCT_DETAILS.content.passportDetails.title} panelState={getPanelState()}>
+      <PanelContent
+        title={PRODUCT_DETAILS.content.passportDetails.title}
+        panelState={getPanelState()}
+      >
         <DataGrid>
           <ItemValueRow
             rowState={getRowState('dppId')}

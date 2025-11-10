@@ -1,4 +1,4 @@
-import { generateRequestId } from "@/utils/common";
+import { generateRequestId } from '@/utils/common';
 
 export type ToastType = 'success' | 'warning' | 'error' | 'info';
 

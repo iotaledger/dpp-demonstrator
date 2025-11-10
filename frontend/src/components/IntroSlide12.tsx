@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import { INTRO_SLIDE_12 } from '@/contents/introduction';
+
 import ImageTextLayout from './ImageTextLayout';
 import SlideContent from './SlideContent';
 import SlideDescription from './SlideDescription';

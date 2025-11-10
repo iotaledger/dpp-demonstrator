@@ -1,4 +1,3 @@
-
 /**
  * Represents an LCC token balance for a specific address
  */

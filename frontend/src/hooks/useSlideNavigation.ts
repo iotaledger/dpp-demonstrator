@@ -2,6 +2,7 @@
 
 import React, { useEffectEvent } from 'react';
 import { useRouter } from 'next/navigation';
+
 import { POSITION_CHANGE_TO_SWIPE } from '@/utils/constants';
 
 const initialSlide = 1;

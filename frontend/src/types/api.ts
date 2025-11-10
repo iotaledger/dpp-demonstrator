@@ -1,5 +1,5 @@
-import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 import { type TransactionEffects } from '@iota/iota-sdk/client';
+import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 
 export interface ReserveGasResult {
   sponsor_address: string;
@@ -42,5 +42,3 @@ export interface ReserveGasResult {
 export interface ReserveGasResultResponse extends ReserveGasResult {
   gasBudget: number;
 }
-
-

@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
+
 import { NAVIGATION_BUTTONS } from '@/contents/common';
+
 import CaretLeftIcon from './icons/CaretLeftIcon';
 import CaretRightIcon from './icons/CaretRightIcon';
 

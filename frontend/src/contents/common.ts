@@ -1,4 +1,5 @@
-import i18n from "@/i18n";
+import i18n from '@/i18n';
+
 const t = i18n.t;
 
 export const APP_METADATA = {
@@ -158,7 +159,10 @@ export const DIAGNOSTIC_CARD = {
     subtitle: t('Annual Health Snapshot'),
     imageAlt: t('Diagnostic tool'),
     buttonTextStartDiagnostic: t('Start diagnostic now'),
-    buttonTextRunningDiagnostic: t('diagnosticCard.button.runningDiagnostic', 'Running diagnostic...'),
+    buttonTextRunningDiagnostic: t(
+      'diagnosticCard.button.runningDiagnostic',
+      'Running diagnostic...',
+    ),
     loadingText: t('diagnosticCard.loading', 'Analyzing battery health...'),
   },
   asset: {
@@ -169,7 +173,9 @@ export const DIAGNOSTIC_CARD = {
 export const SERVICE_REQUEST_CARD = {
   content: {
     title: t('Request Service Network Access'),
-    description: t('To add information to this Digital Product Passport, you must be certified by EcoBike through their Service Network. Click below to request access as a trusted technician.'),
+    description: t(
+      'To add information to this Digital Product Passport, you must be certified by EcoBike through their Service Network. Click below to request access as a trusted technician.',
+    ),
     buttonText: t('Service Network Request'),
   },
 };

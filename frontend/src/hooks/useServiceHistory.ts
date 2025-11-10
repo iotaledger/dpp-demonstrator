@@ -27,7 +27,7 @@ export function useServiceHistory() {
     // options
     {
       queryKey: [isNotarizationSent],
-    }
+    },
   );
 
   return {

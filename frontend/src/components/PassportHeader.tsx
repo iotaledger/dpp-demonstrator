@@ -5,6 +5,7 @@ import React, { useRef } from 'react';
 import { ConnectButton } from '@iota/dapp-kit';
 
 import { useWalletUpdateEffects } from '@/hooks/useWalletUpdateEffects';
+
 import IotaLogoIcon from './icons/IotaLogoIcon';
 
 interface PassportHeaderProps {
@@ -72,7 +73,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
                   </div>
                 </div>
               )}
-              {/* NOTE: ConnectButton is a component from dapp-kit UI and requires an inline CSS costomization. */}
+              {/* NOTE: ConnectButton is a component from dapp-kit UI and requires an inline CSS customization. */}
               <ConnectButton
                 ref={connectRef}
                 variant='primary'

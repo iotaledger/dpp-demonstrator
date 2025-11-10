@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { INTRO_SLIDE_3 } from '@/contents/introduction';
+
 import ImageTextLayout from './ImageTextLayout';
 import SlideContent from './SlideContent';
 import SlideDescription from './SlideDescription';

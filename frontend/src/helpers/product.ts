@@ -1,4 +1,6 @@
-import { type DppModel, type DppData, BillOfMaterials } from "@/types/product";
+import type { DppData, DppModel } from '@/types/product';
+
+import { BillOfMaterials } from '@/types/product';
 
 export function getSerialNumber(content: DppData | null): string | undefined {
   return content?.fields.serial_number;

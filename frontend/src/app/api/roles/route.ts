@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { BACKEND_API_KEY, BACKEND_ENDPOINT } from '@/utils/constants';
 import { RouteRequestBody } from '@/types/api';
+import { BACKEND_API_KEY, BACKEND_ENDPOINT } from '@/utils/constants';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

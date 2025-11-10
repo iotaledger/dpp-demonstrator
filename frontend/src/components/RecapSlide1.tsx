@@ -2,8 +2,9 @@
 
 import React from 'react';
 
-import CheckmarkList from './CheckmarkList';
 import { RECAP_SLIDE_1 } from '@/contents/recap';
+
+import CheckmarkList from './CheckmarkList';
 
 interface RecapSlide1Props {
   title?: string;
@@ -13,10 +14,7 @@ interface RecapSlide1Props {
   delay?: number;
 }
 
-const RecapSlide1: React.FC<RecapSlide1Props> = ({
-  opacity = 100,
-  delay = 0.2,
-}) => {
+const RecapSlide1: React.FC<RecapSlide1Props> = ({ opacity = 100, delay = 0.2 }) => {
   const containerStyle = {
     opacity: opacity / 100,
     transform: `scale(${opacity === 100 ? 1 : 0.95})`,

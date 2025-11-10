@@ -2,17 +2,18 @@
 
 import React, { useEffectEvent } from 'react';
 
+import type { WalletAccount } from '@iota/wallet-standard';
+
 import { useCurrentAccount, useCurrentWallet } from '@iota/dapp-kit';
 
+import { NOTIFICATION } from '@/contents/notification';
 import { getRolesByEntity } from '@/helpers/federation';
 import { useAppProvider } from '@/providers/appProvider';
+import { Roles } from '@/types/identity';
 import { generateRequestId } from '@/utils/common';
 import { FEDERATION_ID } from '@/utils/constants';
 
 import { useFederationDetails } from './useFederationDetails';
-import { Roles } from '@/types/identity';
-import type { WalletAccount } from '@iota/wallet-standard';
-import { NOTIFICATION } from '@/contents/notification';
 
 /**
  * NOTE:
@@ -21,7 +22,7 @@ import { NOTIFICATION } from '@/contents/notification';
  * as a single source of truth.
  *
  * WARN:
- * Do not call this hook twiece. Place it in a component that serves the wallet button connection.
+ * Do not call this hook twice. Place it in a component that serves the wallet button connection.
  */
 export function useWalletUpdateEffects() {
   // From app store
@@ -39,7 +40,7 @@ export function useWalletUpdateEffects() {
   const currentAccount = useCurrentAccount();
   const onWalletConnected = useEffectEvent(() => {
     if (handleWalletConnected) {
-      handleWalletConnected()
+      handleWalletConnected();
     }
   });
   const onWalletDisconnected = useEffectEvent(() => {
@@ -132,7 +133,7 @@ export function useWalletUpdateEffects() {
   // Triggers when wallet is connected, current address is changed and federation details is retrieved
   React.useEffect(() => {
     if (isWalletConnected && currentAccountAddress && isSuccessFederationDetails) {
-      onStoreWalletAccountAccreditationCheck(currentAccountAddress)
+      onStoreWalletAccountAccreditationCheck(currentAccountAddress);
     }
   }, [isWalletConnected, currentAccountAddress, isSuccessFederationDetails]);
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { useCurrentNetwork, useWalletConnected } from '@/providers/appProvider';
 import { NOT_TESTNET_WARNING_CARD } from '@/contents/common';
+import { useCurrentNetwork, useWalletConnected } from '@/providers/appProvider';
 
 interface NotTestnetWarningCardProps {
   opacity?: number;
@@ -50,8 +50,12 @@ const NotTestnetWarningCard: React.FC<NotTestnetWarningCardProps> = ({
                   <div className='flex flex-1 flex-col justify-start py-6'>
                     {/* Text Content */}
                     <div className='space-y-0.5'>
-                      <div className='text-sm font-medium text-gray-500'>{NOT_TESTNET_WARNING_CARD.content.title}</div>
-                      <div className='text-lg font-medium text-gray-900'>{NOT_TESTNET_WARNING_CARD.content.subtitle}</div>
+                      <div className='text-sm font-medium text-gray-500'>
+                        {NOT_TESTNET_WARNING_CARD.content.title}
+                      </div>
+                      <div className='text-lg font-medium text-gray-900'>
+                        {NOT_TESTNET_WARNING_CARD.content.subtitle}
+                      </div>
                     </div>
                   </div>
                 </div>

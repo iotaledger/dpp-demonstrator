@@ -2,27 +2,31 @@
 
 import React, { useCallback, useState, useTransition } from 'react';
 
+import type { CreateNotarizationEventTransactionArgs, Transaction } from '@/types/api';
+
 import { useCurrentAccount, useSignTransaction } from '@iota/dapp-kit';
 
+import { SAVE_DIAGNOSTIC_MODAL } from '@/contents/common';
+import { NOTIFICATION } from '@/contents/notification';
 import { createNotarizationEventTransaction, getSponsorGas, sendTransaction } from '@/helpers/api';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { useAppProvider, useNotification } from '@/providers/appProvider';
-import { fromPosixMsToUtcDateFormat, generateRequestId, getAddressExplorerUrl, getChain, getDidScheme, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
+import { ErrorNotification, SuccessNotification } from '@/types/common';
 import {
-  DPP_ID,
-  FINDINGS_PROP,
-  HEALTH_SCORE_PROP,
-  MANUFACTURER_DID,
-} from '@/utils/constants';
+  fromPosixMsToUtcDateFormat,
+  generateRequestId,
+  getAddressExplorerUrl,
+  getChain,
+  getDidScheme,
+  getObjectExplorerUrl,
+  truncateAddress,
+} from '@/utils/common';
+import { DPP_ID, FINDINGS_PROP, HEALTH_SCORE_PROP, MANUFACTURER_DID } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
 import Dialog from './Dialog';
-import ItemValueRow from './ItemValueRow';
 import CloseIcon from './icons/CloseIcon';
-import type { CreateNotarizationEventTransactionArgs, Transaction } from '@/types/api';
-import { NOTIFICATION } from '@/contents/notification';
-import { SAVE_DIAGNOSTIC_MODAL } from '@/contents/common';
-import { ErrorNotification, SuccessNotification } from '@/types/common';
+import ItemValueRow from './ItemValueRow';
 
 interface SaveDiagnosticModalProps {
   isOpen: boolean;
@@ -40,7 +44,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
   const [isPending, startTransition] = useTransition();
 
   /**
-   * Pre-requisit information to send a transaction
+   * Pre-requisite information to send a transaction
    */
   const account = useCurrentAccount();
   const { isLoading, isSuccess: isLoaded, productDetails } = useProductDetails();
@@ -214,19 +218,35 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
               <hr className='my-1 border-[var(--border)]' />
 
               {/* Event */}
-              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.event} labelWidth={150} value={SAVE_DIAGNOSTIC_MODAL.content.diagnosticInfo.eventName} />
+              <ItemValueRow
+                label={SAVE_DIAGNOSTIC_MODAL.content.labels.event}
+                labelWidth={150}
+                value={SAVE_DIAGNOSTIC_MODAL.content.diagnosticInfo.eventName}
+              />
 
               {/* Date */}
-              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.date} labelWidth={150} value={fromPosixMsToUtcDateFormat(Date.now())} />
+              <ItemValueRow
+                label={SAVE_DIAGNOSTIC_MODAL.content.labels.date}
+                labelWidth={150}
+                value={fromPosixMsToUtcDateFormat(Date.now())}
+              />
 
               {/* HR Separator */}
               <hr className='my-1 border-[var(--border)]' />
 
               {/* Health Score */}
-              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.healthScore} labelWidth={150} value={healthScore} />
+              <ItemValueRow
+                label={SAVE_DIAGNOSTIC_MODAL.content.labels.healthScore}
+                labelWidth={150}
+                value={healthScore}
+              />
 
               {/* Findings */}
-              <ItemValueRow label={SAVE_DIAGNOSTIC_MODAL.content.labels.findings} labelWidth={150} value={findings} />
+              <ItemValueRow
+                label={SAVE_DIAGNOSTIC_MODAL.content.labels.findings}
+                labelWidth={150}
+                value={findings}
+              />
             </div>
           )}
 

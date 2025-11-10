@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// TODO: Finde a replacement to `toB64`, which is deprecated
+// TODO: Find a replacement to `toB64`, which is deprecated
 import { fromB64, toB64 } from '@iota/bcs';
 
-import { GAS_STATION_TOKEN, GAS_STATION_URL } from '@/utils/constants';
 import { type TransactionEffects } from '@/types/api';
+import { GAS_STATION_TOKEN, GAS_STATION_URL } from '@/utils/constants';
 
 interface SendTxRequest {
   tx: string;

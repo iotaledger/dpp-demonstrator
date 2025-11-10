@@ -1,4 +1,3 @@
-import { Accreditation, AccreditationTx, FederationData, Roles, RootAuthority } from '@/types/identity';
 import type { IotaObjectData, IotaObjectResponse } from '@iota/iota-sdk/client';
 
 import {
@@ -7,6 +6,14 @@ import {
   IotaTransactionBlockResponse,
   MoveCallIotaTransaction,
 } from '@iota/iota-sdk/client';
+
+import {
+  Accreditation,
+  AccreditationTx,
+  FederationData,
+  Roles,
+  RootAuthority,
+} from '@/types/identity';
 
 /*
 Federation Data Structure:
@@ -237,8 +244,4 @@ function getRolesByEntity(data: FederationData, entityId: string): string[] {
 }
 
 // Export all interfaces and functions
-export {
-  extractFederationData,
-  extractAccreditationTransactions,
-  getRolesByEntity,
-};
+export { extractFederationData, extractAccreditationTransactions, getRolesByEntity };

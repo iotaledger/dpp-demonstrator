@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { STEP_NAVIGATION } from '@/contents/common';
 
 interface StepNavigationProps {
@@ -33,8 +34,9 @@ const StepNavigation: React.FC<StepNavigationProps> = ({
       }}
     >
       <button
-        className={`rounded-full border border-gray-300 px-8 py-3 text-base font-medium text-gray-700 transition-colors ${canGoPrevious ? 'cursor-pointer hover:bg-gray-50' : 'cursor-not-allowed opacity-50'
-          }`}
+        className={`rounded-full border border-gray-300 px-8 py-3 text-base font-medium text-gray-700 transition-colors ${
+          canGoPrevious ? 'cursor-pointer hover:bg-gray-50' : 'cursor-not-allowed opacity-50'
+        }`}
         onClick={onPrevious}
         disabled={!canGoPrevious}
       >
@@ -42,10 +44,11 @@ const StepNavigation: React.FC<StepNavigationProps> = ({
       </button>
 
       <button
-        className={`rounded-full px-8 py-3 text-base font-medium transition-colors ${canGoNext
+        className={`rounded-full px-8 py-3 text-base font-medium transition-colors ${
+          canGoNext
             ? 'cursor-pointer bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-600'
             : 'cursor-not-allowed bg-gray-400 text-white opacity-50'
-          }`}
+        }`}
         onClick={onNext}
         disabled={!canGoNext}
       >

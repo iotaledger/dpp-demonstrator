@@ -1,3 +1,8 @@
+import type {
+  CreateNotarizationEventTransactionArgs,
+  ReserveGasResultResponse,
+  Transaction,
+} from '@/types/api';
 
 import {
   AUDIT_TRAIL_PKG_ID,
@@ -8,7 +13,6 @@ import {
 } from '@/utils/constants';
 
 import { createDppTx } from './transaction';
-import type { CreateNotarizationEventTransactionArgs, ReserveGasResultResponse, Transaction } from '@/types/api';
 
 export async function createAccreditation(
   federationAddress: string,

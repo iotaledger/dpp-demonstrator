@@ -46,10 +46,10 @@ const actionTypes = {
 const actions = {
   walletConnected: {
     type: actionTypes.walletConnected,
-    action: function(): AppReducerAction {
+    action: function (): AppReducerAction {
       return { type: actionTypes.walletConnected };
     },
-    reduce: function(prevState: AppState): AppState {
+    reduce: function (prevState: AppState): AppState {
       return {
         ...prevState,
         isWalletConnected: true,
@@ -58,10 +58,10 @@ const actions = {
   },
   walletDisconnected: {
     type: actionTypes.walletDisconnected,
-    action: function(): AppReducerAction {
+    action: function (): AppReducerAction {
       return { type: actionTypes.walletDisconnected };
     },
-    reduce: function(prevState: AppState): AppState {
+    reduce: function (prevState: AppState): AppState {
       return {
         ...prevState,
         isWalletConnected: false,
@@ -72,10 +72,10 @@ const actions = {
   },
   currentAccountAddressChanged: {
     type: actionTypes.currentAccountAddressChanged,
-    action: function(currentAccountAddress: string | null): AppReducerAction {
+    action: function (currentAccountAddress: string | null): AppReducerAction {
       return { type: actionTypes.currentAccountAddressChanged, payload: currentAccountAddress };
     },
-    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+    reduce: function (prevState: AppState, action: AppReducerAction): AppState {
       return {
         ...prevState,
         currentAccountAddress: action.payload as string | null,
@@ -86,10 +86,10 @@ const actions = {
   },
   currentAccountNetworkChanged: {
     type: actionTypes.currentAccountNetworkChanged,
-    action: function(currentAccountNetwork: string | null): AppReducerAction {
+    action: function (currentAccountNetwork: string | null): AppReducerAction {
       return { type: actionTypes.currentAccountNetworkChanged, payload: currentAccountNetwork };
     },
-    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+    reduce: function (prevState: AppState, action: AppReducerAction): AppState {
       return {
         ...prevState,
         currentAccountNetwork: action.payload as string | null,
@@ -98,10 +98,10 @@ const actions = {
   },
   hierarchySentSuccess: {
     type: actionTypes.hierarchySentSuccess,
-    action: function(requestId: string): AppReducerAction {
+    action: function (requestId: string): AppReducerAction {
       return { type: actionTypes.hierarchySentSuccess, payload: requestId };
     },
-    reduce: function(prevState: AppState): AppState {
+    reduce: function (prevState: AppState): AppState {
       return {
         ...prevState,
         isHierarchySent: true,
@@ -110,10 +110,10 @@ const actions = {
   },
   notarizationSentSuccess: {
     type: actionTypes.notarizationSentSuccess,
-    action: function(requestId: string): AppReducerAction {
+    action: function (requestId: string): AppReducerAction {
       return { type: actionTypes.notarizationSentSuccess, payload: requestId };
     },
-    reduce: function(prevState: AppState): AppState {
+    reduce: function (prevState: AppState): AppState {
       return {
         ...prevState,
         isNotarizationSent: true,
@@ -122,10 +122,10 @@ const actions = {
   },
   notificationSent: {
     type: actionTypes.notificationSent,
-    action: function(notification: Notification): AppReducerAction {
+    action: function (notification: Notification): AppReducerAction {
       return { type: actionTypes.notificationSent, payload: notification };
     },
-    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+    reduce: function (prevState: AppState, action: AppReducerAction): AppState {
       // notification ID set as facility
       const notificationIdSet = new Set(prevState.notifications.map((each) => each.id));
       // if notification is already registered, do nothing
@@ -141,10 +141,10 @@ const actions = {
   },
   notificationRemoved: {
     type: actionTypes.notificationRemoved,
-    action: function(id: string): AppReducerAction {
+    action: function (id: string): AppReducerAction {
       return { type: actionTypes.notificationRemoved, payload: id };
     },
-    reduce: function(prevState: AppState, action: AppReducerAction): AppState {
+    reduce: function (prevState: AppState, action: AppReducerAction): AppState {
       return {
         ...prevState,
         notifications: prevState.notifications.filter((each) => each.id !== action.payload),

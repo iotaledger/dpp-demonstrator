@@ -2,9 +2,10 @@
 
 import React from 'react';
 
-import FeatureCard from './FeatureCard';
 import { RECAP_SLIDE_4 } from '@/contents/recap';
+
 import Contact from './Contact';
+import FeatureCard from './FeatureCard';
 
 interface RecapSlide4Props {
   title?: string;
@@ -12,10 +13,7 @@ interface RecapSlide4Props {
   delay?: number;
 }
 
-const RecapSlide4: React.FC<RecapSlide4Props> = ({
-  opacity = 100,
-  delay = 0.3,
-}) => {
+const RecapSlide4: React.FC<RecapSlide4Props> = ({ opacity = 100, delay = 0.3 }) => {
   const containerStyle = {
     opacity: opacity / 100,
     transform: `translateX(${opacity === 100 ? 0 : 4}px)`,

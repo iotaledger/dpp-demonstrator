@@ -4,8 +4,15 @@ import React from 'react';
 
 import { useCurrentAccount } from '@iota/dapp-kit';
 
+import { ROLE_DETAILS } from '@/contents/explore';
 import { useFederationTransactions } from '@/hooks/useFederationTransactions';
-import { getAddressExplorerUrl, getDidScheme, getObjectExplorerUrl, truncateAddress } from '@/utils/common';
+import { useProductDetails } from '@/hooks/useProductDetails';
+import {
+  getAddressExplorerUrl,
+  getDidScheme,
+  getObjectExplorerUrl,
+  truncateAddress,
+} from '@/utils/common';
 import { FEDERATION_ID, MANUFACTURER_DID } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
@@ -13,8 +20,6 @@ import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
-import { useProductDetails } from '@/hooks/useProductDetails';
-import { ROLE_DETAILS } from '@/contents/explore';
 
 interface RoleDetailsCardProps {
   opacity?: number;

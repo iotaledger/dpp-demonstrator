@@ -2,8 +2,8 @@
 
 import React, { useMemo, useState } from 'react';
 
-import { useCurrentNetwork, useHierarchySent, useWalletConnected } from '@/providers/appProvider';
 import { SERVICE_REQUEST_CARD } from '@/contents/common';
+import { useCurrentNetwork, useHierarchySent, useWalletConnected } from '@/providers/appProvider';
 
 import ServiceRequestModal from './ServiceRequestModal';
 
@@ -52,7 +52,9 @@ const ServiceRequestCard: React.FC<ServiceRequestCardProps> = ({
         <div className='scale-100 opacity-100 transition-all duration-500 ease-out'>
           {/* Header Area */}
           <div className='flex flex-col space-y-1.5 px-0.5'>
-            <h3 className='leading-none font-semibold tracking-tight'>{SERVICE_REQUEST_CARD.content.title}</h3>
+            <h3 className='leading-none font-semibold tracking-tight'>
+              {SERVICE_REQUEST_CARD.content.title}
+            </h3>
           </div>
 
           {/* Content Area */}

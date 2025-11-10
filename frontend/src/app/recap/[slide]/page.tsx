@@ -16,8 +16,8 @@ import RecapSlideManager, { RECAP_SLIDES_MAP } from '@/components/RecapSlideMana
 import SlideCounter from '@/components/SlideCounter';
 import TutorialCard from '@/components/TutorialCard';
 import TutorialScrollContainer from '@/components/TutorialScrollContainer';
-import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 import { RECAP_NAVIGATION } from '@/contents/recap';
+import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 
 export default function PostExperiencePage() {
   const { slide: slideParam } = useParams();

@@ -10,10 +10,7 @@ interface NavigationHintProps {
   delay?: number;
 }
 
-const NavigationHint: React.FC<NavigationHintProps> = ({
-  opacity = 0,
-  delay = 0.5,
-}) => {
+const NavigationHint: React.FC<NavigationHintProps> = ({ opacity = 0, delay = 0.5 }) => {
   return (
     <div
       className={`absolute bottom-6 left-1/2 z-40 -translate-x-1/2 transform opacity-${opacity} max-lg:hidden`}

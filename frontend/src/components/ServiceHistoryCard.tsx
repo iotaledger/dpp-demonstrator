@@ -4,19 +4,25 @@ import React from 'react';
 
 import { useCurrentAccount } from '@iota/dapp-kit';
 
+import { SERVICE_HISTORY } from '@/contents/explore';
+import { formatLCCBalance } from '@/helpers/rewardVault';
 import { useServiceHistory } from '@/hooks/useServiceHistory';
-import { fromPosixMsToUtcDateFormat, getAddressExplorerUrl, getObjectExplorerUrl, getTxBlockExplorerUrl, truncateAddress } from '@/utils/common';
+import {
+  fromPosixMsToUtcDateFormat,
+  getAddressExplorerUrl,
+  getObjectExplorerUrl,
+  getTxBlockExplorerUrl,
+  truncateAddress,
+} from '@/utils/common';
 import { REWARD_TOKEN_SYMBOL } from '@/utils/constants';
 
 import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
+import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 import ItemValueRow from './ItemValueRow';
 import PanelContent from './PanelContent';
-import { formatLCCBalance } from '@/helpers/rewardVault';
-import { SERVICE_HISTORY } from '@/contents/explore';
 import ViewMoreButton from './ViewMoreButton';
-import ItemsLoadedFeedbackMessage from './ItemsLoadedFeedbackMessage';
 
 interface ServiceHistoryCardProps {
   dppId?: string;
@@ -128,7 +134,10 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       delay={delay}
     >
       {getServiceEntriesToShow()?.map((serviceEntry) => (
-        <PanelContent key={serviceEntry.digest} title={SERVICE_HISTORY.content.healthSnapshotEventName}>
+        <PanelContent
+          key={serviceEntry.digest}
+          title={SERVICE_HISTORY.content.healthSnapshotEventName}
+        >
           <DataGrid gap='gap-y-2 gap-x-6'>
             <ItemValueRow
               rowState={getRowState('detailsSelected')}
@@ -230,7 +239,11 @@ const ServiceHistoryCard: React.FC<ServiceHistoryCardProps> = ({
       {serviceEntriesSize > 0 && (
         <div className='mt-6 grid w-full justify-center'>
           {viewMore && (
-            <ViewMoreButton amountToReveal={serviceEntriesSize - 1} onClick={() => setViewMore(false)} isDisabled={isShowMoreDisabled()} />
+            <ViewMoreButton
+              amountToReveal={serviceEntriesSize - 1}
+              onClick={() => setViewMore(false)}
+              isDisabled={isShowMoreDisabled()}
+            />
           )}
           {!viewMore && <ItemsLoadedFeedbackMessage size={serviceEntriesSize} />}
         </div>

@@ -1,5 +1,6 @@
-import { LCCBalance, RewardVaultData } from '@/types/reward';
 import { type IotaObjectData, type IotaObjectResponse } from '@iota/iota-sdk/client';
+
+import { LCCBalance, RewardVaultData } from '@/types/reward';
 
 /*
 Reward Vault Data Structure:
@@ -25,7 +26,6 @@ Vault (0xed269bb1...) → Address Balances → LCC Token Distribution
 Reward Flow:
 Ecosystem Activity → Accumulate Rewards → Vault Distribution → LCC Token Claims
 */
-
 
 /**
  * Extracts and transforms reward vault data from IOTA Rebase JSON-RPC response
@@ -119,7 +119,7 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   };
 }
 
-function extractRewardTotalSuply(jsonData: IotaObjectResponse): string | undefined {
+function extractRewardTotalSupply(jsonData: IotaObjectResponse): string | undefined {
   // @ts-expect-error -- turn off parsing noise
   const total_supply = jsonData.data?.content?.fields?.total_supply;
   return total_supply?.fields?.value;
@@ -193,17 +193,17 @@ function getVaultRewardUsagePercentage(totalSupply: string, remainingSupply: str
   const totalSupplyValue = Number.parseInt(totalSupply);
   const remainingSupplyValue = Number.parseInt(remainingSupply);
   const usedSupplyValue = totalSupplyValue - remainingSupplyValue;
-  const ratio = 100 * usedSupplyValue / totalSupplyValue;
+  const ratio = (100 * usedSupplyValue) / totalSupplyValue;
   if (ratio < 0.0001) {
-    return '<0.0001%'
+    return '<0.0001%';
   } else if (ratio < 0.001) {
-    return '<0.001%'
+    return '<0.001%';
   } else if (ratio < 0.01) {
-    return '<0.01%'
+    return '<0.01%';
   } else if (ratio < 0.1) {
-    return '<0.1%'
+    return '<0.1%';
   } else if (ratio < 1) {
-    return '<1%'
+    return '<1%';
   } else {
     return Math.floor(ratio) + '%';
   }
@@ -273,7 +273,7 @@ function parseCoinDefinition(coinDefinition: string): {
 
 export {
   extractRewardVaultData,
-  extractRewardTotalSuply,
+  extractRewardTotalSupply,
   formatLCCBalance,
   getVaultTotalValuePerAddress,
   getVaultTotalSupply,

@@ -1,4 +1,4 @@
-import { EXPLORER_URL, NETWORK } from "./constants";
+import { EXPLORER_URL, NETWORK } from './constants';
 
 /**
  * Checks if `value`is an empty string.
@@ -27,7 +27,7 @@ export function isString(value: unknown): boolean {
 /**
  * Convert a timestamp value either in `string` or `number` to formatted date as YYYY-MM-DD HH:mm:ss.
  *
- * @param {string|number|undefined} timestampMs The timestamp in miliseconds.
+ * @param {string|number|undefined} timestampMs The timestamp in milliseconds.
  * @returns {string} Returns a `string` representing the timestamp in the following date format: YYYY-MM-DD HH:mm:ss.
  */
 export function fromPosixMsToUtcDateFormat(timestampMs: string | number | undefined): string {
@@ -114,7 +114,7 @@ export function getTxBlockExplorerUrl(txDigest: string): string {
 }
 
 export function getDidScheme(did: string): string {
-  return `did:iota:${NETWORK}:${truncateAddress(did)}`
+  return `did:iota:${NETWORK}:${truncateAddress(did)}`;
 }
 
 export function getChain(): `${string}:${string}` {
@@ -124,9 +124,9 @@ export function getChain(): `${string}:${string}` {
 // replaceComponents('Install Nightly Wallet ({COMPONENT} | {COMPONENT}) and connect when prompted.', [<Link />, <Link />])
 // >>> ['Install Nightly Wallet (', <Link />,' | ',<Link />,') and connect when prompted.', undefined]
 export function replaceComponents(text: string, components: React.ReactNode[]): unknown[] {
-  const pieaces = text.split('{COMPONENT}');
+  const pieces = text.split('{COMPONENT}');
   const newComponents: unknown[] = [];
-  pieaces.forEach((eachPiece, idx) => {
+  pieces.forEach((eachPiece, idx) => {
     newComponents.push(eachPiece);
     newComponents.push(components.at(idx));
   });

@@ -54,3 +54,16 @@ words:
   - dids
   - Fullnode
   - iotalabs
+  - Accreds
+  - accred
+  - iotax
+  - txblock
+  - rerenderings
+  - Timedout
+  - checkmark
+ignore:
+  - dont
+  - csvg
+  - Fwww
+  - Fsvg
+  - Cpath

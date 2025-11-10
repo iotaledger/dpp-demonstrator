@@ -32,7 +32,7 @@ export async function checkStartingFromDid(did: string) {
       return invalid;
     }
 
-    // For this application we garantee the serviceEndpoint is a single string
+    // For this application we guarantee the serviceEndpoint is a single string
     const serviceEndpoint = firstValidService!.serviceEndpoint() as unknown as string;
 
     const configurationResult = await fetchDidConfiguration(serviceEndpoint);

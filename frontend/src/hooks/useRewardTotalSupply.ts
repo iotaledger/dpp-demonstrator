@@ -2,7 +2,7 @@
 
 import { useIotaClientQuery } from '@iota/dapp-kit';
 
-import { extractRewardTotalSuply } from '@/helpers/rewardVault';
+import { extractRewardTotalSupply } from '@/helpers/rewardVault';
 import { VAULT_TREASURE_CAP_ID } from '@/utils/constants';
 
 export function useRewardTotalSupply() {
@@ -12,7 +12,7 @@ export function useRewardTotalSupply() {
   });
 
   return {
-    totalSupply: data?.data && extractRewardTotalSuply(data),
+    totalSupply: data?.data && extractRewardTotalSupply(data),
     isSuccess,
     isLoading,
     isError,

@@ -22,7 +22,7 @@ import { useFederationDetails } from './useFederationDetails';
  * as a single source of truth.
  *
  * WARN:
- * Do not call this hook twiece. Place it in a component that serves the wallet button connection.
+ * Do not call this hook twice. Place it in a component that serves the wallet button connection.
  */
 export function useWalletUpdateEffects() {
   // From app store

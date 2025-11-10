@@ -35,7 +35,7 @@ const SlideContent: React.FC<SlideContentProps> = ({
     return `opacity-${opacity} translate-y-${translateY} md:translate-y-0 md:translate-x-${translateX}`;
   };
 
-  const getActivedTransformClass = () => {
+  const getActiveTransformClass = () => {
     if (textAlign === 'center') {
       return 'opacity-100 translate-y-0';
     }
@@ -48,7 +48,7 @@ const SlideContent: React.FC<SlideContentProps> = ({
         style={{
           transition: `opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s`,
         }}
-        className={clsx(getTransformClass(), isTriggered && getActivedTransformClass())}
+        className={clsx(getTransformClass(), isTriggered && getActiveTransformClass())}
       >
         {children}
       </div>

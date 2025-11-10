@@ -70,7 +70,7 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
 }) => {
   const { checkStatus, isError } = useCheckLinkage(verificationDid as string);
 
-  // Author not interested to show the verication
+  // Author not interested to show the verification
   if (!showVerification || verificationDid == null || checkStatus == null) {
     return null;
   }

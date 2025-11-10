@@ -119,7 +119,7 @@ function extractRewardVaultData(jsonData: IotaObjectResponse): RewardVaultData {
   };
 }
 
-function extractRewardTotalSuply(jsonData: IotaObjectResponse): string | undefined {
+function extractRewardTotalSupply(jsonData: IotaObjectResponse): string | undefined {
   // @ts-expect-error -- turn off parsing noise
   const total_supply = jsonData.data?.content?.fields?.total_supply;
   return total_supply?.fields?.value;
@@ -273,7 +273,7 @@ function parseCoinDefinition(coinDefinition: string): {
 
 export {
   extractRewardVaultData,
-  extractRewardTotalSuply,
+  extractRewardTotalSupply,
   formatLCCBalance,
   getVaultTotalValuePerAddress,
   getVaultTotalSupply,

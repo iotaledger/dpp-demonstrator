@@ -44,7 +44,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
   const [isPending, startTransition] = useTransition();
 
   /**
-   * Pre-requisit information to send a transaction
+   * Pre-requisite information to send a transaction
    */
   const account = useCurrentAccount();
   const { isLoading, isSuccess: isLoaded, productDetails } = useProductDetails();

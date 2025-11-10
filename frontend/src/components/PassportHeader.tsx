@@ -73,7 +73,7 @@ const PassportHeader: React.FC<PassportHeaderProps> = ({
                   </div>
                 </div>
               )}
-              {/* NOTE: ConnectButton is a component from dapp-kit UI and requires an inline CSS costomization. */}
+              {/* NOTE: ConnectButton is a component from dapp-kit UI and requires an inline CSS customization. */}
               <ConnectButton
                 ref={connectRef}
                 variant='primary'

@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from '@/components/Layout';
 import { AppProvider } from '@/providers/appProvider';
 
-// Required to give sytle to UI components imported from dapp-kit such as ConnectButton
+// Required to give style to UI components imported from dapp-kit such as ConnectButton
 import '@iota/dapp-kit/dist/index.css';
 
 export function AppLayout({ children }: { children: React.ReactNode }) {

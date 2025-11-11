@@ -1,3 +1,8 @@
+| :warning: WARNING                                                                                                                      |
+| :------------------------------------------------------------------------------------------------------------------------------------- |
+| This repository is for reference and is not a fully-functional or regulation-compliant DPP application. It was built to showcase how IOTA components can power real-world use cases, using Digital Product Passports as one example. |
+
+
 # 🚀 IOTA DPP Showcase
 
 This repository demonstrates how multiple products from the IOTA portfolio can be orchestrated to build a Decentralized Permissioned Process (DPP).

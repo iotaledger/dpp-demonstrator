@@ -30,7 +30,6 @@ pre-commit:
       run: npx cspell {staged_files} --no-must-find-files
     - name: style-check
       # run it: lefthook run pre-commit --job style-check
-      skip: true
       tags:
         - frontend
         - styles

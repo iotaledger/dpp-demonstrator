@@ -1,5 +1,5 @@
 
-FROM node:18-bullseye
+FROM node:24-bullseye
 
 ARG APP_ENV
 ARG NEXT_PUBLIC_EXPLORER_URL

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { NextResponse } from 'next/server';
 
 import { type SponsorRequestReserveGasResult } from '@/types/api';

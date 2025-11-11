@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 module audit_trails::lcc_reward {
 
     use iota::coin::{Self, Coin};

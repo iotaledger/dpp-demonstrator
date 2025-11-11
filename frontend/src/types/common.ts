@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { generateRequestId } from '@/utils/common';
 
 export type ToastType = 'success' | 'warning' | 'error' | 'info';

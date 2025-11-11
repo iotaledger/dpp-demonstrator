@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { DppData, DppModel } from '@/types/product';
 
 import { BillOfMaterials } from '@/types/product';

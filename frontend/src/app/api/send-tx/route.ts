@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 
 // TODO: Find a replacement to `toB64`, which is deprecated

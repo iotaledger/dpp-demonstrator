@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { ITEMS_LOADED_FEEDBACK_MESSAGE } from '@/contents/common';
 import { replaceComponents } from '@/utils/common';
 import { REQUEST_SIZE_LIMIT } from '@/utils/constants';

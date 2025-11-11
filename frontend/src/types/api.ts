@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { type TransactionEffects } from '@iota/iota-sdk/client';
 import { type ObjectRef, type Transaction } from '@iota/iota-sdk/transactions';
 

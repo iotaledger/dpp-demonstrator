@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 const CloseIcon = () => (
   <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
     <path

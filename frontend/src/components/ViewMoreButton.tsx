@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { VIEW_MORE_BUTTON } from '@/contents/common';
 
 interface ViewMoreButtonProps {

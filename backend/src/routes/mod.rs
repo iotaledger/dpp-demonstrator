@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use axum::{
     extract::Request,
     http::{HeaderMap, StatusCode},

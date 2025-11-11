@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use std::fs::{self, OpenOptions};
 use std::io::Write;
 use std::path::Path;

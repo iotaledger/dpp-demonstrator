@@ -34,6 +34,8 @@ Before starting, ensure you have the following tools installed:
     - Install on MacOS: `brew install lefthook`
         - For more supported installations see: https://lefthook.dev/installation/index.html
     - After installing: update your terminal session and install hooks: `lefthook install`
+4. **Hashicorp Copywrite**: it manages license header
+    - Install on MacOS making use of brew, see: https://github.com/hashicorp/copywrite
 
 ---
 

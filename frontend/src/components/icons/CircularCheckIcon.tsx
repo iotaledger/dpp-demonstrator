@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 const CircularCheckIcon = () => (
   <svg className='block size-full text-blue-600' fill='currentColor' viewBox='0 0 24 24'>
     <path

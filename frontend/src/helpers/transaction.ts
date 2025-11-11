@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { bcs } from '@iota/bcs';
 import { Transaction } from '@iota/iota-sdk/transactions';
 

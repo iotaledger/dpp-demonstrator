@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 export interface Result<T> {
   isSuccess?: boolean;
   isError?: boolean;

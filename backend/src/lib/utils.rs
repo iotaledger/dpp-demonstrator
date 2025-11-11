@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use anyhow::{bail, Context, Result};
 use fastcrypto::traits::{KeyPair, ToFromBytes};
 use iota::client_commands;

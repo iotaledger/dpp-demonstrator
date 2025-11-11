@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use backend::utils::{
     faucet, KeystoreClient, GAS_STATION_ALIAS, MANUFACTURER_ALIAS, ROOT_AUTH_ALIAS,
 };

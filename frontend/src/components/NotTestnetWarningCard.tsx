@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import { NOT_TESTNET_WARNING_CARD } from '@/contents/common';

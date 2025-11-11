@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
  * A Move structure holding a key-value pair entry.
  */
 export type VecMapEntryData = {

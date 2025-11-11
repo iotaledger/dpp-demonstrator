@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 
 import { RouteRequestBody } from '@/types/api';

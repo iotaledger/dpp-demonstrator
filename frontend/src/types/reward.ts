@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
  * Represents an LCC token balance for a specific address
  */
 export interface LCCBalance {

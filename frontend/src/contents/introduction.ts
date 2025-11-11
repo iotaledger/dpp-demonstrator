@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EXPLORER_DATA_ICON } from '@/components/icons/ExplorerDataIcon';
 import { GAS_STATION_DATA_ICON } from '@/components/icons/GasStationDataIcon';
 import { HIERARCHIES_DATA_ICON } from '@/components/icons/HierarchiesDataIcon';

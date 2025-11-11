@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 const WebIcon = () => (
   <svg
     className='h-4 w-4 text-blue-600 md:h-5 md:w-5'

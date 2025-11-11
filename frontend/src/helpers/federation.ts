@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { IotaObjectData, IotaObjectResponse } from '@iota/iota-sdk/client';
 
 import {

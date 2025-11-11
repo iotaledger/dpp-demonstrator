@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import i18next from 'i18next';
 import Backend from 'i18next-http-backend';
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 const LinkOutIcon = () => (
   <svg
     className='inline align-baseline'

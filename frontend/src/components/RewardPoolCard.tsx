@@ -14,10 +14,9 @@ import {
   getVaultTotalSupply,
   getVaultTotalValuePerAddress,
 } from '@/helpers/rewardVault';
-import { useRewardTotalSupply } from '@/hooks/useRewardTotalSupply';
 import { useRewardVaultDetails } from '@/hooks/useRewardVault';
 import { getObjectExplorerUrl, truncateAddress } from '@/utils/common';
-import { DPP_ID, VAULT_ID } from '@/utils/constants';
+import { DPP_ID, REWARD_TOTAL_SUPPLY, VAULT_ID } from '@/utils/constants';
 
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
@@ -39,7 +38,6 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   scrollIntoView = false,
 }) => {
   const { rewardDetails, isSuccess } = useRewardVaultDetails();
-  const { totalSupply, isSuccess: isTotalSupplyLoaded } = useRewardTotalSupply();
 
   const getSectionExpanded = () => {
     const open = true;
@@ -102,18 +100,16 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 valueColor='text-blue-600'
                 isLink={true}
               />
+              {/* NOTE: This is hardcoded on purpose because the actual total supply is 10 billions to compose a reserve */}
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
                 label={REWARD_POOL.content.totalLifecycleFundLabel}
                 value={
-                  (isTotalSupplyLoaded &&
-                    totalSupply &&
-                    rewardDetails &&
-                    getVaultTotalSupply(totalSupply, rewardDetails)) ||
+                  (rewardDetails && getVaultTotalSupply(REWARD_TOTAL_SUPPLY, rewardDetails)) ||
                   REWARD_POOL.content.totalLifecycleFundValueFallback
                 }
               />
-              {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
+              {/* NOTE: This is hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
                 label={REWARD_POOL.content.endOfLifeRewardsLabel}
@@ -131,11 +127,9 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
                 label='Used'
                 value={
                   isSuccess &&
-                  isTotalSupplyLoaded &&
-                  totalSupply &&
                   rewardDetails &&
                   getVaultRewardUsagePercentage(
-                    totalSupply,
+                    REWARD_TOTAL_SUPPLY,
                     getVaultRewardBalancePerAddress(rewardDetails, DPP_ID),
                   )
                 }

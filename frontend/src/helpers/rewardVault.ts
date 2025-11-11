@@ -191,7 +191,7 @@ function getVaultRewardBalancePerAddress(data: RewardVaultData, address: string)
 }
 
 function getVaultTotalSupply(totalSupply: string, data: RewardVaultData): string {
-  return formatLCCBalance(totalSupply) + `${data.lccTypeName}`;
+  return formatLCCBalance(totalSupply) + ` ${data.lccTypeName}`;
 }
 
 function getVaultRewardUsagePercentage(totalSupply: string, remainingSupply: string): string {

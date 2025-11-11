@@ -37,3 +37,12 @@ pre-commit:
       root: frontend/
       run: npx prettier {staged_files} --ignore-unknown --write
       stage_fixed: true
+    - name: copywrite-check
+      # run it: lefthook run pre-commit --job copywrite-check
+      skip: true 
+      tags:
+        - frontend
+        - backend
+        - copywrite
+      run: copywrite headers -d frontend/src && copywrite headers -d backend/src
+      stage_fixed: true

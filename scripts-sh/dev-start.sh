@@ -60,7 +60,7 @@ echo "================================================="
 
 # Start Docker services
 print_step "Starting Docker services (backend, gas-station, redis)..."
-docker-compose -f docker-compose.local.yml up -d
+docker-compose -f docker-compose.local.yml up --build -d
 
 if [ $? -ne 0 ]; then
     print_error "Failed to start Docker services"
@@ -96,8 +96,11 @@ fi
 
 cat > frontend/.env.local << EOF
 # Development environment configuration
+IOTA_IDENTITY_PKG_ID: ${IOTA_IDENTITY_PKG_ID:-}
 BACKEND_ENDPOINT=http://localhost:3001
+BACKEND_API_KEY: ${BACKEND_API_KEY:-}
 GAS_STATION_URL=http://localhost:9527
+GAS_STATION_AUTH: ${GAS_STATION_AUTH:-}
 
 # Frontend environment variables
 NEXT_PUBLIC_EXPLORER_URL=${NEXT_PUBLIC_EXPLORER_URL:-https://explorer.rebased.iota.org}
@@ -108,12 +111,12 @@ NEXT_PUBLIC_REWARD_VAULT_ID=${NEXT_PUBLIC_REWARD_VAULT_ID:-}
 NEXT_PUBLIC_ADMIN_CAP_ID=${NEXT_PUBLIC_ADMIN_CAP_ID:-}
 NEXT_PUBLIC_REFRESH_INTERVAL_MS=${NEXT_PUBLIC_REFRESH_INTERVAL_MS:-5000}
 NEXT_PUBLIC_HAS_NFT_REWARD=${NEXT_PUBLIC_HAS_NFT_REWARD:-true}
+NEXT_PUBLIC_NETWORK_URL=${NEXT_PUBLIC_NETWORK_URL:-https://api.testnet.iota.cafe}
 NEXT_PUBLIC_NETWORK=${NEXT_PUBLIC_NETWORK:-testnet}
 NEXT_PUBLIC_PRODUCT_ID=${NEXT_PUBLIC_PRODUCT_ID:-}
 NEXT_PUBLIC_FEDERATION_ID: ${NEXT_PUBLIC_FEDERATION_ID:-}
 NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID: ${NEXT_PUBLIC_IOTA_IDENTITY_PKG_ID:-}
 NEXT_PUBLIC_MANUFACTURER_DID: ${NEXT_PUBLIC_MANUFACTURER_DID:-}
-IOTA_IDENTITY_PKG_ID=${IOTA_IDENTITY_PKG_ID:-}
 EOF
 
 print_success "Frontend environment configured"
@@ -139,7 +142,7 @@ echo "   • Frontend:    http://localhost:3000"
 echo "   • Gas Station: http://localhost:9527"
 echo ""
 echo "📊 Docker services:"
-docker-compose -f docker-compose.local.yml ps
+docker-compose -f docker-compose.local.yml --build ps
 echo ""
 echo "💡 Tips:"
 echo "   • Press Ctrl+C to stop all services"

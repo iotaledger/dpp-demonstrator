@@ -39,7 +39,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
 
   const [isPending, startTransition] = useTransition();
   const [federationAddress] = useState(FEDERATION_ID!);
-  const [selectedRole, setSelectedRole] = useState(Roles.Repairer);
+  const [selectedRole] = useState(Roles.Repairer);
 
   const onAccreditationCreated = () => {
     const requestId = generateRequestId();
@@ -188,7 +188,6 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
               id='role'
               name='selectedRole'
               value={selectedRole.value}
-              onChange={(e) => setSelectedRole(Roles[e.target.value])}
               className='focus-visible focus-visible:ring-ring w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus-visible:outline-gray-300'
             >
               <option value={Roles.Repairer.value}>{Roles.Repairer.label}</option>

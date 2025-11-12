@@ -43,7 +43,7 @@ const Contact: React.FC<ContactProps> = ({ email }) => {
             <span className='mb-1 text-xs text-gray-500'>{email}</span>
             <a
               className='truncate text-sm font-medium text-gray-900 transition-colors hover:text-blue-600 md:text-base'
-              href='mailto://partnerships@iota.org'
+              href={`mailto:${email}`}
             >
               {email}
             </a>

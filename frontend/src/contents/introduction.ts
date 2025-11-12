@@ -105,7 +105,7 @@ export const INTRO_SLIDE_6 = {
     alt: t('Key Players in the DPP ecosystem'),
   },
   content: {
-    title: t('Key Players in the DPP ecosystem'),
+    title: t('Key Players in the DPP Ecosystem'),
     description: t(
       'introSlide6.description',
       'These are the key players in a minimal product lifecycle, each interacting with the Digital Product Passport at different stages.',
@@ -253,17 +253,17 @@ export const INTRO_SLIDE_10 = {
     ),
     processes: [
       {
-        title: t('Scan a product'),
+        title: t('Scan a Product'),
         description: t('to access its DPP'),
         icon: SCAN_PRODUCT_DATA_ICON,
       },
       {
-        title: t('Review history'),
+        title: t('Review History'),
         description: t('and request write access'),
         icon: REVIEW_HISTORY_DATA_ICON,
       },
       {
-        title: t('Perform diagnostics'),
+        title: t('Perform Diagnostics'),
         description: t('and record health status'),
         icon: PERFORM_DIAGNOSTICS_DATA_ICON,
       },

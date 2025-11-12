@@ -31,7 +31,6 @@ export const IOTA_CUSTOM_NOTARIZATION_PKG_ID =
   process.env.NEXT_PUBLIC_IOTA_CUSTOM_NOTARIZATION_PKG_ID;
 export const WHITELIST_ID = process.env.NEXT_PUBLIC_REWARD_WHITELIST_ID;
 export const VAULT_ID = process.env.NEXT_PUBLIC_REWARD_VAULT_ID || '';
-export const VAULT_TREASURE_CAP_ID = process.env.NEXT_PUBLIC_REWARD_VAULT_TREASURE_CAP_ID || '';
 export const NETWORK = process.env.NEXT_PUBLIC_NETWORK;
 export const CURRENT_CHAIN: string = `iota:${NETWORK}`;
 export const MANUFACTURER_DID = process.env.NEXT_PUBLIC_MANUFACTURER_DID || '';

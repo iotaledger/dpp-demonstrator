@@ -195,3 +195,5 @@ backend/src/
 * The Audit Trails smart-contract is intentionally simplified for demonstration purposes.
 
 * Backend documentation available in `backend/docs/`.
+
+* The app works better with Chrome based browsers.

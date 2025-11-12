@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DPP Demonstrator implements a product lifecycle tracking system using 4 smart contracts deployed on IOTA blockchain. The contracts handle product registration, audit trail logging, and reward distribution.
+The DPP Demonstrator implements a product lifecycle tracking system using 4 smart contracts deployed on IOTA blockchain. The contracts handle product registration, custom notarization logging, and reward distribution.
 
 ## Architecture
 

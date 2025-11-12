@@ -76,7 +76,7 @@ cargo run --bin faucet
 
 **File**: `src/scripts/init_hierarchies.rs`
 
-**Purpose**: Configures the ITH (IOTA Trusted Hierarchies) federation
+**Purpose**: Configures the IOTA Hierarchies federation
 
 **Required environment variables**:
 - `IOTA_HIERARCHIES_PKG_ID`: IOTA Hierarchies contract package ID

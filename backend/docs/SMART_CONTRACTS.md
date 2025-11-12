@@ -127,8 +127,8 @@ public struct WHITELIST has key, store {
 
 ### 1. Deploy Contracts
 ```bash
-make build-audit-trails-contract
-make publish-audit-trails-contract
+make build-custom-notarization-contract
+make publish-custom-notarization-contract
 ```
 
 **Outputs to save**:

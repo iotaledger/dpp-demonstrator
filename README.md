@@ -67,7 +67,7 @@ make faucet
 ```bash
 make init-hierarchies
 ```
-[Here](https://github.com/iotaledger/hierarchies/blob/main/hierarchies-move/Move.lock) you can find HIERARCHIES_PKG_ID
+[Here](https://github.com/iotaledger/hierarchies/blob/main/hierarchies-move/Move.lock) you can find IOTA_HIERARCHIES_PKG_ID
 Copy the generated FEDERATION_ID.
 
 ### 4. Deploy the Custom Notarization Contract:

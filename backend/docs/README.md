@@ -37,7 +37,7 @@ cargo run --bin faucet
 
 ### 2. Hierarchies Setup
 ```bash
-export HIERARCHIES_PKG_ID="0x..."
+export IOTA_HIERARCHIES_PKG_ID="0x..."
 cargo run --bin hierarchies_init
 ```
 

@@ -79,7 +79,7 @@ cargo run --bin faucet
 **Purpose**: Configures the ITH (IOTA Trusted Hierarchies) federation
 
 **Required environment variables**:
-- `HIERARCHIES_PKG_ID`: ITH contract package ID
+- `IOTA_HIERARCHIES_PKG_ID`: IOTA Hierarchies contract package ID
 
 **Operation**:
 1. **Federation creation**: Creates a new Federation
@@ -90,7 +90,7 @@ cargo run --bin faucet
 
 **Usage**:
 ```bash
-export HIERARCHIES_PKG_ID="0x..."
+export IOTA_HIERARCHIES_PKG_ID="0x..."
 cargo run --bin init_hierarchies
 ```
 
@@ -165,7 +165,7 @@ To fully configure the system, run the scripts in this order:
 
 3. **Hierarchies setup**:
    ```bash
-   export HIERARCHIES_PKG_ID="0x..."
+   export IOTA_HIERARCHIES_PKG_ID="0x..."
    cargo run --bin init_hierarchies
    ```
 
@@ -194,6 +194,6 @@ The scripts create the following files and folders:
 ### Common Errors
 
 1. **"No key found for alias"**: Run `init_accounts` or `import_accounts` first
-2. **"HIERARCHIES_PKG_ID not set"**: Configure the environment variable
+2. **"IOTA_HIERARCHIES_PKG_ID not set"**: Configure the environment variable
 3. **"Failed to connect to network"**: Check internet connection
 4. **"Insufficient funds"**: Run `faucet` to get testnet funds

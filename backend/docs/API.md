@@ -10,7 +10,7 @@ The DPP Demonstrator backend exposes REST APIs for role management within the IO
 
 - `TCP_LISTNER`: Server address and port (default: `0.0.0.0:3001`)
 - `API_KEY`: API key for authentication (required)
-- `HIERARCHIES_PKG_ID`: ITH contract package ID
+- `IOTA_HIERARCHIES_PKG_ID`: IOTA Hierarchies contract package ID
 - Other configuration parameters for keystore and blockchain
 
 ### Authentication

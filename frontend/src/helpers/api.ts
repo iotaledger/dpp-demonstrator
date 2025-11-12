@@ -1,20 +1,29 @@
-import { type ObjectRef, type Transaction } from "@iota/iota-sdk/transactions";
-import { createDppTx } from "./transaction";
-import { AUDIT_TRAIL_PKG_ID, DPP_ID, FEDERATION_ID, VAULT_ID, WHITELIST_ID } from '@/utils/constants';
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-// TODO: Evaluate extraction to central place of types
-interface ReserveGasResult {
-  sponsor_address: string
-  reservation_id: number
-  gas_coins: ObjectRef[]
-}
+import type {
+  CreateNotarizationEventTransactionArgs,
+  ReserveGasResultResponse,
+  Transaction,
+} from '@/types/api';
 
-export interface ReserveGasResultResponse extends ReserveGasResult {
-  gasBudget: number
-}
+import {
+  AUDIT_TRAIL_PKG_ID,
+  DPP_ID,
+  FEDERATION_ID,
+  VAULT_ID,
+  WHITELIST_ID,
+} from '@/utils/constants';
 
-export async function createAccreditation(federationAddress: string, accountAddress: string, role: string) {
-  // TODO: validate inputs
+import { createDppTx } from './transaction';
+
+export async function createAccreditation(
+  federationAddress: string,
+  accountAddress: string,
+  role: string,
+) {
   return fetch('/api/roles', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -23,27 +32,29 @@ export async function createAccreditation(federationAddress: string, accountAddr
       user_role: role,
       federation_addr: federationAddress,
     }),
-  }).then(async (res) => {
-    if (!res.ok) {
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        return {
+          isSuccess: false,
+          isError: res.statusText,
+          result: null,
+        };
+      }
+
+      return {
+        isSuccess: res.ok,
+        isError: false,
+        result: await res.json(),
+      };
+    })
+    .catch((err) => {
       return {
         isSuccess: false,
-        isError: res.statusText,
+        isError: err,
         result: null,
-      }
-    }
-
-    return {
-      isSuccess: res.ok,
-      isError: false,
-      result: await res.json(),
-    }
-  }).catch((err) => {
-    return {
-      isSuccess: false,
-      isError: err,
-      result: null,
-    }
-  });
+      };
+    });
 }
 
 export async function getSponsorGas() {
@@ -60,9 +71,10 @@ export async function getSponsorGas() {
       return {
         isSuccess: res.ok,
         isError: false,
-        result: await res.json() as ReserveGasResultResponse,
-      }
-    }).catch((err) => {
+        result: (await res.json()) as ReserveGasResultResponse,
+      };
+    })
+    .catch((err) => {
       return {
         isSuccess: false,
         isError: new Error('Sponsor gas reservation failed', { cause: err }),
@@ -71,16 +83,13 @@ export async function getSponsorGas() {
     });
 }
 
-export interface CreateNotarizationEventTransactionArgs {
-  accountAddress: string;
-  gas: ReserveGasResultResponse;
-  issuerRole: string;
-  entryDataKeys: string[];
-  entryDataValues: string[]
-};
-
-export function createNotarizationEventTransaction({ accountAddress, gas, issuerRole, entryDataKeys, entryDataValues }: CreateNotarizationEventTransactionArgs): Transaction {
-  // TODO: validate inputs
+export function createNotarizationEventTransaction({
+  accountAddress,
+  gas,
+  issuerRole,
+  entryDataKeys,
+  entryDataValues,
+}: CreateNotarizationEventTransactionArgs): Transaction {
   const tx = createDppTx(AUDIT_TRAIL_PKG_ID!, {
     dppId: DPP_ID,
     federationAddr: FEDERATION_ID!,
@@ -100,7 +109,6 @@ export function createNotarizationEventTransaction({ accountAddress, gas, issuer
 }
 
 export async function sendTransaction(bytes: string, signature: string, gasReservationId: number) {
-  // TODO: validate inputs
   return fetch('/api/send-tx', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -109,36 +117,37 @@ export async function sendTransaction(bytes: string, signature: string, gasReser
       signature,
       reservation_id: gasReservationId,
     }),
-  }).then(async (res) => {
-    if (!res.ok) {
-      const errText = await res.text()
-      return {
-        isSuccess: false,
-        isError: new Error(`Transaction execution failed: ${errText}`),
-        result: null,
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        const errText = await res.text();
+        return {
+          isSuccess: false,
+          isError: new Error(`Transaction execution failed: ${errText}`),
+          result: null,
+        };
       }
-    }
 
-    const result = await res.json();
-    if (result.effects.status.status === "failure") {
+      const result = await res.json();
+      if (result.effects.status.status === 'failure') {
+        return {
+          isSuccess: false,
+          isError: new Error(`Transaction execution failed: ${result.effects.status.error}`),
+          result: null,
+        };
+      }
+
+      return {
+        isSuccess: true,
+        isError: false,
+        result,
+      };
+    })
+    .catch((err) => {
       return {
         isSuccess: false,
-        isError: new Error(`Transaction execution failed: ${result.effects.status.error}`),
+        isError: err,
         result: null,
       };
-    }
-
-    return {
-      isSuccess: true,
-      isError: false,
-      result,
-    };
-  }).catch((err) => {
-    return {
-      isSuccess: false,
-      isError: err,
-      result: null,
-    };
-  });
+    });
 }
-

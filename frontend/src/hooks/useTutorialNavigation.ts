@@ -1,6 +1,11 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
-import React from "react";
+import React from 'react';
 
 const initialStep = 1;
 
@@ -35,5 +40,5 @@ export function useTutorialNavigation(externalCurrentStep: number, totalSteps: n
     goNext: handleNext,
     progress,
     isGoingPrevious,
-  }
+  };
 }

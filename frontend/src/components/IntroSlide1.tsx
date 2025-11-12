@@ -1,31 +1,40 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
-import VideoSection from './VideoSection';
+
+import { INTRO_SLIDE_1 } from '@/contents/introduction';
+
 import BackgroundVideo from './BackgroundVideo';
 import OverlayText from './OverlayText';
+import VideoSection from './VideoSection';
 
 const IntroSlide1: React.FC = () => {
   return (
     <>
       {/* Video Section */}
       <VideoSection>
-        <BackgroundVideo
-          src="/assets/intro/placeholder-video.mp4"
-          poster="/assets/intro/placeholder-poster.jpg"
-        />
+        <BackgroundVideo src={INTRO_SLIDE_1.video.src} poster={INTRO_SLIDE_1.video.poster} />
         <OverlayText
-          welcomeText="Welcome to the"
-          title="IOTA Product Demo"
-          description={(
-            <span dangerouslySetInnerHTML={{ __html: "Imagine a product traveling through its entire lifecycle – from manufacturing to repairs, resale, and recycling. How can we ensure <strong>data about the product is trustworthy, complete, and accessible?</strong>" }} />
-          )}
+          welcomeText={INTRO_SLIDE_1.content.welcomeText}
+          title={INTRO_SLIDE_1.content.title}
+          description={
+            <span
+              dangerouslySetInnerHTML={{
+                __html: INTRO_SLIDE_1.content.description,
+              }}
+            />
+          }
           opacity={100}
           translateY={0}
         />
       </VideoSection>
     </>
   );
-}
+};
 
 export default IntroSlide1;

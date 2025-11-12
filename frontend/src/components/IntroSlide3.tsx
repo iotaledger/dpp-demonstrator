@@ -1,20 +1,32 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
+import { INTRO_SLIDE_3 } from '@/contents/introduction';
+
 import ImageTextLayout from './ImageTextLayout';
-import SlideImage from './SlideImage';
 import SlideContent from './SlideContent';
-import SlideTitle from './SlideTitle';
 import SlideDescription from './SlideDescription';
+import SlideImage from './SlideImage';
+import SlideTitle from './SlideTitle';
 
 const IntroSlide3: React.FC = () => {
   return (
     <ImageTextLayout>
-      <SlideImage src="/assets/intro/disclaimer.webp" alt="Disclaimer" />
-      <SlideContent textAlign="left" >
-        <SlideTitle size="large">Disclaimer</SlideTitle>
+      <SlideImage src={INTRO_SLIDE_3.image.src} alt={INTRO_SLIDE_3.image.alt} />
+      <SlideContent textAlign='left'>
+        <SlideTitle size='large'>{INTRO_SLIDE_3.content.title}</SlideTitle>
         <SlideDescription>
-          This demo is for <strong>reference</strong> and is not a fully-functional or regulation-compliant DPP application. It was built to showcase how IOTA components can <strong>power real-world use cases</strong>, using Digital Product Passports as one example.
+          <span
+            dangerouslySetInnerHTML={{
+              __html: INTRO_SLIDE_3.content.description,
+            }}
+          />
         </SlideDescription>
       </SlideContent>
     </ImageTextLayout>

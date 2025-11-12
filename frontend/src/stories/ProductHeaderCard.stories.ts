@@ -1,4 +1,10 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import ProductHeaderCard from '../components/ProductHeaderCard';
 
 const meta: Meta<typeof ProductHeaderCard> = {
@@ -8,9 +14,10 @@ const meta: Meta<typeof ProductHeaderCard> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A product header card component that displays product image, name, and manufacturer. Designed for use in the GuidedExploration dpp-content-container. Supports tutorial state management and animations.'
-      }
-    }
+        component:
+          'A product header card component that displays product image, name, and manufacturer. Designed for use in the GuidedExploration dpp-content-container. Supports tutorial state management and animations.',
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {

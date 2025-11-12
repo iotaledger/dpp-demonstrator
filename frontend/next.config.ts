@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: Learn to use Iota types to replace any */
 import type { NextConfig } from "next";
 import fs, { access } from "node:fs/promises";
 import path from "node:path";
@@ -15,9 +14,9 @@ const nextConfig: NextConfig = {
     /**
      * NOTE: Webpack doesn't recognize the necessity to source the WebAssembly asset, even if it recognizes
      * it is required to the codebase.
-     * - I solved this problem by writing the Webpack plugin CopyFileWebpackPlugin, which copies a file from
+     * I solved this problem by writing the Webpack plugin CopyFileWebpackPlugin, which copies a file from
      *   a target to a destination.
-     * - If the problem turns to happen or it becomes insuficient refer to following issues:
+     * If the problem turns to happen or it becomes insuficient refer to following issues:
      *   - https://github.com/vercel/next.js/issues/25852
      *   - https://github.com/vercel/next.js/discussions/35637
      */
@@ -54,15 +53,17 @@ class CopyFileWebpackPlugin {
     this.options = { ...CopyFileWebpackPlugin.defaultOptions, ...options };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off noise
   apply(compiler: any) {
     compiler.hooks.afterEmit.tapPromise(
       'CopyFileWebpackPlugin',
-      async (_: unknown) => {
+      async () => {
         if (this.options.isServer) {
           try {
             await access(this.to);
             console.log(`\t[CopyFileWebpackPlugin] ✓ ${this.to} already exists`);
             return;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- turn off noise
           } catch (error: any) {
             if (error.code === 'ENOENT') {
               // No file exists

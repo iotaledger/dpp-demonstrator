@@ -1,20 +1,25 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
+import { SLIDE_COUNTER } from '@/contents/common';
 
 interface SlideCounterProps {
   current?: number;
   total?: number;
 }
 
-const SlideCounter: React.FC<SlideCounterProps> = ({
-  current = 1,
-  total = 11
-}) => {
+const SlideCounter: React.FC<SlideCounterProps> = ({ current = 1, total = 11 }) => {
   return (
-    <div
-      className="fixed bottom-6 left-6 bg-black/30 backdrop-blur-md text-white z-[80] rounded-full text-sm px-3 py-2 font-medium">
-      {current} of {total}
+    <div className='fixed bottom-6 left-6 z-[80] rounded-full bg-black/30 px-3 py-2 text-sm font-medium text-white backdrop-blur-md'>
+      {SLIDE_COUNTER.content.template
+        .replace('{current}', current.toString())
+        .replace('{total}', total.toString())}
     </div>
   );
 };

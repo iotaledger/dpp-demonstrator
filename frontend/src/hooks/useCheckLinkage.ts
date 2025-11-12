@@ -1,7 +1,13 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
-import { DomainLinkageStatusCheck } from "@/types/identity";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
+
+import { DomainLinkageStatusCheck } from '@/types/identity';
 
 export function useCheckLinkage(did: string) {
   const result = useQuery<DomainLinkageStatusCheck>({
@@ -11,8 +17,8 @@ export function useCheckLinkage(did: string) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ did }),
-      }).then((res) => res.json())
-  })
+      }).then((res) => res.json()),
+  });
   const { isPending, error: isError, isSuccess, data: checkStatus } = result;
   return { isSuccess, isPending, isError, checkStatus };
 }

@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use axum::{routing::post, Router};
 
 use crate::handlers::permission_handler::set_role;

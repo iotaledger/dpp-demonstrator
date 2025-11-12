@@ -1,8 +1,15 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
-import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
+
 import clsx from 'clsx';
+
+import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 
 interface LeanFeatureCardProps {
   title: string;
@@ -14,7 +21,7 @@ interface LeanFeatureCardProps {
 
 const LeanFeatureCard: React.FC<LeanFeatureCardProps> = ({
   title,
-  description = "",
+  description = '',
   opacity = 0,
   translateY = 4,
   delay = 200,
@@ -23,15 +30,15 @@ const LeanFeatureCard: React.FC<LeanFeatureCardProps> = ({
   return (
     <div
       className={clsx([
-        `border border-gray-100/20 rounded-2xl p-6 opacity-${opacity} translate-y-${translateY} bg-gradient-to-br from-blue-50 to-blue-200/20 backdrop-blur-sm`,
-        isTriggered && 'opacity-100 translate-y-0'
+        `rounded-2xl border border-gray-100/20 p-6 opacity-${opacity} translate-y-${translateY} bg-gradient-to-br from-blue-50 to-blue-200/20 backdrop-blur-sm`,
+        isTriggered && 'translate-y-0 opacity-100',
       ])}
       style={{
-        transition: 'transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s'
+        transition: 'transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s',
       }}
     >
-      <h3 className="text-sm text-blue-600 mb-2 leading-tight">{title}</h3>
-      <p className="text-sm text-gray-700 leading-relaxed">{description}</p>
+      <h3 className='mb-2 text-sm leading-tight text-blue-600'>{title}</h3>
+      <p className='text-sm leading-relaxed text-gray-700'>{description}</p>
     </div>
   );
 };

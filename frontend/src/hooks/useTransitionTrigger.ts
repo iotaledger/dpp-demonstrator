@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
@@ -12,9 +17,9 @@ export function useTransitionTrigger(delay: number) {
     } else {
       setTrigger(true);
     }
-  });
+  }, [delay]);
 
   return {
-    isTriggered
-  }
+    isTriggered,
+  };
 }

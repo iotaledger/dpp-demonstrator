@@ -1,14 +1,16 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import ServiceRequestModal from './ServiceRequestModal';
+
+import { SERVICE_REQUEST_CARD } from '@/contents/common';
 import { useCurrentNetwork, useHierarchySent, useWalletConnected } from '@/providers/appProvider';
 
-const serviceInfo = {
-  title: "Request Service Network Access",
-  description: "To add information to this Digital Product Passport, you must be certified by EcoBike through their Service Network. Click below to request access as a trusted technician.",
-  buttonText: "Service Network Request",
-};
+import ServiceRequestModal from './ServiceRequestModal';
 
 interface ServiceRequestCardProps {
   title?: string;
@@ -43,31 +45,33 @@ const ServiceRequestCard: React.FC<ServiceRequestCardProps> = ({
   return (
     <div>
       <div
-        className={`bg-white rounded-lg shadow-xs transition-all duration-400 ease-out overflow-hidden p-4 sm:p-6 ${getCardStateClasses()}`}
+        className={`overflow-hidden rounded-lg bg-white p-4 shadow-xs transition-all duration-400 ease-out sm:p-6 ${getCardStateClasses()}`}
         data-card-state={cardState}
-        data-section="request"
-        id="request"
+        data-section='request'
+        id='request'
         style={{
           opacity: opacity / 100,
-          transition: `opacity ${delay}s ease-out`
+          transition: `opacity ${delay}s ease-out`,
         }}
       >
-        <div className="transition-all duration-500 ease-out opacity-100 scale-100">
+        <div className='scale-100 opacity-100 transition-all duration-500 ease-out'>
           {/* Header Area */}
-          <div className="flex flex-col space-y-1.5 px-0.5">
-            <h3 className="font-semibold leading-none tracking-tight">{serviceInfo.title}</h3>
+          <div className='flex flex-col space-y-1.5 px-0.5'>
+            <h3 className='leading-none font-semibold tracking-tight'>
+              {SERVICE_REQUEST_CARD.content.title}
+            </h3>
           </div>
 
           {/* Content Area */}
-          <div className="p-0 px-0.5">
-            <div className="space-y-4 pt-2">
-              <p className="text-gray-600">{serviceInfo.description}</p>
+          <div className='p-0 px-0.5'>
+            <div className='space-y-4 pt-2'>
+              <p className='text-gray-600'>{SERVICE_REQUEST_CARD.content.description}</p>
               <button
-                id="tutorial-request-button"
-                className="inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 cursor-pointer focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-98 bg-blue-500 hover:bg-blue-600 text-white h-10 px-4 py-2"
+                id='tutorial-request-button'
+                className='focus-visible:ring-ring inline-flex h-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 px-4 py-2 text-white transition-all duration-200 ease-out hover:bg-blue-600 focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50'
                 onClick={onButtonClick}
               >
-                {serviceInfo.buttonText}
+                {SERVICE_REQUEST_CARD.content.buttonText}
               </button>
             </div>
           </div>
@@ -80,9 +84,7 @@ const ServiceRequestCard: React.FC<ServiceRequestCardProps> = ({
 interface CardWrapperProps {
   cardState?: 'normal' | 'muted' | 'highlighted';
 }
-const CardWrapper: React.FC<CardWrapperProps> = ({
-  cardState,
-}) => {
+const CardWrapper: React.FC<CardWrapperProps> = ({ cardState }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isWalletConnected } = useWalletConnected();
   const { isHierarchySent } = useHierarchySent();
@@ -109,7 +111,6 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
 
   return (
     <>
-      {/* TODO: Replace by `CollapsibleSection` without button */}
       {isAllowedToShowOnLargeScreen && (
         <CardForLargeScreen>
           <ServiceRequestCard cardState={cardState} onButtonClick={handleButtonClick} />
@@ -131,18 +132,18 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
 
 const CardForLargeScreen: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <section className="max-lg:hidden px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
+    <section className='mx-auto max-w-7xl px-4 py-2 max-lg:hidden sm:px-6 sm:py-3 xl:px-12'>
       {children}
     </section>
   );
-}
+};
 
 const CardForMobileScreen: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <section className="lg:hidden px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto py-2 sm:py-3">
+    <section className='mx-auto max-w-7xl px-4 py-2 sm:px-6 sm:py-3 lg:hidden xl:px-12'>
       {children}
     </section>
   );
-}
+};
 
 export default CardWrapper;

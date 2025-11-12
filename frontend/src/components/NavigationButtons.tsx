@@ -1,6 +1,16 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
+import { NAVIGATION_BUTTONS } from '@/contents/common';
+
+import CaretLeftIcon from './icons/CaretLeftIcon';
+import CaretRightIcon from './icons/CaretRightIcon';
 
 interface NavigationButtonsProps {
   onPrevious?: () => void;
@@ -13,30 +23,26 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   onPrevious,
   onNext,
   canGoPrevious = false,
-  canGoNext = true
+  canGoNext = true,
 }) => {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <div className='fixed right-6 bottom-6 z-50 flex items-center gap-3'>
       <button
         disabled={!canGoPrevious}
         onClick={onPrevious}
-        className="w-12 h-12 bg-slate-300 hover:bg-slate-400 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer text-gray-600 rounded-full flex items-center justify-center transition-all duration-200 shadow-lg hover:shadow-xl disabled:shadow-none"
-        aria-label="Previous slide"
+        className='flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-slate-300 text-gray-600 shadow-lg transition-all duration-200 hover:bg-slate-400 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none'
+        aria-label={NAVIGATION_BUTTONS.content.previousSlide}
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-        </svg>
+        <CaretLeftIcon />
       </button>
 
       <button
         disabled={!canGoNext}
         onClick={onNext}
-        className="w-12 h-12 bg-blue-600 hover:bg-blue-700 disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed text-white rounded-full flex items-center justify-center transition-all duration-200 shadow-lg hover:shadow-xl disabled:shadow-none"
-        aria-label="Next slide"
+        className='flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition-all duration-200 hover:bg-blue-700 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none'
+        aria-label={NAVIGATION_BUTTONS.content.nextSlide}
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-        </svg>
+        <CaretRightIcon />
       </button>
     </div>
   );

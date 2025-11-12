@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
@@ -8,12 +13,10 @@ interface MainContentProps {
 
 const MainContent: React.FC<MainContentProps> = ({ children }) => {
   return (
-    <main className="overflow-hidden transition-all duration-700 ease-out">
-      <div className="h-full transition-all duration-700 ease-out">
-        <div className="h-full">
-          <div className="h-full">
-            {children}
-          </div>
+    <main className='overflow-hidden transition-all duration-700 ease-out'>
+      <div className='h-full transition-all duration-700 ease-out'>
+        <div className='h-full'>
+          <div className='h-full'>{children}</div>
         </div>
       </div>
     </main>

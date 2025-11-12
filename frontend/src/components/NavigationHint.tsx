@@ -1,6 +1,13 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
+import { NAVIGATION_HINT } from '@/contents/common';
 
 interface NavigationHintProps {
   text?: string;
@@ -8,20 +15,16 @@ interface NavigationHintProps {
   delay?: number;
 }
 
-const NavigationHint: React.FC<NavigationHintProps> = ({
-  text = "Use arrow keys or click to navigate",
-  opacity = 0,
-  delay = 0.5
-}) => {
+const NavigationHint: React.FC<NavigationHintProps> = ({ opacity = 0, delay = 0.5 }) => {
   return (
     <div
-      className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 z-40 opacity-${opacity} max-lg:hidden`}
+      className={`absolute bottom-6 left-1/2 z-40 -translate-x-1/2 transform opacity-${opacity} max-lg:hidden`}
       style={{
-        transition: `opacity 0.6s ease-out ${delay}s`
+        transition: `opacity 0.6s ease-out ${delay}s`,
       }}
     >
-      <div className="flex items-center gap-2 text-sm text-slate-400/90 px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full">
-        <span>{text}</span>
+      <div className='flex items-center gap-2 rounded-full bg-white/20 px-2 py-1 text-sm text-slate-400/90 backdrop-blur-sm'>
+        <span>{NAVIGATION_HINT.content.text}</span>
       </div>
     </div>
   );

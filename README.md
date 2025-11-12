@@ -1,3 +1,8 @@
+| :warning: WARNING                                                                                                                      |
+| :------------------------------------------------------------------------------------------------------------------------------------- |
+| This repository is for reference and is not a fully-functional or regulation-compliant DPP application. It was built to showcase how IOTA components can power real-world use cases, using Digital Product Passports as one example. |
+
+
 # 🚀 IOTA DPP Showcase
 
 This repository demonstrates how multiple products from the IOTA portfolio can be orchestrated to build a Decentralized Permissioned Process (DPP).
@@ -30,6 +35,12 @@ Before starting, ensure you have the following tools installed:
 
 1. **Docker**
 2. **IOTA CLI**:`cargo install --locked --git https://github.com/iotaledger/iota.git --tag v1.6.1 --features tracing iota`
+3. **Lefthook**: it manages git hooks
+    - Install on MacOS: `brew install lefthook`
+        - For more supported installations see: https://lefthook.dev/installation/index.html
+    - After installing: update your terminal session and install hooks: `lefthook install`
+4. **Hashicorp Copywrite**: it manages license header
+    - Install on MacOS making use of brew, see: https://github.com/hashicorp/copywrite
 
 ---
 
@@ -184,3 +195,5 @@ backend/src/
 * The Audit Trails smart-contract is intentionally simplified for demonstration purposes.
 
 * Backend documentation available in `backend/docs/`.
+
+* The app works better with Chrome based browsers.

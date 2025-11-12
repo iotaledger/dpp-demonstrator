@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 // generate_did_configuration.rs
 use dotenvy::dotenv;
 

@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use anyhow::{bail, Context, Result};
 use hierarchies::client::{HierarchiesClient, HierarchiesClientReadOnly};
 use iota::client_commands;

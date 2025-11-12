@@ -1,9 +1,14 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
-import { extractFederationData } from "@/helpers/federation";
-import { useIotaClientQuery } from "@iota/dapp-kit";
+import { useIotaClientQuery } from '@iota/dapp-kit';
 
-// TODO: what is the purpose of this hook?
+import { extractFederationData } from '@/helpers/federation';
+
 export function useFederationDetails(federationAddress: string) {
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery('getObject', {
     id: federationAddress || '',

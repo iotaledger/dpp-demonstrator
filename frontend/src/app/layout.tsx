@@ -1,14 +1,22 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React from 'react';
 import { Metadata } from 'next';
-import "./globals.css";
+
+import './globals.css';
+
 import { AppLayout } from '@/components/AppLayout';
+import { APP_METADATA } from '@/contents/common';
 
 export const metadata: Metadata = {
-  title: "DPP with IOTA Trust Framework",
-  description: "Explore the Digital Product Passport with IOTA Trust Framework",
+  title: APP_METADATA.content.title,
+  description: APP_METADATA.content.description,
   // See documentation at: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#icons
   icons: {
-    icon: '/assets/favicon-32x32.webp',
+    icon: APP_METADATA.asset.iconUrl,
   },
   // See documentation at: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#robots
   robots: {
@@ -29,11 +37,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body>
-        <AppLayout>
-          {children}
-        </AppLayout>
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );

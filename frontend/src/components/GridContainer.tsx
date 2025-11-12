@@ -1,7 +1,13 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
-import clsx from 'clsx';
 import React from 'react';
+
+import clsx from 'clsx';
 
 interface GridContainerProps {
   children: React.ReactNode;
@@ -10,14 +16,9 @@ interface GridContainerProps {
 
 const GridContainer: React.FC<GridContainerProps> = ({ children, hasDrawer = false }) => {
   return (
-    <div className={clsx([
-      "h-full",
-      hasDrawer && "max-lg:pb-[12rem]",
-    ])}>
+    <div className={clsx(['h-full', hasDrawer && 'max-lg:pb-[12rem]'])}>
       <div
-        className={clsx([
-          "h-full grid overflow-hidden transition-all duration-700 ease-out",
-        ])}
+        className={clsx(['grid h-full overflow-hidden transition-all duration-700 ease-out'])}
         style={{ gridTemplateColumns: '1fr 0px 0px' }}
       >
         {children}

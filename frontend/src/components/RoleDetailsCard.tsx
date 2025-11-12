@@ -1,15 +1,30 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
+import { useCurrentAccount } from '@iota/dapp-kit';
+
+import { ROLE_DETAILS } from '@/contents/explore';
+import { useFederationTransactions } from '@/hooks/useFederationTransactions';
+import { useProductDetails } from '@/hooks/useProductDetails';
+import {
+  getAddressExplorerUrl,
+  getDidScheme,
+  getObjectExplorerUrl,
+  truncateAddress,
+} from '@/utils/common';
+import { FEDERATION_ID, MANUFACTURER_DID } from '@/utils/constants';
+
+import BadgeWithLink from './BadgeWithLink';
 import CollapsibleSection from './CollapsibleSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import BadgeWithLink from './BadgeWithLink';
-import { truncateAddress } from '@/utils/common';
-import { useCurrentAccount } from '@iota/dapp-kit';
 import PanelContent from './PanelContent';
-import { FEDERATION_ID, MANUFACTURER_DID, MANUFACTURER_NAME } from '@/utils/constants';
-import { useFederationTransactions } from '@/hooks/useFederationTransactions';
 
 interface RoleDetailsCardProps {
   opacity?: number;
@@ -18,7 +33,6 @@ interface RoleDetailsCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
   opacity = 100,
   delay = 0.4,
@@ -27,10 +41,14 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
 }) => {
   const { accreditations } = useFederationTransactions();
   const currentAccount = useCurrentAccount();
+  const { isSuccess, productDetails } = useProductDetails();
 
-  const getCurrentAccountBadge = React.useCallback((otherAddress: string): string | null => {
-    return otherAddress === currentAccount?.address ? 'You' : null;
-  }, [currentAccount]);
+  const getCurrentAccountBadge = React.useCallback(
+    (otherAddress: string): string | null => {
+      return otherAddress === currentAccount?.address ? 'You' : null;
+    },
+    [currentAccount],
+  );
 
   const getSectionExpanded = () => {
     const open = true;
@@ -39,14 +57,14 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
       return close;
     }
     return open;
-  }
+  };
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
       return 'muted';
     }
     return 'default';
-  }
+  };
 
   const getPanelState = () => {
     if (tutorialState === 'manufacturerSelected' || tutorialState === 'networkSelected') {
@@ -62,50 +80,52 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
     }
 
     if (tutorialState === 'manufacturerSelected' && rowTag === 'manufacturer') {
-      return 'selected'
+      return 'selected';
     }
 
     if (tutorialState === 'networkSelected' && rowTag === 'network') {
-      return 'selected'
+      return 'selected';
     }
 
     return 'muted';
-  }
+  };
 
   return (
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title="Role Details"
+      title={ROLE_DETAILS.content.title}
       opacity={opacity}
       delay={delay}
     >
       <PanelContent panelState={getPanelState()}>
-        <DataGrid gap="gap-y-3 gap-x-6">
-          <ItemValueRow
-            key={MANUFACTURER_DID}
-            rowState={getRowState('manufacturer')}
-            label="Manufacturer"
-            value={
-              <BadgeWithLink
-                badgeText={MANUFACTURER_NAME}
-                linkText={`did:iota:testnet:${truncateAddress(MANUFACTURER_DID)}`}
-                linkHref={`https://explorer.iota.org/object/${MANUFACTURER_DID}?network=testnet`}
-                showVerification={true}
-                verificationDid={`did:iota:testnet:${MANUFACTURER_DID}`}
-              />
-            }
-          />
+        <DataGrid gap='gap-y-3 gap-x-6'>
+          {isSuccess && (
+            <ItemValueRow
+              key={MANUFACTURER_DID}
+              rowState={getRowState('manufacturer')}
+              label={ROLE_DETAILS.content.manufacturerLabel}
+              value={
+                <BadgeWithLink
+                  badgeText={productDetails?.billOfMaterials?.manufacturerName}
+                  linkText={getDidScheme(MANUFACTURER_DID)}
+                  linkHref={getObjectExplorerUrl(MANUFACTURER_DID)}
+                  showVerification={true}
+                  verificationDid={productDetails?.manufacturer}
+                />
+              }
+            />
+          )}
           <ItemValueRow
             key={FEDERATION_ID}
             rowState={getRowState('network')}
-            label="Service Network"
+            label={ROLE_DETAILS.content.serviceNetworkLabel}
             value={
               <BadgeWithLink
-                badgeText={"Hierarchy"}
+                badgeText={ROLE_DETAILS.content.hierarchyBadgeLabel}
                 linkText={truncateAddress(FEDERATION_ID)}
-                linkHref={`https://explorer.iota.org/object/${FEDERATION_ID}?network=testnet`}
+                linkHref={getObjectExplorerUrl(FEDERATION_ID)}
               />
             }
           />
@@ -113,12 +133,12 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
             <ItemValueRow
               key={accreditation.receiver}
               rowState={getRowState(getCurrentAccountBadge(accreditation.receiver) || '')}
-              label={'Technician'}
+              label={ROLE_DETAILS.content.technicianBadgeLabel}
               value={
                 <BadgeWithLink
                   badgeText={getCurrentAccountBadge(accreditation.receiver)}
                   linkText={truncateAddress(accreditation.receiver)}
-                  linkHref={`https://explorer.iota.org/address/${accreditation.receiver}?network=testnet`}
+                  linkHref={getAddressExplorerUrl(accreditation.receiver)}
                 />
               }
             />

@@ -1,18 +1,23 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
-import { extractRewardVaultData } from "@/helpers/rewardVault";
-import { DPP_ID } from "@/utils/constants";
-import { useIotaClientQuery } from "@iota/dapp-kit";
+import { useIotaClientQuery } from '@iota/dapp-kit';
 
-// TODO: document the purpose of this hook
-export function useRewardVaultDetails(vaultId: string) {
+import { extractRewardVaultData } from '@/helpers/rewardVault';
+import { VAULT_ID } from '@/utils/constants';
+
+export function useRewardVaultDetails() {
   const { data, isSuccess, isLoading, isError } = useIotaClientQuery('getObject', {
-    id: vaultId || '',
+    id: VAULT_ID || '',
     options: { showContent: true },
   });
 
   return {
-    rewardDetails: data?.data && extractRewardVaultData(data, DPP_ID),
+    rewardDetails: data?.data && extractRewardVaultData(data),
     isSuccess,
     isLoading,
     isError,

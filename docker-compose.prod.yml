@@ -52,9 +52,7 @@ services:
         BACKEND_API_KEY: ${BACKEND_API_KEY}
         GAS_STATION_URL: ${GAS_STATION_URL}
         GAS_STATION_AUTH: ${GAS_STATION_AUTH}
-        #TMP
         NEXT_PUBLIC_MANUFACTURER_DID: ${NEXT_PUBLIC_MANUFACTURER_DID}
-        NEXT_PUBLIC_MANUFACTURER_NAME: ${NEXT_PUBLIC_MANUFACTURER_NAME}
     depends_on:
       - backend
       - iota-gas-station

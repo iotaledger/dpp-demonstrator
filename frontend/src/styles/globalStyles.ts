@@ -1,4 +1,9 @@
-'use client'
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+'use client';
 
 import { createGlobalStyle } from 'styled-components';
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
@@ -13,7 +18,7 @@ const TwoColumnSection: React.FC<TwoColumnSectionProps> = ({
   leftColumn,
   rightColumn,
   columns = 'grid-cols-1 md:grid-cols-2',
-  gap = "gap-4"
+  gap = 'gap-4',
 }) => {
   return (
     <div className={`grid ${columns} ${gap}`}>

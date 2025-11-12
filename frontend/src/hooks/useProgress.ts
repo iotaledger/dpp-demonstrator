@@ -1,8 +1,11 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
-
-type IntervalId = number | null;
 
 export const useProgress = () => {
   const maxLimit = 100;
@@ -10,56 +13,68 @@ export const useProgress = () => {
   const maxLatencyMs = 1500;
   const timeoutBufferMs = 5 * frequencyMs;
   // Increase by 4% every 60ms (100% in 1500ms, matching server delay)
-  const increment = maxLimit * frequencyMs / maxLatencyMs;
+  const increment = (maxLimit * frequencyMs) / maxLatencyMs;
 
-  const internalProgressRef = React.useRef(0);
+  const internalControlRef = React.useRef<{ intervalId: number | null; progress: number }>({
+    intervalId: null,
+    progress: 0,
+  });
   const [progress, setProgress] = React.useState(0);
   const [isComplete, setIsComplete] = React.useState(false);
   const [isTimedout, setIsTimedout] = React.useState(false);
-  let intervalId: IntervalId = null;
 
   const resetProgress = () => {
-    internalProgressRef.current = 0;
+    internalControlRef.current.progress = 0;
     setProgress(0);
     setIsComplete(false);
     setIsTimedout(false);
-    intervalId = null;
+    internalControlRef.current.intervalId = null;
   };
 
   const runProgress = (resolve?: (value: boolean) => void) => {
-    if (intervalId == null) {
-      resolve && resolve(false);
+    if (internalControlRef.current.intervalId == null) {
+      if (resolve) {
+        resolve(false);
+      }
       return;
     }
 
-    const nextInternalProgress = internalProgressRef.current + increment;
+    const nextInternalProgress = internalControlRef.current.progress + increment;
 
-    if (nextInternalProgress < 100) {
-      internalProgressRef.current = nextInternalProgress;
+    if (nextInternalProgress < maxLimit) {
+      internalControlRef.current.progress = nextInternalProgress;
       setProgress(nextInternalProgress);
     } else {
-      internalProgressRef.current = maxLimit;
+      internalControlRef.current.progress = maxLimit;
       setProgress(maxLimit);
       setIsComplete(true);
-      intervalId && window.clearInterval(intervalId);
-      intervalId = null;
-      resolve && resolve(true);
+      if (internalControlRef.current.intervalId && window) {
+        window.clearInterval(internalControlRef.current.intervalId);
+      }
+      internalControlRef.current.intervalId = null;
+      if (resolve) {
+        resolve(true);
+      }
     }
   };
 
   const startProgress = async (): Promise<boolean> => {
     // Avoid start a new interval while in progress.
-    if (intervalId != null) {
+    if (internalControlRef.current.intervalId != null) {
       return Promise.resolve(false);
     }
 
-    return new Promise((resolve, _) => {
-      intervalId = window.setInterval(() => runProgress(resolve), frequencyMs);
+    return new Promise((resolve) => {
+      internalControlRef.current.intervalId = window.setInterval(
+        () => runProgress(resolve),
+        frequencyMs,
+      );
 
       window.setTimeout(() => {
-        console.log('progress timeout');
-        intervalId && window.clearInterval(intervalId);
-        intervalId = null;
+        if (internalControlRef.current.intervalId && window) {
+          window.clearInterval(internalControlRef.current.intervalId);
+        }
+        internalControlRef.current.intervalId = null;
         setIsTimedout(true);
         resolve(false);
       }, maxLatencyMs + timeoutBufferMs);
@@ -73,4 +88,4 @@ export const useProgress = () => {
     startProgress,
     resetProgress,
   };
-}
+};

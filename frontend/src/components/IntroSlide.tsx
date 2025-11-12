@@ -1,6 +1,12 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
 import IntroSlideContainer from './IntroSlideContainer';
 import IntroSlideContent from './IntroSlideContent';
 
@@ -8,14 +14,10 @@ interface IntroSlideProps {
   children: React.ReactNode;
 }
 
-const IntroSlide: React.FC<IntroSlideProps> = ({
-  children,
-}) => {
+const IntroSlide: React.FC<IntroSlideProps> = ({ children }) => {
   return (
     <IntroSlideContainer>
-      <IntroSlideContent>
-        {children}
-      </IntroSlideContent>
+      <IntroSlideContent>{children}</IntroSlideContent>
     </IntroSlideContainer>
   );
 };

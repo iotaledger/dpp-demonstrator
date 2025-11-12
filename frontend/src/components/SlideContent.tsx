@@ -1,8 +1,15 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
-import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
-import { clsx } from 'clsx';
 import React from 'react';
+
+import { clsx } from 'clsx';
+
+import { useTransitionTrigger } from '@/hooks/useTransitionTrigger';
 
 interface SlideContentProps {
   children: React.ReactNode;
@@ -19,7 +26,7 @@ const SlideContent: React.FC<SlideContentProps> = ({
   opacity = 0,
   translateY = 4,
   translateX = 4,
-  delay = 300
+  delay = 300,
 }) => {
   const { isTriggered } = useTransitionTrigger(delay);
   const getTextAlignClass = () => {
@@ -33,20 +40,20 @@ const SlideContent: React.FC<SlideContentProps> = ({
     return `opacity-${opacity} translate-y-${translateY} md:translate-y-0 md:translate-x-${translateX}`;
   };
 
-  const getActivedTransformClass = () => {
+  const getActiveTransformClass = () => {
     if (textAlign === 'center') {
       return 'opacity-100 translate-y-0';
     }
     return 'opacity-100 translate-y-0 md:translate-x-0';
-  }
+  };
 
   return (
-    <div className={`${getTextAlignClass()} order-1 md:order-2 pt-0 sm:pr-6`}>
+    <div className={`${getTextAlignClass()} order-1 pt-0 sm:pr-6 md:order-2`}>
       <div
         style={{
-          transition: `opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s`
+          transition: `opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s`,
         }}
-        className={clsx(getTransformClass(), isTriggered && getActivedTransformClass())}
+        className={clsx(getTransformClass(), isTriggered && getActiveTransformClass())}
       >
         {children}
       </div>

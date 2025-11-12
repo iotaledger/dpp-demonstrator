@@ -1,11 +1,22 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
-import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffectEvent } from 'react';
+import { useRouter } from 'next/navigation';
+
+import { POSITION_CHANGE_TO_SWIPE } from '@/utils/constants';
 
 const initialSlide = 1;
 
-export function useSlideNavigation(externalCurrentSlide: number, totalSlides: number, getPathCb: (target: number) => string) {
+export function useSlideNavigation(
+  externalCurrentSlide: number,
+  totalSlides: number,
+  getPathCb: (target: number) => string,
+) {
   const [currentSlide] = React.useState(externalCurrentSlide ?? initialSlide);
   const router = useRouter();
 
@@ -14,33 +25,40 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
   const progress = (currentSlide / totalSlides) * 100;
 
   /**
-   * NOTE: Maybe we should review this method in favor of <Link /> usage,
-   * as the use of the component enables a prefetching, which can improve
-   * user experience. However, this change should be measured to confirm
-   * its improvement claim.
+   * NOTE: Maybe we should review this method in favor of <Link /> usage.
+   * Link enables prefetching and this may improve UX.
    */
-  const handlePrevious = () => {
+
+  const goPrevious = () => {
     if (currentSlide > 1) {
-      router.push(getPathCb(currentSlide - 1))
+      router.push(getPathCb(currentSlide - 1));
     }
   };
 
-  const handleNext = () => {
+  const goNext = () => {
     if (currentSlide < totalSlides) {
-      router.push(getPathCb(currentSlide + 1))
+      router.push(getPathCb(currentSlide + 1));
     }
   };
+
+  const onPrevious = useEffectEvent(() => {
+    goPrevious();
+  });
+
+  const onNext = useEffectEvent(() => {
+    goNext();
+  });
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'ArrowLeft':
           event.preventDefault();
-          if (canGoPrevious) handlePrevious();
+          if (canGoPrevious) onPrevious();
           break;
         case 'ArrowRight':
           event.preventDefault();
-          if (canGoNext) handleNext();
+          if (canGoNext) onNext();
           break;
         case 'Escape':
           event.preventDefault();
@@ -79,7 +97,7 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
 
             const deltaPosX = endPosX - startPosX;
             // Do not swipe if delta is too small. The user may scroll up and down.
-            const threshold = 110;
+            const threshold = POSITION_CHANGE_TO_SWIPE;
             if (Math.abs(deltaPosX) < threshold) {
               clean();
               return;
@@ -92,18 +110,18 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
             const right = false;
             switch (swipeDirection) {
               case left:
-                if (canGoNext) handleNext();
+                if (canGoNext) onNext();
                 clean();
                 break;
               case right:
-                if (canGoPrevious) handlePrevious();
+                if (canGoPrevious) onPrevious();
                 clean();
                 break;
             }
             break;
         }
       };
-    }
+    };
     const handleSwipeGesture = handleSwipeGestureFactory();
 
     window.addEventListener('keydown', handleKeyDown);
@@ -115,17 +133,16 @@ export function useSlideNavigation(externalCurrentSlide: number, totalSlides: nu
       window.removeEventListener('touchstart', handleSwipeGesture);
       window.removeEventListener('touchmove', handleSwipeGesture);
       window.removeEventListener('touchend', handleSwipeGesture);
-    }
+    };
   }, [canGoPrevious, canGoNext]);
-
 
   return {
     currentSlide,
     totalSlides,
     canGoPrevious,
     canGoNext,
-    goPrevious: handlePrevious,
-    goNext: handleNext,
+    goPrevious,
+    goNext,
     progress,
-  }
+  };
 }

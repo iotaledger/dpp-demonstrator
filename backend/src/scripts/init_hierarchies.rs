@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use dotenvy::dotenv;
 use std::collections::HashMap;
 use std::fs::{self, OpenOptions};

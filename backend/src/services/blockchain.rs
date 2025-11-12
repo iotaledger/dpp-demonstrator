@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use anyhow::Context;
 use backend::utils::get_hierarchies_client;
 use backend::utils::MANUFACTURER_ALIAS;

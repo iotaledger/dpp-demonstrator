@@ -1,21 +1,34 @@
-import { bcs } from '@iota/bcs'
-import { Transaction } from '@iota/iota-sdk/transactions'
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { bcs } from '@iota/bcs';
+import { Transaction } from '@iota/iota-sdk/transactions';
 
 interface DppMoveCallParams {
-  dppId: string
-  federationAddr: string
-  issuerRole: string
-  entryDataKeys: string[]
-  entryDataValues: string[]
-  whitelistId: string
-  vaultId: string
+  dppId: string;
+  federationAddr: string;
+  issuerRole: string;
+  entryDataKeys: string[];
+  entryDataValues: string[];
+  whitelistId: string;
+  vaultId: string;
 }
 
 export function createDppTx(
   movePkg: string,
-  { dppId, federationAddr, issuerRole, entryDataKeys, entryDataValues, whitelistId, vaultId }: DppMoveCallParams
+  {
+    dppId,
+    federationAddr,
+    issuerRole,
+    entryDataKeys,
+    entryDataValues,
+    whitelistId,
+    vaultId,
+  }: DppMoveCallParams,
 ) {
-  const tx = new Transaction()
+  const tx = new Transaction();
 
   tx.moveCall({
     target: `${movePkg}::app::log_entry_data`,
@@ -29,7 +42,7 @@ export function createDppTx(
       tx.object(whitelistId),
       tx.object(vaultId),
     ],
-  })
+  });
 
-  return tx
+  return tx;
 }

@@ -1,25 +1,34 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
-import SlideTitle from './SlideTitle';
-import SlideDescription from './SlideDescription';
+
+import { INTRO_SLIDE_8 } from '@/contents/introduction';
+
 import ImageTextLayout from './ImageTextLayout';
-import SlideImage from './SlideImage';
 import SlideContent from './SlideContent';
+import SlideDescription from './SlideDescription';
+import SlideImage from './SlideImage';
+import SlideTitle from './SlideTitle';
 
 const IntroSlide8: React.FC = () => {
   return (
     <ImageTextLayout>
-      <SlideImage
-        src="/assets/intro/help.webp"
-        alt="A Trusted Digital Backbone"
-      />
+      <SlideImage src={INTRO_SLIDE_8.image.src} alt={INTRO_SLIDE_8.image.alt} />
 
-      <SlideContent
-        textAlign="left"
-      >
-        <SlideTitle size="large">A Trusted Digital Backbone</SlideTitle>
-        <SlideDescription>IOTA provides the trusted digital backbone for use cases like Digital Product Passports. At its core is a global, public network where data is permanent, verifiable, and not controlled by any single company.</SlideDescription>
+      <SlideContent textAlign='left'>
+        <SlideTitle size='large'>{INTRO_SLIDE_8.content.title}</SlideTitle>
+        <SlideDescription>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: INTRO_SLIDE_8.content.description,
+            }}
+          />
+        </SlideDescription>
       </SlideContent>
     </ImageTextLayout>
   );

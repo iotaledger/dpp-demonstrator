@@ -1,6 +1,13 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
+import { END_OF_PASSPORT_MESSAGE } from '@/contents/common';
 
 interface EndOfPassportMessageProps {
   message?: string;
@@ -12,19 +19,19 @@ interface EndOfPassportMessageProps {
 }
 
 const EndOfPassportMessage: React.FC<EndOfPassportMessageProps> = ({
-  message = "End of Digital Product Passport",
-  textColor = "text-gray-500",
-  textSize = "text-sm",
-  paddingY = "py-6 sm:py-8",
+  message = END_OF_PASSPORT_MESSAGE.content.messageDefault,
+  textColor = 'text-gray-500',
+  textSize = 'text-sm',
+  paddingY = 'py-6 sm:py-8',
   opacity = 100,
-  delay = 0
+  delay = 0,
 }) => {
   return (
     <section
-      className={`px-4 sm:px-6 xl:px-12 max-w-7xl mx-auto ${paddingY}`}
+      className={`mx-auto max-w-7xl px-4 sm:px-6 xl:px-12 ${paddingY}`}
       style={{
         opacity: opacity / 100,
-        transition: `opacity ${delay}s ease-out`
+        transition: `opacity ${delay}s ease-out`,
       }}
     >
       <div className={`text-center ${textColor}`}>

@@ -1,3 +1,6 @@
+// Copyright (c) IOTA Stiftung
+// SPDX-License-Identifier: Apache-2.0
+
 use axum;
 use dotenvy::dotenv;
 use tokio::net::TcpListener;

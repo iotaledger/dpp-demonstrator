@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 module audit_trails::nft_reward {
     use std::string::{Self, String};
     use iota::vec_map::{Self, VecMap};

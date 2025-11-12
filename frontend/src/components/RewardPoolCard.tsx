@@ -1,15 +1,28 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 'use client';
 
 import React from 'react';
+
+import { REWARD_POOL } from '@/contents/explore';
+import {
+  getVaultRewardBalancePerAddress,
+  getVaultRewardUsagePercentage,
+  getVaultTotalSupply,
+  getVaultTotalValuePerAddress,
+} from '@/helpers/rewardVault';
+import { useRewardVaultDetails } from '@/hooks/useRewardVault';
+import { getObjectExplorerUrl, truncateAddress } from '@/utils/common';
+import { DPP_ID, REWARD_TOTAL_SUPPLY, VAULT_ID } from '@/utils/constants';
+
 import CollapsibleSection from './CollapsibleSection';
-import TwoColumnSection from './TwoColumnSection';
 import DataGrid from './DataGrid';
 import ItemValueRow from './ItemValueRow';
-import { useRewardVaultDetails } from '@/hooks/useRewardVault';
-import { getVaultTotalValuePerAddress } from '@/helpers/rewardVault';
-import { truncateAddress } from '@/utils/common';
 import PanelContent from './PanelContent';
-import { DPP_ID, VAULT_ID } from '@/utils/constants';
+import TwoColumnSection from './TwoColumnSection';
 
 interface RewardPoolCardProps {
   opacity?: number;
@@ -18,14 +31,13 @@ interface RewardPoolCardProps {
   scrollIntoView?: boolean;
 }
 
-// TODO: Implement loading state
 const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
   opacity = 100,
   delay = 0.4,
   tutorialState = 'no',
   scrollIntoView = false,
 }) => {
-  const { rewardDetails, isSuccess } = useRewardVaultDetails(VAULT_ID as string);
+  const { rewardDetails, isSuccess } = useRewardVaultDetails();
 
   const getSectionExpanded = () => {
     const open = true;
@@ -34,14 +46,14 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
       return close;
     }
     return open;
-  }
+  };
 
   const getSectionState = () => {
     if (tutorialState === 'muted' || tutorialState === 'open-muted') {
       return 'muted';
     }
     return 'default';
-  }
+  };
 
   const getPanelState = () => {
     if (tutorialState === 'selected') {
@@ -56,96 +68,103 @@ const RewardPoolCard: React.FC<RewardPoolCardProps> = ({
     }
 
     if (tutorialState === 'selected' && rowTag === 'rewardContract') {
-      return 'selected'
+      return 'selected';
     }
 
     return 'muted';
-  }
+  };
 
   return (
     <CollapsibleSection
       defaultExpanded={getSectionExpanded()}
       cardState={getSectionState()}
       scrollIntoView={scrollIntoView}
-      title="Reward Pool Status"
+      title={REWARD_POOL.content.title}
       opacity={opacity}
       delay={delay}
     >
       <TwoColumnSection
-        gap="gap-4"
+        gap='gap-4'
         leftColumn={
-          <PanelContent panelState={getPanelState()} title={"Lifecycle Credit (LCC) Rewards"}>
+          <PanelContent
+            panelState={getPanelState()}
+            title={REWARD_POOL.content.lifecycleCreditTitle}
+          >
             <DataGrid>
-              {/* TODO: Truncate the address */}
               <ItemValueRow
                 rowState={getRowState('rewardContract')}
-                label="Reward contract"
+                label={REWARD_POOL.content.rewardContractLabel}
                 value={truncateAddress(VAULT_ID)}
-                linkHref={`https://explorer.iota.org/object/${VAULT_ID}?network=testnet`}
+                linkHref={getObjectExplorerUrl(VAULT_ID)}
                 fontMono={true}
-                valueColor="text-blue-600"
+                valueColor='text-blue-600'
                 isLink={true}
               />
-              {/* TODO: Get the supply information contained in the first transaction in the Vault object */}
+              {/* NOTE: This is hardcoded on purpose because the actual total supply is 10 billions to compose a reserve */}
               <ItemValueRow
                 rowState={getRowState('totalLifecycleFund')}
-                label="Total Lifecycle Fund"
-                value={"1,000,000,000 LCC"}
+                label={REWARD_POOL.content.totalLifecycleFundLabel}
+                value={
+                  (rewardDetails && getVaultTotalSupply(REWARD_TOTAL_SUPPLY, rewardDetails)) ||
+                  REWARD_POOL.content.totalLifecycleFundValueFallback
+                }
               />
-              {/* NOTE: This is now hardcoded because the mechanism to reward end-of-live battery is not implemented */}
+              {/* NOTE: This is hardcoded because the mechanism to reward end-of-live battery is not implemented yet */}
               <ItemValueRow
                 rowState={getRowState('endOfLifeRewards')}
-                label="End-of-life Rewards"
-                value={"30 LCC"}
+                label={REWARD_POOL.content.endOfLifeRewardsLabel}
+                value={REWARD_POOL.content.endOfLifeRewardsValueDefault}
               />
-              {/* TODO: Remove the fraction when it is zero */}
               <ItemValueRow
                 rowState={getRowState('maintenanceRewardsRemaining')}
-                label="Maintenance Rewards remaining"
-                value={isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)}
+                label={REWARD_POOL.content.maintenanceRewardsRemainingLabel}
+                value={
+                  isSuccess && rewardDetails && getVaultTotalValuePerAddress(rewardDetails, DPP_ID)
+                }
               />
-              {/* NOTE: Supply - Balance */}
-              {/* TODO: Get the balance information contained in `rewardDetails` */}
               <ItemValueRow
                 rowState={getRowState('used')}
-                label="Used"
-                value={"<0.001%"}
+                label='Used'
+                value={
+                  isSuccess &&
+                  rewardDetails &&
+                  getVaultRewardUsagePercentage(
+                    REWARD_TOTAL_SUPPLY,
+                    getVaultRewardBalancePerAddress(rewardDetails, DPP_ID),
+                  )
+                }
               />
             </DataGrid>
           </PanelContent>
         }
         rightColumn={
-          <PanelContent title='Reward Table'>
+          <PanelContent title={REWARD_POOL.content.rewardTableTitle}>
             <DataGrid>
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('annualMaintenanceReward')}
-                label="Annual Maintenance Reward"
-                value={"1 LCC"}
+                label={REWARD_POOL.content.annualMaintenanceRewardLabel}
+                value={REWARD_POOL.content.annualMaintenanceRewardValueDefault}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('recyclingReward')}
-                label="Recycling Reward"
-                value={"10 LCC"}
+                label={REWARD_POOL.content.recyclingRewardLabel}
+                value={REWARD_POOL.content.recyclingRewardValueDefault}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('finalOwner')}
-                label="Final owner"
-                value={"10 LCC"}
+                label={REWARD_POOL.content.finalOwnerLabel}
+                value={REWARD_POOL.content.finalOwnerValueDefault}
               />
-              {/* NOTE: Hardcoded because the mechanism to track this measure is not implemented */}
               <ItemValueRow
                 rowState={getRowState('manufacturerReturn')}
-                label="Manufacturer return"
-                value={"10 LCC"}
+                label={REWARD_POOL.content.manufacturerReturnLabel}
+                value={REWARD_POOL.content.manufacturerReturnValueDefault}
               />
             </DataGrid>
           </PanelContent>
         }
       />
-      <div id="reward-pool-infopanel-slot" className="tutorial-infopanel-slot" />
+      <div id='reward-pool-infopanel-slot' className='tutorial-infopanel-slot' />
     </CollapsibleSection>
   );
 };

@@ -7,10 +7,10 @@ The DPP Demonstrator implements a product lifecycle tracking system using 4 smar
 ## Architecture
 
 ```
-┌─────────────────┐    ┌──────────────────┐
-│   audit_trails  │───▶│   ITH Contract   │
-│   (main app)    │    │   (permissions)  │
-└─────────┬───────┘    └──────────────────┘
+┌─────────────────┐    ┌───────────────────────────────┐
+│   audit_trails  │───▶│   IOTA Hierarchies Contract   │
+│   (main app)    │    │         (permissions)         │
+└─────────┬───────┘    └───────────────────────────────┘
           │
           ▼
 ┌─────────────────┐    ┌──────────────────┐
@@ -54,7 +54,7 @@ public struct ProductEntry has key, store {
 **Permissions**: 
 - **Manufacturer**: Can create products and log entries
 - **Repairer**: Can only log maintenance entries
-- Roles validated through ITH (IOTA Trusted Hierarchies)
+- Roles validated through IOTA Hierarchies
 
 **Events**:
 - `ProductEntryLogged`: Emitted when products are created or entries logged
@@ -149,7 +149,7 @@ make create-new-product
 
 ## Integration Points
 
-### ITH Integration
+### IOTA Hierarchies Integration
 ```move
 use ith::main::{Federation, validate_trusted_properties};
 ```
@@ -172,7 +172,7 @@ event::emit(ProductEntryLogged {
 
 ### Demo-Appropriate Security
 ✅ **Good for Demo**:
-- ITH role validation
+- IOTA Hierarchies role validation
 - Admin capability protection
 - Event emission for auditability
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The backend includes a series of Rust scripts to configure and manage the DPP Demonstrator infrastructure. The scripts handle accounts, ITH federations, and decentralized identities (DIDs).
+The backend includes a series of Rust scripts to configure and manage the DPP Demonstrator infrastructure. The scripts handle accounts, IOTA Hierarchies federations, and decentralized identities (DIDs).
 
 ## Available Scripts
 
@@ -72,7 +72,7 @@ cargo run --bin faucet
 
 ---
 
-### 4. `init_hierarchies` - ITH Initialization
+### 4. `init_hierarchies` - IOTA Hierarchies Initialization
 
 **File**: `src/scripts/init_hierarchies.rs`
 

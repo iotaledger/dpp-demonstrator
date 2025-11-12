@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DPP Demonstrator backend exposes REST APIs for role management within the IOTA Trusted Hierarchies (ITH) system. The server is implemented in Rust using the Axum framework and requires authentication via API key.
+The DPP Demonstrator backend exposes REST APIs for role management within the IOTA Hierarchies system. The server is implemented in Rust using the Axum framework and requires authentication via API key.
 
 ## Configuration
 
@@ -25,7 +25,7 @@ curl -H "x-api-key: 12345" http://localhost:3001/roles
 
 ### POST `/roles`
 
-Assigns a specific role to a user within an ITH federation.
+Assigns a specific role to a user within an IOTA Hierarchies federation.
 
 #### Request Parameters
 
@@ -33,7 +33,7 @@ Assigns a specific role to a user within an ITH federation.
 {
   "user_addr": "0x...", // User address (Object ID)
   "user_role": "Manufacturer" | "Repairer", // Role to assign
-  "federation_addr": "0x..." // ITH federation address
+  "federation_addr": "0x..." // IOTA Hierarchies federation address
 }
 ```
 
@@ -78,8 +78,8 @@ curl -X POST \
 ### Role Assignment Workflow
 
 1. **Request Validation**: Validates parameter format and authentication
-2. **ITH Client Creation**: Initializes blockchain client with `MANUFACTURER_ALIAS`
-3. **Attestation Creation**: Creates an ITH attestation with:
+2. **IOTA Hierarchies Client Creation**: Initializes blockchain client with `MANUFACTURER_ALIAS`
+3. **Attestation Creation**: Creates an IOTA Hierarchies attestation with:
    - Property name: `"role"`
    - Property value: specified role (lowercase)
    - Timespan: default
@@ -90,7 +90,7 @@ curl -X POST \
 The system handles different types of errors:
 - Object ID parsing errors
 - Blockchain connection errors
-- ITH attestation creation errors
+- IOTA Hierarchies attestation creation errors
 - Trusted properties validation errors
 
 ### Architecture
@@ -102,10 +102,10 @@ The system handles different types of errors:
 └─────────────────┘    │   + routing)     │    └─────────────────┘
                        └──────────────────┘             │
                                                         ▼
-                       ┌──────────────────┐    ┌─────────────────┐
-                       │  Blockchain      │◄───│ ITH Client      │
-                       │  Service         │    │                 │
-                       └──────────────────┘    └─────────────────┘
+                       ┌──────────────────┐    ┌──────────────────────────────┐
+                       │  Blockchain      │◄───│ IOTA Hierarchies Client      │
+                       │  Service         │    │                              │
+                       └──────────────────┘    └──────────────────────────────┘
 ```
 
 ## Security

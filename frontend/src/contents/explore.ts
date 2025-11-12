@@ -21,7 +21,7 @@ export const EXPLORE_FREELY_NAVIGATION = {
 export const EXPLORE_GUIDED_NAVIGATION = {
   content: {
     backText: t('↺ Reset to Intro'),
-    linkText: t('Switch to free exploration'),
+    linkText: t('Switch to Free Exploration'),
   },
   navigation: {
     backUrl: '/introduction/1',
@@ -75,27 +75,27 @@ export const REWARD_POOL = {
   content: {
     title: t('Reward Pool Status'),
     lifecycleCreditTitle: t('Lifecycle Credit (LCC) Rewards'),
-    rewardContractLabel: t('Reward contract'),
+    rewardContractLabel: t('Reward Contract'),
     totalLifecycleFundLabel: t('Total Lifecycle Fund'),
     totalLifecycleFundValueFallback: t('0 LCC'),
-    endOfLifeRewardsLabel: t('End-of-life Rewards'),
+    endOfLifeRewardsLabel: t('End-of-Life Rewards'),
     endOfLifeRewardsValueDefault: t('30 LCC'),
-    maintenanceRewardsRemainingLabel: t('Maintenance Rewards remaining'),
+    maintenanceRewardsRemainingLabel: t('Maintenance Rewards Remaining'),
     rewardTableTitle: t('Reward Table'),
     annualMaintenanceRewardLabel: t('Annual Maintenance Reward'),
     annualMaintenanceRewardValueDefault: t('1 LCC'),
     recyclingRewardLabel: t('Recycling Reward'),
     recyclingRewardValueDefault: t('10 LCC'),
-    finalOwnerLabel: t('Final owner'),
+    finalOwnerLabel: t('Final Owner'),
     finalOwnerValueDefault: t('10 LCC'),
-    manufacturerReturnLabel: t('Manufacturer return'),
+    manufacturerReturnLabel: t('Manufacturer Return'),
     manufacturerReturnValueDefault: t('10 LCC'),
   },
 };
 
 export const REWARD_TRANSACTIONS = {
   content: {
-    title: t('Rewards transactions'),
+    title: t('Rewards Transactions'),
     subtitle: t('List of all rewards transactions'),
     healthSnapshotEventName: t('Health Snapshot'),
     serviceIdLabel: t('Service ID'),
@@ -120,7 +120,7 @@ export const SERVICE_HISTORY = {
     verificationLabel: t('Verification'),
     verificationValue: t('Notarized at block'),
     technicianLabel: t('Technician'),
-    rewardContractLabel: t('Reward contract'),
+    rewardContractLabel: t('Reward Contract'),
     rewardDistributedLabel: t('Reward Distributed'),
   },
 };

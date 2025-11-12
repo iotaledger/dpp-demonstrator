@@ -31,7 +31,7 @@ export const NAVIGATION_HINT = {
 
 export const NOT_TESTNET_WARNING_CARD = {
   content: {
-    title: t('Wrong network detected.'),
+    title: t('Wrong Network Detected.'),
     subtitle: t('Please switch your wallet to the IOTA Testnet.'),
     imageAlt: t('Wrong network detected.'),
   },
@@ -160,10 +160,10 @@ export const NAVIGATION_BUTTONS = {
 
 export const DIAGNOSTIC_CARD = {
   content: {
-    title: t('EcoBike Pro Battery diagnostic tool'),
+    title: t('EcoBike Pro Battery Diagnostic Tool'),
     subtitle: t('Annual Health Snapshot'),
     imageAlt: t('Diagnostic tool'),
-    buttonTextStartDiagnostic: t('Start diagnostic now'),
+    buttonTextStartDiagnostic: t('Start Diagnostic Now'),
     buttonTextRunningDiagnostic: t(
       'diagnosticCard.button.runningDiagnostic',
       'Running diagnostic...',
@@ -202,8 +202,8 @@ export const GUIDED_SIDEBAR = {
 
 export const CONTACT = {
   content: {
-    title: t('Contact us'),
+    title: t('Contact Us'),
     emailLabel: t('Email Address'),
-    copyTitle: t('Copy email address'),
+    copyTitle: t('Copy Email Address'),
   },
 };

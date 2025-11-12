@@ -42,11 +42,11 @@
     "Connect Wallet": "Connect Wallet",
     "Connected securely via a browser or mobile wallet": "Connected securely via a browser or mobile wallet",
     "Consumers": "Consumers",
-    "Contact us": "Contact us",
+    "Contact Us": "Contact Us",
     "Continue": "Continue",
     "Copied!": "Copied!",
     "Copy address": "Copy address",
-    "Copy email address": "Copy email address",
+    "Copy Email Address": "Copy Email Address",
     "Date": "Date",
     "Design and produce goods, adding material, sustainability, and compliance data to the DPP": {
       "": "Design and produce goods, adding material, sustainability, and compliance data to the DPP."
@@ -67,11 +67,11 @@
     "DPP Creation Date": "DPP Creation Date",
     "DPP ID": "DPP ID",
     "DPP with IOTA Trust Framework": "DPP with IOTA Trust Framework",
-    "EcoBike Pro Battery diagnostic tool": "EcoBike Pro Battery diagnostic tool",
+    "EcoBike Pro Battery Diagnostic Tool": "EcoBike Pro Battery Diagnostic Tool",
     "Email Address": "Email Address",
     "Enables trusted digital collaboration across the product lifecycle ": "Enables trusted digital collaboration across the product lifecycle ",
     "End of Digital Product Passport": "End of Digital Product Passport",
-    "End-of-life Rewards": "End-of-life Rewards",
+    "End-of-Life Rewards": "End-of-Life Rewards",
     "Entry Type": "Entry Type",
     "EPROs define the LCC allocation for each DPP, and service providers earn these credits automatically when documenting repairs or maintenance": "EPROs define the LCC allocation for each DPP, and service providers earn these credits automatically when documenting repairs or maintenance",
     "Error while calling sendTransaction": {
@@ -86,7 +86,7 @@
     "Explore Mode": "Explore Mode",
     "Explore the Digital Product Passport with IOTA Trust Framework": "Explore the Digital Product Passport with IOTA Trust Framework",
     "Extended Producer Responsibility Organizations (EPRO)": "Extended Producer Responsibility Organizations (EPRO)",
-    "Final owner": "Final owner",
+    "Final Owner": "Final Owner",
     "Findings": "Findings",
     "Finish": "Finish",
     "Get started building on IOTA today": "Get started building on IOTA today",
@@ -161,14 +161,15 @@
     "IOTA Wallets": "IOTA Wallets",
     "Issue digital identities linked to real-world organisations": "Issue digital identities linked to real-world organisations",
     "Key Players in the DPP ecosystem": "Key Players in the DPP ecosystem",
+    "Key Players in the DPP Ecosystem": "Key Players in the DPP Ecosystem",
     "Lifecycle Credit (LCC) Rewards": "Lifecycle Credit (LCC) Rewards",
     "List of all rewards transactions": "List of all rewards transactions",
     "Maintenance and Repairs": "Maintenance and Repairs",
-    "Maintenance Rewards remaining": "Maintenance Rewards remaining",
+    "Maintenance Rewards Remaining": "Maintenance Rewards Remaining",
     "Manufacturer": "Manufacturer",
     "Manufacturer Identity": "Manufacturer Identity",
     "Manufacturer Name": "Manufacturer Name",
-    "Manufacturer return": "Manufacturer return",
+    "Manufacturer Return": "Manufacturer Return",
     "Manufacturers": "Manufacturers",
     "Manufacturers build the product, create its DPP, and pre-fund it with Lifecycle Credits (LCCs)": "Manufacturers build the product, create its DPP, and pre-fund it with Lifecycle Credits (LCCs)",
     "Manufacturers provide fiat funds to the EPRO, ensuring reward pools are backed with real-world value": "Manufacturers provide fiat funds to the EPRO, ensuring reward pools are backed with real-world value",
@@ -184,7 +185,7 @@
       "": "Offer repair, maintenance, and upgrades, relying on the DPP for product history and part details."
     },
     "Paid no fees thanks to IOTA Gas Station": "Paid no fees thanks to IOTA Gas Station",
-    "Perform diagnostics": "Perform diagnostics",
+    "Perform Diagnostics": "Perform Diagnostics",
     "Please make sure you are connected to the IOTA testnet": {
       "": "Please make sure you are connected to the IOTA testnet."
     },
@@ -222,14 +223,14 @@
     "Request": "Request",
     "Request Access": "Request Access",
     "Request Service Network Access": "Request Service Network Access",
-    "Review history": "Review history",
-    "Reward contract": "Reward contract",
+    "Review History": "Review History",
+    "Reward Contract": "Reward Contract",
     "Reward Distributed": "Reward Distributed",
     "Reward Pool": "Reward Pool",
     "Reward Pool Status": "Reward Pool Status",
     "Reward Table": "Reward Table",
     "Reward Transactions": "Reward Transactions",
-    "Rewards transactions": "Rewards transactions",
+    "Rewards Transactions": "Rewards Transactions",
     "Role": "Role",
     "Role Details": "Role Details",
     "Role request approved! You can now access diagnostic tools": {
@@ -243,7 +244,7 @@
         "saving": "Saving..."
       }
     },
-    "Scan a product": "Scan a product",
+    "Scan a Product": "Scan a Product",
     "Securely connect to apps": "Securely connect to apps",
     "Serial Number": "Serial Number",
     "Service History": "Service History",
@@ -264,13 +265,13 @@
     "Solving the Data-Sharing Problem": "Solving the Data-Sharing Problem",
     "Sponsor transaction fees": "Sponsor transaction fees",
     "Start Diagnostic": "Start Diagnostic",
-    "Start diagnostic now": "Start diagnostic now",
+    "Start Diagnostic Now": "Start Diagnostic Now",
     "Start Tour": "Start Tour",
     "Submit": "Submit",
     "Support manufacturers in end-of-life obligations and oversee recycling & compliance": {
       "": "Support manufacturers in end-of-life obligations and oversee recycling & compliance."
     },
-    "Switch to free exploration": "Switch to free exploration",
+    "Switch to Free Exploration": "Switch to Free Exploration",
     "Switch to Guided Tour": "Switch to Guided Tour",
     "Technician": "Technician",
     "The EPRO processes redemption, converting LCCs back into fiat and closing the economic loop": "The EPRO processes redemption, converting LCCs back into fiat and closing the economic loop",
@@ -340,6 +341,9 @@
     "What You Just Experienced": "What You Just Experienced",
     "Wrong network detected": {
       "": "Wrong network detected."
+    },
+    "Wrong Network Detected": {
+      "": "Wrong Network Detected."
     },
     "You": "You",
     "Your Mission in this Demo": "Your Mission in this Demo"

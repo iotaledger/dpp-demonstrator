@@ -7,8 +7,8 @@ if [ -z "$FEDERATION_ID" ]; then
   exit 1
 fi
 
-if [ -z "$AUDIT_TRAIL_PKG" ]; then
-  echo "❌ Error: AUDIT_TRAIL_PKG is not set"
+if [ -z "$IOTA_CUSTOM_NOTARIZATION_PKG_ID" ]; then
+  echo "❌ Error: IOTA_CUSTOM_NOTARIZATION_PKG_ID is not set"
   exit 1
 fi
 
@@ -18,7 +18,7 @@ if [ -z "$MANUFACTURER_DID" ]; then
 fi
 
 echo "✅ Using FEDERATION_ID: $FEDERATION_ID"
-echo "✅ Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
+echo "✅ Using IOTA_CUSTOM_NOTARIZATION_PKG_ID: $IOTA_CUSTOM_NOTARIZATION_PKG_ID"
 echo "✅ Using MANUFACTURER_DID: $MANUFACTURER_DID"
 
 SERIAL_NUMBER="EB-48V-2024-001337"
@@ -55,7 +55,7 @@ BILL_OF_MATERIALS_VALUES='[
 
 
 iota client call \
-  --package "$AUDIT_TRAIL_PKG" \
+  --package "$IOTA_CUSTOM_NOTARIZATION_PKG_ID" \
   --module "app" \
   --function "new_product" \
   --args \

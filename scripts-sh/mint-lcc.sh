@@ -5,9 +5,9 @@ source .env
 echo "=� Minting LCC Tokens..."
 
 # Check required environment variables
-if [ -z "$AUDIT_TRAIL_PKG" ]; then
-  echo "L Error: AUDIT_TRAIL_PKG is not set"
-  echo "=� Set it with: export AUDIT_TRAIL_PKG=<package_id_from_deployment>"
+if [ -z "$IOTA_CUSTOM_NOTARIZATION_PKG_ID" ]; then
+  echo "L Error: IOTA_CUSTOM_NOTARIZATION_PKG_ID is not set"
+  echo "=� Set it with: export IOTA_CUSTOM_NOTARIZATION_PKG_ID=<package_id_from_deployment>"
   exit 1
 fi
 
@@ -20,7 +20,7 @@ fi
 # Amount to mint: 1,000,000
 MINT_AMOUNT=10000000000000000000
 
-echo "Using AUDIT_TRAIL_PKG: $AUDIT_TRAIL_PKG"
+echo "Using IOTA_CUSTOM_NOTARIZATION_PKG_ID: $IOTA_CUSTOM_NOTARIZATION_PKG_ID"
 echo "Using LCC_TREASURY_CAP_ID: $LCC_TREASURY_CAP_ID"
 echo "Minting amount: 1,000,000,000,000 LCC tokens"
 
@@ -31,7 +31,7 @@ iota client switch --address root-auth
 # Mint LCC tokens
 echo "> Minting LCC tokens..."
 iota client call \
-  --package "$AUDIT_TRAIL_PKG" \
+  --package "$IOTA_CUSTOM_NOTARIZATION_PKG_ID" \
   --module "LCC" \
   --function "mint" \
   --args \

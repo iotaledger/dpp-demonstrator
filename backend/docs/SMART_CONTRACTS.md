@@ -132,13 +132,13 @@ make publish-custom-notarization-contract
 ```
 
 **Outputs to save**:
-- `AUDIT_TRAIL_PKG`: Package ID
+- `IOTA_CUSTOM_NOTARIZATION_PKG_ID`: Package ID
 - `WHITELIST_ID`: Whitelist object ID  
 - `ADMIN_CAP_ID`: Admin capability ID
 
 ### 2. Create Product
 ```bash
-export AUDIT_TRAIL_PKG=<package_id>
+export IOTA_CUSTOM_NOTARIZATION_PKG_ID=<package_id>
 export FEDERATION_ID=<ith_federation_id>
 export MANUFACTURER_DID=<manufacturer_did>
 make create-new-product

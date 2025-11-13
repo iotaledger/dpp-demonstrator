@@ -77,7 +77,7 @@ make publish-custom-notarization-contract
 ```
 
 From the Transaction Save the following outputs:
-* AUDIT_TRAIL_PKG
+* IOTA_CUSTOM_NOTARIZATION_PKG_ID
 * WHITELIST_ID
 * ADMIN_CAP_ID
 * VAULT_ID
@@ -100,7 +100,7 @@ Save the JWT credential accordinly to the environment; for development place it 
 Here you must also generate one per environment.
 
 ```bash
-export AUDIT_TRAIL_PKG=<AUDIT_TRAIL_PKG>
+export IOTA_CUSTOM_NOTARIZATION_PKG_ID=<IOTA_CUSTOM_NOTARIZATION_PKG_ID>
 export FEDERATION_ID=<FEDERATION_ID>
 export MANUFACTURER_DID=<MANUFACTURER_DID>
 ```

@@ -9,38 +9,38 @@ import { ServiceEntry } from '@/types/transaction';
 
 /*
 Service History Data Structure:
-┌─────────────────────────────────────────────────────────────┐
-│                  Service History Collection                 │
-│ Paginated ProductEntry Objects for DPP Audit Trail          │
-├─────────────────────────────────────────────────────────────┤
-│ Service Entries Array:                                      │
-│ ┌─ Entry 1 (0x8f07f169...)                                  │
-│   ├─ Service: "Inspection" → "Test Service"                 │
-│   ├─ Issuer: 0x5ddf340c... (Repairer)                       │
-│   ├─ Timestamp: 1756128614445                               │
-│   └─ Package: 0x1d0b1bdb... (DPP App)                       │
-│ ├─ Entry 2 (0xeee8d514...)                                  │
-│   ├─ Service: "Inspection" → "Second Test"                  │
-│   ├─ Issuer: 0x1f9699f7... (Repairer)                       │
-│   └─ Timestamp: 1756129169058                               │
-│ └─ Entry N...                                               │
-├─────────────────────────────────────────────────────────────┤
-│ Indexing Maps:                                              │
-│ ├─ By Entry ID → ServiceEntry                               │
-│ ├─ By Issuer → [ServiceEntry, ...]                          │
-│ ├─ By Service Type → [ServiceEntry, ...]                    │
-│ └─ Chronological → [ServiceEntry, ...] (sorted)             │
-├─────────────────────────────────────────────────────────────┤
-│ Pagination Context:                                         │
-│ ├─ Has Next Page: boolean                                   │
-│ └─ Next Cursor: objectId for continuation                   │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                  Service History Collection                         │
+│ Paginated ProductEntry Objects for DPP Custom Notarization          │
+├─────────────────────────────────────────────────────────────────────┤
+│ Service Entries Array:                                              │
+│ ┌─ Entry 1 (0x8f07f169...)                                          │
+│   ├─ Service: "Inspection" → "Test Service"                         │
+│   ├─ Issuer: 0x5ddf340c... (Repairer)                               │
+│   ├─ Timestamp: 1756128614445                                       │
+│   └─ Package: 0x1d0b1bdb... (DPP App)                               │
+│ ├─ Entry 2 (0xeee8d514...)                                          │
+│   ├─ Service: "Inspection" → "Second Test"                          │
+│   ├─ Issuer: 0x1f9699f7... (Repairer)                               │
+│   └─ Timestamp: 1756129169058                                       │
+│ └─ Entry N...                                                       │
+├─────────────────────────────────────────────────────────────────────┤
+│ Indexing Maps:                                                      │
+│ ├─ By Entry ID → ServiceEntry                                       │
+│ ├─ By Issuer → [ServiceEntry, ...]                                  │
+│ ├─ By Service Type → [ServiceEntry, ...]                            │
+│ └─ Chronological → [ServiceEntry, ...] (sorted)                     │
+├─────────────────────────────────────────────────────────────────────┤
+│ Pagination Context:                                                 │
+│ ├─ Has Next Page: boolean                                           │
+│ └─ Next Cursor: objectId for continuation                           │
+└─────────────────────────────────────────────────────────────────────┘
 
 Service History Hierarchy:
-Product → Service Events → Provider Documentation → Audit Trail
+Product → Service Events → Provider Documentation → Custom Notarization
 
 Service Flow:
-Product Lifecycle → Service Performed → Provider Documents → History Recorded → Audit Trail
+Product Lifecycle → Service Performed → Provider Documents → History Recorded → Custom Notarization
 */
 
 /**

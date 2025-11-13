@@ -5,7 +5,7 @@ Complete documentation for the IOTA DPP Demonstrator backend.
 ## Overview
 
 The backend is a Rust application that provides:
-- REST APIs for ITH role management
+- REST APIs for IOTA Hierarchies role management
 - Automated scripts for setup and configuration
 - Integration with IOTA blockchain and Identity framework
 - Keystore and transaction management
@@ -22,7 +22,7 @@ Complete REST API documentation:
 ### [Scripts Documentation](SCRIPTS.md)
 Setup and configuration scripts guide:
 - Account and keystore setup
-- ITH federation initialization
+- IOTA Hierarchies federation initialization
 - Decentralized identity management
 - Complete setup workflow
 
@@ -37,7 +37,7 @@ cargo run --bin faucet
 
 ### 2. Hierarchies Setup
 ```bash
-export HIERARCHIES_PKG_ID="0x..."
+export IOTA_HIERARCHIES_PKG_ID="0x..."
 cargo run --bin hierarchies_init
 ```
 
@@ -64,23 +64,23 @@ curl -H "x-api-key: 12345" \
 └─────────┬───────┘
           │ HTTP API
           ▼
-┌─────────────────┐
-│   Backend       │
-│   (Rust/Axum)   │
-├─────────────────┤
-│ • API Routes    │
-│ • ITH Service   │
-│ • Identity Mgmt │
-│ • Keystore      │
-└─────────┬───────┘
+┌──────────────────────────────┐
+│   Backend                    │
+│   (Rust/Axum)                │
+├──────────────────────────────┤
+│ • API Routes                 │
+│ • IOTA Hierarchies Service   │
+│ • Identity Mgmt              │
+│ • Keystore                   │
+└─────────┬────────────────────┘
           │ RPC
           ▼
-┌─────────────────┐
-│ IOTA Blockchain │
-│ • ITH Contract  │
-│ • Identity      │
-│ • Transactions  │
-└─────────────────┘
+┌──────────────────────────────┐
+│ IOTA Blockchain              │
+│ • IOTA Hierarchies Contract  │
+│ • Identity                   │
+│ • Transactions               │
+└──────────────────────────────┘
 ```
 
 ## Technologies
@@ -88,7 +88,7 @@ curl -H "x-api-key: 12345" \
 - **Rust**: Main programming language
 - **Axum**: Web framework for REST APIs
 - **IOTA SDK**: Blockchain interaction
-- **ITH (Trusted Hierarchies)**: Permission management
+- **IOTA Hierarchies**: Permission management
 - **IOTA Identity**: Decentralized identities
 - **Tokio**: Async runtime
 

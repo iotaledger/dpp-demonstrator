@@ -2,15 +2,15 @@
 
 ## Overview
 
-The DPP Demonstrator implements a product lifecycle tracking system using 4 smart contracts deployed on IOTA blockchain. The contracts handle product registration, audit trail logging, and reward distribution.
+The DPP Demonstrator implements a product lifecycle tracking system using 4 smart contracts deployed on IOTA blockchain. The contracts handle product registration, custom notarization logging, and reward distribution.
 
 ## Architecture
 
 ```
-┌─────────────────┐    ┌──────────────────┐
-│   audit_trails  │───▶│   ITH Contract   │
-│   (main app)    │    │   (permissions)  │
-└─────────┬───────┘    └──────────────────┘
+┌─────────────────┐    ┌───────────────────────────────┐
+│   audit_trails  │───▶│   IOTA Hierarchies Contract   │
+│   (main app)    │    │         (permissions)         │
+└─────────┬───────┘    └───────────────────────────────┘
           │
           ▼
 ┌─────────────────┐    ┌──────────────────┐
@@ -54,7 +54,7 @@ public struct ProductEntry has key, store {
 **Permissions**: 
 - **Manufacturer**: Can create products and log entries
 - **Repairer**: Can only log maintenance entries
-- Roles validated through ITH (IOTA Trusted Hierarchies)
+- Roles validated through IOTA Hierarchies
 
 **Events**:
 - `ProductEntryLogged`: Emitted when products are created or entries logged
@@ -127,18 +127,18 @@ public struct WHITELIST has key, store {
 
 ### 1. Deploy Contracts
 ```bash
-make build-audit-trails-contract
-make publish-audit-trails-contract
+make build-custom-notarization-contract
+make publish-custom-notarization-contract
 ```
 
 **Outputs to save**:
-- `AUDIT_TRAIL_PKG`: Package ID
+- `IOTA_CUSTOM_NOTARIZATION_PKG_ID`: Package ID
 - `WHITELIST_ID`: Whitelist object ID  
 - `ADMIN_CAP_ID`: Admin capability ID
 
 ### 2. Create Product
 ```bash
-export AUDIT_TRAIL_PKG=<package_id>
+export IOTA_CUSTOM_NOTARIZATION_PKG_ID=<package_id>
 export FEDERATION_ID=<ith_federation_id>
 export MANUFACTURER_DID=<manufacturer_did>
 make create-new-product
@@ -149,7 +149,7 @@ make create-new-product
 
 ## Integration Points
 
-### ITH Integration
+### IOTA Hierarchies Integration
 ```move
 use ith::main::{Federation, validate_trusted_properties};
 ```
@@ -172,7 +172,7 @@ event::emit(ProductEntryLogged {
 
 ### Demo-Appropriate Security
 ✅ **Good for Demo**:
-- ITH role validation
+- IOTA Hierarchies role validation
 - Admin capability protection
 - Event emission for auditability
 

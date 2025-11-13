@@ -10,9 +10,9 @@ import type {
 } from '@/types/api';
 
 import {
-  AUDIT_TRAIL_PKG_ID,
   DPP_ID,
   FEDERATION_ID,
+  IOTA_CUSTOM_NOTARIZATION_PKG_ID,
   VAULT_ID,
   WHITELIST_ID,
 } from '@/utils/constants';
@@ -90,7 +90,7 @@ export function createNotarizationEventTransaction({
   entryDataKeys,
   entryDataValues,
 }: CreateNotarizationEventTransactionArgs): Transaction {
-  const tx = createDppTx(AUDIT_TRAIL_PKG_ID!, {
+  const tx = createDppTx(IOTA_CUSTOM_NOTARIZATION_PKG_ID!, {
     dppId: DPP_ID,
     federationAddr: FEDERATION_ID!,
     issuerRole,

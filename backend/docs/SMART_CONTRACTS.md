@@ -7,21 +7,21 @@ The DPP Demonstrator implements a product lifecycle tracking system using 4 smar
 ## Architecture
 
 ```
-┌─────────────────┐    ┌───────────────────────────────┐
-│   audit_trails  │───▶│   IOTA Hierarchies Contract   │
-│   (main app)    │    │         (permissions)         │
-└─────────┬───────┘    └───────────────────────────────┘
+┌────────────────────────┐    ┌───────────────────────────────┐
+│   custom_notarization  │───▶│   IOTA Hierarchies Contract   │
+│   (main app)           │    │         (permissions)         │
+└─────────┬──────────────┘    └───────────────────────────────┘
           │
           ▼
-┌─────────────────┐    ┌──────────────────┐
-│   nft_rewards   │    │   rwr + vault    │
-│   (NFT badges)  │    │   (token system) │
-└─────────────────┘    └──────────────────┘
+┌─────────────────┐           ┌──────────────────┐
+│   nft_rewards   │           │   rwr + vault    │
+│   (NFT badges)  │           │   (token system) │
+└─────────────────┘           └──────────────────┘
 ```
 
 ## Smart Contracts
 
-### 1. audit_trails::app (`audit_trails.move`)
+### 1. custom_notarization::app (`custom_notarization.move`)
 
 **Purpose**: Main application logic for product lifecycle management
 
@@ -61,7 +61,7 @@ public struct ProductEntry has key, store {
 
 ---
 
-### 2. audit_trails::nft_reward (`nft_rewards.move`)
+### 2. custom_notarization::nft_reward (`nft_rewards.move`)
 
 **Purpose**: NFT reward system for demo participants
 
@@ -91,7 +91,7 @@ public struct WHITELIST has key, store {
 
 ---
 
-### 3. audit_trails::rwr (`rwr.move`)
+### 3. custom_notarization::rwr (`rwr.move`)
 
 **Purpose**: RWR (Real World Reward) token definition
 
@@ -109,7 +109,7 @@ public struct WHITELIST has key, store {
 
 ---
 
-### 4. audit_trails::vault (`vault.move`)
+### 4. custom_notarization::vault (`vault.move`)
 
 **Purpose**: Token vault for DPP reward distribution
 

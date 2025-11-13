@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module audit_trails::app {
+module custom_notarization::app {
 
     use std::string::{Self, String};
     use hierarchies::main::{Federation, validate_property};
@@ -13,8 +13,8 @@ module audit_trails::app {
     use iota::clock::{Self, Clock};
     use iota::event;
 
-    use audit_trails::nft_reward::{send_nft_reward, WHITELIST};
-    use audit_trails::lcc_reward::{send_lcc_reward, Vault};
+    use custom_notarization::nft_reward::{send_nft_reward, WHITELIST};
+    use custom_notarization::lcc_reward::{send_lcc_reward, Vault};
 
     const E_INVALID_ROLE: u64 = 0;
     const E_MISMATCHED_VECTOR_LENGTHS: u64 = 1;

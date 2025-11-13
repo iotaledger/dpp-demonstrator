@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module audit_trails::nft_reward {
+module custom_notarization::nft_reward {
     use std::string::{Self, String};
     use iota::vec_map::{Self, VecMap};
     use iota::event;

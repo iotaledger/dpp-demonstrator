@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module audit_trails::LCC {
+module custom_notarization::LCC {
     use iota::balance::Balance;
     use iota::coin::{Self, Coin, TreasuryCap};
     use iota::url;

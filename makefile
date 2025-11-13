@@ -13,9 +13,9 @@ init-dids:
 	cd backend && iota client switch --address manu-fact && cargo run --bin init_dids
 verify-dids:
 	cd backend && iota client switch --address manu-fact && cargo run --bin verify_dids
-build-audit-trails-contract:
+build-custom-notarization-contract:
 	cd contract && iota move build
-publish-audit-trails-contract:
+publish-custom-notarization-contract:
 	cd contract && iota client switch --address root-auth && iota client publish --with-unpublished-dependencies --skip-dependency-verification --json --gas-budget 5000000000 .
 create-new-product:
 	iota client switch --address manu-fact && ./scripts-sh/new-product.sh

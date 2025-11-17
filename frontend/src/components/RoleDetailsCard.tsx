@@ -112,7 +112,12 @@ const RoleDetailsCard: React.FC<RoleDetailsCardProps> = ({
                   linkText={getDidScheme(MANUFACTURER_DID)}
                   linkHref={getObjectExplorerUrl(MANUFACTURER_DID)}
                   showVerification={true}
-                  verificationDid={productDetails?.manufacturer}
+                  // NOTE: The `productDetails?.manufacturer` contains an error
+                  // in the Manufacturer ID declared as it is lacking the last digit `7`.
+                  // I'm using the manufacturer from environment as a quick fix,
+                  // but it should be restored to product's properties when it is updated
+                  // or replaced by another product.
+                  verificationDid={getDidScheme(MANUFACTURER_DID)}
                 />
               }
             />

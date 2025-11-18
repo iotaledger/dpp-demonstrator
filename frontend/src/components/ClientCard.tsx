@@ -41,12 +41,21 @@ const ClientCard: React.FC<ClientCardProps> = ({
         transition: 'transition: opacity 0.6s ease-out 0.25s, transform 0.6s ease-out 0.25s',
       }}
     >
-      <div className='flex-1 overflow-hidden rounded-3xl'>
-        <img className='h-full w-full object-cover' src={image} alt={alt} />
+      <div className='flex-2 overflow-hidden rounded-3xl'>
+        <img
+          className='h-full w-full object-cover'
+          src={image}
+          alt={alt}
+          style={{
+            aspectRatio: '16/9',
+          }}
+        />
       </div>
 
-      <div className='p-3 md:p-4'>
-        <h4 className='mb-1 text-base font-semibold text-gray-900 md:text-lg'>{title}</h4>
+      <div className='flex-1 p-3 md:p-4'>
+        <h4 className='mb-1 align-baseline text-base font-semibold text-gray-900 md:text-lg'>
+          {title}
+        </h4>
         <p className='text-base text-gray-600 md:text-xl'>{description}</p>
       </div>
     </div>

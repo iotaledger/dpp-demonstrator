@@ -28,7 +28,13 @@ const IntroSlide11: React.FC = () => {
         </SlideDescription>
       </div>
 
-      <FeaturesGrid columns='sm:grid-cols-2' width='max-w-6xl' gap='gap-10' pb='pb-20'>
+      <FeaturesGrid
+        columns='sm:grid-cols-2'
+        width='max-w-6xl'
+        gap='gap-10'
+        pb='pb-20'
+        alignItems='baseline'
+      >
         <ClientCard
           image={INTRO_SLIDE_11.content.walletOptions[0].image}
           alt={INTRO_SLIDE_11.content.walletOptions[0].alt}

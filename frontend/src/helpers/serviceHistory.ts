@@ -1,13 +1,13 @@
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { BalanceChange } from '@iota/iota-sdk/client';
 
 import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef } from '@iota/iota-sdk/client';
 
 import { ServiceEntry } from '@/types/transaction';
-
-/**
- * Copyright (c) IOTA Stiftung
- * SPDX-License-Identifier: Apache-2.0
- */
 
 /*
 Service History Data Structure:

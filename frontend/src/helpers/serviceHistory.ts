@@ -8,6 +8,7 @@ import type { BalanceChange } from '@iota/iota-sdk/client';
 import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef } from '@iota/iota-sdk/client';
 
 import { ServiceEntry } from '@/types/transaction';
+import { REWARD_TOKEN_SYMBOL } from '@/utils/constants';
 
 /*
 Service History Data Structure:
@@ -175,7 +176,7 @@ function extractServiceTransactionData(
 const findBalanceChangeByCoinType =
   (packageId: string) =>
   (value: BalanceChange): boolean => {
-    return value.coinType === `${packageId}::LCC::LCC`;
+    return value.coinType === `${packageId}::${REWARD_TOKEN_SYMBOL}::${REWARD_TOKEN_SYMBOL}`;
   };
 
 // Export all interfaces and functions

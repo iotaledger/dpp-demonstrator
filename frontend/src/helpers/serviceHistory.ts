@@ -1,11 +1,13 @@
-/**
- * Copyright (c) IOTA Stiftung
- * SPDX-License-Identifier: Apache-2.0
- */
+import type { BalanceChange } from '@iota/iota-sdk/client';
 
 import { IotaEvent, IotaTransactionBlockResponse, OwnedObjectRef } from '@iota/iota-sdk/client';
 
 import { ServiceEntry } from '@/types/transaction';
+
+/**
+ * Copyright (c) IOTA Stiftung
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 /*
 Service History Data Structure:
@@ -83,7 +85,6 @@ function extractServiceTransactionData(
   productIdToFilter: string,
 ): ServiceEntry[] {
   const transactionEntries = jsonData.map((tx) => {
-    const rewardBalance = tx.balanceChanges?.at(-1)?.amount || '0';
     const _transactionsCall = // @ts-expect-error -- Inference do not catch all possible types
       tx.transaction!.data.transaction.transactions as unknown as IotaTransaction[];
     // @ts-expect-error -- Inference do not catch all possible types
@@ -136,6 +137,8 @@ function extractServiceTransactionData(
     const issuerRole = _productEntryLoggedEvent.parsedJson?.issuer_role.variant.toLowerCase();
     const timestamp = tx.timestampMs;
     const packageId = _productEntryLoggedEvent.packageId;
+    const rewardBalance =
+      tx.balanceChanges?.find(findBalanceChangeByCoinType(packageId))?.amount || '0';
 
     return {
       productId,
@@ -168,6 +171,12 @@ function extractServiceTransactionData(
       entry.productId === productIdToFilter,
   );
 }
+
+const findBalanceChangeByCoinType =
+  (packageId: string) =>
+  (value: BalanceChange): boolean => {
+    return value.coinType === `${packageId}::LCC::LCC`;
+  };
 
 // Export all interfaces and functions
 export { extractServiceTransactionData };

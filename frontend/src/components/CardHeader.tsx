@@ -8,8 +8,6 @@
 import React from 'react';
 import Link from 'next/link';
 
-import clsx from 'clsx';
-
 import { CARD_HEADER } from '@/contents/common';
 import { useNightlyWallet } from '@/providers/appProvider';
 
@@ -46,6 +44,12 @@ const CardHeader: React.FC<CardHeaderProps> = ({
 }) => {
   const { inNightlyWallet } = useNightlyWallet();
 
+  // Do not render the header if showing from inside NightlyWallet.
+  if (inNightlyWallet) {
+    console.warn('Rendering from inside NightlyWallet');
+    return;
+  }
+
   const getButtonStyle = () => {
     if (variation === 'primary') {
       return BUTTON_PRIMARY_STYLE;
@@ -55,10 +59,9 @@ const CardHeader: React.FC<CardHeaderProps> = ({
 
   return (
     <div
-      className={clsx([
-        'flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 text-xs text-gray-500',
-        inNightlyWallet && 'hidden',
-      ])}
+      className={
+        'flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 text-xs text-gray-500'
+      }
     >
       <div className='flex w-full items-center justify-between gap-2 leading-1'>
         {!canGoBack && <h4>{title}</h4>}

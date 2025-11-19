@@ -10,6 +10,7 @@
     "check-lint": "eslint src/ --no-warn-ignored",
     "check-style": "prettier src/ --ignore-unknown --write",
     "check-spell": "cspell src/ --no-must-find-files",
+    "check-i18n": "i18next-cli extract",
     "fix-lint": "eslint src/ --fix --no-warn-ignored",
     "fix-style": "prettier src/ --ignore-unknown --write",
     "build-storybook": "storybook build"

@@ -17,6 +17,7 @@ interface FeaturesGridProps {
   width?: string;
   opacity?: number;
   translateY?: number;
+  alignItems?: string;
   gap?: string;
   pb?: string;
   delay?: number;
@@ -28,6 +29,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({
   width = 'max-w-5xl',
   opacity = 0,
   translateY = 4,
+  alignItems = 'normal',
   gap = 'gap-6',
   pb = 'pb-12',
   delay = 200,
@@ -41,6 +43,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({
       )}
       style={{
         transition: 'opacity 0.6s ease-out 0.35s, transform 0.6s ease-out 0.35s',
+        alignItems,
       }}
     >
       {children}

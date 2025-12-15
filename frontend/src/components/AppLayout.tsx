@@ -17,9 +17,12 @@ import { AppProvider } from '@/providers/appProvider';
 // Required to give style to UI components imported from dapp-kit such as ConnectButton
 import '@iota/dapp-kit/dist/index.css';
 
+import { useAllowWalletAutoConnect } from '@/hooks/useAllowWalletAutoConnect';
+
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
   const [inNightlyWallet, setInNightlyWallet] = React.useState(false);
+  const isWalletAutoConnectAllowed = useAllowWalletAutoConnect();
 
   const { networkConfig } = createNetworkConfig({
     // getFullnodeUrl do not support network auto-completion
@@ -46,7 +49,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <IotaClientProvider networks={networkConfig} defaultNetwork={Network.Testnet}>
-        <WalletProvider autoConnect={true}>
+        <WalletProvider autoConnect={isWalletAutoConnectAllowed}>
           <AppProvider inNightlyWallet={inNightlyWallet}>
             <Layout>{children}</Layout>
             {/* Portal target for modals */}

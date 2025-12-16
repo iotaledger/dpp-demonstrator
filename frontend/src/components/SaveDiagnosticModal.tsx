@@ -203,7 +203,7 @@ const SaveDiagnosticModal: React.FC<SaveDiagnosticModalProps> = ({ isOpen, onClo
                       // I'm using the manufacturer from environment as a quick fix,
                       // but it should be restored to product's properties when it is updated
                       // or replaced by another product.
-                      verificationDid={getDidScheme(MANUFACTURER_DID)}
+                      verificationDid={getDidScheme(MANUFACTURER_DID, false)}
                     />
                   </div>
                 }

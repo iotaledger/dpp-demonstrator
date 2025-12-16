@@ -118,8 +118,16 @@ export function getTxBlockExplorerUrl(txDigest: string): string {
   return `${EXPLORER_URL}/txblock/${txDigest}?network=${NETWORK}`;
 }
 
-export function getDidScheme(did: string): string {
-  return `did:iota:${NETWORK}:${truncateAddress(did)}`;
+/**
+ * Add did scheme to Object ID representing a DID, with the possibility to truncate by default.
+ * @param {string} did Object ID of a DID
+ * @param {boolean} truncate Truncate the Object ID adding an ellipses (...) by default,
+ * when value is `true`, otherwise presents its full value, when `false`
+ */
+export function getDidScheme(did: string, truncate: boolean = true): string {
+  const didMethodAndNetwork = `did:iota:${NETWORK}:`;
+  const id = truncate ? truncateAddress(did) : did;
+  return `${didMethodAndNetwork}${id}`;
 }
 
 export function getChain(): `${string}:${string}` {

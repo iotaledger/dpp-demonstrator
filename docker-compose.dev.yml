@@ -66,6 +66,9 @@ services:
       - traefik_net
 
   frontend:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m
     build:
       context: ./frontend
       dockerfile: Dockerfile

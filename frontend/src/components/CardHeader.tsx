@@ -98,7 +98,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
               <span className='mt-[-0.5px] max-sm:mr-[-0.1em] min-sm:absolute'>
                 <GithubIcon />
               </span>
-              <span className='ml-5 max-sm:hidden'>{'Repository'}</span>
+              <span className='ml-5 max-sm:hidden'>{CARD_HEADER.content.repositoryLink}</span>
             </span>
           </Link>
         </div>

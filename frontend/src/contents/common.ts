@@ -123,6 +123,7 @@ export const CARD_HEADER = {
     titleDefault: t('Welcome'),
     linkTextDefault: t('Button'),
     backTextDefault: t('Back to the Start'),
+    repositoryLink: t('Repository'),
   },
 };
 

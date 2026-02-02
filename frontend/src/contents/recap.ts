@@ -152,5 +152,8 @@ export const RECAP_SLIDE_4 = {
   },
   contact: {
     email: 'partnerships@iota.org',
+    repositoryHostName: 'GitHub',
+    repositoryName: 'iotaledger/dpp-demonstrator',
+    repositoryUrl: 'https://github.com/iotaledger/dpp-demonstrator',
   },
 };

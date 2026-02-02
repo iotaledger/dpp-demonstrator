@@ -123,6 +123,7 @@ export const CARD_HEADER = {
     titleDefault: t('Welcome'),
     linkTextDefault: t('Button'),
     backTextDefault: t('Back to the Start'),
+    repositoryLink: t('Repository'),
   },
 };
 
@@ -205,5 +206,11 @@ export const CONTACT = {
     title: t('Contact Us'),
     emailLabel: t('Email Address'),
     copyTitle: t('Copy Email Address'),
+  },
+};
+
+export const REPOSITORY = {
+  content: {
+    title: t('Our Repository'),
   },
 };

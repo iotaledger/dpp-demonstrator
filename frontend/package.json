@@ -27,9 +27,9 @@
     "cors": "2.8.5",
     "i18next": "25.6.1",
     "i18next-http-backend": "3.0.2",
-    "next": "16.0.10",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "next": "16.0.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "styled-components": "6.1.19",
     "swr": "2.3.6"
   },

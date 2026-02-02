@@ -74,7 +74,12 @@ const RecapSlide4: React.FC<RecapSlide4Props> = ({ opacity = 100, delay = 0.3 })
         </div>
 
         {/* Contact Section */}
-        <Contact email={RECAP_SLIDE_4.contact.email} />
+        <Contact
+          email={RECAP_SLIDE_4.contact.email}
+          repositoryHostName={RECAP_SLIDE_4.contact.repositoryHostName}
+          repositoryName={RECAP_SLIDE_4.contact.repositoryName}
+          repositoryUrl={RECAP_SLIDE_4.contact.repositoryUrl}
+        />
       </div>
     </div>
   );

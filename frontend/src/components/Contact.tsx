@@ -5,17 +5,26 @@
 
 import React from 'react';
 
-import { CONTACT } from '@/contents/common';
+import { CONTACT, REPOSITORY } from '@/contents/common';
 
 import CopiedIcon from './icons/CopiedIcon';
 import CopyIcon from './icons/CopyIcon';
+import GithubIcon from './icons/GithubIcon';
 import WebIcon from './icons/WebIcon';
 
 interface ContactProps {
   email: string;
+  repositoryHostName: string;
+  repositoryName: string;
+  repositoryUrl: string;
 }
 
-const Contact: React.FC<ContactProps> = ({ email }) => {
+const Contact: React.FC<ContactProps> = ({
+  email,
+  repositoryHostName,
+  repositoryName,
+  repositoryUrl,
+}) => {
   const [copied, setCopied] = React.useState(false);
 
   const handleCopy = async () => {
@@ -55,6 +64,26 @@ const Contact: React.FC<ContactProps> = ({ email }) => {
           >
             {copied ? <CopiedIcon /> : <CopyIcon />}
           </button>
+        </div>
+        <div className='text-center md:text-left'>
+          <h4 className='text-xl font-semibold text-gray-900 md:text-2xl'>
+            {REPOSITORY.content.title}
+          </h4>
+        </div>
+        <div className='flex items-center gap-3 self-center rounded-2xl border border-gray-200 bg-white px-4 py-3 md:gap-4 md:self-auto md:px-6 md:py-4'>
+          <div className='flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 md:h-8 md:w-8'>
+            <GithubIcon />
+          </div>
+          <div className='flex min-w-0 flex-col'>
+            <span className='mb-1 text-xs text-gray-500'>{repositoryHostName}</span>
+            <a
+              className='truncate text-sm font-medium text-gray-900 transition-colors hover:text-blue-600 md:text-base'
+              href={repositoryUrl}
+              target='_blank'
+            >
+              {repositoryName}
+            </a>
+          </div>
         </div>
       </div>
     </div>

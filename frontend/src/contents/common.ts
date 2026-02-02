@@ -207,3 +207,9 @@ export const CONTACT = {
     copyTitle: t('Copy Email Address'),
   },
 };
+
+export const REPOSITORY = {
+  content: {
+    title: t('Our Repository'),
+  },
+};

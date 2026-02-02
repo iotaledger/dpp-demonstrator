@@ -10,6 +10,9 @@ import Link from 'next/link';
 
 import { CARD_HEADER } from '@/contents/common';
 import { useNightlyWallet } from '@/providers/appProvider';
+import { DPP_DEMONSTRATOR_GITHUB_URL } from '@/utils/constants';
+
+import GithubIcon from './icons/GithubIcon';
 
 interface CardHeaderProps {
   title?: string;
@@ -60,7 +63,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   return (
     <div
       className={
-        'flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 text-xs text-gray-500'
+        'flex-shrink-0 border-b border-gray-200 bg-slate-100 px-6 py-3 align-baseline text-xs text-gray-500'
       }
     >
       <div className='flex w-full items-center justify-between gap-2 leading-1'>
@@ -75,15 +78,30 @@ const CardHeader: React.FC<CardHeaderProps> = ({
             {backText}
           </Link>
         )}
-        {showLink && (
+        <div className='flex items-center gap-2'>
+          {showLink && (
+            <Link
+              href={linkUrl}
+              prefetch={true}
+              className={`hover:bg-accent hover:text-accent-foreground inline-flex h-9 cursor-pointer items-center justify-center rounded-full rounded-md px-3 text-center text-[10px] transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50 ${getButtonStyle()}`}
+            >
+              {linkText}
+            </Link>
+          )}
           <Link
-            href={linkUrl}
-            prefetch={true}
-            className={`hover:bg-accent hover:text-accent-foreground inline-flex h-9 cursor-pointer items-center justify-center rounded-full rounded-md px-3 text-center text-[10px] transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50 ${getButtonStyle()}`}
+            href={DPP_DEMONSTRATOR_GITHUB_URL}
+            target='_blank'
+            prefetch={false}
+            className={`hover:bg-accent hover:text-accent-foreground inline-flex h-9 cursor-pointer items-center justify-center rounded-full rounded-md px-3 text-center text-[10px] transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50 ${BUTTON_OUTLINE_STYLE}`}
           >
-            {linkText}
+            <span className='flex justify-between gap-1 align-baseline'>
+              <span className='mt-[-0.5px] max-sm:mr-[-0.1em] min-sm:absolute'>
+                <GithubIcon />
+              </span>
+              <span className='ml-5 max-sm:hidden'>{'Repository'}</span>
+            </span>
           </Link>
-        )}
+        </div>
       </div>
     </div>
   );

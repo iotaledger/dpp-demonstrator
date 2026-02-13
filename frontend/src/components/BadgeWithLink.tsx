@@ -78,29 +78,36 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
   const { data: firstDomainLinkageConfigurationUrl, isError: isDomainLinkageServiceError } =
     useGetFirstDomainLinkageService(verificationDid as string);
 
+  console.log('first domain linkage configuration url', firstDomainLinkageConfigurationUrl);
+
   // Author not interested to show the verification
   if (!showVerification || verificationDid == null || checkStatus == null) {
+    console.warn('Author not interested to show the verification');
     return null;
   }
 
   // Network invalidation
   if (isError) {
+    console.error('Error on network while checking VerifiableCredential');
     return null;
   }
 
   // DID not fully valid
   const validLinkageDomainFromDid = checkStatus!.isDidValid && checkStatus!.isDomainValid;
   if (!validLinkageDomainFromDid) {
+    console.error('Invalid DomainLinkage');
     return null;
   }
 
   // Error fetching domain linkage from DID Document
   if (isDomainLinkageServiceError) {
+    console.error('Error fetching DomainLinkage Service endpoint from DID Document');
     return null;
   }
 
   // Error to get configuration Url
   if (firstDomainLinkageConfigurationUrl == null) {
+    console.error('No DomainLinkage Configuration URL found on DID Docment');
     return null;
   }
 

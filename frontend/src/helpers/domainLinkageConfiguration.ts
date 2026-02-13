@@ -16,7 +16,9 @@ import { DID_CONFIGURATION_URL_PATH, IOTA_IDENTITY_PKG_ID, NETWORK_URL } from '@
 
 export async function getFirstDomainLinkageConfigurationUrl(did: string): Promise<string | null> {
   try {
+    console.log('start getFirstDomainLinkageConfigurationUrl with did', did);
     const identityClient = await getIdentityClient();
+    console.log('has identityClient');
     const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did));
     console.log('didDocument', didDocument);
 
@@ -39,8 +41,8 @@ export async function getFirstDomainLinkageConfigurationUrl(did: string): Promis
     console.log('configuration URL', configurationUrl);
 
     return configurationUrl;
-  } catch {
-    console.error('Invalid Domain Linkage');
+  } catch (error) {
+    console.error('Invalid Domain Linkage', error);
     return null;
   }
 }

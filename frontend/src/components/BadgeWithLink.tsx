@@ -74,6 +74,7 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
   showVerification,
   verificationDid,
 }) => {
+  console.log('verification did', verificationDid);
   const { checkStatus, isError } = useCheckLinkage(verificationDid as string);
   const { data: firstDomainLinkageConfigurationUrl, isError: isDomainLinkageServiceError } =
     useGetFirstDomainLinkageService(verificationDid as string);

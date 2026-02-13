@@ -18,6 +18,7 @@ export async function getFirstDomainLinkageConfigurationUrl(did: string): Promis
   try {
     const identityClient = await getIdentityClient();
     const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did));
+    console.log('didDocument', didDocument);
 
     const firstValidService = didDocument
       .service()
@@ -28,9 +29,16 @@ export async function getFirstDomainLinkageConfigurationUrl(did: string): Promis
       return null;
     }
 
+    console.log('firstValidService', firstValidService);
+
     // For this application we guarantee the serviceEndpoint is a single string
     const serviceEndpoint = firstValidService!.serviceEndpoint() as unknown as string;
-    return getDidConfigurationUrl(serviceEndpoint).toString();
+    console.log('serviceEndpoint', serviceEndpoint);
+
+    const configurationUrl = getDidConfigurationUrl(serviceEndpoint).toString();
+    console.log('configuration URL', configurationUrl);
+
+    return configurationUrl;
   } catch {
     console.error('Invalid Domain Linkage');
     return null;

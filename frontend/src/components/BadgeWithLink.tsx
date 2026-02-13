@@ -8,6 +8,7 @@
 import React from 'react';
 
 import { useCheckLinkage } from '@/hooks/useCheckLinkage';
+import { useGetFirstDomainLinkageService } from '@/hooks/useGetFirstDomainLinkageService';
 
 import CheckIcon from './icons/CheckIcon';
 
@@ -74,6 +75,8 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
   verificationDid,
 }) => {
   const { checkStatus, isError } = useCheckLinkage(verificationDid as string);
+  const { data: firstDomainLinkageConfigurationUrl, isError: isDomainLinkageServiceError } =
+    useGetFirstDomainLinkageService(verificationDid as string);
 
   // Author not interested to show the verification
   if (!showVerification || verificationDid == null || checkStatus == null) {
@@ -91,10 +94,22 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
     return null;
   }
 
+  // Error fetching domain linkage from DID Document
+  if (isDomainLinkageServiceError) {
+    return null;
+  }
+
+  // Error to get configuration Url
+  if (firstDomainLinkageConfigurationUrl == null) {
+    return null;
+  }
+
   return (
-    <div className='flex h-5 w-5 items-center justify-center rounded-full bg-green-100'>
-      <CheckIcon />
-    </div>
+    <a href={firstDomainLinkageConfigurationUrl} target='_blank' rel='noopener noreferrer'>
+      <div className='flex h-5 w-5 items-center justify-center rounded-full bg-green-100'>
+        <CheckIcon />
+      </div>
+    </a>
   );
 };
 

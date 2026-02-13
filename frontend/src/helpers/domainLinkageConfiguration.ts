@@ -14,7 +14,7 @@ import {
 } from '@iota/identity-wasm/web';
 import { IotaClient } from '@iota/iota-sdk/client';
 
-import { DID_CONFIGURATION_URL_PATH, IOTA_IDENTITY_PKG_ID, NETWORK_URL } from '@/utils/constants';
+import { DID_CONFIGURATION_URL_PATH, NETWORK_URL } from '@/utils/constants';
 
 export async function getFirstDomainLinkageConfigurationUrl(did: string): Promise<string | null> {
   try {
@@ -51,8 +51,7 @@ export async function getFirstDomainLinkageConfigurationUrl(did: string): Promis
 
 export async function getIdentityClient() {
   const iotaClient = new IotaClient({ url: NETWORK_URL! });
-
-  return await IdentityClientReadOnly.createWithPkgId(iotaClient, IOTA_IDENTITY_PKG_ID!);
+  return IdentityClientReadOnly.create(iotaClient);
 }
 
 export function getDidConfigurationUrl(endpoint: string): URL {

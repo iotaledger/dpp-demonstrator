@@ -13,6 +13,7 @@ export interface Result<T> {
 export interface DomainLinkageStatusCheck {
   isDidValid: boolean;
   isDomainValid: boolean;
+  didConfigUrl: string | null;
 }
 
 export interface DomainLinkageResource {

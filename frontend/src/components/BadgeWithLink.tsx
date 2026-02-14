@@ -8,7 +8,6 @@
 import React from 'react';
 
 import { useCheckLinkage } from '@/hooks/useCheckLinkage';
-import { useGetFirstDomainLinkageService } from '@/hooks/useGetFirstDomainLinkageService';
 
 import CheckIcon from './icons/CheckIcon';
 
@@ -74,12 +73,7 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
   showVerification,
   verificationDid,
 }) => {
-  console.log('verification did', verificationDid);
   const { checkStatus, isError } = useCheckLinkage(verificationDid as string);
-  const { data: firstDomainLinkageConfigurationUrl, isError: isDomainLinkageServiceError } =
-    useGetFirstDomainLinkageService(verificationDid as string);
-
-  console.log('first domain linkage configuration url', firstDomainLinkageConfigurationUrl);
 
   // Author not interested to show the verification
   if (!showVerification || verificationDid == null || checkStatus == null) {
@@ -100,25 +94,32 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
     return null;
   }
 
-  // Error fetching domain linkage from DID Document
-  if (isDomainLinkageServiceError) {
-    console.error('Error fetching DomainLinkage Service endpoint from DID Document');
-    return null;
-  }
-
-  // Error to get configuration Url
-  if (firstDomainLinkageConfigurationUrl == null) {
-    console.error('No DomainLinkage Configuration URL found on DID Docment');
-    return null;
-  }
-
   return (
-    <a href={firstDomainLinkageConfigurationUrl} target='_blank' rel='noopener noreferrer'>
+    <DidConfigurationLinkWrap didConfigUrl={checkStatus.didConfigUrl}>
       <div className='flex h-5 w-5 items-center justify-center rounded-full bg-green-100'>
         <CheckIcon />
       </div>
-    </a>
+    </DidConfigurationLinkWrap>
   );
+};
+
+interface DidConfigurationLinkWrapProps {
+  didConfigUrl: string | null;
+  children: React.ReactNode;
+}
+const DidConfigurationLinkWrap: React.FC<DidConfigurationLinkWrapProps> = ({
+  didConfigUrl,
+  children,
+}) => {
+  if (didConfigUrl) {
+    return (
+      <a href={didConfigUrl} target='_blank' rel='noopener noreferrer'>
+        {children}
+      </a>
+    );
+  }
+
+  return children;
 };
 
 export default BadgeWithLink;

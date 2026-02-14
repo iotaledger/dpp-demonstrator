@@ -77,25 +77,49 @@ const VerificationIcon: React.FC<VerificationIconProps> = ({
 
   // Author not interested to show the verification
   if (!showVerification || verificationDid == null || checkStatus == null) {
+    console.warn('Author not interested to show the verification');
     return null;
   }
 
   // Network invalidation
   if (isError) {
+    console.error('Error on network while checking VerifiableCredential');
     return null;
   }
 
   // DID not fully valid
   const validLinkageDomainFromDid = checkStatus!.isDidValid && checkStatus!.isDomainValid;
   if (!validLinkageDomainFromDid) {
+    console.error('Invalid DomainLinkage');
     return null;
   }
 
   return (
-    <div className='flex h-5 w-5 items-center justify-center rounded-full bg-green-100'>
-      <CheckIcon />
-    </div>
+    <DidConfigurationLinkWrap didConfigUrl={checkStatus.didConfigUrl}>
+      <div className='flex h-5 w-5 items-center justify-center rounded-full bg-green-100'>
+        <CheckIcon />
+      </div>
+    </DidConfigurationLinkWrap>
   );
+};
+
+interface DidConfigurationLinkWrapProps {
+  didConfigUrl: string | null;
+  children: React.ReactNode;
+}
+const DidConfigurationLinkWrap: React.FC<DidConfigurationLinkWrapProps> = ({
+  didConfigUrl,
+  children,
+}) => {
+  if (didConfigUrl) {
+    return (
+      <a href={didConfigUrl} target='_blank' rel='noopener noreferrer'>
+        {children}
+      </a>
+    );
+  }
+
+  return children;
 };
 
 export default BadgeWithLink;

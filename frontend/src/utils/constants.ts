@@ -12,6 +12,8 @@ export const NOTIFICATION_DECAY_TIME_MS = 8000;
 export const RESERVE_DURATION_SEC = 180;
 /** Finger dislocation in x axis to trigger a swipe*/
 export const POSITION_CHANGE_TO_SWIPE = 110;
+export const DPP_DEMONSTRATOR_GITHUB_URL = 'https://github.com/iotaledger/dpp-demonstrator';
+export const DID_CONFIGURATION_URL_PATH = '/.well-known/did-configuration.json';
 
 /**
  * Support to frontend components control

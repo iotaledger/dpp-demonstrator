@@ -5,7 +5,12 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
-import { checkStartingFromDid, checkStartingFromDomain } from '@/helpers/verifyDomainLinkage';
+import {
+  checkStartingFromDid,
+  checkStartingFromDomain,
+  getDidDocument,
+  getFirstDomainLinkageConfigurationUrl,
+} from '@/helpers/verifyDomainLinkage';
 import { DomainLinkageStatusCheck, VerifyDomainLinkageRequest } from '@/types/identity';
 import { DAPP_URL, IOTA_IDENTITY_PKG_ID } from '@/utils/constants';
 
@@ -23,9 +28,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(validationPayload, { status: 400 });
   }
 
+  const didDocument = await getDidDocument(did);
+
   const payload: DomainLinkageStatusCheck = {
-    isDidValid: await checkStartingFromDid(did),
+    isDidValid: await checkStartingFromDid(didDocument),
     isDomainValid: await checkStartingFromDomain(),
+    didConfigUrl: await getFirstDomainLinkageConfigurationUrl(didDocument),
   };
   return NextResponse.json(payload);
 }

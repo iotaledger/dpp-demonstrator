@@ -18,16 +18,18 @@ import {
 import { IotaClient } from '@iota/iota-sdk/client';
 
 import { DomainLinkageResource, Result } from '@/types/identity';
-import { DAPP_URL, IOTA_IDENTITY_PKG_ID, NETWORK_URL } from '@/utils/constants';
+import {
+  DAPP_URL,
+  DID_CONFIGURATION_URL_PATH,
+  IOTA_IDENTITY_PKG_ID,
+  NETWORK_URL,
+} from '@/utils/constants';
 
-export async function checkStartingFromDid(did: string) {
+export async function checkStartingFromDid(didDocument: IotaDocument) {
   const valid = true;
   const invalid = false;
 
   try {
-    const identityClient = await getIdentityClient();
-    const didDocument: IotaDocument = await identityClient.resolveDid(IotaDID.parse(did));
-
     const firstValidService = didDocument
       .service()
       .filter((service: Service) => LinkedDomainService.isValid(service))
@@ -104,6 +106,39 @@ export async function checkStartingFromDomain() {
     console.error('Invalid Domain Linkage');
     return invalid;
   }
+}
+
+export async function getFirstDomainLinkageConfigurationUrl(
+  didDocument: IotaDocument,
+): Promise<string | null> {
+  try {
+    const firstValidService = didDocument
+      .service()
+      .filter((service: Service) => LinkedDomainService.isValid(service))
+      .at(0);
+
+    if (!firstValidService) {
+      return null;
+    }
+
+    // For this application we guarantee the serviceEndpoint is a single string
+    const serviceEndpoint = firstValidService!.serviceEndpoint() as unknown as string;
+    const configurationUrl = getDidConfigurationUrl(serviceEndpoint).toString();
+
+    return configurationUrl;
+  } catch (error) {
+    console.error('Invalid Domain Linkage', error);
+    return null;
+  }
+}
+
+export async function getDidDocument(did: string): Promise<IotaDocument> {
+  const identityClient = await getIdentityClient();
+  return identityClient.resolveDid(IotaDID.parse(did));
+}
+
+export function getDidConfigurationUrl(endpoint: string): URL {
+  return new URL(DID_CONFIGURATION_URL_PATH, endpoint);
 }
 
 export async function getIdentityClient() {

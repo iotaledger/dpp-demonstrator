@@ -11,6 +11,7 @@ import { RECAP_SLIDE_4 } from '@/contents/recap';
 
 import Contact from './Contact';
 import FeatureCard from './FeatureCard';
+import Repository from './Repository';
 
 interface RecapSlide4Props {
   title?: string;
@@ -53,33 +54,13 @@ const RecapSlide4: React.FC<RecapSlide4Props> = ({ opacity = 100, delay = 0.3 })
               delay={delay + 0.1 + index * 0.1}
             />
           ))}
-        </div>
-
-        {/* Full-width business innovation program card */}
-        <div>
-          <FeatureCard
-            title={RECAP_SLIDE_4.businessProgram.title}
-            description={RECAP_SLIDE_4.businessProgram.description}
-            image={RECAP_SLIDE_4.businessProgram.image}
-            alt={RECAP_SLIDE_4.businessProgram.title}
-            url={RECAP_SLIDE_4.businessProgram.url}
-            titleSize='large'
-            contentPosition='center'
-            variant='resource'
-            layout='horizontal'
-            opacity={100}
-            translateY={0}
-            delay={delay + 0.3}
+          <Contact email={RECAP_SLIDE_4.contact.email} />
+          <Repository
+            repositoryHostname={RECAP_SLIDE_4.contact.repositoryHostName}
+            repositoryName={RECAP_SLIDE_4.contact.repositoryName}
+            repositoryUrl={RECAP_SLIDE_4.contact.repositoryUrl}
           />
         </div>
-
-        {/* Contact Section */}
-        <Contact
-          email={RECAP_SLIDE_4.contact.email}
-          repositoryHostName={RECAP_SLIDE_4.contact.repositoryHostName}
-          repositoryName={RECAP_SLIDE_4.contact.repositoryName}
-          repositoryUrl={RECAP_SLIDE_4.contact.repositoryUrl}
-        />
       </div>
     </div>
   );

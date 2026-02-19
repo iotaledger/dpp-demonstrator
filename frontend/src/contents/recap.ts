@@ -136,20 +136,14 @@ export const RECAP_SLIDE_4 = {
       url: 'https://docs.iota.org',
     },
     {
-      title: t('IOTA Grants'),
+      title: t('IOTA Workshops'),
       description: t(
-        'Apply for a grant from iotalabs and turn your wildest dApp dreams into reality',
+        'Learn about the IOTA core technology combined with the IOTA Trust Framework, so you can design and ship real‑world solutions that solve real problems.',
       ),
       image: '/assets/recap/grants.webp',
-      url: 'https://www.iotalabs.io/grants',
+      url: 'https://docs.iota.org/developer/workshops/',
     },
   ],
-  businessProgram: {
-    title: t('IOTA Business Innovation Program'),
-    description: t('We invite innovators to showcase real-world impact with IOTA'),
-    image: '/assets/recap/bip.webp',
-    url: 'https://www.iota.org/build/business-innovation-program',
-  },
   contact: {
     email: 'partnerships@iota.org',
     repositoryHostName: 'GitHub',

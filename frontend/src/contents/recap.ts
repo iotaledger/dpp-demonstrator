@@ -138,7 +138,7 @@ export const RECAP_SLIDE_4 = {
     {
       title: t('IOTA Workshops'),
       description: t(
-        'Learn IOTA core technology and IOTA Trust Framework, so you can design and ship real‑world solutions',
+        'Learn about the IOTA core combined with the IOTA Trust Framework, so you can design and ship real‑world solutions',
       ),
       image: '/assets/recap/grants.webp',
       url: 'https://docs.iota.org/developer/workshops/',

@@ -5,6 +5,8 @@
 
 # 🚀 IOTA DPP Showcase
 
+Visit the demo at https://dpp.demo.iota.org/
+
 This repository demonstrates how multiple products from the IOTA portfolio can be orchestrated to build a Digital Product Passport (DPP).
 
 In the demo scenario, you act as a Repairer operating inside a permissioned environment supervised by a Root of Authority (e.g., a public agency) and a Manufacturer. The authorization chain is:

@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module audit_trails::lcc_reward {
+module custom_notarization::lcc_reward {
 
     use iota::coin::{Self, Coin};
-    use audit_trails::LCC::{LCC};
+    use custom_notarization::LCC::{LCC};
     use iota::vec_map::{Self, VecMap};
 
     const REWARD_VALUE: u64 = 1_000_000_000;
